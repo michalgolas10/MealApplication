@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KuceZBronksuConsole", "KuceZBronksuConsole\KuceZBronksuConsole.csproj", "{0D889CF4-4666-48C5-A4CE-BAC43C1026AC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KuceZBronksuDLL", "KuceZBronksuDLL\KuceZBronksuDLL.csproj", "{AC4B892C-A6B6-4D36-A408-CDE1BA9DDA8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KuceZBronksuDAL", "KuceZBronksuDAL\KuceZBronksuDAL.csproj", "{AC4B892C-A6B6-4D36-A408-CDE1BA9DDA8F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KuceZBronksuLogic", "KuceZBronksuLogic\KuceZBronksuLogic.csproj", "{A336C35E-184C-4109-BB50-B75E10D11554}"
 EndProject

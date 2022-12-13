@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KuceZBronksuDLL\KuceZBronksuDAL.csproj" />
+    <ProjectReference Include="..\KuceZBronksuDAL\KuceZBronksuDAL.csproj" />
   </ItemGroup>
 
 </Project>

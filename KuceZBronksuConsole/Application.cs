@@ -29,7 +29,7 @@ $$ |  $$ $$$$$$$  $$ $$ $$ | \$$\$$$$$$$ \$$$$$$$\$$ \$$$$$$$ |      $$ | \$$\$$
 Witaj w Aplikacji Kulinarnej. Co chcesz zrobić?
 (Użyj strzałek do nawigowania po menu - naciśnij ENTER by zaakceptować)
 ";
-            string[] options = { "1. ", "2. ", "3. ","4. ","5. ","6. ","7. Wyjście z aplikacji "};
+            string[] options = { "1. Wyszukiwanie smaków dopasowanych do podanego", "2. Wyszukiwanie przepisów do posiadanych składników ", "3. Wyszukiwarka przepisów z podanym smakiem/smakami ","4. Wprowadzanie danych z konsoli ","5. Wczytanie danych z pliku","6. Edycja danych z konsoli ","7. Wyjście z aplikacji "};
             ConsoleInterface aplicationinterface = new ConsoleInterface(options, prompt);
             int selectedIndex = aplicationinterface.Run();
             switch (selectedIndex)

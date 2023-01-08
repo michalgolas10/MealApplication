@@ -1,0 +1,38 @@
+[
+	{
+		"display_name": "Kawa i czekolada",
+		"flavour_1": "J56397",
+		"flavour_2": "54GNE2",
+		"description": "Kawa i czekolada współgrają najlepiej w musach, truflach i ciastach."
+	},
+	{
+		"display_name": "Czekolada i orzeszki ziemne",
+		"flavour_1": "54GNE2",
+		"flavour_2": "NUDZMM",
+		"description": "Połączenie polecane przy przygotowywaniu lodów na bazie mleka i śmietany."
+	}
+	{
+		"display_name": "Orzeszki ziemne i jagnięcina",
+		"flavour_1": "NUDZMM",
+		"flavour_2": "GNHM2K",
+		"description": "Jagnięcinę z orzeszkami ziemnymi łączy się często w zupach i potrawkach pochodzenia Boliwijskiego."
+	}
+	{
+		"display_name": "Wieprzowina i wołowina",
+		"flavour_1": "J8RFA2",
+		"flavour_2": "57YNHY",
+		"description": "Wołowinie w gulaszu nic lepiej nie podbije smaku, niż smalec wieprzowy podczas jej obrumieniania."
+	}
+	{
+		"display_name": "Kaszanka i cebula",
+		"flavour_1": "Z44T1C",
+		"flavour_2": "99TPQQ",
+		"description": "Tradycyjne połączenie smaków, gdzie cebula podbija deliaktną słodyczą aromat kaszanki."
+	}
+	{
+		"display_name": "Wołowina i brokuły",
+		"flavour_1": "57YNHY",
+		"flavour_2": "5YTMC7",
+		"description": "To kombinacja, która opiera się w dużej mierze na podobnie żelazistej nucie smakowej, co na kontraście słodyczy i goryczy."
+	}
+]

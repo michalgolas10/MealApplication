@@ -9,6 +9,7 @@ namespace KuceZBronksuConsole
     internal class Application
     {
         public void Start()
+
         {
             RunMainMenu();
         }
@@ -34,7 +35,7 @@ Witaj w Aplikacji Kulinarnej. Co chcesz zrobić?
             int selectedIndex = aplicationinterface.Run();
             switch (selectedIndex)
             {
-                case 0:break;
+                case 0: break;
                 case 1: break;
                 case 2: break;
                 case 3: break;

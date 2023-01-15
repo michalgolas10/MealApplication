@@ -13,9 +13,13 @@ namespace KuceZBronksuLogic
     {
         public static void ReadingDataFromFile()
         {
-            string IngredientsDeserialized = File.ReadAllText(@"C:\Users\Baja\Desktop\jcszr8-KuceZBronksu\flavours.json");
-            var IngredientsList = JsonSerializer.Deserialize<List<Ingredient>>(IngredientsDeserialized);
-            string FlavoursCombinationsDeserialized = File.ReadAllText(@"C:\Users\Baja\Desktop\jcszr8-KuceZBronksu\flavours combinations.json");
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            string IngredientsDeserialized = File.ReadAllText(@"C:\Users\shazu\source\repos\jcszr8-KuceZBronksu\flavours.json");
+            var IngredientsList = JsonSerializer.Deserialize<List<Ingredient>>(IngredientsDeserialized,options);
+            string FlavoursCombinationsDeserialized = File.ReadAllText(@"C:\Users\shazu\source\repos\jcszr8-KuceZBronksu\flavours combinations.json");
             var FlavourCombinationsList = JsonSerializer.Deserialize<List<FlavoursCombionations>>(FlavoursCombinationsDeserialized);
         }
 

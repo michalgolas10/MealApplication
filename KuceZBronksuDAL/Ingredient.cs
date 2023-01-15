@@ -9,9 +9,9 @@ namespace KuceZBronksuDAL
 {
     public class Ingredient
     {
-        public string? name { get; set; }
+        public string? Name { get; set; }
         public string? category { get; set; }
-        public string? flavourcode { get; set; }
+        public string? Flavour_code { get; set; }
         public string? description { get; set; }    
 
         

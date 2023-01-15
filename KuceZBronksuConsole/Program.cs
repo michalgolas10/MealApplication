@@ -18,8 +18,8 @@ namespace KuceZBronksuConsole
         static void Main(string[] args)
         {
 
-            Application Application = new Application();
-            Application.Start();
+            //Application Application = new Application();
+            //Application.Start();
             ReadingDataFromFile();
         }
     }

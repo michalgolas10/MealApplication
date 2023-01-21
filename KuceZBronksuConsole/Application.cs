@@ -15,22 +15,10 @@ namespace KuceZBronksuConsole
         }
         private void RunMainMenu()
         {
-            string prompt = @"
- $$$$$$\          $$\$$\$$\                                          $$\   $$\        $$\$$\                                              
-$$  __$$\         $$ \__$$ |                                         $$ | $$  |       $$ \__|                                             
-$$ /  $$ |$$$$$$\ $$ $$\$$ |  $$\$$$$$$\  $$$$$$$\$$\ $$$$$$\        $$ |$$  $$\   $$\$$ $$\$$$$$$$\  $$$$$$\  $$$$$$\ $$$$$$$\  $$$$$$\  
-$$$$$$$$ $$  __$$\$$ $$ $$ | $$  \____$$\$$  _____\__|\____$$\       $$$$$  /$$ |  $$ $$ $$ $$  __$$\ \____$$\$$  __$$\$$  __$$\ \____$$\ 
-$$  __$$ $$ /  $$ $$ $$ $$$$$$  /$$$$$$$ $$ /     $$\ $$$$$$$ |      $$  $$< $$ |  $$ $$ $$ $$ |  $$ |$$$$$$$ $$ |  \__$$ |  $$ |$$$$$$$ |
-$$ |  $$ $$ |  $$ $$ $$ $$  _$$<$$  __$$ $$ |     $$ $$  __$$ |      $$ |\$$\$$ |  $$ $$ $$ $$ |  $$ $$  __$$ $$ |     $$ |  $$ $$  __$$ |
-$$ |  $$ $$$$$$$  $$ $$ $$ | \$$\$$$$$$$ \$$$$$$$\$$ \$$$$$$$ |      $$ | \$$\$$$$$$  $$ $$ $$ |  $$ \$$$$$$$ $$ |     $$ |  $$ \$$$$$$$ |
-\__|  \__$$  ____/\__\__\__|  \__\_______|\_______$$ |\_______|      \__|  \__\______/\__\__\__|  \__|\_______\__|     \__|  \__|\_______|
-         $$ |                               $$\   $$ |                                                                                    
-         $$ |                               \$$$$$$  |                                                                                    
-         \__|                                \______/                                                                                     
-Witaj w Aplikacji Kulinarnej. Co chcesz zrobić?
+            string prompt = @"Witaj w Aplikacji Kulinarnej. Co chcesz zrobić?
 (Użyj strzałek do nawigowania po menu - naciśnij ENTER by zaakceptować)
 ";
-            string[] options = { "1. Wyszukiwanie smaków dopasowanych do podanego", "2. Wyszukiwanie przepisów do posiadanych składników ", "3. Wyszukiwarka przepisów z podanym smakiem/smakami ","4. Wprowadzanie danych z konsoli ","5. Wczytanie danych z pliku","6. Edycja danych z konsoli ","7. Wyjście z aplikacji "};
+            string[] options = { "1. Wyszukiwanie przepisu po kaloryczności", "2. Wyszukiwanie przepisu po podanych składnikach ", "3.Wyszukiwanie przepisu do określonej pory dnia","4. Wprowadzanie danych z konsoli ","5. Wczytanie danych z pliku","7. Wyjście z aplikacji "};
             ConsoleInterface aplicationinterface = new ConsoleInterface(options, prompt);
             int selectedIndex = aplicationinterface.Run();
             switch (selectedIndex)
@@ -46,6 +34,7 @@ Witaj w Aplikacji Kulinarnej. Co chcesz zrobić?
         }
         private void ExitApplication()
         {
+            Console.WriteLine("Wybrano wyjście z aplikacji");
             Console.WriteLine("Naciśnij dowolny przycisk by wyjść");
             Console.ReadKey();
             Environment.Exit(0);

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using KuceZBronksuDAL.Models;
 
 namespace KuceZBronksuLogic
 {
@@ -17,10 +18,10 @@ namespace KuceZBronksuLogic
             {
                 PropertyNameCaseInsensitive = true
             };
-            string IngredientsDeserialized = File.ReadAllText(@"C:\Users\shazu\source\repos\jcszr8-KuceZBronksu\flavours.json");
-            var IngredientsList = JsonSerializer.Deserialize<List<Ingredient>>(IngredientsDeserialized,options);
-            string FlavoursCombinationsDeserialized = File.ReadAllText(@"C:\Users\shazu\source\repos\jcszr8-KuceZBronksu\flavours combinations.json");
-            var FlavourCombinationsList = JsonSerializer.Deserialize<List<FlavoursCombionations>>(FlavoursCombinationsDeserialized);
+            string JsonDeserialized = File.ReadAllText(@".\JsonFiles\recipies.json");
+            
+            var RecipeList = JsonSerializer.Deserialize<List<Root>>(JsonDeserialized, options);
+            
         }
 
     }

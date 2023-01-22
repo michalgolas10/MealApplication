@@ -1,12 +1,6 @@
 ﻿using KuceZBronksuDAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json.Serialization;
-using System.Text.Json;
 using KuceZBronksuDAL.Models;
+using System.Text.Json;
 
 namespace KuceZBronksuLogic
 {
@@ -20,9 +14,15 @@ namespace KuceZBronksuLogic
             };
             string JsonDeserialized = File.ReadAllText(@".\JsonFiles\recipies.json");
             
-            var RecipeList = JsonSerializer.Deserialize<List<Root>>(JsonDeserialized, options);
-            
+            var recipeList = JsonSerializer.Deserialize<List<Root>>(JsonDeserialized, options);
+            if(recipeList!= null)
+            {
+                TempDb.Recipes = recipeList.Select(x => x.Recipe).ToList();
+            }
+            else
+            {
+                throw new ArgumentException("Error while deserializing file.");
+            }
         }
-
     }
 }

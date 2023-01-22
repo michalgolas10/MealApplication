@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KuceZBronksuDAL;
+using KuceZBronksuLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +17,6 @@ namespace KuceZBronksuConsole
         }
         private void RunMainMenu()
         {
-
             string prompt = @"Witaj w Aplikacji Kulinarnej. Co chcesz zrobić?
 
 (Użyj strzałek do nawigowania po menu - naciśnij ENTER by zaakceptować)
@@ -35,6 +36,7 @@ namespace KuceZBronksuConsole
                     {
                         Console.Clear();
                         Console.WriteLine("Wyszukiwanie przepisu po posiadanych składnikach...");
+                        
                     }
                     break;
                 case 2: {

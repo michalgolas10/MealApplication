@@ -15,7 +15,9 @@ namespace KuceZBronksuConsole
         }
         private void RunMainMenu()
         {
+
             string prompt = @"Witaj w Aplikacji Kulinarnej. Co chcesz zrobić?
+
 (Użyj strzałek do nawigowania po menu - naciśnij ENTER by zaakceptować)
 ";
             string[] options = { "1. Wyszukiwanie przepisu po kaloryczności", "2. Wyszukiwanie przepisu po posiadanych składnikach ", "3. Wyszukiwanie przepisu do określonej pory dnia","4. Wprowadzanie danych z konsoli ","5. Edycja danych z konsoli","6. Losuj Śniadanie-Obiad-Kolacja","7. Wyjście z aplikacji "};

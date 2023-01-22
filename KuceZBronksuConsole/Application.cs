@@ -30,35 +30,40 @@ namespace KuceZBronksuConsole
                     {   
                         Console.Clear();
                         Console.WriteLine("Wyszukiwanie przepisu po kaloryczności...");
+                        Options.FirstOption();
                     }
                     break;
                 case 1:
                     {
                         Console.Clear();
                         Console.WriteLine("Wyszukiwanie przepisu po posiadanych składnikach...");
-                        
+                        Options.SecondOption();
                     }
                     break;
                 case 2: {
                         Console.Clear();
                         Console.WriteLine("Wyszukiwanie przepisu do określonej pory dnia...");
+                        Options.ThirdOption();
                     }
                     break;
                 case 3:
                     {
                         Console.Clear();
                         Console.WriteLine("Wprowadzanie danych z konsoli...");
+                        Options.FourthOption();
                     }
                     break;
                 case 4:
                     {
                         Console.Clear();
                         Console.WriteLine("Edycja danych z konsoli...");
+                        Options.FifthOption();
                     }
                     break;
                 case 5: {
                         Console.Clear();
                         Console.WriteLine("Losuj Śniadanie-Obiad-Kolacja...");
+                        Options.SixthOption();
                     } break;
                 case 6: {
                         Console.Clear();

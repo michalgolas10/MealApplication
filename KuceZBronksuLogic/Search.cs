@@ -24,5 +24,21 @@ namespace KuceZBronksuLogic
             }
             return result;
         }
+
+        public static List<Recipe> SearchByMealType(List<string> mealType)
+        {
+            List<Recipe> result = new List<Recipe>();
+            if (mealType != null)
+            {
+                foreach (var recipe in TempDb.Recipes)
+                {
+                    if (mealType.All(x => recipe.MealType.Any(i => i.Contains(x, StringComparison.CurrentCultureIgnoreCase))))
+                    {
+                        result.Add(recipe);
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

@@ -16,8 +16,17 @@ namespace KuceZBronksuConsole
         static void Main(string[] args)
         {
             ReadingDataFromFile();
-            Application Application = new Application();
-            Application.Start();
+
+            List<string> list = new List<string>() { "dinner"};
+            var test = Search.SearchByMealType(list);
+
+            foreach(var item in test)
+            {
+                Console.WriteLine(item.Label);
+            }
+
+            //Application Application = new Application();
+            //Application.Start();
 
         }
     }

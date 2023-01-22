@@ -1,24 +1,28 @@
-﻿//using KuceZBronksuDAL;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using KuceZBronksuDAL;
+using System.Linq;
 
-//namespace KuceZBronksuLogic
-//{
-//    public class SearchByIngredients
-//    {
-//        public static List<Recipe> Search(List<string> products)
-//        {
-//            if(products !=null) 
-//            {
-//                List<Recipe> result = new List<Recipe>();
-//                products.ForEach(x => {TempDb.Recipes.Where(recipe => recipe.IngredientLines.) });
-                  
-//            }
-            
-//            return new List<Recipe>();
-//        }
-//    }
-//}
+namespace KuceZBronksuLogic
+{
+    public class Search
+    {
+        public static List<Recipe> SearchByIngredients(List<string> products)
+        {
+            //Przykładowe dane wejściowe
+            //List<string> list = new List<string>() { "mulberries", "sugar" };
+            //var wynik = Search.SearchByIngredients(list);
+
+            List<Recipe> result = new List<Recipe>();
+            if (products != null)
+            {
+                foreach (var recipe in TempDb.Recipes)
+                {
+                    if (products.All(x => recipe.IngredientLines.Any(i => i.Contains(x,StringComparison.CurrentCultureIgnoreCase))))
+                    {
+                        result.Add(recipe);
+                    }
+                }
+            }
+            return result;
+        }
+    }
+}

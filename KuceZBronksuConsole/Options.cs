@@ -1,5 +1,6 @@
 ﻿using KuceZBronksuDAL;
 using KuceZBronksuLogic;
+using System.Text.RegularExpressions;
 
 namespace KuceZBronksuConsole
 {
@@ -69,6 +70,30 @@ namespace KuceZBronksuConsole
 
         public static void SixthOption()
         {
+            Console.Clear();
+            Console.WriteLine("Podaj jaką ilość kalorii chcesz dostarczyć w ciągu dnia");
+            string ?amountOfTodayCalories= Console.ReadLine();
+            Regex rx = new Regex(@"\b(?<word>\w+)\s+(\k<word>)\b",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            if (!rx.IsMatch(amountOfTodayCalories))
+            {
+                var wynik = Search.DrawRecipesForDay(int.Parse(amountOfTodayCalories));
+                if (!(wynik[0].Label == "Brak danych"))
+                    PrintRecipes(wynik);
+                else
+                {
+                    Console.WriteLine("Nie udało się znaleźć odpowiednich przepisów");
+                    Console.WriteLine("Wciśnij dowolny przycisk, aby kontynuować");
+                    Console.ReadKey();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Podana wartość nie jest prawidłowa");
+                Console.WriteLine("Wciśnij dowolny przycisk, aby kontynuować");
+                Console.ReadKey();
+            }
+
         }
 
         public static void SeventhOption()

@@ -1,4 +1,8 @@
 ﻿using KuceZBronksuDAL;
+using System.Collections.Generic;
+using System;
+using System.Security.Cryptography;
+using System.Collections;
 
 namespace KuceZBronksuLogic
 {
@@ -61,6 +65,62 @@ namespace KuceZBronksuLogic
                 }
             }
             return result;
+        }
+        public static List<Recipe> DrawRecipesForDay(double amountoOfDailyCalories)
+        {
+            var nameOfMeal = new List<string>() { "breakfast" };
+            List<Recipe> listOfBreakfast = new();
+            List<Recipe> listOfTeatime = new();
+            List<Recipe> listOfDinner = new();
+            foreach (var recipe in SearchByMealType(nameOfMeal))
+            {
+                foreach (var recipe2 in SearchByKcal(amountoOfDailyCalories * 0.3, 150d))
+                {
+                    if (recipe == recipe2)
+                    {
+                        listOfBreakfast.Add(recipe);
+                    }
+                }
+            }
+            nameOfMeal[0] = "Teatime";
+            foreach (var recipe in SearchByMealType(nameOfMeal))
+            {
+                foreach (var recipe2 in SearchByKcal(amountoOfDailyCalories * 0.3, 150d))
+                {
+                    if (recipe == recipe2)
+                    {
+                        listOfTeatime.Add(recipe);
+                    }
+                }
+            }
+            nameOfMeal[0] = "Lunch/Dinner";
+            foreach (var recipe in SearchByMealType(nameOfMeal))
+            {
+                foreach (var recipe2 in SearchByKcal(amountoOfDailyCalories * 0.25, 150d))
+                {
+                    if (recipe == recipe2)
+                    {
+                        listOfDinner.Add(recipe);
+                    }
+                }
+            }
+            if (!(listOfBreakfast.Count == 0 || listOfTeatime.Count == 0 || listOfDinner.Count == 0))
+            {
+                var random = new Random();
+                var indexbrk = random.Next(listOfBreakfast.Count);
+                var indexteatime = random.Next(listOfTeatime.Count);
+                var indexlunchdinner = random.Next(listOfDinner.Count);
+                List<Recipe> listofrandoms = new List<Recipe>() { listOfBreakfast[indexbrk], listOfTeatime[indexteatime], listOfDinner[indexlunchdinner] };
+                double amountofleftcalories = amountoOfDailyCalories - listOfBreakfast[indexbrk].Calories-listOfTeatime[indexteatime].Calories- listOfDinner[indexlunchdinner].Calories;
+                Console.WriteLine($"Pozostała liczba kalorii do wykorzystania tego dnia: {amountofleftcalories}");
+                return listofrandoms;
+            }
+            else
+            {
+                Recipe Recipe = new() {Label="Brak danych"};
+                List<Recipe> list = new(){Recipe};
+                return list; 
+            }
         }
     }
 }

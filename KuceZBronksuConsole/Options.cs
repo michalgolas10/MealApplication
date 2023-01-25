@@ -62,10 +62,12 @@ namespace KuceZBronksuConsole
 
         public static void FourthOption()
         {
+            AddAndEdition.AddRecipe();
         }
 
         public static void FifthOption()
         {
+            PrintRecipes(TempDb.Recipes);
         }
 
         public static void SixthOption()
@@ -73,9 +75,9 @@ namespace KuceZBronksuConsole
             Console.Clear();
             Console.WriteLine("Podaj jaką ilość kalorii chcesz dostarczyć w ciągu dnia");
             string ?amountOfTodayCalories= Console.ReadLine();
-            Regex rx = new Regex(@"\b(?<word>\w+)\s+(\k<word>)\b",
+            Regex rx = new Regex(@"^[0-9]+$",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            if (!rx.IsMatch(amountOfTodayCalories))
+            if (rx.IsMatch(amountOfTodayCalories))
             {
                 var wynik = Search.DrawRecipesForDay(int.Parse(amountOfTodayCalories));
                 if (!(wynik[0].Label == "Brak danych"))

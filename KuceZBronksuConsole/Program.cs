@@ -1,18 +1,23 @@
-﻿using static KuceZBronksuLogic.DataFileHandler;
+﻿using KuceZBronksuDAL;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Text;
+using System.Text.Json.Nodes;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using KuceZBronksuLogic;
+using static KuceZBronksuLogic.DataFileHandler;
 
-namespace KuceZBronksuConsole
+namespace KuceZBronksuConsole 
 
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        static void Main(string[] args)
         {
-            ReadingDataFromFile();
             Application Application = new Application();
-            while (true)
-            {
-                Application.Start();
-            }
+            Application.Start();
+            ReadingDataFromFile();
         }
     }
 }

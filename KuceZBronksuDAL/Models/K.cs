@@ -3,14 +3,14 @@
 namespace KuceZBronksuDAL
 {
     public class K
-    {
-        [JsonPropertyName("label")]
-        public string Label { get; set; }
+        {
+            [JsonPropertyName("label")]
+            public string Label { get; set; }
 
-        [JsonPropertyName("quantity")]
-        public double Quantity { get; set; }
+            [JsonPropertyName("quantity")]
+            public double Quantity { get; set; }
 
-        [JsonPropertyName("unit")]
-        public string Unit { get; set; }
+            [JsonPropertyName("unit")]
+            public string Unit { get; set; }
+        }
     }
-}

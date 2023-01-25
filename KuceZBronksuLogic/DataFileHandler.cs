@@ -13,9 +13,9 @@ namespace KuceZBronksuLogic
                 PropertyNameCaseInsensitive = true
             };
             string JsonDeserialized = File.ReadAllText(@".\JsonFiles\recipies.json");
-
+            
             var recipeList = JsonSerializer.Deserialize<List<Root>>(JsonDeserialized, options);
-            if (recipeList != null)
+            if(recipeList!= null)
             {
                 TempDb.Recipes = recipeList.Select(x => x.Recipe).ToList();
             }

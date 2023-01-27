@@ -10,10 +10,21 @@ namespace KuceZBronksuConsole
         {
             Console.Clear();
             Console.WriteLine("Podaj ilość kalori jaka ma się znajdować w daniu");
-            double kcal = double.Parse(Console.ReadLine());
+            string ?kcal = Console.ReadLine();
+            Regex rx = new Regex(@"^[0-9]+$",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            if (rx.IsMatch(kcal))
+            {
             Console.Clear();
-            var wynik = Search.SearchByKcal(kcal, 150d);
+            var wynik = Search.SearchByKcal(double.Parse(kcal), 150d);
             PrintRecipes(wynik);
+            }
+            else
+            {
+                Console.WriteLine("Podana wartość nie jest prawidłowa prosze podaj poprawną");
+                Console.ReadLine();
+                FirstOption();
+            }
         }
 
         public static void SecondOption()
@@ -67,7 +78,7 @@ namespace KuceZBronksuConsole
 
         public static void FifthOption()
         {
-            PrintRecipes(TempDb.Recipes);
+            AddAndEdition.EditRecipe();
         }
 
         public static void SixthOption()

@@ -52,7 +52,7 @@ namespace KuceZBronksuLogic
         }
         private static List<string> AddMealType()
         {
-            Console.WriteLine("Podaj rodzaj dania : breakfast , teatime, lunch/dinner");
+            Console.WriteLine("Podaj rodzaj dania po przecinku : breakfast , teatime, lunch/dinner");
             string mealType = Console.ReadLine();
             var mealTypeList = new List<string>();
             if (mealType == "breakfast" || mealType == "teatime" || mealType == "lunch/dinner")
@@ -84,7 +84,6 @@ namespace KuceZBronksuLogic
         }
         private static List<string> AddIngredients()
         {
-            var i = 0;
             var ingredientLines = new List<string>();
             var ingredient = ",";
             Console.WriteLine(@"Podaj po kolei składniki potrzebne do przepisu po 
@@ -98,6 +97,11 @@ skladnik2,
                 ingredientLines.Add(ingredient);
             }
             return ingredientLines;
+        }
+
+        public static void EditRecipe()
+        {
+
         }
         
             

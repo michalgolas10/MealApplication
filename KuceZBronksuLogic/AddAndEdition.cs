@@ -1,19 +1,12 @@
 ﻿using KuceZBronksuDAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Authentication;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace KuceZBronksuLogic
 {
     public class AddAndEdition
     {
-        public static void AddRecipe()
+        public static Recipe CreatingRecipeObject()
         {
-            Console.WriteLine("Dodawanie przepisu");
             Console.WriteLine("Podaj nazwę przepisu który chcesz dodać");
             var label = Console.ReadLine();
             Console.WriteLine("Podaj strone do przepisu");
@@ -25,7 +18,7 @@ namespace KuceZBronksuLogic
             Console.WriteLine("Podaj etykiety zdrowotne po przecinku");
             var healthLabels = Console.ReadLine();
             var healthLabelssplited = healthLabels.Split(',').ToList();
-            Console.WriteLine("Podaj typ użytych środków konserwujące");
+            Console.WriteLine("Podaj typ użytych środków konserwujących");
             var cautions = Console.ReadLine();
             var cautionsList = cautions.Split(',').ToList();
             var ingredientsList = AddIngredients();
@@ -40,16 +33,16 @@ namespace KuceZBronksuLogic
                 Url = url,
                 Calories = calories,
                 IngredientLines = ingredientsList,
-                DietLabels =  dietLabelssplited,
+                DietLabels = dietLabelssplited,
                 HealthLabels = healthLabelssplited,
                 Cautions = cautionsList,
                 CuisineType = cuisineTypeList,
                 MealType = mealTypeList,
                 TotalNutrients = totalNutrients,
-
             };
-            TempDb.Recipes.Add(Recipe);
+            return Recipe;
         }
+
         private static List<string> AddMealType()
         {
             Console.WriteLine("Podaj rodzaj dania po przecinku : breakfast , teatime, lunch/dinner");
@@ -57,7 +50,6 @@ namespace KuceZBronksuLogic
             var mealTypeList = new List<string>();
             if (mealType == "breakfast" || mealType == "teatime" || mealType == "lunch/dinner")
             {
-
                 return mealTypeList = mealType.Split(',').ToList();
             }
             else
@@ -66,6 +58,7 @@ namespace KuceZBronksuLogic
                 return AddMealType();
             }
         }
+
         private static double AddCalories()
         {
             Console.WriteLine("Podaj kaloryczność posiłku");
@@ -82,11 +75,12 @@ namespace KuceZBronksuLogic
                 return AddCalories();
             }
         }
+
         private static List<string> AddIngredients()
         {
             var ingredientLines = new List<string>();
             var ingredient = ",";
-            Console.WriteLine(@"Podaj po kolei składniki potrzebne do przepisu po 
+            Console.WriteLine(@"Podaj po kolei składniki potrzebne do przepisu po
 przecinku zaczynając od ilości w postaci:
 składnik1,
 skladnik2,
@@ -101,9 +95,6 @@ skladnik2,
 
         public static void EditRecipe()
         {
-
-        }
-        
-            
         }
     }
+}

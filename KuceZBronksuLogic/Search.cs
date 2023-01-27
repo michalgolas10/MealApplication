@@ -1,8 +1,4 @@
 ﻿using KuceZBronksuDAL;
-using System.Collections.Generic;
-using System;
-using System.Security.Cryptography;
-using System.Collections;
 
 namespace KuceZBronksuLogic
 {
@@ -66,6 +62,7 @@ namespace KuceZBronksuLogic
             }
             return result;
         }
+
         public static List<Recipe> DrawRecipesForDay(double amountoOfDailyCalories)
         {
             var nameOfMeal = new List<string>() { "breakfast" };
@@ -111,15 +108,15 @@ namespace KuceZBronksuLogic
                 var indexteatime = random.Next(listOfTeatime.Count);
                 var indexlunchdinner = random.Next(listOfDinner.Count);
                 List<Recipe> listofrandoms = new List<Recipe>() { listOfBreakfast[indexbrk], listOfTeatime[indexteatime], listOfDinner[indexlunchdinner] };
-                double amountofleftcalories = amountoOfDailyCalories - listOfBreakfast[indexbrk].Calories-listOfTeatime[indexteatime].Calories- listOfDinner[indexlunchdinner].Calories;
-                Console.WriteLine($"Pozostała liczba kalorii do wykorzystania tego dnia: {amountofleftcalories}");
+                double amountofleftcalories = amountoOfDailyCalories - listOfBreakfast[indexbrk].Calories - listOfTeatime[indexteatime].Calories - listOfDinner[indexlunchdinner].Calories;
+                //var amountofcaloriesleft = $"Pozostała liczba kalorii do wykorzystania tego dnia: {amountofleftcalories}";
                 return listofrandoms;
             }
             else
             {
-                Recipe Recipe = new() {Label="Brak danych"};
-                List<Recipe> list = new(){Recipe};
-                return list; 
+                Recipe Recipe = new() { Label = "Brak danych" };
+                List<Recipe> list = new() { Recipe };
+                return list;
             }
         }
     }

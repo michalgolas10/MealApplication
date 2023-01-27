@@ -1,5 +1,6 @@
 ﻿using KuceZBronksuDAL;
 using KuceZBronksuLogic;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace KuceZBronksuConsole
@@ -9,15 +10,15 @@ namespace KuceZBronksuConsole
         public static void FirstOption()
         {
             Console.Clear();
-            Console.WriteLine("Podaj ilość kalori jaka ma się znajdować w daniu");
-            string ?kcal = Console.ReadLine();
+            Console.WriteLine("Wyszukiwanie przepisu po kaloryczności\r\n\r\nPodaj ilość kalori jaka ma się znajdować w daniu");
+            string? kcal = Console.ReadLine();
             Regex rx = new Regex(@"^[0-9]+$",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
             if (rx.IsMatch(kcal))
             {
-            Console.Clear();
-            var wynik = Search.SearchByKcal(double.Parse(kcal), 150d);
-            PrintRecipes(wynik);
+                Console.Clear();
+                var wynik = Search.SearchByKcal(double.Parse(kcal), 150d);
+                PrintRecipes(wynik);
             }
             else
             {
@@ -30,7 +31,7 @@ namespace KuceZBronksuConsole
         public static void SecondOption()
         {
             Console.Clear();
-            Console.WriteLine("Podaj składniki (oddziel przecinkami)");
+            Console.WriteLine("Wyszukiwanie przepisu po posiadanych składnikach\r\n\r\nPodaj składniki (oddziel przecinkami)");
             string input = Console.ReadLine();
             List<string> ingredients = input.Split(',').ToList();
             Console.Clear();
@@ -41,7 +42,7 @@ namespace KuceZBronksuConsole
         public static void ThirdOption()
         {
             Console.Clear();
-            string print = "Wybierz porę jedzenia";
+            string print = "Wyszukiwanie przepisu po rodzaju posiłku\r\n\r\nWybierz porę jedzenia";
             string[] mealTypes = { "Breakfast", "Teatime", "Lunch/Dinner" };
             ConsoleInterface optionInterface = new ConsoleInterface(mealTypes, print);
             int optionIndex = optionInterface.Run();
@@ -73,7 +74,8 @@ namespace KuceZBronksuConsole
 
         public static void FourthOption()
         {
-            AddAndEdition.AddRecipe();
+            Console.WriteLine("Dodawanie przepisu\r\n\r");
+            TempDb.Recipes.Add(AddAndEdition.CreatingRecipeObject());
         }
 
         public static void FifthOption()
@@ -84,15 +86,18 @@ namespace KuceZBronksuConsole
         public static void SixthOption()
         {
             Console.Clear();
-            Console.WriteLine("Podaj jaką ilość kalorii chcesz dostarczyć w ciągu dnia");
-            string ?amountOfTodayCalories= Console.ReadLine();
+            Console.WriteLine("Wyszukiwanie losowego śniadanie obiad i kolacja\r\n\r\nPodaj jaką ilość kalorii chcesz dostarczyć w ciągu dnia");
+            string? amountOfTodayCalories = Console.ReadLine();
             Regex rx = new Regex(@"^[0-9]+$",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
             if (rx.IsMatch(amountOfTodayCalories))
             {
-                var wynik = Search.DrawRecipesForDay(int.Parse(amountOfTodayCalories));
-                if (!(wynik[0].Label == "Brak danych"))
-                    PrintRecipes(wynik);
+                var result = Search.DrawRecipesForDay(int.Parse(amountOfTodayCalories));
+                if (!(result[0].Label == "Brak danych"))
+                {
+                    PrintRecipes(result);
+                    Console.WriteLine($"Ilość pozostałych kalorii do wykorzystania tego dnia: {int.Parse(amountOfTodayCalories) - result[0].Calories + result[1].Calories + result[2].Calories}");
+                }
                 else
                 {
                     Console.WriteLine("Nie udało się znaleźć odpowiednich przepisów");
@@ -106,7 +111,6 @@ namespace KuceZBronksuConsole
                 Console.WriteLine("Wciśnij dowolny przycisk, aby kontynuować");
                 Console.ReadKey();
             }
-
         }
 
         public static void SeventhOption()

@@ -30,7 +30,7 @@ namespace KuceZBronksuLogic
             var Recipe = new Recipe()
             {
                 Label = label,
-                Url = url,
+                ShareAs = url,
                 Calories = calories,
                 IngredientLines = ingredientsList,
                 DietLabels = dietLabelssplited,
@@ -145,11 +145,11 @@ skladnik2,
 
             if (recipeUrl.ToLower() == "N")
             {
-                recip.Url = recip.Url;
+                recip.ShareAs = recip.ShareAs;
             }
             else
             {
-                recip.Url = recipeUrl;
+                recip.ShareAs = recipeUrl;
             }
 
 

@@ -127,7 +127,7 @@ namespace KuceZBronksuConsole
                     Console.WriteLine($"{item.Label}");
                     Console.WriteLine($"Meal Type: {String.Join(", ", item.MealType.ToArray())} ");
                     Console.WriteLine($"KCAL: {Math.Round(item.Calories, 2)}");
-                    Console.WriteLine($"Recipe: {item.Url}");
+                    Console.WriteLine($"Recipe: {item.ShareAs}");
                     Console.WriteLine($"Ingredients:{String.Join(", ", item.IngredientLines.ToArray())}");
                     Console.WriteLine();
                 }

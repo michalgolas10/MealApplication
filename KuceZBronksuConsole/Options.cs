@@ -18,6 +18,7 @@ namespace KuceZBronksuConsole
             {
                 Console.Clear();
                 var wynik = Search.SearchByKcal(double.Parse(kcal), 150d);
+                
                 PrintRecipes(wynik);
             }
             else
@@ -122,8 +123,8 @@ namespace KuceZBronksuConsole
             if (rx.IsMatch(amountOfTodayCalories))
             {
                 var result = Search.DrawRecipesForDay(int.Parse(amountOfTodayCalories));
-                if (!(result[0].Label == "Brak danych"))
-                {
+                if (result.Any()) { 
+                
                     PrintRecipes(result);
                     Console.WriteLine($"Ilość pozostałych kalorii do wykorzystania tego dnia: {int.Parse(amountOfTodayCalories) - result[0].Calories + result[1].Calories + result[2].Calories}");
                 }
@@ -154,7 +155,7 @@ namespace KuceZBronksuConsole
                 foreach (var item in wynik)
                 {
                     Console.WriteLine($"{item.Label}");
-                    Console.WriteLine($"Meal Type: {String.Join(", ", item.MealType.ToArray())} ");
+                    Console.WriteLine($"Meal Type: {String.Join(", ", item.MealType.ToArray())}");
                     Console.WriteLine($"KCAL: {Math.Round(item.Calories, 2)}");
                     Console.WriteLine($"Recipe: {item.ShareAs}");
                     Console.WriteLine($"Ingredients:{String.Join(", ", item.IngredientLines.ToArray())}");

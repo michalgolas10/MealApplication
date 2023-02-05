@@ -71,7 +71,7 @@ namespace KuceZBronksuLogic
             List<Recipe> listOfDinner = new();
             foreach (var recipe in SearchByMealType(nameOfMeal))
             {
-                foreach (var recipe2 in SearchByKcal(amountoOfDailyCalories * 0.35, 300d))
+                foreach (var recipe2 in SearchByKcal(amountoOfDailyCalories * 0.3, 150d))
                 {
                     if (recipe == recipe2)
                     {
@@ -82,7 +82,7 @@ namespace KuceZBronksuLogic
             nameOfMeal[0] = "Teatime";
             foreach (var recipe in SearchByMealType(nameOfMeal))
             {
-                foreach (var recipe2 in SearchByKcal(amountoOfDailyCalories * 0.3, 300d))
+                foreach (var recipe2 in SearchByKcal(amountoOfDailyCalories * 0.3, 150d))
                 {
                     if (recipe == recipe2)
                     {
@@ -93,7 +93,7 @@ namespace KuceZBronksuLogic
             nameOfMeal[0] = "Lunch/Dinner";
             foreach (var recipe in SearchByMealType(nameOfMeal))
             {
-                foreach (var recipe2 in SearchByKcal(amountoOfDailyCalories * 0.25, 3000d))
+                foreach (var recipe2 in SearchByKcal(amountoOfDailyCalories * 0.25, 150d))
                 {
                     if (recipe == recipe2)
                     {
@@ -114,8 +114,8 @@ namespace KuceZBronksuLogic
             }
             else
             {
-                Recipe Recipe = new() { Label = "Nie można znaleźć przepisów, spełniających kryteria" };
-                List<Recipe> list = new() { Recipe };
+                Recipe Recipe = new Recipe();
+                List<Recipe> list = new List<Recipe>();
                 return list;
             }
         }

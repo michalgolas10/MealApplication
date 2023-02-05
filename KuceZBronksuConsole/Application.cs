@@ -22,7 +22,6 @@
                 case 0:
                     {
                         Console.Clear();
-                        Console.WriteLine("Wyszukiwanie przepisu po kaloryczności...");
                         Options.FirstOption();
                     }
                     break;

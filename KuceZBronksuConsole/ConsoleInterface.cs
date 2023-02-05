@@ -20,6 +20,8 @@ namespace KuceZBronksuConsole
         }
         private void DisplayOptions()
         {
+            var defaultForegroudColor = Console.ForegroundColor;
+            var defaultBackgroudColor = Console.BackgroundColor;
             Console.WriteLine(Prompt);
             for(int i = 0; i < Options.Length; i++)
             {
@@ -28,14 +30,14 @@ namespace KuceZBronksuConsole
                 if( i == SelectedIndex)
                 {
                     prefix = "*";
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = defaultBackgroudColor;
+                    Console.BackgroundColor = defaultForegroudColor;
                 }
                 else
                 {
                     prefix = " ";
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = defaultForegroudColor;
+                    Console.BackgroundColor = defaultBackgroudColor;
                 }
                 Console.WriteLine($"{prefix}<<{currentoption}>>");
             }

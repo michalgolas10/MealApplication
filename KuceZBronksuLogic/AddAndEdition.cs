@@ -110,7 +110,7 @@ skladnik2,
             Console.WriteLine("Wpisz nazwę przepisu - całą lub częściowo (najlepiej minimum 2 następujące po sobie słowa)");
             var nameOfRecipe = Console.ReadLine();
 
-            var recip = TempDb.Recipes.FirstOrDefault(recip => recip.Label.ToLower().Contains(nameOfRecipe.ToLower()));
+            var recip = TempDb.Recipes.FirstOrDefault(recip => recip.Label.Contains(nameOfRecipe, StringComparison.CurrentCultureIgnoreCase));
             if (recip == null)
             {
                 Console.WriteLine("Nie znaleziono przepisu");
@@ -130,37 +130,51 @@ skladnik2,
             Console.WriteLine("Chcesz zmienić nazwę? Jeśli nie, wpisz 'N' ");
             var recipeName = Console.ReadLine();
 
-            if (recipeName.ToLower() == "N")
+            if (recipeName.Contains("N", StringComparison.CurrentCultureIgnoreCase))
             {
                 recip.Label = recip.Label;
             }
-            else
+            else if (recipeName.Length >= 2)
             {
                 recip.Label = recipeName;
+            }
+            else
+            {
+                recip.Label = recip.Label;
+                Console.WriteLine("Nazwa przepisu za krótka, minimum 2 znaki. Automatycznie przyjęto odpowiedź 'N'");
+                Console.WriteLine("Naciśnij dowolny przycisk.");
+                Console.ReadKey();
             }
 
 
             Console.WriteLine("\nChcesz zmienić stronę(url) przepisu? Jeśli nie, wpisz 'N' ");
             var recipeUrl = Console.ReadLine();
 
-            if (recipeUrl.ToLower() == "N")
+            if (recipeUrl.Equals("N", StringComparison.CurrentCultureIgnoreCase))
             {
                 recip.ShareAs = recip.ShareAs;
             }
-            else
+            else if (recipeUrl.Contains("https://", StringComparison.CurrentCultureIgnoreCase))
             {
                 recip.ShareAs = recipeUrl;
+            }
+            else
+            {
+                recip.ShareAs = recip.ShareAs;
+                Console.WriteLine("Podano niepoprawny link. Automatycznie przyjęto odpowiedź 'N'");
+                Console.WriteLine("Naciśnij dowolny przycisk.");
+                Console.ReadKey();
             }
 
 
             Console.WriteLine("\nChcesz zminić kaloryczność? Wpisz 'Tak' lub 'Nie' ");
             var answerCal = Console.ReadLine();
-            if (answerCal.ToLower() == "tak")
+            if (answerCal.Equals("tak",StringComparison.CurrentCultureIgnoreCase))
             {
                 var newCalories = AddCalories();
                 recip.Calories = newCalories;
             }
-            else if (answerCal.ToLower() == "nie")
+            else if (answerCal.Equals("nie",StringComparison.CurrentCultureIgnoreCase))
             {
                 recip.Calories = recip.Calories;
             }
@@ -174,7 +188,7 @@ skladnik2,
 
             Console.WriteLine("\nChcesz zmienić etykiety dietetyczne? Wpisz 'Tak' lub 'Nie' ");
             var answerDL = Console.ReadLine();
-            if (answerDL.ToLower() == "tak")
+            if (answerDL.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
             {
                 Console.WriteLine("Podaj etykiety dietetyczne po przecinku");
                 var dietLabels = Console.ReadLine();
@@ -182,7 +196,7 @@ skladnik2,
 
                 recip.DietLabels = dietLabelssplited;
             }
-            else if (answerDL.ToLower() == "nie")
+            else if (answerDL.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
             {
                 recip.DietLabels = recip.DietLabels;
             }
@@ -196,14 +210,14 @@ skladnik2,
 
             Console.WriteLine("\nChcesz zmienić etykiety zdrowotne? Wpisz 'Tak' lub 'Nie' ");
             var answerHL = Console.ReadLine();
-            if (answerHL.ToLower() == "tak")
+            if (answerHL.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
             {
                 Console.WriteLine("Podaj etykiety zdrowotne po przecinku");
                 var healthLabels = Console.ReadLine();
                 var healthLabelssplited = healthLabels.Split(',').ToList();
 
             }
-            else if (answerHL.ToLower() == "nie")
+            else if (answerHL.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
             {
                 recip.HealthLabels = recip.HealthLabels;
             }
@@ -217,14 +231,14 @@ skladnik2,
 
             Console.WriteLine("\nChcesz zmienić typ środków konserwujących? Wpisz 'Tak' lub 'Nie' ");
             var answerCau = Console.ReadLine();
-            if (answerCau.ToLower() == "tak")
+            if (answerCau.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
             {
                 Console.WriteLine("Podaj etykiety zdrowotne po przecinku");
                 var cautions = Console.ReadLine();
                 var cautionsList = cautions.Split(',').ToList();
 
             }
-            else if (answerCau.ToLower() == "nie")
+            else if (answerCau.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
             {
                 recip.Cautions = recip.Cautions;
             }
@@ -238,12 +252,12 @@ skladnik2,
 
             Console.WriteLine("\nChcesz zminić składniki? Wpisz 'Tak' lub 'Nie' ");
             var answerIng = Console.ReadLine();
-            if (answerIng.ToLower() == "tak")
+            if (answerIng.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
             {
                 var newIngredientsList = AddIngredients();
                 recip.IngredientLines = newIngredientsList;
             }
-            else if (answerIng.ToLower() == "nie")
+            else if (answerIng.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
             {
                 recip.IngredientLines = recip.IngredientLines;
             }
@@ -257,14 +271,14 @@ skladnik2,
 
             Console.WriteLine("\nChcesz zmienić rodzaj kuchni? Wpisz 'Tak' lub 'Nie' ");
             var answerCuis = Console.ReadLine();
-            if (answerCuis.ToLower() == "tak")
+            if (answerCuis.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
             {
                 Console.WriteLine("Podaj rodzaj kuchni po przecinku");
                 string cuisineType = Console.ReadLine();
                 var newCuisineTypeList = cuisineType.Split(',').ToList();
 
             }
-            else if (answerCuis.ToLower() == "nie")
+            else if (answerCuis.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
             {
                 recip.CuisineType = recip.CuisineType;
             }
@@ -278,12 +292,12 @@ skladnik2,
 
             Console.WriteLine("\nChcesz zmienić rodzaj posiłku? Wpisz 'Tak' lub 'Nie' ");
             var answerMT = Console.ReadLine();
-            if (answerMT.ToLower() == "tak")
+            if (answerMT.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
             {
                 var newMealTypeList = AddMealType();
                 recip.MealType = newMealTypeList;
             }
-            else if (answerMT.ToLower() == "nie")
+            else if (answerMT.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
             {
                 recip.MealType = recip.MealType;
             }

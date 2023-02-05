@@ -22,7 +22,7 @@ namespace KuceZBronksuConsole
             }
             else
             {
-                Console.WriteLine("Podana wartość nie jest prawidłowa prosze podaj poprawną");
+                Console.WriteLine("Podana wartość nie jest prawidłowa! \r\n\r\n Naciśnij dowolny klawisz, aby kontynuować");
                 Console.ReadLine();
                 FirstOption();
             }

@@ -48,7 +48,7 @@ namespace KuceZBronksuLogic
             Console.WriteLine("Podaj rodzaj dania po przecinku : breakfast , teatime, lunch/dinner");
             string mealType = Console.ReadLine();
             var mealTypeList = new List<string>();
-            if (mealType == "breakfast" || mealType == "teatime" || mealType == "lunch/dinner")
+            if (Validation.ValidationIfMealTypeCorrect(mealType))
             {
                 return mealTypeList = mealType.Split(',').ToList();
             }
@@ -63,9 +63,7 @@ namespace KuceZBronksuLogic
         {
             Console.WriteLine("Podaj kaloryczność posiłku");
             string calories = Console.ReadLine();
-            Regex rx = new Regex(@"^[0-9]+$",
-            RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            if (rx.IsMatch(calories))
+            if (Validation.ValidationIfNumbers(calories))
             {
                 return double.Parse(calories);
             }
@@ -93,221 +91,170 @@ skladnik2,
             return ingredientLines;
         }
 
-        public static void EditRecipe()
-        {
+        /* ================================================ EDYCJA ================================================ */
 
-            Console.WriteLine("Edycja przepisów\n");
-            Console.WriteLine("Jaki przepis chcesz zedytować?\n");
-            Console.WriteLine("==========================================\n");
-
-            int i = 0;
-            foreach (var name in TempDb.Recipes)
-            {
-                Console.WriteLine($"{i} - {name.Label}");
-                i++;
-            }
-            Console.WriteLine("\n==========================================\n");
-            Console.WriteLine("Wpisz nazwę przepisu - całą lub częściowo (najlepiej minimum 2 następujące po sobie słowa)");
-            var nameOfRecipe = Console.ReadLine();
-
-            var recip = TempDb.Recipes.FirstOrDefault(recip => recip.Label.Contains(nameOfRecipe, StringComparison.CurrentCultureIgnoreCase));
-            if (recip == null)
-            {
-                Console.WriteLine("Nie znaleziono przepisu");
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.Clear();
-                RecipeEdition(recip);
-            }
-
-        }
-
-        public static void RecipeEdition(Recipe recip)
+        public static void RecipeNameEdit(Recipe recip)
         {
             Console.Clear();
-            Console.WriteLine("Chcesz zmienić nazwę? Jeśli nie, wpisz 'N' ");
+            Console.WriteLine("Podaj nową nazwę przepisu. Jeśli nie chcesz jej zmieniać wcisnij 'Enter'");
             var recipeName = Console.ReadLine();
 
-            if (recipeName.Contains("N", StringComparison.CurrentCultureIgnoreCase))
+            if (string.IsNullOrEmpty(recipeName))
             {
+                Console.WriteLine("\nNie wprowadzono zmian.\n\nNaciśnij dowolny przycisk, żeby kontynuować");
+                Console.ReadKey();
                 recip.Label = recip.Label;
             }
-            else if (recipeName.Length >= 2)
+            else
             {
+                Console.WriteLine($"\nWprowadzono zmianę. Nowa nazwa to: {recipeName}");
+                Console.WriteLine("\nNaciśnij dowolny przycisk, żeby kontynuować");
+                Console.ReadKey();
                 recip.Label = recipeName;
             }
-            else
-            {
-                recip.Label = recip.Label;
-                Console.WriteLine("Nazwa przepisu za krótka, minimum 2 znaki. Automatycznie przyjęto odpowiedź 'N'");
-                Console.WriteLine("Naciśnij dowolny przycisk.");
-                Console.ReadKey();
-            }
+        }
 
-
-            Console.WriteLine("\nChcesz zmienić stronę(url) przepisu? Jeśli nie, wpisz 'N' ");
+        public static void RecipeURLEdit(Recipe recip)
+        {
+            Console.Clear();
+            Console.WriteLine("Podaj stronę(url) do przepisu. Jeśli nie chcesz go zmieniać kliknij 'Enter' ");
             var recipeUrl = Console.ReadLine();
 
-            if (recipeUrl.Equals("N", StringComparison.CurrentCultureIgnoreCase))
+            if (string.IsNullOrEmpty(recipeUrl))
             {
+                Console.WriteLine("\nNie wprowadzono zmian.\n\nNaciśnij dowolny przycisk, żeby kontynuować");
+                Console.ReadKey();
                 recip.ShareAs = recip.ShareAs;
             }
-            else if (recipeUrl.Contains("https://", StringComparison.CurrentCultureIgnoreCase))
+            else if (!recipeUrl.Contains("https://", StringComparison.CurrentCultureIgnoreCase))
             {
+                Console.WriteLine("\nNieprawidłowy link.\n\nNaciśnij dowolny przycisk, żeby kontynuować");
+                Console.ReadKey();
+            }
+
+            else
+            {
+                Console.WriteLine($"\nWprowadzono zmianę. Nowy adres URL to: {recipeUrl}");
+                Console.WriteLine("\nNaciśnij dowolny przycisk, żeby kontynuować");
+                Console.ReadKey();
                 recip.ShareAs = recipeUrl;
             }
-            else
+        }
+
+        public static void RecipeKcalEdit(Recipe recip)
+        {
+            Console.Clear();
+
+            var newCalories = AddCalories();
+            Console.WriteLine($"\nWprowadzono zmianę. Nowe kalorie to: {newCalories} kcal");
+            Console.WriteLine("\nNaciśnij dowolny przycisk, żeby kontynuować");
+            Console.ReadKey();
+            recip.Calories = newCalories;
+        }
+
+        public static void RecipeDLEdit(Recipe recip)
+        {
+            Console.Clear();
+            Console.WriteLine("Podaj nowe etykiety dietetyczne po przecinku. Jeśli nie chcesz ich zmieniać kliknij 'Enter'");
+            var dietLabels = Console.ReadLine();
+            if (string.IsNullOrEmpty(dietLabels))
             {
-                recip.ShareAs = recip.ShareAs;
-                Console.WriteLine("Podano niepoprawny link. Automatycznie przyjęto odpowiedź 'N'");
-                Console.WriteLine("Naciśnij dowolny przycisk.");
+                Console.WriteLine("\nNie wprowadzono zmian.\n\nNaciśnij dowolny przycisk, żeby kontynuować");
+                recip.DietLabels = recip.DietLabels;
                 Console.ReadKey();
             }
-
-
-            Console.WriteLine("\nChcesz zminić kaloryczność? Wpisz 'Tak' lub 'Nie' ");
-            var answerCal = Console.ReadLine();
-            if (answerCal.Equals("tak",StringComparison.CurrentCultureIgnoreCase))
-            {
-                var newCalories = AddCalories();
-                recip.Calories = newCalories;
-            }
-            else if (answerCal.Equals("nie",StringComparison.CurrentCultureIgnoreCase))
-            {
-                recip.Calories = recip.Calories;
-            }
             else
             {
-                recip.Calories = recip.Calories;
-                Console.WriteLine("Zła odpowiedź. Automatycznie przyjęto odpowiedź 'Nie'");
-                Console.WriteLine("Naciśnij dowolny przycisk.");
-                Console.ReadKey();
-            }
-
-            Console.WriteLine("\nChcesz zmienić etykiety dietetyczne? Wpisz 'Tak' lub 'Nie' ");
-            var answerDL = Console.ReadLine();
-            if (answerDL.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
-            {
-                Console.WriteLine("Podaj etykiety dietetyczne po przecinku");
-                var dietLabels = Console.ReadLine();
                 var dietLabelssplited = dietLabels.Split(',').ToList();
-
+                Console.WriteLine($"\nWprowadzono zmianę etykiet dietetycznych");
+                Console.WriteLine("\nNaciśnij dowolny przycisk, żeby kontynuować");
+                Console.ReadKey();
                 recip.DietLabels = dietLabelssplited;
             }
-            else if (answerDL.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
+        }
+
+        public static void RecipeHLEdif(Recipe recip)
+        {
+            Console.Clear();
+            Console.WriteLine("Podaj nowe etykiety zdrowotne po przecinku. Jeśli nie chcesz ich zmieniać kliknij 'Enter'");
+            var healthLabels = Console.ReadLine();
+            if (string.IsNullOrEmpty(healthLabels))
             {
-                recip.DietLabels = recip.DietLabels;
-            }
-            else
-            {
-                recip.DietLabels = recip.DietLabels;
-                Console.WriteLine("Zła odpowiedź. Automatycznie przyjęto odpowiedź 'Nie'");
-                Console.WriteLine("Naciśnij dowolny przycisk.");
+                Console.WriteLine("\nNie wprowadzono zmian.\n\nNaciśnij dowolny przycisk, żeby kontynuować");
+                recip.HealthLabels = recip.HealthLabels;
                 Console.ReadKey();
             }
 
-            Console.WriteLine("\nChcesz zmienić etykiety zdrowotne? Wpisz 'Tak' lub 'Nie' ");
-            var answerHL = Console.ReadLine();
-            if (answerHL.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
+            else
             {
-                Console.WriteLine("Podaj etykiety zdrowotne po przecinku");
-                var healthLabels = Console.ReadLine();
                 var healthLabelssplited = healthLabels.Split(',').ToList();
-
+                Console.WriteLine($"\nWprowadzono zmianę etykiet zdrowotnych");
+                Console.WriteLine("\nNaciśnij dowolny przycisk, żeby kontynuować");
+                Console.ReadKey();
+                recip.HealthLabels = healthLabelssplited;
             }
-            else if (answerHL.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
+        }
+
+        public static void RecipeCautionEdit(Recipe recip)
+        {
+            Console.Clear();
+            Console.WriteLine("Podaj nowe środki konserwujące po przecinku. Jeśli nie chcesz ich zmieniać kliknij 'Enter'");
+            var cautions = Console.ReadLine();
+            if (string.IsNullOrEmpty(cautions))
             {
-                recip.HealthLabels = recip.HealthLabels;
+                Console.WriteLine("\nNie wprowadzono zmian.\n\nNaciśnij dowolny przycisk, żeby kontynuować");
+                Console.ReadKey();
+                recip.Cautions = recip.Cautions;
             }
             else
             {
-                recip.HealthLabels = recip.HealthLabels;
-                Console.WriteLine("Zła odpowiedź. Automatycznie przyjęto odpowiedź 'Nie'");
-                Console.WriteLine("Naciśnij dowolny przycisk.");
-                Console.ReadKey();
-            }
-
-            Console.WriteLine("\nChcesz zmienić typ środków konserwujących? Wpisz 'Tak' lub 'Nie' ");
-            var answerCau = Console.ReadLine();
-            if (answerCau.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
-            {
-                Console.WriteLine("Podaj etykiety zdrowotne po przecinku");
-                var cautions = Console.ReadLine();
                 var cautionsList = cautions.Split(',').ToList();
-
+                Console.WriteLine($"\nWprowadzono zmianę środków konserwujących");
+                Console.WriteLine("\nNaciśnij dowolny przycisk, żeby kontynuować");
+                Console.ReadKey();
+                recip.Cautions = cautionsList;
             }
-            else if (answerCau.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
+        }
+
+        public static void RecipeIngEdit(Recipe recip)
+        {
+            Console.Clear();
+            var newIngredientsList = AddIngredients();
+            Console.WriteLine($"\nWprowadzono nową listę składników");
+            Console.WriteLine("\nNaciśnij dowolny przycisk, żeby kontynuować");
+            Console.ReadKey();
+            recip.IngredientLines = newIngredientsList;
+        }
+
+        public static void RecipeCuisineEdit(Recipe recip)
+        {
+            Console.Clear();
+            Console.WriteLine("Podaj nowe rodzaje kuchni po przecinku. Jeśli nie chcesz ich zmieniać kliknij 'Enter'");
+            string cuisineType = Console.ReadLine();
+            if (string.IsNullOrEmpty(cuisineType))
             {
-                recip.Cautions = recip.Cautions;
+                Console.WriteLine("\nNie wprowadzono zmian.\n\nNaciśnij dowolny przycisk, żeby kontynuować");
+                recip.CuisineType = recip.CuisineType;
+                Console.ReadKey();
             }
             else
             {
-                recip.Cautions = recip.Cautions;
-                Console.WriteLine("Zła odpowiedź. Automatycznie przyjęto odpowiedź 'Nie'");
-                Console.WriteLine("Naciśnij dowolny przycisk.");
-                Console.ReadKey();
-            }
-
-            Console.WriteLine("\nChcesz zminić składniki? Wpisz 'Tak' lub 'Nie' ");
-            var answerIng = Console.ReadLine();
-            if (answerIng.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
-            {
-                var newIngredientsList = AddIngredients();
-                recip.IngredientLines = newIngredientsList;
-            }
-            else if (answerIng.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
-            {
-                recip.IngredientLines = recip.IngredientLines;
-            }
-            else
-            {
-                recip.IngredientLines = recip.IngredientLines;
-                Console.WriteLine("Zła odpowiedź. Automatycznie przyjęto odpowiedź 'Nie'");
-                Console.WriteLine("Naciśnij dowolny przycisk.");
-                Console.ReadKey();
-            }
-
-            Console.WriteLine("\nChcesz zmienić rodzaj kuchni? Wpisz 'Tak' lub 'Nie' ");
-            var answerCuis = Console.ReadLine();
-            if (answerCuis.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
-            {
-                Console.WriteLine("Podaj rodzaj kuchni po przecinku");
-                string cuisineType = Console.ReadLine();
                 var newCuisineTypeList = cuisineType.Split(',').ToList();
-
-            }
-            else if (answerCuis.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
-            {
-                recip.CuisineType = recip.CuisineType;
-            }
-            else
-            {
-                recip.CuisineType = recip.CuisineType;
-                Console.WriteLine("Zła odpowiedź. Automatycznie przyjęto odpowiedź 'Nie'");
-                Console.WriteLine("Naciśnij dowolny przycisk.");
+                Console.WriteLine($"\nWprowadzono nowy rodzaj/rodzaje kuchni");
+                Console.WriteLine("\nNaciśnij dowolny przycisk, żeby kontynuować");
                 Console.ReadKey();
+                recip.CuisineType = newCuisineTypeList;
             }
+        }
 
-            Console.WriteLine("\nChcesz zmienić rodzaj posiłku? Wpisz 'Tak' lub 'Nie' ");
-            var answerMT = Console.ReadLine();
-            if (answerMT.Equals("tak", StringComparison.CurrentCultureIgnoreCase))
-            {
-                var newMealTypeList = AddMealType();
-                recip.MealType = newMealTypeList;
-            }
-            else if (answerMT.Equals("nie", StringComparison.CurrentCultureIgnoreCase))
-            {
-                recip.MealType = recip.MealType;
-            }
-            else
-            {
-                recip.MealType = recip.MealType;
-                Console.WriteLine("Zła odpowiedź. Automatycznie przyjęto odpowiedź 'Nie'");
-                Console.WriteLine("Naciśnij dowolny przycisk.");
-                Console.ReadKey();
-            }
+        public static void RecipeMealTypeEdit(Recipe recip)
+        {
+            Console.Clear();
+            var newMealTypeList = AddMealType();
+            Console.WriteLine($"\nWprowadzono nowy typ posiłku");
+            Console.WriteLine("\nNaciśnij dowolny przycisk, żeby kontynuować");
+            Console.ReadKey();
+            recip.MealType = newMealTypeList;
         }
     }
 }

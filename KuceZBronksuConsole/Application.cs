@@ -1,4 +1,7 @@
-﻿namespace KuceZBronksuConsole
+﻿using KuceZBronksuDAL;
+using KuceZBronksuLogic;
+
+namespace KuceZBronksuConsole
 {
     internal class Application
     {
@@ -7,6 +10,7 @@
         {
             RunMainMenu();
         }
+
 
         private void RunMainMenu()
         {
@@ -67,6 +71,71 @@
                         Console.WriteLine("Wychodzisz z aplikacji...");
                         Options.SeventhOption();
                     }
+                    break;
+            }
+        }
+    }
+    internal class Edition
+    {
+        public void Start(Recipe recip)
+        {
+            RunMainMenu(recip);
+        }
+        private void RunMainMenu(Recipe recip)
+        {
+            Console.Clear();
+            string print = $"Wybrano przepis: {recip.Label}\r\n\r\nWybierz co chcesz zedytować";
+            string[] mealTypes = { "Nazwa", "Adres URL", "Kaloryczność", "Etykiety dietetyczne", "Etykiety zdrowotne", "Środki konserwujące", "Składniki", "Rodzaj kuchni", "Rodzaj posiłku", "Koniec edycji" };
+            ConsoleInterface optionInterface = new ConsoleInterface(mealTypes, print);
+            int optionIndex = optionInterface.Run();
+            string input;
+            switch (optionIndex)
+            {
+                case 0:
+                    input = "Nazwa";
+                    AddAndEdition.RecipeNameEdit(recip);
+                    break;
+                case 1:
+                    input = "Adres URL";
+                    AddAndEdition.RecipeURLEdit(recip);
+                    break;
+                case 2:
+                    input = "Kaloryczność";
+                    AddAndEdition.RecipeKcalEdit(recip);
+                    break;
+                case 3:
+                    input = "Etykiety dietetyczne";
+                    AddAndEdition.RecipeDLEdit(recip);
+                    break;
+                case 4:
+                    input = "Etykiety zdrowotne";
+                    AddAndEdition.RecipeHLEdif(recip);
+                    break;
+                case 5:
+                    input = "Środki konserwujące";
+                    AddAndEdition.RecipeCautionEdit(recip);
+                    break;
+                case 6:
+                    input = "Składniki";
+                    AddAndEdition.RecipeIngEdit(recip);
+                    break;
+                case 7:
+                    input = "Rodzaj kuchni";
+                    AddAndEdition.RecipeCuisineEdit(recip);
+                    break;
+                case 8:
+                    input = "Rodzaj posiłku";
+                    AddAndEdition.RecipeMealTypeEdit(recip);
+                    break;
+                case 9:
+                    input = "Koniec edycji";
+                    Application Application = new Application();
+                    while (true)
+                    {
+                        Application.Start();
+                    }
+                default:
+                    input = "";
                     break;
             }
         }

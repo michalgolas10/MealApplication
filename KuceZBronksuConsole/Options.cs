@@ -80,8 +80,37 @@ namespace KuceZBronksuConsole
 
         public static void FifthOption()
         {
-            AddAndEdition.EditRecipe();
+            Console.WriteLine("Edycja przepisów\n");
+            Console.WriteLine("Jaki przepis chcesz zedytować?\n");
+            Console.WriteLine("==========================================\n");
+
+            int i = 0;
+            foreach (var name in TempDb.Recipes)
+            {
+                Console.WriteLine($"{i} - {name.Label}");
+                i++;
+            }
+            Console.WriteLine("\n==========================================\n");
+            Console.WriteLine("Wpisz nazwę przepisu - całą lub częściowo (najlepiej minimum 2 następujące po sobie słowa)");
+            var nameOfRecipe = Console.ReadLine();
+
+            var recip = TempDb.Recipes.FirstOrDefault(recip => recip.Label.ToLower().Contains(nameOfRecipe.ToLower()));
+            if (recip == null)
+            {
+                Console.WriteLine("Nie znaleziono przepisu");
+                Console.ReadKey();
+            }
+            else
+            {
+                Edition Edition = new Edition();
+                while (true)
+                {
+                    Edition.Start(recip);
+                }
+
+            }
         }
+
 
         public static void SixthOption()
         {

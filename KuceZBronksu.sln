@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KuceZBronksuDAL", "KuceZBro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KuceZBronksuLogic", "KuceZBronksuLogic\KuceZBronksuLogic.csproj", "{A336C35E-184C-4109-BB50-B75E10D11554}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuceZBronksuWEB", "KuceZBronksuWEB\KuceZBronksuWEB.csproj", "{FDC46578-8EAF-468D-BEF9-25BF2E87AACB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A336C35E-184C-4109-BB50-B75E10D11554} = {A336C35E-184C-4109-BB50-B75E10D11554}
+		{AC4B892C-A6B6-4D36-A408-CDE1BA9DDA8F} = {AC4B892C-A6B6-4D36-A408-CDE1BA9DDA8F}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,10 @@ Global
 		{A336C35E-184C-4109-BB50-B75E10D11554}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A336C35E-184C-4109-BB50-B75E10D11554}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A336C35E-184C-4109-BB50-B75E10D11554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDC46578-8EAF-468D-BEF9-25BF2E87AACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDC46578-8EAF-468D-BEF9-25BF2E87AACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDC46578-8EAF-468D-BEF9-25BF2E87AACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDC46578-8EAF-468D-BEF9-25BF2E87AACB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

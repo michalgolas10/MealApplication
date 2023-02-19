@@ -30,7 +30,9 @@ namespace KuceZBronksuWEB
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            KuceZBronksuLogic.DataFileHandler.ReadingDataFromFile();
             app.Run();
+
         }
     }
 }

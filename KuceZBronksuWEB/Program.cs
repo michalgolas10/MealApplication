@@ -32,7 +32,6 @@ namespace KuceZBronksuWEB
 
             KuceZBronksuLogic.DataFileHandler.ReadingDataFromFile();
             app.Run();
-
         }
     }
 }

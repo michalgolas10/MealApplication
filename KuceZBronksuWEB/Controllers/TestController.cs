@@ -1,6 +1,4 @@
-﻿using KuceZBronksuWEB.Models;
-using KuceZBronksuWEB.Services;
-using Microsoft.AspNetCore.Http;
+﻿using KuceZBronksuWEB.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KuceZBronksuWEB.Controllers
@@ -8,10 +6,12 @@ namespace KuceZBronksuWEB.Controllers
     public class TestController : Controller
     {
         private readonly SampleModel _testModels;
-        public TestController() 
+
+        public TestController()
         {
             _testModels = new SampleModel();
         }
+
         // GET: TestController
         public ActionResult Index()
         {

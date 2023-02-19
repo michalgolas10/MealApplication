@@ -21,19 +21,36 @@ namespace KuceZBronksuWEB.Controllers
                 return View("Index");
             }
 
-            List<Recipe> result = new();
+            List<RecipeViewModel> result = new List<RecipeViewModel>();
+            var recipies = TempDb.Recipes;
             if (model.IngrediendsList != null)
             {
                 List<string> ingrediends = model.IngrediendsList.Split(',').ToList();
-                result = KuceZBronksuLogic.Search.SearchByIngredients(ingrediends);
+                recipies = KuceZBronksuLogic.Search.SearchByIngredients(ingrediends, recipies);
             }
-            if(model.MealType!= null) {
-				result = KuceZBronksuLogic.Search.SearchByMealType(model.MealType.Split(',').ToList(), result);
-				return View(result);
+
+            if(model.MealType != null) 
+            {
+                recipies = KuceZBronksuLogic.Search.SearchByMealType(model.MealType.Split(',').ToList(), recipies);
 			}
-                
-            
-            return View(result);
+
+			if (model.KcalAmount != null)
+			{
+                recipies = KuceZBronksuLogic.Search.SearchByKcal(model.KcalAmount.Value,300d, recipies);
+			}
+
+            foreach(var recipe in recipies)
+            {
+                result.Add(new RecipeViewModel
+                {
+                    Label = recipe.Label,
+                    IngredientLines = recipe.IngredientLines,
+                    Calories = recipe.Calories.ToString("0.00"),
+                    MealType = recipe.MealType
+                });
+            }
+
+			return View(result);
         }
 
         /*

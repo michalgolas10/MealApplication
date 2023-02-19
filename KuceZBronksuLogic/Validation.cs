@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace KuceZBronksuLogic
 {
@@ -15,6 +10,7 @@ namespace KuceZBronksuLogic
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return rx.IsMatch(ValueInt);
         }
+
         public static bool ValidationIfMealTypeCorrect(string mealType)
         {
             if (mealType == "breakfast" || mealType == "teatime" || mealType == "lunch/dinner")

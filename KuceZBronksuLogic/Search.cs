@@ -23,28 +23,29 @@ namespace KuceZBronksuLogic
             }
             return result;
         }
-		public static List<Recipe> SearchByIngredients(List<string> products, List<Recipe> database)
-		{
-			//Przykładowe dane wejściowe
-			//List<string> list = new List<string>() { "mulberries", "sugar" };
+
+        public static List<Recipe> SearchByIngredients(List<string> products, List<Recipe> database)
+        {
+            //Przykładowe dane wejściowe
+            //List<string> list = new List<string>() { "mulberries", "sugar" };
             //List<Recipe> = database;
-			//var wynik = Search.SearchByIngredients(list, database);
+            //var wynik = Search.SearchByIngredients(list, database);
 
-			List<Recipe> result = new List<Recipe>();
-			if (products != null)
-			{
-				foreach (var recipe in database)
-				{
-					if (products.All(x => recipe.IngredientLines.Any(i => i.Contains(x, StringComparison.CurrentCultureIgnoreCase))))
-					{
-						result.Add(recipe);
-					}
-				}
-			}
-			return result;
-		}
+            List<Recipe> result = new List<Recipe>();
+            if (products != null)
+            {
+                foreach (var recipe in database)
+                {
+                    if (products.All(x => recipe.IngredientLines.Any(i => i.Contains(x, StringComparison.CurrentCultureIgnoreCase))))
+                    {
+                        result.Add(recipe);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static List<Recipe> SearchByMealType(List<string> mealType)
+        public static List<Recipe> SearchByMealType(List<string> mealType)
         {
             //Przykładowe dane wejściowe
             //List<string> list = new List<string>() {"lunch/dinner","teatime"};
@@ -64,28 +65,28 @@ namespace KuceZBronksuLogic
             return result;
         }
 
-		public static List<Recipe> SearchByMealType(List<string> mealType, List<Recipe> database)
-		{
-			//Przykładowe dane wejściowe
-			//List<string> list = new List<string>() {"lunch/dinner","teatime"};
-			//List<Recipe> = database;
-			//var wynik = Search.SearchByMealType(list, database);
+        public static List<Recipe> SearchByMealType(List<string> mealType, List<Recipe> database)
+        {
+            //Przykładowe dane wejściowe
+            //List<string> list = new List<string>() {"lunch/dinner","teatime"};
+            //List<Recipe> = database;
+            //var wynik = Search.SearchByMealType(list, database);
 
-			List<Recipe> result = new List<Recipe>();
-			if (mealType != null)
-			{
-				foreach (var recipe in database)
-				{
-					if (mealType.All(x => recipe.MealType.Any(i => i.Equals(x, StringComparison.CurrentCultureIgnoreCase))))
-					{
-						result.Add(recipe);
-					}
-				}
-			}
-			return result;
-		}
+            List<Recipe> result = new List<Recipe>();
+            if (mealType != null)
+            {
+                foreach (var recipe in database)
+                {
+                    if (mealType.All(x => recipe.MealType.Any(i => i.Equals(x, StringComparison.CurrentCultureIgnoreCase))))
+                    {
+                        result.Add(recipe);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static List<Recipe> SearchByKcal(double kcal, double margin)
+        public static List<Recipe> SearchByKcal(double kcal, double margin)
         {
             //Przykładowe dane wejściowe
             //var wynik = Search.SearchByKcal(1500d,150d);
@@ -104,27 +105,27 @@ namespace KuceZBronksuLogic
             return result;
         }
 
-		public static List<Recipe> SearchByKcal(double kcal, double margin, List<Recipe> database)
-		{
-			//Przykładowe dane wejściowe
-			//List<Recipe> = database;
-			//var wynik = Search.SearchByKcal(1500d,150d,database);
+        public static List<Recipe> SearchByKcal(double kcal, double margin, List<Recipe> database)
+        {
+            //Przykładowe dane wejściowe
+            //List<Recipe> = database;
+            //var wynik = Search.SearchByKcal(1500d,150d,database);
 
-			List<Recipe> result = new List<Recipe>();
-			if (kcal > 0 && margin >= 0)
-			{
-				foreach (var recipe in database)
-				{
-					if (Math.Abs(recipe.Calories - kcal) <= margin)
-					{
-						result.Add(recipe);
-					}
-				}
-			}
-			return result;
-		}
+            List<Recipe> result = new List<Recipe>();
+            if (kcal > 0 && margin >= 0)
+            {
+                foreach (var recipe in database)
+                {
+                    if (Math.Abs(recipe.Calories - kcal) <= margin)
+                    {
+                        result.Add(recipe);
+                    }
+                }
+            }
+            return result;
+        }
 
-		public static List<Recipe> DrawRecipesForDay(double amountoOfDailyCalories)
+        public static List<Recipe> DrawRecipesForDay(double amountoOfDailyCalories)
         {
             var nameOfMeal = new List<string>() { "breakfast" };
             List<Recipe> listOfBreakfast = new();

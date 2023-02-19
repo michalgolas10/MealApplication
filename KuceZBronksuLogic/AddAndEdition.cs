@@ -1,5 +1,4 @@
 ﻿using KuceZBronksuDAL;
-using System.Text.RegularExpressions;
 
 namespace KuceZBronksuLogic
 {
@@ -131,7 +130,6 @@ skladnik2,
                 Console.WriteLine("\nNieprawidłowy link.\n\nNaciśnij dowolny przycisk, żeby kontynuować");
                 Console.ReadKey();
             }
-
             else
             {
                 Console.WriteLine($"\nWprowadzono zmianę. Nowy adres URL to: {recipeUrl}");
@@ -184,7 +182,6 @@ skladnik2,
                 recip.HealthLabels = recip.HealthLabels;
                 Console.ReadKey();
             }
-
             else
             {
                 var healthLabelssplited = healthLabels.Split(',').ToList();

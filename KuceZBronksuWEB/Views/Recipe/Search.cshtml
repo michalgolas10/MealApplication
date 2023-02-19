@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KuceZBronksuDAL.Recipe>
+﻿@model IEnumerable<RecipeViewModel>
 
 @{
     ViewData["Title"] = "Search";
@@ -16,7 +16,10 @@
                 @Html.DisplayNameFor(model => model.Label)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ShareAs)
+                @Html.DisplayNameFor(model => model.IngredientLines)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MealType)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Calories)
@@ -31,15 +34,23 @@
                 @Html.DisplayFor(modelItem => item.Label)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ShareAs)
+                    @foreach (var ingredient in item.IngredientLines)
+                    {
+                        @Html.DisplayFor(modelItem => ingredient)
+                        <br/>
+                    }
+                 
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MealType)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Calories)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Details", "Details",  new object { },
+                new { @class = "btn btn-primary btn-lg active"} ) 
+
             </td>
         </tr>
 }

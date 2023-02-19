@@ -23,9 +23,10 @@ namespace KuceZBronksuWEB.Services
                     Id = 3,
                 }
             };
-        public List<TestModel> GetAll() 
-        { 
-            return _models; 
+
+        public List<TestModel> GetAll()
+        {
+            return _models;
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using KuceZBronksuWEB.Models;
-using Microsoft.AspNetCore.Http;
+﻿using KuceZBronksuDAL;
+using KuceZBronksuWEB.Models;
 using Microsoft.AspNetCore.Mvc;
-using KuceZBronksuLogic;
-using KuceZBronksuDAL;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -13,10 +11,11 @@ namespace KuceZBronksuWEB.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Search(SearchViewModel model)
         {
-            if(model == null)
+            if (model == null)
             {
                 return View("Index");
             }
@@ -29,17 +28,17 @@ namespace KuceZBronksuWEB.Controllers
                 recipies = KuceZBronksuLogic.Search.SearchByIngredients(ingrediends, recipies);
             }
 
-            if(model.MealType != null) 
+            if (model.MealType != null)
             {
                 recipies = KuceZBronksuLogic.Search.SearchByMealType(model.MealType.Split(',').ToList(), recipies);
-			}
+            }
 
-			if (model.KcalAmount != null)
-			{
-                recipies = KuceZBronksuLogic.Search.SearchByKcal(model.KcalAmount.Value,300d, recipies);
-			}
+            if (model.KcalAmount != null)
+            {
+                recipies = KuceZBronksuLogic.Search.SearchByKcal(model.KcalAmount.Value, 300d, recipies);
+            }
 
-            foreach(var recipe in recipies)
+            foreach (var recipe in recipies)
             {
                 result.Add(new RecipeViewModel
                 {
@@ -50,7 +49,7 @@ namespace KuceZBronksuWEB.Controllers
                 });
             }
 
-			return View(result);
+            return View(result);
         }
 
         /*

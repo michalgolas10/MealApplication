@@ -6,7 +6,6 @@
 //{
 //    public static class HtmlExtensions
 //    {
-        
 //        public static MvcHtmlString Nl2Br(this HtmlHelper htmlHelper, string text)
 //        {
 //            if (string.IsNullOrEmpty(text))

@@ -1,6 +1,8 @@
 ﻿using KuceZBronksuWEB.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.ProjectModel;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -17,6 +19,12 @@ namespace KuceZBronksuWEB.Controllers
         {
             return View();
         }
+        public IActionResult Search(SearchViewModel model)
+        {
+            
+            return View();
+        }
+
 
         public IActionResult Privacy()
         {

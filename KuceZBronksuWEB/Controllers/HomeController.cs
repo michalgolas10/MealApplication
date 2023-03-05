@@ -1,4 +1,6 @@
 ﻿using KuceZBronksuWEB.Models;
+using KuceZBronksuWEB.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.DotNet.Scaffolding.Shared.ProjectModel;
 using System.Diagnostics;
@@ -6,6 +8,7 @@ using System.Reflection;
 
 namespace KuceZBronksuWEB.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,12 +22,17 @@ namespace KuceZBronksuWEB.Controllers
         {
             return View();
         }
-        public IActionResult Search(SearchViewModel model)
-        {
-            
-            return View();
-        }
 
+
+        [HttpPost]
+        public ActionResult Search(SearchViewModel model)
+        {
+
+            var listOfRecipes = SearchService.Search(model);
+
+
+            return View(listOfRecipes);
+        }
 
         public IActionResult Privacy()
         {

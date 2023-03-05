@@ -1,0 +1,49 @@
+﻿@model IEnumerable<RecipeViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Label)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IngredientLines)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MealType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Calories)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Label)
+            </td>
+            <td>
+                    @foreach (var ingredient in item.IngredientLines)
+                    {
+                        @Html.DisplayFor(modelItem => ingredient)
+                        <br/>
+                    }
+                 
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MealType)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Calories)
+            </td>
+            <td>
+                    @Html.ActionLink("Details", "Details",  new object { },
+                new { @class = "btn btn-primary btn-lg active"} ) 
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

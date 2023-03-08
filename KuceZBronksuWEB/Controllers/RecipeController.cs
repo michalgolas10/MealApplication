@@ -30,11 +30,7 @@ namespace KuceZBronksuWEB.Controllers
                 return View("Index");
             }
            var listOfRecipes = _search.Search(model);
-            dynamic mymodel = new ExpandoObject();
-            mymodel.RecipesViewModel = listOfRecipes;
-            mymodel.SearchViewModel = model;
-
-            return View(mymodel);
+            return View(model);
         }
 
         /*

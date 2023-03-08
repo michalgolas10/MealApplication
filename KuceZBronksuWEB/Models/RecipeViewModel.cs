@@ -12,5 +12,7 @@ namespace KuceZBronksuWEB.Models
         public string Calories { get; set; }
 
         public List<string> MealType { get; set; }
+
+        public SearchViewModel SearchViewModel { get; set; }
     }
 }

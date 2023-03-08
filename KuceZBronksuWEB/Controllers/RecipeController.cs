@@ -3,15 +3,22 @@ using KuceZBronksuWEB.Models;
 using KuceZBronksuWEB.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
+using KuceZBronksuWEB.Interfaces;
+using System.Dynamic;
 
 namespace KuceZBronksuWEB.Controllers
 {
     public class RecipeController : Controller
     {
+        private readonly ISearch<RecipeViewModel> _search;
+        public RecipeController(ISearch<RecipeViewModel> search)
+        {
+            _search = search;
+        }
         // GET: RecipeController
         public ActionResult Index()
         {
-            var listOfRecipes = SearchService.Search();
+            var listOfRecipes = _search.GetAll();
             return View(listOfRecipes);
         }
 
@@ -22,10 +29,12 @@ namespace KuceZBronksuWEB.Controllers
             {
                 return View("Index");
             }
-           var listOfRecipes = SearchService.Search(model);
+           var listOfRecipes = _search.Search(model);
+            dynamic mymodel = new ExpandoObject();
+            mymodel.RecipesViewModel = listOfRecipes;
+            mymodel.SearchViewModel = model;
 
-
-            return View(listOfRecipes);
+            return View(mymodel);
         }
 
         /*

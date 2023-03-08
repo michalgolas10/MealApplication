@@ -1,11 +1,13 @@
 ﻿using KuceZBronksuDAL;
+using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
 
 namespace KuceZBronksuWEB.Services
 {
-    public class SearchService
+    public class SearchService : ISearch<RecipeViewModel>
     {
-        public static List<RecipeViewModel> Search (SearchViewModel model) 
+
+        public List<RecipeViewModel> Search (SearchViewModel model) 
         {
             List<RecipeViewModel> result = new List<RecipeViewModel>();
             var recipies = TempDb.Recipes;
@@ -34,10 +36,11 @@ namespace KuceZBronksuWEB.Services
             }
 
 
+
             return result;
         }
 
-        public static List<RecipeViewModel> Search()
+        public List<RecipeViewModel> GetAll()
         {
             List<RecipeViewModel> result = new List<RecipeViewModel>();
             var recipies = TempDb.Recipes;
@@ -54,5 +57,6 @@ namespace KuceZBronksuWEB.Services
             }
             return result;
         }
+
     }
 }

@@ -1,3 +1,7 @@
+using KuceZBronksuWEB.Models;
+using KuceZBronksuWEB.Interfaces;
+using KuceZBronksuWEB.Services;
+
 namespace KuceZBronksuWEB
 {
     public class Program
@@ -8,6 +12,7 @@ namespace KuceZBronksuWEB
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<ISearch<RecipeViewModel>, SearchService>();
 
             var app = builder.Build();
 

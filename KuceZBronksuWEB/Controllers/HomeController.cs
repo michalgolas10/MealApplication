@@ -1,4 +1,5 @@
-﻿using KuceZBronksuWEB.Models;
+﻿using KuceZBronksuWEB.Interfaces;
+using KuceZBronksuWEB.Models;
 using KuceZBronksuWEB.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,11 @@ namespace KuceZBronksuWEB.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ISearch<RecipeViewModel> _search;
+        public HomeController(ILogger<HomeController> logger, ISearch<RecipeViewModel> search)
         {
             _logger = logger;
+            _search = search;
         }
 
         public IActionResult Index()
@@ -28,7 +30,7 @@ namespace KuceZBronksuWEB.Controllers
         public ActionResult Search(SearchViewModel model)
         {
 
-            var listOfRecipes = SearchService.Search(model);
+            var listOfRecipes = _search.Search(model);
 
 
             return View(listOfRecipes);

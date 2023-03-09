@@ -1,4 +1,5 @@
 ﻿
+using KuceZBronksuDAL;
 using KuceZBronksuWEB.Models;
 
 namespace KuceZBronksuWEB.Interfaces
@@ -7,6 +8,7 @@ namespace KuceZBronksuWEB.Interfaces
     {
         List<T> Search(SearchViewModel model);
         List<T> GetAll();
+        RecipeViewModel GetByName(string name);
     }
     
 }

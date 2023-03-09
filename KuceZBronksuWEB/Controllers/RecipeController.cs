@@ -30,14 +30,15 @@ namespace KuceZBronksuWEB.Controllers
                 return View("Index");
             }
            var listOfRecipes = _search.Search(model);
-            return View(model);
+            return View(listOfRecipes);
         }
-
-        /*
         // GET: RecipeController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult ShowRecipeDetails(string label)
         {
-            return View();
+            var result = _search.GetByName(label);
+            return View(result);
+        }
+        /*
         }
 
         // GET: RecipeController/Create

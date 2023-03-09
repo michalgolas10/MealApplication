@@ -24,7 +24,10 @@ namespace KuceZBronksuWEB.Controllers
         {
             return View();
         }
-
+        public ActionResult Recipe(int id)
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult Search(SearchViewModel model)

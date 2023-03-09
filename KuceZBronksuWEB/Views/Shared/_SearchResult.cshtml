@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<RecipeViewModel>
-
+<div>
+    @foreach (var comment in Model)
+    {
+        @Html.Partial("~/Views/Shared/_SearchPanel.cshtml",comment.SearchViewModel)
+        break;
+    }
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -39,9 +45,8 @@
                 @Html.DisplayFor(modelItem => item.Calories)
             </td>
             <td>
-                    @Html.ActionLink("Details", "Details",  new object { },
-                new { @class = "btn btn-primary btn-lg active"} ) 
-
+                    <a class="btn btn-primary btn-lg active" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-label="@item.Label">
+                    </a>
             </td>
         </tr>
 }

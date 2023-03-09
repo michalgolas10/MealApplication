@@ -1,6 +1,8 @@
 ﻿using KuceZBronksuDAL;
+using KuceZBronksuLogic;
 using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
+using System.Reflection.Emit;
 
 namespace KuceZBronksuWEB.Services
 {
@@ -58,5 +60,17 @@ namespace KuceZBronksuWEB.Services
             return result;
         }
 
+        public RecipeViewModel GetByName(string name)
+        {
+            var recipe = TempDb.Recipes.FirstOrDefault(x => x.Label == name);
+            RecipeViewModel result = new()
+            {
+                Label = recipe.Label,
+                IngredientLines = recipe.IngredientLines,
+                Calories = recipe.Calories.ToString("0.00"),
+                MealType = recipe.MealType
+            };
+            return result;
+        }
     }
 }

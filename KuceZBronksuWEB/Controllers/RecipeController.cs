@@ -19,7 +19,11 @@ namespace KuceZBronksuWEB.Controllers
         public ActionResult Index()
         {
             var listOfRecipes = _search.GetAll();
-            return View(listOfRecipes);
+            var vm = new RecipiesViewModel()
+            {
+                Recipies = listOfRecipes,
+            };
+            return View(vm);
         }
 
         [HttpPost]

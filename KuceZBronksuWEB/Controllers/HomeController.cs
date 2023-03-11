@@ -24,11 +24,6 @@ namespace KuceZBronksuWEB.Controllers
         {
             return View();
         }
-        public ActionResult Recipe(int id)
-        {
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();

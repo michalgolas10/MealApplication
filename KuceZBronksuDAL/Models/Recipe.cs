@@ -31,8 +31,5 @@ namespace KuceZBronksuDAL
 
         [JsonPropertyName("mealType")]
         public List<string> MealType { get; set; }
-
-        [JsonPropertyName("totalNutrients")]
-        public TotalNutrients TotalNutrients { get; set; }
     }
 }

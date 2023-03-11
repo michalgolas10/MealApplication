@@ -25,7 +25,6 @@ namespace KuceZBronksuLogic
             string cuisineType = Console.ReadLine();
             var cuisineTypeList = cuisineType.Split(',').ToList();
             var mealTypeList = AddMealType();
-            TotalNutrients totalNutrients = new();
             var Recipe = new Recipe()
             {
                 Label = label,
@@ -37,7 +36,6 @@ namespace KuceZBronksuLogic
                 Cautions = cautionsList,
                 CuisineType = cuisineTypeList,
                 MealType = mealTypeList,
-                TotalNutrients = totalNutrients,
             };
             return Recipe;
         }

@@ -29,16 +29,6 @@ namespace KuceZBronksuWEB.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Search(SearchViewModel model)
-        {
-
-            var listOfRecipes = _search.Search(model);
-
-
-            return View(listOfRecipes);
-        }
-
         public IActionResult Privacy()
         {
             return View();

@@ -1,31 +1,29 @@
-﻿@model IEnumerable<RecipeViewModel>
+﻿@model KuceZBronksuWEB.Models.RecipiesViewModel
 <div>
-    @foreach (var comment in Model)
-    {
-        @Html.Partial("~/Views/Shared/_SearchPanel.cshtml",comment.SearchViewModel)
-        break;
-    }
+    @Html.Partial("~/Views/Shared/_SearchPanel.cshtml", Model.Search)
+
+
 </div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Label)
+                @Html.DisplayNameFor(model => model.Recipies.First().Label)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IngredientLines)
+                @Html.DisplayNameFor(model => model.Recipies.First().IngredientLines)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MealType)
+                @Html.DisplayNameFor(model => model.Recipies.First().MealType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Calories)
+                @Html.DisplayNameFor(model => model.Recipies.First().Calories)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model.Recipies) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Label)

@@ -28,16 +28,8 @@ namespace KuceZBronksuWEB.Services
             }
             foreach (var recipe in recipies)
             {
-                result.Add(new RecipeViewModel
-                {
-                    Label = recipe.Label,
-                    IngredientLines = recipe.IngredientLines,
-                    Calories = recipe.Calories.ToString("0.00"),
-                    MealType = recipe.MealType
-                });
+                result.Add(new RecipeViewModel().FillModel(recipe));
             }
-
-
 
             return result;
         }
@@ -49,13 +41,7 @@ namespace KuceZBronksuWEB.Services
             
             foreach (var recipe in recipies)
             {
-                result.Add(new RecipeViewModel
-                {
-                    Label = recipe.Label,
-                    IngredientLines = recipe.IngredientLines,
-                    Calories = recipe.Calories.ToString("0.00"),
-                    MealType = recipe.MealType
-                });
+                result.Add(new RecipeViewModel().FillModel(recipe));
             }
             return result;
         }
@@ -63,13 +49,8 @@ namespace KuceZBronksuWEB.Services
         public RecipeViewModel GetByName(string name)
         {
             var recipe = TempDb.Recipes.FirstOrDefault(x => x.Label == name);
-            RecipeViewModel result = new()
-            {
-                Label = recipe.Label,
-                IngredientLines = recipe.IngredientLines,
-                Calories = recipe.Calories.ToString("0.00"),
-                MealType = recipe.MealType
-            };
+            var result = new RecipeViewModel().FillModel(recipe);
+
             return result;
         }
     }

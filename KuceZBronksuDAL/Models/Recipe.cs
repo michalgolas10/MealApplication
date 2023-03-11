@@ -4,7 +4,7 @@ namespace KuceZBronksuDAL
 {
     public class Recipe
     {
-        [JsonPropertyName("label")]
+        [JsonPropertyName("label")] // TODO: REmove if only case is different
         public string Label { get; set; }
 
         [JsonPropertyName("shareAs")]
@@ -21,6 +21,7 @@ namespace KuceZBronksuDAL
 
         [JsonPropertyName("ingredientLines")]
         public List<string> IngredientLines { get; set; }
+        public List<string> RecipeSteps { get; set; }
 
         [JsonPropertyName("calories")]
         public double Calories { get; set; }

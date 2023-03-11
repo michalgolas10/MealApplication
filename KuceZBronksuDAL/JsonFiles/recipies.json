@@ -1,6 +1,11 @@
 [
   {
     "recipe": {
+	   "recipeSteps": [
+        "6 pounds firm-but-ripe freestone apricots, such as Blenheims, halved and pitted",
+        "2 pounds 10 ounces granualted sugar",
+        "3 ounces (6 tablespoons) fresh lemon juice from 3 lemons"
+      ],
       "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_87eb085962fcad3a9d01899102699959",
       "label": "Rustic Apricot Jam Recipe",
       "image": "https://edamam-product-images.s3.amazonaws.com/web-img/1c1/1c1b41aa73733cf207c3675bfe438ae1.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjELH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIBoSNVGDNoUYzzLegm7cCKzFV%2FHelsdqPmWWDtdsh6XRAiEA6NuPVmliVa4IlGfT4rz9qskjMseD86V71Gw9JpIOGlMqzAQIGhAAGgwxODcwMTcxNTA5ODYiDF0AKmqmJtBb%2FTnP4yqpBABEBWKK7i5NchhW5U8IDm4vtAGpLH9QQ71Dt43tXKdFva0d4F%2BYMfCgReCo2QJYQlgB8ZPLYT7hiOX1mGVSpxS%2BH5zrtDXWxko%2BLKe1QCfo5BXsYeL1fL90UfhDYf9pDw82CTYiL%2Fcw7DORBbB4BnikTiOZhxXJeWwTtPApRn8tMFgWUCI0Bv7BNnQEMtlj5SQ%2FT94cKZqrfazxmpXNLb1MODIAhH3ihVz7k0V3%2FhI2n%2FtQDWfzEI6O8OlXMGzqMAckyxAkhzzAxG0NyY%2FXAWWlhx07VYEI%2FDgd%2FF4AJBReERtjTi5I77qBUXklOtH42rVVOjS0Tpv6Wta5q36OJNlrcfe3f5%2BFYxzVDhqRjYZ0QAWu8jmSaxafhnqysRMeGGalFZMnPS5sJYYXHok0yZefUuELihCau43Tjimi06SkOwKciAkFDJoIq4TrwmDXDDiBcpGJah03%2BpkL40ryBZPK%2BBoPTYtc3aV5tN5aHvKlIH2wDW5cx9Uus5t2YacDbL7XAk0FX3g0xN5J8mXmR%2FH2BII%2FOdL8fpOGMolciu0MvFe6N%2F5OrXu%2BI%2FXbWSFmehbzFgDebyK7gaXovydtgIFramnM6OYsfCcaWHJzySQN1O0UpUaWRAuLnVjTfVYy8nzGMkcLVY%2FMWxTdwXAqz01p%2BcNrvspbjDWtQQPLJ9wz%2FssDmYP%2FuiwWN%2BjiOxju2hYH1VDng5BlS2hqKi%2B4ktT5oLfOwl2a3jcw6tKQngY6qQGhO%2FClwVk71z18wtvCUyEQSZhfAsfc2Hn67qp2lM1o7ATcpwdF1qf%2BelMoD4HsRDcZAVTBG5pKsUUlwpFpkVOVZ8DfpsNGMmneWFAS7%2BviIDaqxjCVKx%2BEjVq2500v0mmxpJk6lhhDd%2F0NH1QcCrbMs3u%2F1WWh1P56TjVqqt1Q8U9DKKoUVJZOFVMFqomExVXAp1O506Oe4tlohnD7uwRGQQm3LEtIytl9&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230115T174335Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFNQPLG3QR%2F20230115%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5aee14a2450a45672bdfbf16dee62f1921debfb3aeb28150697da578b79bd383",
@@ -67,6 +72,7 @@
         "2 pounds 10 ounces granualted sugar",
         "3 ounces (6 tablespoons) fresh lemon juice from 3 lemons"
       ],
+
       "ingredients": [
         {
           "text": "6 pounds firm-but-ripe freestone apricots, such as Blenheims, halved and pitted",

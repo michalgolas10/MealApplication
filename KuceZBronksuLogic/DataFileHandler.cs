@@ -12,7 +12,8 @@ namespace KuceZBronksuLogic
             {
                 PropertyNameCaseInsensitive = true
             };
-            string JsonDeserialized = File.ReadAllText(@".\JsonFiles\recipies.json"); // TODO: Point to the file in DAL project
+            string JsonFilePath = "../KuceZBronksuDAL/JsonFiles/recipies.json";
+            string JsonDeserialized = File.ReadAllText(JsonFilePath);
 
             var recipeList = JsonSerializer.Deserialize<List<Root>>(JsonDeserialized, options);
             if (recipeList != null)

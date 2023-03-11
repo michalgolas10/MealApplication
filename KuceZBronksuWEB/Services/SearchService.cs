@@ -1,15 +1,12 @@
 ﻿using KuceZBronksuDAL;
-using KuceZBronksuLogic;
 using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
-using System.Reflection.Emit;
 
 namespace KuceZBronksuWEB.Services
 {
     public class SearchService : ISearch<RecipeViewModel>
     {
-
-        public List<RecipeViewModel> Search (SearchViewModel model) 
+        public List<RecipeViewModel> Search(SearchViewModel model)
         {
             List<RecipeViewModel> result = new List<RecipeViewModel>();
             var recipies = TempDb.Recipes;
@@ -38,7 +35,7 @@ namespace KuceZBronksuWEB.Services
         {
             List<RecipeViewModel> result = new List<RecipeViewModel>();
             var recipies = TempDb.Recipes;
-            
+
             foreach (var recipe in recipies)
             {
                 result.Add(new RecipeViewModel().FillModel(recipe));

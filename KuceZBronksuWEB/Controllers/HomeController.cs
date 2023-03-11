@@ -1,19 +1,15 @@
 ﻿using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
-using KuceZBronksuWEB.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.Scaffolding.Shared.ProjectModel;
 using System.Diagnostics;
-using System.Reflection;
 
 namespace KuceZBronksuWEB.Controllers
 {
-
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ISearch<RecipeViewModel> _search;
+
         public HomeController(ILogger<HomeController> logger, ISearch<RecipeViewModel> search)
         {
             _logger = logger;
@@ -21,10 +17,6 @@ namespace KuceZBronksuWEB.Controllers
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-        public IActionResult Privacy()
         {
             return View();
         }

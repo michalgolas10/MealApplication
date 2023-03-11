@@ -13,6 +13,7 @@ namespace KuceZBronksuWEB.Models
         public string Calories { get; set; }
 
         public List<string> MealType { get; set; }
+
         public List<string> RecipeSteps { get; set; }
 
         public RecipeViewModel FillModel(Recipe baseModel) // TODO: Double check and replace all old mappings with this.

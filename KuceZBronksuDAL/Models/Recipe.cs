@@ -21,5 +21,7 @@
         public List<string> CuisineType { get; set; }
 
         public List<string> MealType { get; set; }
+
+        public Images Images { get; set; }
     }
 }

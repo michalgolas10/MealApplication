@@ -18,6 +18,7 @@ namespace KuceZBronksuLogic
             var recipeList = JsonSerializer.Deserialize<List<Root>>(JsonDeserialized, options);
             if (recipeList != null)
             {
+
                 TempDb.Recipes = recipeList.Select(x => x.Recipe).ToList();
             }
             else

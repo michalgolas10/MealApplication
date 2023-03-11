@@ -38,14 +38,14 @@ namespace KuceZBronksuWEB.Controllers
             var result = _search.GetByName(label);
             return View(result);
         }
-        /*
-        }
-
         // GET: RecipeController/Create
         public ActionResult Create()
         {
             return View();
         }
+        
+        /*
+
 
         // POST: RecipeController/Create
         [HttpPost]

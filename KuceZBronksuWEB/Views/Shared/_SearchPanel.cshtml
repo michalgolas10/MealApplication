@@ -1,18 +1,21 @@
 ﻿@model KuceZBronksuWEB.Models.SearchViewModel
 <form asp-action="Search">
     <div class="card mb-4">
-        <div class="card-header">Search</div>
+        <div class="card-header">Search Recipe</div>
 
         <div class="card-body">
+            <div class="small text-muted">Recipe name</div>
             <div class="input-group">
                 <input asp-for="IngrediendsList" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." />
             </div>
             <br>
+            <div class="small text-muted">Meal type</div>
             <div class="input-group">
                 <input asp-for="MealType" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." />
 
             </div>
             <br>
+            <div class="small text-muted">Kcal amount</div>
             <div class="input-group">
                 <input asp-for="KcalAmount" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." />
 

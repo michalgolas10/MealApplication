@@ -1,13 +1,12 @@
-﻿@model KuceZBronksuWEB.Models.RecipeViewModel
+@model KuceZBronksuWEB.Models.RecipeViewModel
 
 @{
     ViewData["Title"] = "_RecipeView";
 }
 
-<h1>_RecipeView</h1>
+<h1>Recipe Details</h1>
 
 <div>
-    <h4>RecipeViewModel</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -27,9 +26,20 @@
             <dd class="col-sm-10">
                 @item
             </dd>
-        }  
-        <img src="@Model.Images.LARGE.Url" alt="@Model.Images.LARGE.Url"></img>
+        }   
+    
+    <dt class="col-sm-2">Recipe steps</dt>
+        <br>
+        @foreach (var item in Model.RecipeSteps)
+        {
+            <dd class="col-sm-10">
+                @item
+            </dd>
+        }   
     </dl>
+</div>
+<div class ="image">
+<img src="@Model.Images.LARGE.Url" alt="@Model.Images.LARGE.Url"></img>
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |

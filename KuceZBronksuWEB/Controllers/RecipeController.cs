@@ -56,15 +56,16 @@ namespace KuceZBronksuWEB.Controllers
         [HttpPost]
         public ActionResult CreateRecipe(CreateViewModel pageModel)
         {
-
-            try
-            {
+            if (pageModel.Label == null && pageModel.ShareAs == null && pageModel.Calories == null && pageModel.Images == null)
+            { 
+                return RedirectToAction("Create");
+            }
 
                 Recipe databaseModel = new Recipe
                 {
                     Label = pageModel.Label,
                     ShareAs = pageModel.ShareAs,
-                    Calories = pageModel.Calories,
+                    Calories = double.Parse(pageModel.Calories),
                     DietLabels = pageModel.DietLabels.Split(',').ToList(),
                     HealthLabels = pageModel.HealthLabels.Split(",").ToList(),
                     Cautions = pageModel.Cautions.Split(",").ToList(),
@@ -82,11 +83,7 @@ namespace KuceZBronksuWEB.Controllers
                 };
 
                 TempDb.Recipes.Add(databaseModel);
-            }
-            catch (NullReferenceException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
+
             return RedirectToAction("Create");
         }
     }

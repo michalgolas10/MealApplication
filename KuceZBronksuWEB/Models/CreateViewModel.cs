@@ -18,7 +18,7 @@ namespace KuceZBronksuWEB.Models
 
         public string RecipeSteps { get; set; }
 
-        public double Calories { get; set; }
+        public string Calories { get; set; }
 
         public string CuisineType { get; set; }
 

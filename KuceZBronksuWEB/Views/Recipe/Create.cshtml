@@ -1,16 +1,15 @@
-﻿@model KuceZBronksuWEB.Models.RecipeViewModel
+﻿@model KuceZBronksuWEB.Models.CreateViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Recipe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h4>Create Recipe</h4>
 
-<h4>RecipeViewModel</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="CreateRecipe">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Label" class="control-label"></label>
@@ -18,21 +17,62 @@
                 <span asp-validation-for="Label" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="ShareAs" class="control-label"></label>
+                <input asp-for="ShareAs" class="form-control" />
+                <span asp-validation-for="ShareAs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DietLabels" class="control-label"></label>
+                <input asp-for="DietLabels" class="form-control" />
+                <span asp-validation-for="DietLabels" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HealthLabels" class="control-label"></label>
+                <input asp-for="HealthLabels" class="form-control" />
+                <span asp-validation-for="HealthLabels" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cautions" class="control-label"></label>
+                <input asp-for="Cautions" class="form-control" />
+                <span asp-validation-for="Cautions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IngredientLines" class="control-label"></label>
+                <input asp-for="IngredientLines" class="form-control" />
+                <span asp-validation-for="IngredientLines" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipeSteps" class="control-label"></label>
+                <input asp-for="RecipeSteps" class="form-control" />
+                <span asp-validation-for="RecipeSteps" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Calories" class="control-label"></label>
                 <input asp-for="Calories" class="form-control" />
                 <span asp-validation-for="Calories" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="CuisineType" class="control-label"></label>
+                <input asp-for="CuisineType" class="form-control" />
+                <span asp-validation-for="CuisineType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MealType" class="control-label"></label>
+                <input asp-for="MealType" class="form-control" />
+                <span asp-validation-for="MealType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Images" class="control-label"></label>
+                <input asp-for="Images" class="form-control" />
+                <span asp-validation-for="Images" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="Index"><input type="button" value="Back" class="btn btn-primary" /></a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

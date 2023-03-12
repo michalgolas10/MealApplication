@@ -16,7 +16,7 @@ namespace KuceZBronksuWEB.Models
 
         public List<string> MealType { get; set; }
 
-        public List<string> RecipeSteps { get; set; }
+        public List<string>? RecipeSteps { get; set; }
 
         public Images Images { get; set; }
 

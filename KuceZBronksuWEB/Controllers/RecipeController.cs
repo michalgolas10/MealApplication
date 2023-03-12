@@ -1,6 +1,8 @@
-﻿using KuceZBronksuWEB.Interfaces;
+﻿using KuceZBronksuDAL;
+using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -25,19 +27,19 @@ namespace KuceZBronksuWEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(SearchViewModel model)
+        public ActionResult Search(SearchViewModel pageModel)
         {
-            if (model == null)
+            if (pageModel == null)
             {
                 return View("Index");
             }
-            var listOfRecipes = _search.Search(model);
-            var vm = new RecipiesViewModel()
+            var listOfRecipes = _search.Search(pageModel);
+            var resultModel = new RecipiesViewModel()
             {
                 Recipies = listOfRecipes,
-                Search = model
+                Search = pageModel
             };
-            return View(vm);
+            return View(resultModel);
         }
 
         // GET: RecipeController/Details/5
@@ -45,6 +47,47 @@ namespace KuceZBronksuWEB.Controllers
         {
             var result = _search.GetByName(label);
             return View(result);
+        }
+
+        public ActionResult Create()
+        { 
+            return View("Create");
+        }
+        [HttpPost]
+        public ActionResult CreateRecipe(CreateViewModel pageModel)
+        {
+
+            try
+            {
+
+                Recipe databaseModel = new Recipe
+                {
+                    Label = pageModel.Label,
+                    ShareAs = pageModel.ShareAs,
+                    Calories = pageModel.Calories,
+                    DietLabels = pageModel.DietLabels.Split(',').ToList(),
+                    HealthLabels = pageModel.HealthLabels.Split(",").ToList(),
+                    Cautions = pageModel.Cautions.Split(",").ToList(),
+                    IngredientLines = pageModel.IngredientLines.Split(",").ToList(),
+                    RecipeSteps = pageModel.RecipeSteps.Split(",").ToList(),
+                    CuisineType = pageModel.CuisineType.Split(",").ToList(),
+                    MealType = pageModel.MealType.Split(",").ToList(),
+                    Images = new Images
+                    {
+                        LARGE = new LARGE
+                        {
+                            Url = pageModel.Images
+                        }
+                    }
+                };
+
+                TempDb.Recipes.Add(databaseModel);
+            }
+            catch (NullReferenceException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            return RedirectToAction("Create");
         }
     }
 }

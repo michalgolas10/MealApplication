@@ -1,52 +1,33 @@
 ﻿@model KuceZBronksuWEB.Models.RecipiesViewModel
+
 <div>
     @Html.Partial("~/Views/Shared/_SearchPanel.cshtml", Model.Search)
-
-
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipies.First().Label)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipies.First().IngredientLines)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipies.First().MealType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipies.First().Calories)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Recipies) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Label)
-            </td>
-            <td>
-                    @foreach (var ingredient in item.IngredientLines)
-                    {
-                        @Html.DisplayFor(modelItem => ingredient)
-                        <br/>
-                    }
-                 
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MealType)
-                </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Calories)
-            </td>
-            <td>
-                    <a class="btn btn-primary btn-lg active" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-label="@item.Label">
-                    </a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<body>
+        <div class="container">
+            <div class="row">
+        @foreach (var item in Model.Recipies)
+        {
+                <div class="col-md-6 col-lg-3">
+                    <div class="card">
+                        <img src="" class="card-img-top"/>
+                        <div class="card-block">
+                            <h3 class="card-title text-center">@Html.DisplayFor(modelItem => item.Label)</h3>
+                            <p class="text-center">@Html.DisplayFor(modelItem => item.Calories) Kcal</p>
+                        <div class="row">
+                        <a class="btn btn-primary btn-lg active" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-label="@item.Label">Show details</a>
+                        <a class="btn btn-primary btn-lg active" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-label="@item.Label">Add to favourite!</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+        }
+            </div>
+        </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>

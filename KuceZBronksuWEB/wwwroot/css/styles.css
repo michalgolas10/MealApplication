@@ -48,7 +48,7 @@
     --bs-warning-rgb: 255, 193, 7;
     --bs-danger-rgb: 220, 53, 69;
     --bs-light-rgb: 248, 249, 250;
-    --bs-dark-rgb: 33, 37, 41;
+    --bs-dark-rgb: /*33, 37, 41*/ 233, 224, 210;
     --bs-white-rgb: 255, 255, 255;
     --bs-black-rgb: 0, 0, 0;
     --bs-body-color-rgb: 33, 37, 41;
@@ -3140,7 +3140,7 @@ textarea.form-control-lg {
     display: inline-block;
     font-weight: 400;
     line-height: 1.5;
-    color: #212529;
+    color: rgba(205, 133, 63, 0.9)/*#212529*/;
     text-align: center;
     text-decoration: none;
     vertical-align: middle;
@@ -3179,20 +3179,20 @@ textarea.form-control-lg {
 
 .btn-primary {
     color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: #cd853f /*#0d6efd*/;
+    border-color: #af804f/*#0d6efd*/;
 }
 
     .btn-primary:hover {
         color: #fff;
-        background-color: #0b5ed7;
-        border-color: #0a58ca;
+        background-color: #a0522d /*#0b5ed7*/;
+        border-color: #8b4513 /*#0a58ca*/;
     }
 
     .btn-check:focus + .btn-primary, .btn-primary:focus {
         color: #fff;
-        background-color: #0b5ed7;
-        border-color: #0a58ca;
+        background-color: #a0522d /*#0b5ed7*/;
+        border-color: #8b4513/*#0a58ca*/;
         box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
     }
 
@@ -4351,7 +4351,7 @@ textarea.form-control-lg {
     padding-top: 0.3125rem;
     padding-bottom: 0.3125rem;
     margin-right: 1rem;
-    font-size: 1.25rem;
+    font-size: 1.8rem;
     text-decoration: none;
     white-space: nowrap;
 }
@@ -4852,7 +4852,9 @@ textarea.form-control-lg {
     }
 
 .navbar-dark .navbar-brand {
-    color: #fff;
+    /*color: #fff;*/
+    color: rgba(160, 82, 45, 0.55);
+    font-weight: bold;
 }
 
     .navbar-dark .navbar-brand:hover, .navbar-dark .navbar-brand:focus {
@@ -4860,15 +4862,18 @@ textarea.form-control-lg {
     }
 
 .navbar-dark .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba( /*255, 255, 255*/ 205, 133, 63, 0.55);
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-transform: uppercase;
 }
 
     .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
-        color: rgba(255, 255, 255, 0.75);
+        color: rgba( 255, 255, 255 /*205, 133, 63*/, 0.75);
     }
 
     .navbar-dark .navbar-nav .nav-link.disabled {
-        color: rgba(255, 255, 255, 0.25);
+        color: rgba( 255, 255, 255 /*205, 133, 63*/, 0.25);
     }
 
     .navbar-dark .navbar-nav .show > .nav-link,

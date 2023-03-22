@@ -51,28 +51,29 @@ namespace KuceZBronksuWEB.Controllers
 
         public ActionResult Create()
         { 
-            return View("Create");
+            return View();
         }
-        [HttpPost]
-        public ActionResult CreateRecipe(CreateViewModel pageModel)
-        {
-            if (pageModel.Label == null && pageModel.ShareAs == null && pageModel.Calories == null && pageModel.Images == null)
-            { 
-                return RedirectToAction("Create");
-            }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateViewModel pageModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(pageModel);
+            }
                 Recipe databaseModel = new Recipe
                 {
                     Label = pageModel.Label,
                     ShareAs = pageModel.ShareAs,
                     Calories = double.Parse(pageModel.Calories),
-                    DietLabels = pageModel.DietLabels.Split(',').ToList(),
-                    HealthLabels = pageModel.HealthLabels.Split(",").ToList(),
-                    Cautions = pageModel.Cautions.Split(",").ToList(),
+                    DietLabels = pageModel.DietLabels,
+                    HealthLabels = pageModel.HealthLabels,
+                    Cautions = pageModel.Cautions,
                     IngredientLines = pageModel.IngredientLines.Split(",").ToList(),
                     RecipeSteps = pageModel.RecipeSteps.Split(",").ToList(),
-                    CuisineType = pageModel.CuisineType.Split(",").ToList(),
-                    MealType = pageModel.MealType.Split(",").ToList(),
+                    CuisineType = pageModel.CuisineType,
+                    MealType = pageModel.MealType,
                     Images = new Images
                     {
                         LARGE = new LARGE

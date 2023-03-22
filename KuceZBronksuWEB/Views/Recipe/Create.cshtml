@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateRecipe">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Label" class="control-label"></label>
@@ -22,21 +22,11 @@
                 <span asp-validation-for="ShareAs" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DietLabels" class="control-label"></label>
-                <input asp-for="DietLabels" class="form-control" />
-                <span asp-validation-for="DietLabels" class="text-danger"></span>
+                <label asp-for="Images" class="control-label"></label>
+                <input asp-for="Images" class="form-control" />
+                <span asp-validation-for="Images" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="HealthLabels" class="control-label"></label>
-                <input asp-for="HealthLabels" class="form-control" />
-                <span asp-validation-for="HealthLabels" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cautions" class="control-label"></label>
-                <input asp-for="Cautions" class="form-control" />
-                <span asp-validation-for="Cautions" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+                       <div class="form-group">
                 <label asp-for="IngredientLines" class="control-label"></label>
                 <input asp-for="IngredientLines" class="form-control" />
                 <span asp-validation-for="IngredientLines" class="text-danger"></span>
@@ -51,28 +41,57 @@
                 <input asp-for="Calories" class="form-control" />
                 <span asp-validation-for="Calories" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="Cautions" class="control-label"></label>
+                <select asp-for="Cautions" class="form-select" multiple aria-label="multiple select example">
+                    <option value="Sulfites">Sulfites</option>
+                    <option value="Gluten">Gluten</option>
+                    <option value="Wheat">Wheat</option>
+                </select>
+                <span asp-validation-for="Cautions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HealthLabels" class="control-label"></label>
+                <select asp-for="HealthLabels" class="form-select" multiple aria-label="multiple select example">
+                    <option value="Vegan">Vegan</option>
+                    <option value="Gluten-Free">Gluten-Free</option>
+                    <option value="Fish-Free">Fish-Free</option>
+                </select>
+                <span asp-validation-for="HealthLabels" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DietLabels" class="control-label"></label>
+                <select asp-for="DietLabels" class="form-select" multiple aria-label="multiple select example">
+                    <option value="Low-Fat">Low-Fat</option>
+                    <option value="Low-Sodium">Low-Sodium</option>
+                </select>
+                <span asp-validation-for="DietLabels" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="CuisineType" class="control-label"></label>
-                <input asp-for="CuisineType" class="form-control" />
+                <select asp-for="CuisineType" class="form-select" multiple aria-label="multiple select example">
+                    <option value="American">American</option>
+                    <option value="Mexican">Mexican</option>
+                </select>
                 <span asp-validation-for="CuisineType" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="MealType" class="control-label"></label>
-                <input asp-for="MealType" class="form-control" />
+                <select asp-for="MealType" class="form-select" multiple aria-label="multiple select example">
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Dinner">Dinner</option>
+                </select>
                 <span asp-validation-for="MealType" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Images" class="control-label"></label>
-                <input asp-for="Images" class="form-control" />
-                <span asp-validation-for="Images" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-            <div>
                 <a asp-action="Index"><input type="button" value="Back" class="btn btn-primary" /></a>
             </div>
+
         </form>
-    </div>
 </div>
 

@@ -108,7 +108,11 @@
       return false;
     }
 
-    if (typeof obj.jquery !== 'undefined') {
+    if (typeof obj.
+
+
+
+ !== 'undefined') {
       obj = obj[0];
     }
 

@@ -21,10 +21,11 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Calories)
         </dd>
-        @foreach (var item in Model.IngredientLines)
+     <dt class="col-sm-2">Meal Type</dt>
+        @foreach (var item in Model.MealType)
         {
             <dd class="col-sm-10">
-                @item
+                @Html.DisplayFor(m => item)
             </dd>
         }   
     </dl>
@@ -33,9 +34,42 @@
         @foreach (var item in Model.RecipeSteps)
         {
             <dd class="col-sm-10">
-                @item
+                @Html.DisplayFor( m => item)
             </dd>
-        }   
+        } 
+        
+     <dt class="col-sm-2">Cuisine Type</dt>
+        <br>
+        @foreach (var item in Model.CuisineType)
+        {
+            <dd class="col-sm-10">
+                @Html.DisplayFor( m => item)
+            </dd>
+        }
+    <dt class="col-sm-2">HealthLabels</dt>
+        <br>
+        @foreach (var item in Model.HealthLabels)
+        {
+            <dd class="col-sm-10">
+                @Html.DisplayFor( m => item)
+            </dd>
+        }
+    <dt class="col-sm-2">Cautions</dt>
+    <br>
+    @foreach (var item in Model.Cautions)
+    {
+        <dd class="col-sm-10">
+            @Html.DisplayFor( m => item)
+        </dd>
+    }
+    <dt class="col-sm-2">DietLabels</dt>
+    <br>
+    @foreach (var item in Model.DietLabels)
+    {
+        <dd class="col-sm-10">
+            @Html.DisplayFor( m => item)
+        </dd>
+    }
 </div>
 <div class ="image">
 <img src="@Model.Images.LARGE.Url" alt="@Model.Images.LARGE.Url"></img>

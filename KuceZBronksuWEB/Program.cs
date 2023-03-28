@@ -13,7 +13,7 @@ namespace KuceZBronksuWEB
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddDbContext<ShopApplicationContext>(options =>
+            builder.Services.AddDbContext<MealAppContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksu;TrustServerCertificate=True;Integrated Security=true;")));
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 

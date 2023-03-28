@@ -13,9 +13,9 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace KuceZBronksuDAL.Context
 {
-    public class ShopApplicationContext : DbContext
+    public class MealAppContext : DbContext
     {
-        public ShopApplicationContext(DbContextOptions<ShopApplicationContext> options) : base(options)
+        public MealAppContext(DbContextOptions<MealAppContext> options) : base(options)
         {
         }
         public DbSet<Recipe> Recipes { get; set; }

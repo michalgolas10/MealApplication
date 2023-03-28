@@ -1,6 +1,10 @@
+using KuceZBronksuDAL.Context;
+using KuceZBronksuDAL.Repository.IRepository;
+using KuceZBronksuDAL.Repository;
 using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
 using KuceZBronksuWEB.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace KuceZBronksuWEB
 {
@@ -9,6 +13,9 @@ namespace KuceZBronksuWEB
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<ShopApplicationContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksu;TrustServerCertificate=True;Integrated Security=true;")));
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

@@ -30,7 +30,7 @@ namespace KuceZBronksuDAL.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksu;TrustServerCertificate=True;Integrated Security=true;", b => b.MigrationsAssembly("Ex7"));
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;", b => b.MigrationsAssembly("KuceZBronksuWEB"));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

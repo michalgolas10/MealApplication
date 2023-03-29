@@ -1,6 +1,9 @@
-﻿namespace KuceZBronksuDAL
+﻿using KuceZBronksuDAL.Models;
+using KuceZBronksuDAL.Models.BaseEntity;
+
+namespace KuceZBronksuDAL
 {
-    public class Recipe
+    public class Recipe : Entity
     {
         public string Label { get; set; }
 
@@ -23,5 +26,6 @@
         public List<string> MealType { get; set; }
 
         public Images Images { get; set; }
+        public User User { get; set; }
     }
 }

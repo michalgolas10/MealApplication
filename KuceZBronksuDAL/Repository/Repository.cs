@@ -1,5 +1,4 @@
-﻿using KuceZBronksuDAL.Entities.BaseEntity;
-using KuceZBronksuDAL.Repository.IRepository;
+﻿using KuceZBronksuDAL.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KuceZBronksuDAL.Context;
 using Microsoft.EntityFrameworkCore;
+using KuceZBronksuDAL.Models.BaseEntity;
 
 namespace KuceZBronksuDAL.Repository
 {

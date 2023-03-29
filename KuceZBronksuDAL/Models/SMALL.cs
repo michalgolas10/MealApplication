@@ -1,6 +1,8 @@
-﻿namespace KuceZBronksuDAL
+﻿using KuceZBronksuDAL.Models.BaseEntity;
+
+namespace KuceZBronksuDAL
 {
-    public class SMALL
+    public class SMALL : Entity
     {
         public string Url { get; set; }
 

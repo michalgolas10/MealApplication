@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KuceZBronksuDAL.Entities.BaseEntity
+namespace KuceZBronksuDAL.Models.BaseEntity
 {
     public class Entity
     {

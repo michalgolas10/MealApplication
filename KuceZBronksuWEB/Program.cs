@@ -5,6 +5,7 @@ using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
 using KuceZBronksuWEB.Services;
 using Microsoft.EntityFrameworkCore;
+using KuceZBronksuDAL.Context;
 
 namespace KuceZBronksuWEB
 {
@@ -22,7 +23,8 @@ namespace KuceZBronksuWEB
             builder.Services.AddScoped<ISearch<RecipeViewModel>, SearchService>();
 
             var app = builder.Build();
-
+            KuceZBronksuLogic.DataFileHandler.ReadingDataFromFile();
+            CreateDbIfNotExists(app);
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -42,8 +44,22 @@ namespace KuceZBronksuWEB
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            KuceZBronksuLogic.DataFileHandler.ReadingDataFromFile();
             app.Run();
+        }
+        private static void CreateDbIfNotExists(IHost host)
+        {
+            using var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            try
+            {
+                var context = services.GetRequiredService<MealAppContext>();
+                MealAppSeed.Initialize(context);
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred creating the DB.");
+            }
         }
     }
 }

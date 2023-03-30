@@ -2,8 +2,8 @@
 
 namespace KuceZBronksuDAL
 {
-    public class LARGE : Entity
-    {
+    public class LARGE
+    { 
         public string Url { get; set; }
 
         public int Width { get; set; }

@@ -2,7 +2,7 @@
 
 namespace KuceZBronksuDAL
 {
-    public class THUMBNAIL : Entity
+    public class THUMBNAIL
     {
         public string Url { get; set; }
 

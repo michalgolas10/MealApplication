@@ -69,9 +69,6 @@ namespace KuceZBronksuDAL.Context
                 .WithMany(x => x.Recipes)
                 .UsingEntity(j => j.ToTable("FavouritesRecipes"));
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<RecipeDb>()
-                .HasOne<string>(x => x.Images)
-                .WithOne();
         }
     }
 }

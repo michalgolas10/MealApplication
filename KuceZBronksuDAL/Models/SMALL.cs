@@ -2,7 +2,7 @@
 
 namespace KuceZBronksuDAL
 {
-    public class SMALL : Entity
+    public class SMALL
     {
         public string Url { get; set; }
 

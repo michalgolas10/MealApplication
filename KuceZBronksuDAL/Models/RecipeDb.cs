@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KuceZBronksuDAL.Models.BaseEntity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,29 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuDAL.Models
 {
-    internal class RecipeDb
+    public class RecipeDb : Entity
     {
+        public string Label { get; set; }
+
+        public string ShareAs { get; set; }
+
+        public List<string> DietLabels { get; set; }
+
+        public List<string> HealthLabels { get; set; }
+
+        public List<string> Cautions { get; set; }
+
+        public List<string> IngredientLines { get; set; }
+
+        public List<string> RecipeSteps { get; set; }
+
+        public double Calories { get; set; }
+
+        public List<string> CuisineType { get; set; }
+
+        public List<string> MealType { get; set; }
+
+        public string Images { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }

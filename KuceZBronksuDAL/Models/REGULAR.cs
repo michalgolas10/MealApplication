@@ -2,8 +2,8 @@
 
 namespace KuceZBronksuDAL
 {
-    public class REGULAR : Entity
-    {
+    public class REGULAR
+    { 
         public string Url { get; set; }
 
         public int Width { get; set; }

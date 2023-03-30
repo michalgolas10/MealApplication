@@ -20,14 +20,8 @@ namespace KuceZBronksuDAL.Context
         public MealAppContext(DbContextOptions<MealAppContext> options) : base(options)
         {
         }
-        public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<RecipeDb> Recipes { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Images> Images { get; set; }
-        public DbSet<LARGE> LargeImages { get; set; }
-        public DbSet<SMALL> SmallImages { get; set; }
-        public DbSet<REGULAR> RegularImages { get; set; }
-        public DbSet<THUMBNAIL> ThumbnailImages { get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,46 +29,49 @@ namespace KuceZBronksuDAL.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Recipe>()
+            modelBuilder.Entity<RecipeDb>()
             .Property(p => p.DietLabels)
             .HasConversion(
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<string>>(v));
-            modelBuilder.Entity<Recipe>()
+            modelBuilder.Entity<RecipeDb>()
             .Property(p => p.HealthLabels)
             .HasConversion(
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<string>>(v));
-            modelBuilder.Entity<Recipe>()
+            modelBuilder.Entity<RecipeDb>()
             .Property(p => p.Cautions)
             .HasConversion(
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<string>>(v));
-            modelBuilder.Entity<Recipe>()
+            modelBuilder.Entity<RecipeDb>()
             .Property(p => p.IngredientLines)
             .HasConversion(
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<string>>(v));
-            modelBuilder.Entity<Recipe>()
+            modelBuilder.Entity<RecipeDb>()
             .Property(p => p.RecipeSteps)
             .HasConversion(
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<string>>(v));
-            modelBuilder.Entity<Recipe>()
+            modelBuilder.Entity<RecipeDb>()
             .Property(p => p.CuisineType)
             .HasConversion(
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<string>>(v));
-            modelBuilder.Entity<Recipe>()
+            modelBuilder.Entity<RecipeDb>()
             .Property(p => p.MealType)
             .HasConversion(
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<string>>(v));
-            modelBuilder.Entity<Recipe>()
+            modelBuilder.Entity<RecipeDb>()
                 .HasMany(x => x.Users)
                 .WithMany(x => x.Recipes)
                 .UsingEntity(j => j.ToTable("FavouritesRecipes"));
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<RecipeDb>()
+                .HasOne<string>(x => x.Images)
+                .WithOne();
         }
     }
 }

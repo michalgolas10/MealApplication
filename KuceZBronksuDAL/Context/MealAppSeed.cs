@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
+﻿using AutoMapper;
+using KuceZBronksuDAL.Models;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +11,19 @@ namespace KuceZBronksuDAL.Context
 {
     public class MealAppSeed
     {
-        public static void Initialize(MealAppContext context)
+        public static void Initialize(MealAppContext context,IMapper mapper)
         {
             context.Database.EnsureCreated();
+            
             if (context.Recipes.Any())
             {
                 return;
             }
             var recipes = TempDb.Recipes;
-            foreach ( var recipe in recipes ) { 
-            context.Recipes.Add( recipe );
-                context.Images.Add(recipe.Images );
-                context.LargeImages.Add(recipe.Images.LARGE);
-                context.SmallImages.Add(recipe.Images.SMALL);
-                context.RegularImages.Add(recipe.Images.REGULAR);
-                context.ThumbnailImages.Add(recipe.Images.THUMBNAIL);
+            var recipesDb = recipes.Select(e => mapper.Map<RecipeDb>(e)).ToList();
+            foreach(var recipe in recipesDb )
+            {
+                context.Recipes.Add(recipe);
             }
             context.SaveChanges();
             //Tutaj dodać rzeczy do bazy 

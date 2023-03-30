@@ -3,6 +3,7 @@ using KuceZBronksuDAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KuceZBronksuWEB.Migrations
 {
     [DbContext(typeof(MealAppContext))]
-    partial class MealAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230330083612_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,6 +141,9 @@ namespace KuceZBronksuWEB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ImagesId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("IngredientLines")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -161,11 +167,18 @@ namespace KuceZBronksuWEB.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ImagesId");
 
+                    b.HasIndex("ImagesId1");
+
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Recipes");
                 });
@@ -247,18 +260,21 @@ namespace KuceZBronksuWEB.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("KuceZBronksuDAL.Images", null)
+                        .WithMany()
+                        .HasForeignKey("ImagesId1");
+
                     b.HasOne("KuceZBronksuDAL.Models.User", "User")
-                        .WithMany("FavouritesRecipes")
+                        .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.HasOne("KuceZBronksuDAL.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Images");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
-                {
-                    b.Navigation("FavouritesRecipes");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace KuceZBronksuDAL.Context
 {
@@ -69,20 +70,7 @@ namespace KuceZBronksuDAL.Context
             .HasConversion(
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<string>>(v));
-            modelBuilder.Entity<Recipe>()
-                .HasOne<Images>();
-            modelBuilder.Entity<Images>()
-                .HasOne<SMALL>();
-            modelBuilder.Entity<Images>()
-                .HasOne<LARGE>();
-            modelBuilder.Entity<Images>()
-                .HasOne<THUMBNAIL>();
-            modelBuilder.Entity<Images>()
-                .HasOne<REGULAR>();
-            modelBuilder.Entity<User>()
-                .HasMany<Recipe>();
             base.OnModelCreating(modelBuilder);
-            
         }
     }
 }

@@ -26,6 +26,6 @@ namespace KuceZBronksuDAL
         public List<string> MealType { get; set; }
 
         public Images Images { get; set; }
-        public User User { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }

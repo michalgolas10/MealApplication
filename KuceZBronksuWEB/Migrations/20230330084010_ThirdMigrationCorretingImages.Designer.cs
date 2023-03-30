@@ -3,6 +3,7 @@ using KuceZBronksuDAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KuceZBronksuWEB.Migrations
 {
     [DbContext(typeof(MealAppContext))]
-    partial class MealAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230330084010_ThirdMigrationCorretingImages")]
+    partial class ThirdMigrationCorretingImages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,11 +164,16 @@ namespace KuceZBronksuWEB.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ImagesId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Recipes");
                 });
@@ -248,17 +256,16 @@ namespace KuceZBronksuWEB.Migrations
                         .IsRequired();
 
                     b.HasOne("KuceZBronksuDAL.Models.User", "User")
-                        .WithMany("FavouritesRecipes")
+                        .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.HasOne("KuceZBronksuDAL.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Images");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
-                {
-                    b.Navigation("FavouritesRecipes");
                 });
 #pragma warning restore 612, 618
         }

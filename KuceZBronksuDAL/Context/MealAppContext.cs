@@ -70,6 +70,10 @@ namespace KuceZBronksuDAL.Context
             .HasConversion(
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<string>>(v));
+            modelBuilder.Entity<Recipe>()
+                .HasMany(x => x.Users)
+                .WithMany(x => x.Recipes)
+                .UsingEntity(j => j.ToTable("FavouritesRecipes"));
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -15,16 +15,18 @@ namespace KuceZBronksuDAL.Context
             if (context.Recipes.Any())
             {
                 return;
-            } 
-            var recipess = TempDb.Recipes;
-            int i = 0;
-            Recipe recip1 = new()
-            {
-                Label = "Kupa"
-            };
-            context.Recipes.Add(recip1);
-            //Tutaj dodać rzeczy do bazy 
+            }
+            var recipes = TempDb.Recipes;
+            foreach ( var recipe in recipes ) { 
+            context.Recipes.Add( recipe );
+                context.Images.Add(recipe.Images );
+                context.LargeImages.Add(recipe.Images.LARGE);
+                context.SmallImages.Add(recipe.Images.SMALL);
+                context.RegularImages.Add(recipe.Images.REGULAR);
+                context.ThumbnailImages.Add(recipe.Images.THUMBNAIL);
+            }
             context.SaveChanges();
+            //Tutaj dodać rzeczy do bazy 
         }
     }
 }

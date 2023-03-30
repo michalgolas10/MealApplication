@@ -3,6 +3,7 @@ using KuceZBronksuDAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KuceZBronksuWEB.Migrations
 {
     [DbContext(typeof(MealAppContext))]
-    partial class MealAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230330095136_FavouritesRecipesTableAdded")]
+    partial class FavouritesRecipesTableAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +52,7 @@ namespace KuceZBronksuWEB.Migrations
 
                     b.HasIndex("THUMBNAILId");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("KuceZBronksuDAL.LARGE", b =>
@@ -70,7 +73,7 @@ namespace KuceZBronksuWEB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LargeImages", (string)null);
+                    b.ToTable("LargeImages");
                 });
 
             modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
@@ -85,7 +88,7 @@ namespace KuceZBronksuWEB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("KuceZBronksuDAL.REGULAR", b =>
@@ -106,7 +109,7 @@ namespace KuceZBronksuWEB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RegularImages", (string)null);
+                    b.ToTable("RegularImages");
                 });
 
             modelBuilder.Entity("KuceZBronksuDAL.Recipe", b =>
@@ -162,7 +165,7 @@ namespace KuceZBronksuWEB.Migrations
 
                     b.HasIndex("ImagesId");
 
-                    b.ToTable("Recipes", (string)null);
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("KuceZBronksuDAL.SMALL", b =>
@@ -183,7 +186,7 @@ namespace KuceZBronksuWEB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SmallImages", (string)null);
+                    b.ToTable("SmallImages");
                 });
 
             modelBuilder.Entity("KuceZBronksuDAL.THUMBNAIL", b =>
@@ -204,7 +207,7 @@ namespace KuceZBronksuWEB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ThumbnailImages", (string)null);
+                    b.ToTable("ThumbnailImages");
                 });
 
             modelBuilder.Entity("RecipeUser", b =>

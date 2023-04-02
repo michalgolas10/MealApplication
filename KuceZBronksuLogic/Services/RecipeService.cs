@@ -1,39 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KuceZBronksuDAL.Models;
-using KuceZBronksuBLL.Services.IService;
+﻿using KuceZBronksuBLL.Services.IService;
+using KuceZBronksuDAL;
 using KuceZBronksuDAL.Repository.IRepository;
-using KuceZBronksuDAL.Context;
 
 namespace KuceZBronksuBLL.Services
 {
-    public class RecipeService : IService<RecipeDb>
+    public class RecipeService : IService<Recipe>
     {
-        private readonly IRepository<RecipeDb> _repository;
-        public RecipeService(IRepository<RecipeDb> repository)
+        private readonly IRepository<Recipe> _repository;
+
+        public RecipeService(IRepository<Recipe> repository)
         {
             this._repository = repository;
         }
-        public void AddNew(RecipeDb t)
+
+        public void AddNew(Recipe t)
         {
             _repository.Update(t);
         }
 
-        public void Delete(RecipeDb t)
+        public void Delete(Recipe t)
         {
             _repository.Delete(t);
         }
 
-        public async Task<List<RecipeDb>> GetAll()
+        public async Task<List<Recipe>> GetAll()
         {
             var recipes = await _repository.GetAll();
             return recipes;
         }
 
-        public async Task<RecipeDb> GetValue(string id)
+        public async Task<Recipe> GetValue(string id)
         {
             return await _repository.Get(id);
         }

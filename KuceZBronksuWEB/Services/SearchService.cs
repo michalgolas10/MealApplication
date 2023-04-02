@@ -25,7 +25,7 @@ namespace KuceZBronksuWEB.Services
             }
             foreach (var recipe in recipies)
             {
-                result.Add(new RecipeViewModel().FillModel(recipe));
+                //result.Add(new RecipeViewModel().FillModel(recipe));
             }
 
             return result;
@@ -38,7 +38,7 @@ namespace KuceZBronksuWEB.Services
 
             foreach (var recipe in recipies)
             {
-                result.Add(new RecipeViewModel().FillModel(recipe));
+                //result.Add(new RecipeViewModel().FillModel(recipe));
             }
             return result;
         }
@@ -46,9 +46,9 @@ namespace KuceZBronksuWEB.Services
         public RecipeViewModel GetByName(string name)
         {
             var recipe = TempDb.Recipes.FirstOrDefault(x => x.Label == name);
-            var result = new RecipeViewModel().FillModel(recipe);
+            //var result = new RecipeViewModel().FillModel(recipe);
 
-            return result;
+            return null ;
         }
     }
 }

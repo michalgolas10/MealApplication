@@ -1,6 +1,4 @@
-﻿using KuceZBronksuDAL;
-using Microsoft.Build.Framework;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace KuceZBronksuWEB.Models
@@ -35,10 +33,9 @@ namespace KuceZBronksuWEB.Models
         public List<string> Cautions { get; set; }
 
         [DisplayName("Cuisine Type"), Microsoft.Build.Framework.Required]
-        public List <string> CuisineType { get; set; }
-        
+        public List<string> CuisineType { get; set; }
+
         [DisplayName("Meal Type"), Microsoft.Build.Framework.Required]
         public List<string> MealType { get; set; }
-
     }
 }

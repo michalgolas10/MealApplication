@@ -1,12 +1,16 @@
 using KuceZBronksuDAL.Context;
-using KuceZBronksuDAL.Repository.IRepository;
+using KuceZBronksuDAL.FilesHandlers;
 using KuceZBronksuDAL.Repository;
+using KuceZBronksuDAL.Repository.IRepository;
 using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
 using KuceZBronksuWEB.Services;
 using Microsoft.EntityFrameworkCore;
-using KuceZBronksuDAL.Context;
-using KuceZBronksuDAL.FilesHandlers;
+using KuceZBronksuBLL.Services.IService;
+using KuceZBronksuBLL.Services;
+using KuceZBronksuDAL;
+using AutoMapper;
+using KuceZBronksuDAL.AutoMapProfiles;
 
 namespace KuceZBronksuWEB
 {
@@ -18,13 +22,13 @@ namespace KuceZBronksuWEB
             builder.Services.AddDbContext<MealAppContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;")));
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
+            builder.Services.AddScoped<IService<Recipe>, RecipeService>();
+            builder.Services.AddScoped<IService<Recipe>, RecipeService>();
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<ISearch<RecipeViewModel>, SearchService>();
-
+            builder.Services.AddAutoMapper(typeof(RecipiesViewModel),typeof(Program));
             var app = builder.Build();
-            DataFileHandler.ReadingDataFromFile();
             CreateDbIfNotExists(app);
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -47,6 +51,7 @@ namespace KuceZBronksuWEB
 
             app.Run();
         }
+
         private static void CreateDbIfNotExists(IHost host)
         {
             using var scope = host.Services.CreateScope();

@@ -21,7 +21,22 @@ namespace KuceZBronksuWEB.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("KuceZBronksuDAL.Models.RecipeDb", b =>
+            modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("KuceZBronksuDAL.Recipe", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,8 +61,7 @@ namespace KuceZBronksuWEB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Images")
-                        .IsRequired()
+                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IngredientLines")
@@ -75,22 +89,7 @@ namespace KuceZBronksuWEB.Migrations
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("RecipeDbUser", b =>
+            modelBuilder.Entity("RecipeUser", b =>
                 {
                     b.Property<string>("RecipesId")
                         .HasColumnType("nvarchar(450)");
@@ -105,9 +104,9 @@ namespace KuceZBronksuWEB.Migrations
                     b.ToTable("FavouritesRecipes", (string)null);
                 });
 
-            modelBuilder.Entity("RecipeDbUser", b =>
+            modelBuilder.Entity("RecipeUser", b =>
                 {
-                    b.HasOne("KuceZBronksuDAL.Models.RecipeDb", null)
+                    b.HasOne("KuceZBronksuDAL.Recipe", null)
                         .WithMany()
                         .HasForeignKey("RecipesId")
                         .OnDelete(DeleteBehavior.Cascade)

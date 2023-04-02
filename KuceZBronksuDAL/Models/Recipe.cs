@@ -3,7 +3,7 @@ using KuceZBronksuDAL.Models.BaseEntity;
 
 namespace KuceZBronksuDAL
 {
-    public class Recipe
+    public class Recipe : Entity
     {
         public string Label { get; set; }
 
@@ -24,7 +24,7 @@ namespace KuceZBronksuDAL
         public List<string> CuisineType { get; set; }
 
         public List<string> MealType { get; set; }
-
-        public Images Images { get; set; }
+        public ICollection<User> Users { get; set; }
+        public string? Image { get; set; }
     }
 }

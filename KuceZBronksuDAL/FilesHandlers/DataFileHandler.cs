@@ -1,5 +1,4 @@
-﻿using KuceZBronksuDAL;
-using KuceZBronksuDAL.Models;
+﻿using KuceZBronksuDAL.Models;
 using System.Text.Json;
 
 namespace KuceZBronksuDAL.FilesHandlers
@@ -18,7 +17,6 @@ namespace KuceZBronksuDAL.FilesHandlers
             var recipeList = JsonSerializer.Deserialize<List<Root>>(JsonDeserialized, options);
             if (recipeList != null)
             {
-
                 TempDb.Recipes = recipeList.Select(x => x.Recipe).ToList();
             }
             else

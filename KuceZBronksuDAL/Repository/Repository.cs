@@ -1,13 +1,7 @@
-﻿using KuceZBronksuDAL.Repository.IRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using KuceZBronksuDAL.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using KuceZBronksuDAL.Context;
 using KuceZBronksuDAL.Models.BaseEntity;
+using KuceZBronksuDAL.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace KuceZBronksuDAL.Repository
 {
@@ -15,6 +9,7 @@ namespace KuceZBronksuDAL.Repository
     {
         private readonly MealAppContext _context;
         private readonly DbSet<T> _entities;
+
         public Repository(MealAppContext context)
         {
             this._context = context;
@@ -32,10 +27,8 @@ namespace KuceZBronksuDAL.Repository
             }
         }
 
-
         public async Task<List<T>> GetAll()
         {
-            
             return await this._entities.ToListAsync();
         }
 
@@ -58,4 +51,3 @@ namespace KuceZBronksuDAL.Repository
         }
     }
 }
-

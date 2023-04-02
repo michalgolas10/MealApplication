@@ -2,28 +2,31 @@
 using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using KuceZBronksuBLL.Services.IService;
+using AutoMapper;
 
 namespace KuceZBronksuWEB.Controllers
 {
     public class RecipeController : Controller
     {
         private readonly ISearch<RecipeViewModel> _search;
+        private readonly IService<Recipe> _recipeService;
+        private readonly IMapper _mapper;
 
-        public RecipeController(ISearch<RecipeViewModel> search)
+        public RecipeController(ISearch<RecipeViewModel> search, IService<Recipe> recipeService, IMapper mapper)
         {
             _search = search;
+            _recipeService = recipeService;
+            _mapper = mapper;
         }
 
         // GET: RecipeController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var listOfRecipes = _search.GetAll();
-            var vm = new RecipiesViewModel()
-            {
-                Recipies = listOfRecipes,
-            };
-            return View(vm);
+            var listOfRecipes = await _recipeService.GetAll();
+
+            var productsViews = listOfRecipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+            return View(productsViews);
         }
 
         [HttpPost]
@@ -50,7 +53,7 @@ namespace KuceZBronksuWEB.Controllers
         }
 
         public ActionResult Create()
-        { 
+        {
             return View();
         }
 
@@ -58,32 +61,26 @@ namespace KuceZBronksuWEB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateViewModel pageModel)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(pageModel);
             }
-                Recipe databaseModel = new Recipe
-                {
-                    Label = pageModel.Label,
-                    ShareAs = pageModel.ShareAs,
-                    Calories = double.Parse(pageModel.Calories),
-                    DietLabels = pageModel.DietLabels,
-                    HealthLabels = pageModel.HealthLabels,
-                    Cautions = pageModel.Cautions,
-                    IngredientLines = pageModel.IngredientLines.Split(",").ToList(),
-                    RecipeSteps = pageModel.RecipeSteps.Split(",").ToList(),
-                    CuisineType = pageModel.CuisineType,
-                    MealType = pageModel.MealType,
-                    Images = new Images
-                    {
-                        LARGE = new LARGE
-                        {
-                            Url = pageModel.Images
-                        }
-                    }
-                };
+            Recipe databaseModel = new Recipe
+            {
+                Label = pageModel.Label,
+                ShareAs = pageModel.ShareAs,
+                Calories = double.Parse(pageModel.Calories),
+                DietLabels = pageModel.DietLabels,
+                HealthLabels = pageModel.HealthLabels,
+                Cautions = pageModel.Cautions,
+                IngredientLines = pageModel.IngredientLines.Split(",").ToList(),
+                RecipeSteps = pageModel.RecipeSteps.Split(",").ToList(),
+                CuisineType = pageModel.CuisineType,
+                MealType = pageModel.MealType,
+                Image = pageModel.Images
+            };
 
-                TempDb.Recipes.Add(databaseModel);
+            TempDb.Recipes.Add(databaseModel);
 
             return RedirectToAction("Create");
         }

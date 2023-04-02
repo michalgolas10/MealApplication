@@ -110,8 +110,6 @@
 
     if (typeof obj.
 
-
-
  !== 'undefined') {
       obj = obj[0];
     }

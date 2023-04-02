@@ -5,29 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuBLL.Services.IService;
+using KuceZBronksuDAL.Context;
+using KuceZBronksuDAL.Repository.IRepository;
 
 namespace KuceZBronksuBLL.Services
 {
     public class UserService : IService<User>
     {
+        private readonly IRepository<User> _repository;
+        public UserService(IRepository<User> repository)
+        {
+            this._repository = repository;
+        }
         public void AddNew(User t)
         {
-            throw new NotImplementedException();
+            _repository.Insert(t);
         }
 
         public void Delete(User t)
         {
-            throw new NotImplementedException();
+            _repository?.Delete(t);
         }
 
-        public Task<List<User>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<List<User>> GetAll()=> await _repository.GetAll();
 
-        public Task<User> GetValue(string id)
-        {
-            throw new NotImplementedException();
-        }
+
+        public async Task<User> GetValue(string id) => await _repository.Get(id);
     }
 }

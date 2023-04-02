@@ -21,6 +21,8 @@ namespace KuceZBronksuDAL.Repository
             _entities = context.Set<T>();
         }
 
+        public async Task<T> Get(string id) => await this._entities.SingleOrDefaultAsync(e => e.Id == id);
+
         public void Delete(T entity)
         {
             if (entity != null)
@@ -30,7 +32,6 @@ namespace KuceZBronksuDAL.Repository
             }
         }
 
-        public T Get(string id) => _entities.SingleOrDefault(e => e.Id == id);
 
         public async Task<List<T>> GetAll()
         {

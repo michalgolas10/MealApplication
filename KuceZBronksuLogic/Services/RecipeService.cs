@@ -13,18 +13,18 @@ namespace KuceZBronksuBLL.Services
     public class RecipeService : IService<RecipeDb>
     {
         private readonly IRepository<RecipeDb> _repository;
-        public RecipeService(IRepository<RecipeDb> repository, MealAppContext context)
+        public RecipeService(IRepository<RecipeDb> repository)
         {
             this._repository = repository;
         }
         public void AddNew(RecipeDb t)
         {
-            throw new NotImplementedException();
+            _repository.Update(t);
         }
 
         public void Delete(RecipeDb t)
         {
-            throw new NotImplementedException();
+            _repository.Delete(t);
         }
 
         public async Task<List<RecipeDb>> GetAll()
@@ -33,9 +33,9 @@ namespace KuceZBronksuBLL.Services
             return recipes;
         }
 
-        public Task<RecipeDb> GetValue(string id)
+        public async Task<RecipeDb> GetValue(string id)
         {
-            throw new NotImplementedException();
+            return await _repository.Get(id);
         }
     }
 }

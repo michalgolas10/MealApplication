@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace KuceZBronksuLogic
+namespace KuceZBronksuBLL.Validations
 {
     public class Validation
     {

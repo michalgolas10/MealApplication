@@ -2,7 +2,7 @@
 using KuceZBronksuDAL.Models;
 using System.Text.Json;
 
-namespace KuceZBronksuLogic
+namespace KuceZBronksuBLL.FilesHandlers
 {
     public class DataFileHandler
     {

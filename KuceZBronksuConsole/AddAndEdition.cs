@@ -1,4 +1,5 @@
-﻿using KuceZBronksuDAL;
+﻿using KuceZBronksuBLL.Validations;
+using KuceZBronksuDAL;
 
 namespace KuceZBronksuLogic
 {

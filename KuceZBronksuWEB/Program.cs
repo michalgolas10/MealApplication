@@ -6,6 +6,7 @@ using KuceZBronksuWEB.Models;
 using KuceZBronksuWEB.Services;
 using Microsoft.EntityFrameworkCore;
 using KuceZBronksuDAL.Context;
+using KuceZBronksuBLL.FilesHandlers;
 
 namespace KuceZBronksuWEB
 {
@@ -23,7 +24,7 @@ namespace KuceZBronksuWEB
             builder.Services.AddScoped<ISearch<RecipeViewModel>, SearchService>();
 
             var app = builder.Build();
-            KuceZBronksuLogic.DataFileHandler.ReadingDataFromFile();
+            DataFileHandler.ReadingDataFromFile();
             CreateDbIfNotExists(app);
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

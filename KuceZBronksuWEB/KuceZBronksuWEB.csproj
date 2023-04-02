@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KuceZBronksuLogic\KuceZBronksuLogic.csproj" />
+    <ProjectReference Include="..\KuceZBronksuLogic\KuceZBronksuBLL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

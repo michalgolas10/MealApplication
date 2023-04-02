@@ -32,13 +32,9 @@ namespace KuceZBronksuDAL.Repository
 
         public T Get(string id) => _entities.SingleOrDefault(e => e.Id == id);
 
-        public async Task<List<T>> GetAll(Expression<Func<T, object>>? include = null)
+        public async Task<List<T>> GetAll()
         {
-            if (include != null)
-            {
-                return await this._entities.Include(include).ToListAsync();
-            }
-
+            
             return await this._entities.ToListAsync();
         }
 

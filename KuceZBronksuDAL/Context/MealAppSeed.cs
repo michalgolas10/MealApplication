@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient.DataClassification;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,8 @@ namespace KuceZBronksuDAL.Context
                 return;
             }
             var recipesDb = MapFromRecipeToRecipeDb(TempDb.Recipes);
+            var testUser = new User() { Name = "Michał", Recipes = recipesDb };
+            context.Users.Add(testUser);
             foreach (var recipe in recipesDb)
             {
                 context.Recipes.Add(recipe);

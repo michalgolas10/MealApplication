@@ -10,7 +10,7 @@ namespace KuceZBronksuDAL.Repository.IRepository
 {
     public interface IRepository<T> where T : Entity
     {
-        Task<List<T>> GetAll(Expression<Func<T, object>>? include = null);
+        Task<List<T>> GetAll();
         T Get(string Id);
         void Delete(T entity);
         void Insert(T entity);

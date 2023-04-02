@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuBLL.Services.IService
 {
-    internal interface IService
-    {
-    }
+    
+        public interface IService<T>
+        {
+            Task<List<T>> GetAll();
+            Task<T> GetValue(string id);
+            void AddNew(T t);
+            void Delete(T t);
+        }
+    
 }

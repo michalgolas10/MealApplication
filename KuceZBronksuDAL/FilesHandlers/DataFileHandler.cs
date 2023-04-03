@@ -1,4 +1,5 @@
 ﻿using KuceZBronksuDAL.Models;
+using System.IO;
 using System.Text.Json;
 
 namespace KuceZBronksuDAL.FilesHandlers
@@ -11,7 +12,7 @@ namespace KuceZBronksuDAL.FilesHandlers
             {
                 PropertyNameCaseInsensitive = true
             };
-            string JsonFilePath = "../KuceZBronksuDAL/JsonFiles/recipies.json";
+            string JsonFilePath = "../KuceZBronksuDAL/JsonFiles/RecipeJson.json";
             string JsonDeserialized = File.ReadAllText(JsonFilePath);
 
             var recipeList = JsonSerializer.Deserialize<List<Root>>(JsonDeserialized, options);

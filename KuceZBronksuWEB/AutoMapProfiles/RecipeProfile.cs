@@ -13,7 +13,7 @@ namespace KuceZBronksuDAL.AutoMapProfiles
         
             public RecipeProfile()
             {
-            CreateMap<Recipe, RecipiesViewModel>();
+            CreateMap<Recipe, RecipeViewModel>();
             }
         
     }

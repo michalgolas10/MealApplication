@@ -1,13 +1,11 @@
-﻿@model KuceZBronksuWEB.Models.RecipiesViewModel
+﻿@model IEnumerable<RecipeViewModel>
 
-<div>
-    @Html.Partial("~/Views/Shared/_SearchPanel.cshtml", Model.Search)
-</div>
+
 
 <body>
         <div class="container">
             <div class="row">
-        @foreach (var item in Model.Recipies)
+        @foreach (var item in Model)
         {
                 <div class="col-md-6 col-lg-3">
                     <div class="card">

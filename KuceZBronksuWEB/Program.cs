@@ -27,7 +27,7 @@ namespace KuceZBronksuWEB
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<ISearch<RecipeViewModel>, SearchService>();
-            builder.Services.AddAutoMapper(typeof(RecipiesViewModel),typeof(Program));
+            builder.Services.AddAutoMapper(typeof(RecipeViewModel),typeof(Program));
             var app = builder.Build();
             CreateDbIfNotExists(app);
             // Configure the HTTP request pipeline.

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KuceZBronksuWEB.Migrations
 {
     [DbContext(typeof(MealAppContext))]
-    [Migration("20230402185003_InitialMigration")]
+    [Migration("20230403092822_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -65,6 +65,7 @@ namespace KuceZBronksuWEB.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IngredientLines")
@@ -80,7 +81,6 @@ namespace KuceZBronksuWEB.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RecipeSteps")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShareAs")

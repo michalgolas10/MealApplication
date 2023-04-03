@@ -1,15 +1,21 @@
 ﻿using KuceZBronksuDAL;
 using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
+using KuceZBronksuBLL.Services.IService;
 
 namespace KuceZBronksuWEB.Services
 {
     public class SearchService : ISearch<RecipeViewModel>
     {
+        readonly private IService<Recipe> _recipeService;
+        public SearchService(IService<Recipe> recipeService)
+        {
+            _recipeService= recipeService;
+        }
         public List<RecipeViewModel> Search(SearchViewModel model)
         {
             List<RecipeViewModel> result = new List<RecipeViewModel>();
-            var recipies = TempDb.Recipes;
+            var recipies = _recipeService.GetAll();
             if (model.IngrediendsList != null)
             {
                 List<string> ingrediends = model.IngrediendsList.Split(',').ToList();

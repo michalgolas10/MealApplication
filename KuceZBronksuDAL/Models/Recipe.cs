@@ -17,7 +17,7 @@ namespace KuceZBronksuDAL
 
         public List<string> IngredientLines { get; set; }
 
-        public List<string> RecipeSteps { get; set; }
+        public List<string>? RecipeSteps { get; set; }
 
         public double Calories { get; set; }
 
@@ -25,6 +25,6 @@ namespace KuceZBronksuDAL
 
         public List<string> MealType { get; set; }
         public ICollection<User> Users { get; set; }
-        public string? Image { get; set; }
+        public string Image { get; set; }
     }
 }

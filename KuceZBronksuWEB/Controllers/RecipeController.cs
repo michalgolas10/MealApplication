@@ -24,7 +24,7 @@ namespace KuceZBronksuWEB.Controllers
         public async Task<ActionResult> Index()
         {
             var listOfRecipes = await _recipeService.GetAll();
-
+            ViewBag.SearchViewModel = new SearchViewModel();
             var productsViews = listOfRecipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
             return View(productsViews);
         }

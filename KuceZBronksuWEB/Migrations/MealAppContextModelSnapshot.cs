@@ -62,6 +62,7 @@ namespace KuceZBronksuWEB.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IngredientLines")
@@ -77,7 +78,6 @@ namespace KuceZBronksuWEB.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RecipeSteps")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShareAs")

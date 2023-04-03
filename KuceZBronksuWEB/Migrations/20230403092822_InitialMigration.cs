@@ -21,11 +21,11 @@ namespace KuceZBronksuWEB.Migrations
                     HealthLabels = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Cautions = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IngredientLines = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RecipeSteps = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RecipeSteps = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Calories = table.Column<double>(type: "float", nullable: false),
                     CuisineType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MealType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -30,19 +30,15 @@ namespace KuceZBronksuWEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(SearchViewModel pageModel)
+        public async Task<ActionResult> Search(SearchViewModel pageModel)
         {
             if (pageModel == null)
             {
                 return View("Index");
             }
-            var listOfRecipes = _search.Search(pageModel);
-            var resultModel = new RecipiesViewModel()
-            {
-                Recipies = listOfRecipes,
-                Search = pageModel
-            };
-            return View(resultModel);
+            var listOfRecipes = await _search.Search(pageModel);
+            ViewBag.SearchViewModel = new SearchViewModel();
+            return View(listOfRecipes);
         }
 
         // GET: RecipeController/Details/5

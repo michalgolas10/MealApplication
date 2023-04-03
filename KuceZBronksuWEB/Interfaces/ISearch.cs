@@ -4,10 +4,10 @@ namespace KuceZBronksuWEB.Interfaces
 {
     public interface ISearch<T>
     {
-        List<T> Search(SearchViewModel model);
+        Task<List<T>> Search(SearchViewModel model);
 
-        List<T> GetAll();
+        Task<List<T>> GetAll();
 
-        RecipeViewModel GetByName(string name);
+        Task<RecipeViewModel> GetByName(string name);
     }
 }

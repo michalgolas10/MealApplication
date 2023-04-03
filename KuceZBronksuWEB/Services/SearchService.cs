@@ -2,20 +2,22 @@
 using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
 using KuceZBronksuBLL.Services.IService;
+using AutoMapper;
 
 namespace KuceZBronksuWEB.Services
 {
     public class SearchService : ISearch<RecipeViewModel>
     {
         readonly private IService<Recipe> _recipeService;
-        public SearchService(IService<Recipe> recipeService)
+        readonly private IMapper _mapper;  
+        public SearchService(IService<Recipe> recipeService,IMapper mapper)
         {
+            _mapper = mapper;
             _recipeService= recipeService;
         }
-        public List<RecipeViewModel> Search(SearchViewModel model)
+        public async Task<List<RecipeViewModel>> Search(SearchViewModel model)
         {
-            List<RecipeViewModel> result = new List<RecipeViewModel>();
-            var recipies = _recipeService.GetAll();
+            var recipies = await _recipeService.GetAll();
             if (model.IngrediendsList != null)
             {
                 List<string> ingrediends = model.IngrediendsList.Split(',').ToList();
@@ -29,32 +31,24 @@ namespace KuceZBronksuWEB.Services
             {
                 recipies = KuceZBronksuLogic.Search.SearchByKcal(model.KcalAmount.Value, 300d, recipies);
             }
-            foreach (var recipe in recipies)
-            {
-                //result.Add(new RecipeViewModel().FillModel(recipe));
-            }
-
+            var result = recipies.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
             return result;
         }
 
-        public List<RecipeViewModel> GetAll()
+        public async Task<List<RecipeViewModel>> GetAll()
         {
             List<RecipeViewModel> result = new List<RecipeViewModel>();
-            var recipies = TempDb.Recipes;
-
-            foreach (var recipe in recipies)
-            {
-                //result.Add(new RecipeViewModel().FillModel(recipe));
-            }
+            var recipies = await _recipeService.GetAll();
+            var productsViews = recipies.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
             return result;
         }
 
-        public RecipeViewModel GetByName(string name)
+        public async Task<RecipeViewModel> GetByName(string name)
         {
-            var recipe = TempDb.Recipes.FirstOrDefault(x => x.Label == name);
-            //var result = new RecipeViewModel().FillModel(recipe);
-
-            return null ;
+            var recipies = await _recipeService.GetAll();
+            var recipe = recipies.FirstOrDefault(x => x.Label == name);
+            var result = _mapper.Map<RecipeViewModel>(recipe);
+            return result ;
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using KuceZBronksuWEB.Interfaces;
+﻿using AutoMapper;
+using KuceZBronksuBLL.Services.IService;
+using KuceZBronksuDAL;
+using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -9,16 +12,23 @@ namespace KuceZBronksuWEB.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ISearch<RecipeViewModel> _search;
+        private readonly IService<Recipe> _recipeService;
+        private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, ISearch<RecipeViewModel> search)
+        public HomeController(ILogger<HomeController> logger, ISearch<RecipeViewModel> search, IService<Recipe> recipeService, IMapper mapper)
         {
             _logger = logger;
             _search = search;
+            _mapper = mapper;
+            _recipeService = recipeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var listOfRecipes = await _recipeService.GetAll();
+            ViewBag.SearchViewModel = new SearchViewModel();
+            var productsViews = listOfRecipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+            return View(productsViews);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

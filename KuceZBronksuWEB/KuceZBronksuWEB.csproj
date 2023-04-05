@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\Images\kefircośtam.jpg" />
+    <Content Remove="wwwroot\Images\kefirdateshakerecipe.jpg" />
     <Content Remove="wwwroot\Images\mulbeeryjam.jpg" />
     <Content Remove="wwwroot\Images\rusticapricotjam.jpg" />
   </ItemGroup>
@@ -48,7 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Images\kefircośtam.jpg" />
+    <None Include="wwwroot\Images\kefirdateshakerecipe.jpg" />
     <None Include="wwwroot\Images\mulbeeryjam.jpg" />
     <None Include="wwwroot\Images\rusticapricotjam.jpg" />
   </ItemGroup>

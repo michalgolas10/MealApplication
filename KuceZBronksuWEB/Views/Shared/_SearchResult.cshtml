@@ -10,16 +10,23 @@
 					@foreach(var item in Model)
 					{
 					<div class="mix col-sm-3 page1 page4 margin30">
-						<div class="item-img-wrap ">
-							<img src=@item.Image class="img-responsive" alt="workimg">
-								<h3 class="card-title text-center">@Html.DisplayFor(modelItem => item.Label)</h3>
-								<a class="btn btn-primary btn-lg active" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-label="@item.Label">Show details</a>
-							<div class="item-img-overlay">
-								<a href="#" class="show-image">
-									<span></span>
-								</a>
-							</div>
-						</div>
+                        <div class="item-img-wrap ">
+							@if (item.Image.Contains("/")) // Means that its image that someone put URL for.
+							{
+							    <img src="@item.Image" class="img-responsive" alt="beer image">
+							}
+							else
+							{
+                                <img src="Images/@item.Image" class="img-responsive" alt="beer image">
+							}
+                            <h3 class="card-title text-center">@Html.DisplayFor(modelItem => item.Label)</h3>
+                            <a class="btn btn-primary btn-lg active" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-label="@item.Label">Show details</a>
+                            <div class="item-img-overlay">
+                                <a href="#" class="show-image">
+                                    <span></span>
+                                </a>
+                            </div>
+                        </div>
 					</div>
 					}
 					</div>

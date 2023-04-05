@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Utils\**" />
+    <Content Remove="Utils\**" />
+    <EmbeddedResource Remove="Utils\**" />
+    <None Remove="Utils\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\Images\kefircośtam.jpg" />
     <Content Remove="wwwroot\Images\mulbeeryjam.jpg" />
     <Content Remove="wwwroot\Images\rusticapricotjam.jpg" />
@@ -38,7 +45,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Utils\" />
   </ItemGroup>
 
   <ItemGroup>

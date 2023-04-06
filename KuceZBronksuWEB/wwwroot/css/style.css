@@ -854,7 +854,7 @@ pre {
   .offset-sm-11 {
     margin-left: 91.66667%; } }
 
-@media (min-width: 768px) {
+@media (min-width: 350px) {
   .col-md {
     -ms-flex-preferred-size: 0;
     flex-basis: 0;

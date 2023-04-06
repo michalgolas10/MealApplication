@@ -15,7 +15,11 @@
             <div class="small text-muted">Meal type</div>
             <div class="input-group">
                 <input asp-for="MealType" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." />
-
+            <select class="js-select2" multiple="multiple">
+                <option value="O1" data-badge="">Option1</option>
+                <option value="O2" data-badge="">Option2</option>
+                <option value="O3" data-badge="">Option3</option>
+            </select>             
             </div>
             <br>
             <div class="small text-muted">Kcal amount</div>
@@ -24,35 +28,6 @@
 
             </div>
             <br>
-                        <section class="ftco-section">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-7 text-center mb-5">
-                                        <h2 class="heading-section">Multiselect #05</h2>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-4 d-flex justify-content-center align-items-center">
-                                        <select class="js-select2" multiple="multiple">
-                                            <option value="O1" data-badge="">Option1</option>
-                                            <option value="O2" data-badge="">Option2</option>
-                                            <option value="O3" data-badge="">Option3</option>
-                                            <option value="O4" data-badge="">Option4</option>
-                                            <option value="O5" data-badge="">Option5</option>
-                                            <option value="O6" data-badge="">Option6</option>
-                                            <option value="O7" data-badge="">Option7</option>
-                                            <option value="O8" data-badge="">Option8</option>
-                                            <option value="O9" data-badge="">Option9</option>
-                                            <option value="O10" data-badge="">Option10</option>
-                                            <option value="O11" data-badge="">Option11</option>
-                                            <option value="O12" data-badge="">Option12</option>
-                                            <option value="O13" data-badge="">Option13</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
             <button class="btn btn-primary" id="button-search" type="submit">Search</button>
         </div>
         </div>

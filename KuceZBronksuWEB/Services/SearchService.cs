@@ -23,9 +23,9 @@ namespace KuceZBronksuWEB.Services
                 List<string> ingrediends = model.IngrediendsList.Split(',').ToList();
                 recipies = KuceZBronksuLogic.Search.SearchByIngredients(ingrediends, recipies);
             }
-            if (model.MealType != null)
+            if (model.ListOfMealType != null)
             {
-                recipies = KuceZBronksuLogic.Search.SearchByMealType(model.MealType.Split(',').ToList(), recipies);
+                recipies = KuceZBronksuLogic.Search.SearchByMealType(model.ListOfMealType, recipies);
             }
             if (model.KcalAmount != null)
             {

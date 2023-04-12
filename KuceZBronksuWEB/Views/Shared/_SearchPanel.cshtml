@@ -14,12 +14,13 @@
             <br>
             <div class="small text-muted">Meal type</div>
             <div class="input-group">
-                <input asp-for="MealType" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." />
-            <select class="js-select2" multiple="multiple">
-                <option value="O1" data-badge="">Option1</option>
-                <option value="O2" data-badge="">Option2</option>
-                <option value="O3" data-badge="">Option3</option>
-            </select>             
+            @Html.ListBoxFor(s=>s.ListOfMealType,
+            new MultiSelectList(@Model.ListOfMealType),
+            new {@class = "js-select2",
+            @style = "width:400px; background-color:yellow; padding:15px;",
+            @title = "Select Multiple Options",
+            @align = "left",
+            })
             </div>
             <br>
             <div class="small text-muted">Kcal amount</div>

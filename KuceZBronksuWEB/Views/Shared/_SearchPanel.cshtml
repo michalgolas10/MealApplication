@@ -16,10 +16,7 @@
             <div class="input-group">
             @Html.ListBoxFor(s=>s.ListOfMealType,
             new MultiSelectList(@Model.ListOfMealType),
-            new {@class = "js-select2",
-            @style = "width:400px; background-color:yellow; padding:15px;",
-            @title = "Select Multiple Options",
-            @align = "left",
+                            new {@class = "js-select2"
             })
             </div>
             <br>

@@ -2,6 +2,7 @@
 using KuceZBronksuDAL.Models.BaseEntity;
 using KuceZBronksuDAL.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace KuceZBronksuDAL.Repository
 {
@@ -27,16 +28,21 @@ namespace KuceZBronksuDAL.Repository
             }
         }
 
-        public async Task<List<T>> GetAll()
+        public async Task<List<T>> GetAll(string include)
         {
-            return await this._entities.ToListAsync();
+            if (include != null)
+            {
+                return this._entities.Include(include).AsEnumerable().ToList()!;
+            }
+
+            return this._entities.AsEnumerable().ToList();
         }
 
         public void Insert(T entity)
         {
             if (entity != null)
             {
-                _entities.Add(entity);
+                _entities.AddAsync(entity);
                 _context.SaveChanges();
             }
         }

@@ -25,7 +25,7 @@ namespace KuceZBronksuBLL.Services
 
         public async Task<List<Recipe>> GetAll()
         {
-            var recipes = await _repository.GetAll();
+            var recipes = await _repository.GetAll("Users");
             return recipes;
         }
 
@@ -33,5 +33,10 @@ namespace KuceZBronksuBLL.Services
         {
             return await _repository.Get(id);
         }
-    }
+
+		public void Update(Recipe t)
+		{
+            _repository.Update(t);
+		}
+	}
 }

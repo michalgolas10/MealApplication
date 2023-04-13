@@ -4,6 +4,8 @@ using KuceZBronksuWEB.Models;
 using Microsoft.AspNetCore.Mvc;
 using KuceZBronksuBLL.Services.IService;
 using AutoMapper;
+using KuceZBronksuDAL.Models;
+using NuGet.Packaging;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -12,9 +14,11 @@ namespace KuceZBronksuWEB.Controllers
         private readonly ISearch<RecipeViewModel> _search;
         private readonly IService<Recipe> _recipeService;
         private readonly IMapper _mapper;
+        private readonly IService<User> _userService;
 
-        public RecipeController(ISearch<RecipeViewModel> search, IService<Recipe> recipeService, IMapper mapper)
+        public RecipeController(IService<User> userService, ISearch<RecipeViewModel> search, IService<Recipe> recipeService, IMapper mapper)
         {
+            _userService = userService;
             _search = search;
             _recipeService = recipeService;
             _mapper = mapper;
@@ -27,8 +31,8 @@ namespace KuceZBronksuWEB.Controllers
             var SearchViewModel = new SearchViewModel();
             SearchViewModel.ListOfMealType = new List<string> { "breakfast", "dinner/lunch", "teatime" };
             ViewBag.SearchViewModel = SearchViewModel;
-            var productsViews = listOfRecipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
-            return View(productsViews);
+            var recipesViews = listOfRecipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+            return View(recipesViews);
         }
 
         [HttpPost]
@@ -84,5 +88,22 @@ namespace KuceZBronksuWEB.Controllers
 
             return RedirectToAction("Create");
         }
-    }
+		public async Task<ActionResult> AddToFavourites(string label)
+		{
+			var resultRecipe= await _search.GetByNameRecipe(label);
+            var users = await _userService.GetAll();
+            var user = users.FirstOrDefault();
+            user.Recipes = new List<Recipe>() { resultRecipe };
+            _userService.Update(user);
+            return RedirectToAction("Index");
+		}
+        public async Task<ActionResult> FavouriteRecipes()
+        {
+            var users = await _userService.GetAll();
+            var userId = users.FirstOrDefault().Id;
+            var listOfRecipes = await _search.GetRecipesOfUser(userId);
+			var recipesViews = listOfRecipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+			return View(recipesViews);
+		}
+	}
 }

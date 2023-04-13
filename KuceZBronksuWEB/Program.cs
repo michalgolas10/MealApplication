@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using KuceZBronksuBLL.Services.IService;
 using KuceZBronksuBLL.Services;
 using KuceZBronksuDAL;
+using KuceZBronksuDAL.Models;
 using AutoMapper;
 using KuceZBronksuDAL.AutoMapProfiles;
 
@@ -23,8 +24,7 @@ namespace KuceZBronksuWEB
             options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;")));
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IService<Recipe>, RecipeService>();
-            builder.Services.AddScoped<IService<Recipe>, RecipeService>();
-            // Add services to the container.
+            builder.Services.AddScoped<IService<User>,UserService>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<ISearch<RecipeViewModel>, SearchService>();
             builder.Services.AddAutoMapper(typeof(RecipeViewModel),typeof(Program));

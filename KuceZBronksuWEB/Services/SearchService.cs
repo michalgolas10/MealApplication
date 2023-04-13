@@ -34,8 +34,7 @@ namespace KuceZBronksuWEB.Services
             var result = recipies.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
             return result;
         }
-
-        public async Task<List<RecipeViewModel>> GetAll()
+		public async Task<List<RecipeViewModel>> GetAll()
         {
             List<RecipeViewModel> result = new List<RecipeViewModel>();
             var recipies = await _recipeService.GetAll();
@@ -50,5 +49,16 @@ namespace KuceZBronksuWEB.Services
             var result = _mapper.Map<RecipeViewModel>(recipe);
             return result ;
         }
-    }
+        public async Task<Recipe> GetByNameRecipe(string name)
+		{
+			var recipies = await _recipeService.GetAll();
+			return recipies.FirstOrDefault(x => x.Label == name);
+		}
+		public async Task<List<Recipe>> GetRecipesOfUser(string userId)
+		{
+			var recipies = await _recipeService.GetAll();
+            var userFavouritesRecipes = recipies.Where(x => x.Users.Where(x=>x.Id== userId).Any()).ToList();
+            return userFavouritesRecipes;
+		}
+	}
 }

@@ -9,5 +9,6 @@
         void AddNew(T t);
 
         void Delete(T t);
+        void Update(T t);
     }
 }

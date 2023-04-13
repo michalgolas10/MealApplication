@@ -11,7 +11,7 @@ namespace KuceZBronksuDAL.Context
             if (context.Recipes.Any())
                 return;
             DataFileHandler.ReadingDataFromFile();
-            var testUser = new User() { Name = "Michał", Recipes = TempDb.Recipes };
+            var testUser = new User() { Name = "Michał"};
             context.Users.Add(testUser);
             foreach (var recipe in TempDb.Recipes)
             {

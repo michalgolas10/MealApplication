@@ -23,8 +23,13 @@ namespace KuceZBronksuBLL.Services
             _repository?.Delete(t);
         }
 
-        public async Task<List<User>> GetAll() => await _repository.GetAll();
+        public async Task<List<User>> GetAll() => await _repository.GetAll("Recipes");
 
         public async Task<User> GetValue(string id) => await _repository.Get(id);
-    }
+
+		public void Update(User t)
+		{
+			_repository.Update(t);
+		}
+	}
 }

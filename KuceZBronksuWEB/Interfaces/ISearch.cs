@@ -1,4 +1,5 @@
-﻿using KuceZBronksuWEB.Models;
+﻿using KuceZBronksuDAL;
+using KuceZBronksuWEB.Models;
 
 namespace KuceZBronksuWEB.Interfaces
 {
@@ -9,5 +10,8 @@ namespace KuceZBronksuWEB.Interfaces
         Task<List<T>> GetAll();
 
         Task<RecipeViewModel> GetByName(string name);
-    }
+        Task<Recipe> GetByNameRecipe(string name);
+        Task<List<Recipe>> GetRecipesOfUser(string userId);
+
+	}
 }

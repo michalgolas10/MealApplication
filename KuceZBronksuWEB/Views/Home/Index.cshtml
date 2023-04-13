@@ -19,10 +19,10 @@
                 <tbody>
                     @foreach(var item in Model){
                     <tr>
-                        <td><div class="card mb-4">
+                            <td><div class="item-img-wrap">
                                 @if (item.Image.Contains("/")) // Means that its image that someone put URL for.
                                 {
-                                        <a href="#!"><img class="img-responsive" src="@item.Image" alt="" recipe image"" /></a>
+                                        <a href="#!"><img class="img-responsive" src="@item.Image" alt="recipe image" /></a>
                                 }
                                 else
                                 {
@@ -31,7 +31,7 @@
                                 }
                             <div class="card-body">
                                 <h2 class="card-title">@item.Label</h2>
-                                <p class="card-text">To jest kurewsko dobry przepisz</p>
+                                <p class="card-text">To jest kurewsko dobry przepis</p>
                                 <a class="btn btn-primary" href="#!">Read more →</a>
                             </div>
                         </div>

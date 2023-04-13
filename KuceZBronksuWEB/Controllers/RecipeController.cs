@@ -105,5 +105,12 @@ namespace KuceZBronksuWEB.Controllers
 			var recipesViews = listOfRecipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
 			return View(recipesViews);
 		}
+		public async Task<ActionResult> DeleteRecipesFromFavourites(string label)
+        {
+			var resultRecipe = await _search.GetByNameRecipe(label);
+            resultRecipe.Users = new List<User>();
+            _recipeService.Update(resultRecipe);
+			return RedirectToAction("FavouriteRecipes");
+		}
 	}
 }

@@ -93,7 +93,9 @@ namespace KuceZBronksuWEB.Controllers
 			var resultRecipe= await _search.GetByNameRecipe(label);
             var users = await _userService.GetAll();
             var user = users.FirstOrDefault();
-            user.Recipes = new List<Recipe>() { resultRecipe };
+            var recipes = user.Recipes;
+            recipes.Add(resultRecipe);
+            user.Recipes= recipes;
             _userService.Update(user);
             return RedirectToAction("Index");
 		}

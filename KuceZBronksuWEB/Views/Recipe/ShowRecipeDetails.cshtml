@@ -74,7 +74,8 @@
     <img src="@Model.Image" alt="@Model.Image"></img>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+    <a class="btn btn-primary btn-lg active" asp-action="Edit" asp-controller="Recipe" asp-route-label="@Model.Label">Edit</a>
     <a asp-action="Index">Back to List</a>
 </div>
 

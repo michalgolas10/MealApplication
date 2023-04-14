@@ -13,5 +13,6 @@ namespace KuceZBronksuWEB.Interfaces
         Task<Recipe> GetByNameRecipe(string name);
         Task<List<Recipe>> GetRecipesOfUser(string userId);
 
+        Task<RecipeViewModel> GetById(string id);
 	}
 }

@@ -114,5 +114,40 @@ namespace KuceZBronksuWEB.Controllers
             _recipeService.Update(resultRecipe);
 			return RedirectToAction("FavouriteRecipes");
 		}
-	}
+
+        public async Task<ActionResult> Edit(string label)
+        {
+            var pageModel = await _search.GetByName(label);
+            return View(pageModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public Task<ActionResult> Edit(RecipeViewModel recipe)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var recipies = _recipeService.GetAll();
+            var recipeEdit = recipies.Result.FirstOrDefault(x => x.Label == recipe.Label);
+
+            recipeEdit.Label = recipe.Label;
+            recipeEdit.DietLabels = recipe.DietLabels;
+            recipeEdit.HealthLabels = recipe.HealthLabels;
+            recipeEdit.Calories = recipe.Calories;
+            recipeEdit.Cautions = recipe.Cautions;
+            recipeEdit.CuisineType = recipe.CuisineType;
+            recipeEdit.Image = recipe.Image;
+            recipeEdit.IngredientLines = recipe.IngredientLines;
+            recipeEdit.MealType = recipe.MealType;
+            recipeEdit.RecipeSteps = recipe.RecipeSteps;
+
+            _recipeService.Update(recipeEdit);
+
+            return RedirectToAction("ShowRecipeDetails");
+
+        }
+    }
 }

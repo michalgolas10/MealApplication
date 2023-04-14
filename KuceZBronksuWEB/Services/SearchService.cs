@@ -49,6 +49,15 @@ namespace KuceZBronksuWEB.Services
             var result = _mapper.Map<RecipeViewModel>(recipe);
             return result ;
         }
+
+        public async Task<RecipeViewModel> GetById(string id)
+        {
+            var recipies = await _recipeService.GetAll();
+            var recipe = recipies.FirstOrDefault(x => x.Id == id);
+            var result = _mapper.Map<RecipeViewModel>(recipe);
+            return result;
+        }
+
         public async Task<Recipe> GetByNameRecipe(string name)
 		{
 			var recipies = await _recipeService.GetAll();

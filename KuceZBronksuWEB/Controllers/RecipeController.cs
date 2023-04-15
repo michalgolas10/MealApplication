@@ -123,28 +123,28 @@ namespace KuceZBronksuWEB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public Task<ActionResult> Edit(RecipeViewModel recipe)
+        public async Task<ActionResult> Edit(RecipeViewModel recipe)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            var recipies = _recipeService.GetAll();
-            var recipeEdit = recipies.Result.FirstOrDefault(x => x.Label == recipe.Label);
+            var recipies = await _recipeService.GetAll();
+            var recipeToEdit = recipies.FirstOrDefault(x => x.Label == recipe.Label);
 
-            recipeEdit.Label = recipe.Label;
-            recipeEdit.DietLabels = recipe.DietLabels;
-            recipeEdit.HealthLabels = recipe.HealthLabels;
-            recipeEdit.Calories = recipe.Calories;
-            recipeEdit.Cautions = recipe.Cautions;
-            recipeEdit.CuisineType = recipe.CuisineType;
-            recipeEdit.Image = recipe.Image;
-            recipeEdit.IngredientLines = recipe.IngredientLines;
-            recipeEdit.MealType = recipe.MealType;
-            recipeEdit.RecipeSteps = recipe.RecipeSteps;
+            recipeToEdit.Label = recipe.Label;
+            recipeToEdit.DietLabels = recipe.DietLabels;
+            recipeToEdit.HealthLabels = recipe.HealthLabels;
+            recipeToEdit.Calories = double.Parse(recipe.Calories);
+            recipeToEdit.Cautions = recipe.Cautions;
+            recipeToEdit.CuisineType = recipe.CuisineType;
+            recipeToEdit.Image = recipe.Image;
+            recipeToEdit.IngredientLines = recipe.IngredientLines;
+            recipeToEdit.MealType = recipe.MealType;
+            recipeToEdit.RecipeSteps = recipe.RecipeSteps;
 
-            _recipeService.Update(recipeEdit);
+            _recipeService.Update(recipeToEdit);
 
             return RedirectToAction("ShowRecipeDetails");
 

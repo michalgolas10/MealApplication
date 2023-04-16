@@ -6,6 +6,7 @@ using KuceZBronksuBLL.Services.IService;
 using AutoMapper;
 using KuceZBronksuDAL.Models;
 using NuGet.Packaging;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -84,7 +85,8 @@ namespace KuceZBronksuWEB.Controllers
                 Image = pageModel.Images
             };
 
-            TempDb.Recipes.Add(databaseModel);
+            _recipeService.AddNew(databaseModel);
+            //TempDb.Recipes.Add(databaseModel);
 
             return RedirectToAction("Create");
         }
@@ -118,6 +120,9 @@ namespace KuceZBronksuWEB.Controllers
         public async Task<ActionResult> Edit(string label)
         {
             var pageModel = await _search.GetByName(label);
+            var editViewModel = await _search.CreateEditViewModel();
+            ViewBag.EditViewModel = await _search.CreateEditViewModel();
+
             return View(pageModel);
         }
 
@@ -125,28 +130,48 @@ namespace KuceZBronksuWEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(RecipeViewModel recipe)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View();
+            //}
 
             var recipies = await _recipeService.GetAll();
             var recipeToEdit = recipies.FirstOrDefault(x => x.Label == recipe.Label);
 
-            recipeToEdit.Label = recipe.Label;
-            recipeToEdit.DietLabels = recipe.DietLabels;
-            recipeToEdit.HealthLabels = recipe.HealthLabels;
-            recipeToEdit.Calories = double.Parse(recipe.Calories);
-            recipeToEdit.Cautions = recipe.Cautions;
-            recipeToEdit.CuisineType = recipe.CuisineType;
-            recipeToEdit.Image = recipe.Image;
-            recipeToEdit.IngredientLines = recipe.IngredientLines;
-            recipeToEdit.MealType = recipe.MealType;
-            recipeToEdit.RecipeSteps = recipe.RecipeSteps;
+            if (recipe.Label != "") { recipeToEdit.Label = recipe.Label; }
+            else { recipeToEdit.Label = recipeToEdit.Label; }
+
+            if (recipe.DietLabels != null) { recipeToEdit.DietLabels = recipe.DietLabels; }
+            else { recipeToEdit.DietLabels = recipeToEdit.DietLabels; }
+
+            if (recipe.HealthLabels != null) { recipeToEdit.HealthLabels = recipe.HealthLabels; }
+            else { recipeToEdit.HealthLabels = recipeToEdit.HealthLabels; }
+
+            if (double.Parse(recipe.Calories) != null) { recipeToEdit.Calories = double.Parse(recipe.Calories); }
+            else { recipeToEdit.Calories = recipeToEdit.Calories; }
+
+            if (recipe.Cautions != null) { recipeToEdit.Cautions = recipe.Cautions; }
+            else { recipeToEdit.Cautions = recipeToEdit.Cautions; }
+
+            if (recipe.CuisineType != null) { recipeToEdit.CuisineType = recipe.CuisineType; }
+            else { recipeToEdit.CuisineType = recipeToEdit.CuisineType; }
+
+            if (recipe.Image != "") { recipeToEdit.Image = recipe.Image; }
+            else { recipeToEdit.Image = recipeToEdit.Image; }
+
+            if (recipe.IngredientLines != null) { recipeToEdit.IngredientLines = recipe.IngredientLines; }
+            else { recipeToEdit.IngredientLines = recipeToEdit.IngredientLines; }
+
+            if (recipe.MealType != null) { recipeToEdit.MealType = recipe.MealType; }
+            else { recipeToEdit.MealType = recipeToEdit.MealType; }
+
+            if (recipe.RecipeSteps != null) { recipeToEdit.RecipeSteps = recipe.RecipeSteps; }
+            else { recipeToEdit.RecipeSteps = recipeToEdit.RecipeSteps; }
+
 
             _recipeService.Update(recipeToEdit);
 
-            return RedirectToAction("ShowRecipeDetails");
+            return RedirectToAction("EditComplete");
 
         }
     }

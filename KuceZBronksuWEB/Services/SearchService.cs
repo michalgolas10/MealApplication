@@ -3,6 +3,7 @@ using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
 using KuceZBronksuBLL.Services.IService;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace KuceZBronksuWEB.Services
 {
@@ -69,5 +70,45 @@ namespace KuceZBronksuWEB.Services
             var userFavouritesRecipes = recipies.Where(x => x.Users.Where(x=>x.Id== userId).Any()).ToList();
             return userFavouritesRecipes;
 		}
+
+        public async Task<EditViewModel> CreateEditViewModel()
+        {
+            var allRecipes = await _recipeService.GetAll();
+            EditViewModel editViewModel= new EditViewModel();
+            foreach(var recipe in allRecipes)
+            {
+               foreach(var healthLabel in recipe.HealthLabels)
+               {
+                    editViewModel.HealthLabels.Add(healthLabel);
+               }
+
+               foreach(var mealType in recipe.MealType)
+                {
+                    editViewModel.MealType.Add(mealType);
+                }
+
+               foreach(var dietLabel in recipe.DietLabels)
+                {
+                    editViewModel.DietLabels.Add(dietLabel);
+                }
+
+               foreach(var caution in recipe.Cautions)
+                {
+                    editViewModel.Cautions.Add(caution);
+                }
+
+               foreach(var cuisineType in recipe.CuisineType)
+                {
+                    editViewModel.CuisineType.Add(cuisineType);
+                }
+
+                editViewModel.MealType.Distinct();
+                editViewModel.DietLabels.Distinct();
+                editViewModel.Cautions.Distinct();
+                editViewModel.HealthLabels.Distinct();
+                editViewModel.CuisineType.Distinct();
+                }
+            return editViewModel;
+        }
 	}
 }

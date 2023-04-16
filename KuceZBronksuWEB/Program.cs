@@ -29,6 +29,7 @@ namespace KuceZBronksuWEB
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<ISearch<RecipeViewModel>, SearchService>();
             builder.Services.AddAutoMapper(typeof(RecipeViewModel),typeof(Program));
+            builder.Services.AddAutoMapper(typeof(EditViewModel), typeof(Program));
             builder.Services.AddScoped<EditViewModelMapping>();
             var app = builder.Build();
             CreateDbIfNotExists(app);

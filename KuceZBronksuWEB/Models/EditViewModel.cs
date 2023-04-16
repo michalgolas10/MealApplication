@@ -11,6 +11,7 @@ namespace KuceZBronksuWEB.Models
         public string Image { get; set; }
         public string IngredientLines { get; set; }
         public string RecipeSteps { get; set; }
+        public string? ShareAs { get; set; }
         public List<string>? MealType { get; set; }
 
         public List<string>? HealthLabels { get; set; }
@@ -20,6 +21,7 @@ namespace KuceZBronksuWEB.Models
         public List<string>? Cautions { get; set; }
 
         public List<string>? CuisineType { get; set; }
+
 
     }
 }

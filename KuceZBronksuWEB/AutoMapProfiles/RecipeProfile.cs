@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KuceZBronksuWEB.Models;
+using System.Collections;
 
 namespace KuceZBronksuDAL.AutoMapProfiles
 {
@@ -14,8 +15,10 @@ namespace KuceZBronksuDAL.AutoMapProfiles
             public RecipeProfile()
             {
             CreateMap<Recipe, RecipeViewModel>();
-            CreateMap<Recipe, EditViewModel>();
-            }
-        
+            CreateMap<EditViewModel, Recipe>()
+                .ForMember(x => x.Calories, opt => opt.Ignore())
+                .ForMember(dest => dest.IngredientLines, opts => opts.MapFrom(src => src.IngredientLines.Split(',',StringSplitOptions.None).ToList()));
+        }
     }
+        
 }

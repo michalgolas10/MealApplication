@@ -10,6 +10,8 @@ namespace KuceZBronksuWEB.Models
         [DisplayName("Ingredients")]
         public List<string> IngredientLines { get; set; }
 
+        public string? ShareAs { get; set; }
+
         public string Calories { get; set; }
 
         public List<string> MealType { get; set; }

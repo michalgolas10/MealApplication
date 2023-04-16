@@ -108,6 +108,7 @@ namespace KuceZBronksuWEB.Services
             editViewModel.Label = model.Label;
             editViewModel.Image = model.Image;
             editViewModel.Calories = model.Calories;
+            editViewModel.ShareAs = model.ShareAs;
 
             List<string> ingredientLines = model.IngredientLines;
             string stringIngredientLines = String.Join(", ", ingredientLines.ToArray());

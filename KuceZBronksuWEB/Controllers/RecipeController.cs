@@ -8,6 +8,7 @@ using KuceZBronksuDAL.Models;
 using NuGet.Packaging;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using KuceZBronksuWEB.AutoMapProfiles;
+using System.Globalization;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -71,10 +72,11 @@ namespace KuceZBronksuWEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(EditViewModel pageModel)
         {
-            var resultRecipe = await _editViewModelMapping.MapEditViewModel(pageModel);
-
-            _recipeService.Update(resultRecipe);
-            return RedirectToAction("EditComplete");
+            var doubleCalories = new double();
+            var resultRecipe = _mapper.Map<Recipe>(pageModel);
+            resultRecipe.Calories = Double.Parse(pageModel.Calories, CultureInfo.InvariantCulture);
+            _recipeService.AddNew(resultRecipe);
+            return RedirectToAction("CreateComplete");
         }
 		public async Task<ActionResult> AddToFavourites(string label)
 		{

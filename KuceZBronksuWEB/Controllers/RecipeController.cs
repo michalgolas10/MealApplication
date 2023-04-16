@@ -72,15 +72,11 @@ namespace KuceZBronksuWEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(EditViewModel pageModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Create");
-            }
-            var doubleCalories = new double();
-            var resultRecipe = _mapper.Map<Recipe>(pageModel);
-            resultRecipe.Calories = Double.Parse(pageModel.Calories, CultureInfo.InvariantCulture);
-            _recipeService.AddNew(resultRecipe);
-            return RedirectToAction("CreateComplete");
+                var doubleCalories = new double();
+                var resultRecipe = _mapper.Map<Recipe>(pageModel);
+                resultRecipe.Calories = Double.Parse(pageModel.Calories, CultureInfo.InvariantCulture);
+                _recipeService.AddNew(resultRecipe);
+                return RedirectToAction("CreateComplete");
         }
 		public async Task<ActionResult> AddToFavourites(string label)
 		{
@@ -113,9 +109,6 @@ namespace KuceZBronksuWEB.Controllers
         {
             var pageModel = await _search.GetByName(label);
             var editViewModel = await _search.GetEditViewModel(pageModel);
-            //var editViewModel = await _search.CreateEditViewModel();
-            //ViewBag.EditViewModel = await _search.CreateEditViewModel();
-
             return View(editViewModel);
         }
 
@@ -123,16 +116,9 @@ namespace KuceZBronksuWEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(EditViewModel recipe)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View();
-            //}
             var resultRecipe = await _editViewModelMapping.MapEditViewModel(recipe);
-            
             _recipeService.Update(resultRecipe);
-
             return RedirectToAction("EditComplete");
-
         }
 
         public ActionResult EditComplete()

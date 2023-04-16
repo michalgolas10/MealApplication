@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using KuceZBronksuWEB.Models;
 
 namespace KuceZBronksuWEB.Models
 {
-    public class EditViewModel
+    public class EditViewModel 
     {
         [DisplayName("Name"), StringLength(20, MinimumLength = 2)]
         public string Label { get; set; }

@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KuceZBronksuDAL\KuceZBronksuDAL.csproj" />
-    <ProjectReference Include="..\KuceZBronksuLogic\KuceZBronksuLogic.csproj" />
+    <ProjectReference Include="..\KuceZBronksuLogic\KuceZBronksuBLL.csproj" />
   </ItemGroup>
 
 </Project>

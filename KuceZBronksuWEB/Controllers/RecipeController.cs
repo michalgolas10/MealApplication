@@ -7,6 +7,7 @@ using AutoMapper;
 using KuceZBronksuDAL.Models;
 using NuGet.Packaging;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using KuceZBronksuWEB.AutoMapProfiles;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -16,13 +17,16 @@ namespace KuceZBronksuWEB.Controllers
         private readonly IService<Recipe> _recipeService;
         private readonly IMapper _mapper;
         private readonly IService<User> _userService;
+        private readonly EditViewModelMapping _editViewModelMapping;
 
-        public RecipeController(IService<User> userService, ISearch<RecipeViewModel> search, IService<Recipe> recipeService, IMapper mapper)
+        public RecipeController(IService<User> userService, ISearch<RecipeViewModel> search, IService<Recipe> recipeService, IMapper mapper, 
+            EditViewModelMapping editViewModelMapping)
         {
             _userService = userService;
             _search = search;
             _recipeService = recipeService;
             _mapper = mapper;
+            _editViewModelMapping = editViewModelMapping;
         }
 
         // GET: RecipeController
@@ -120,59 +124,32 @@ namespace KuceZBronksuWEB.Controllers
         public async Task<ActionResult> Edit(string label)
         {
             var pageModel = await _search.GetByName(label);
-            var editViewModel = await _search.CreateEditViewModel();
-            ViewBag.EditViewModel = await _search.CreateEditViewModel();
+            var editViewModel = await _search.GetEditViewModel(pageModel);
+            //var editViewModel = await _search.CreateEditViewModel();
+            //ViewBag.EditViewModel = await _search.CreateEditViewModel();
 
-            return View(pageModel);
+            return View(editViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(RecipeViewModel recipe)
+        public async Task<ActionResult> Edit(EditViewModel recipe)
         {
             //if (!ModelState.IsValid)
             //{
             //    return View();
             //}
-
-            var recipies = await _recipeService.GetAll();
-            var recipeToEdit = recipies.FirstOrDefault(x => x.Label == recipe.Label);
-
-            if (recipe.Label != "") { recipeToEdit.Label = recipe.Label; }
-            else { recipeToEdit.Label = recipeToEdit.Label; }
-
-            if (recipe.DietLabels != null) { recipeToEdit.DietLabels = recipe.DietLabels; }
-            else { recipeToEdit.DietLabels = recipeToEdit.DietLabels; }
-
-            if (recipe.HealthLabels != null) { recipeToEdit.HealthLabels = recipe.HealthLabels; }
-            else { recipeToEdit.HealthLabels = recipeToEdit.HealthLabels; }
-
-            if (double.Parse(recipe.Calories) != null) { recipeToEdit.Calories = double.Parse(recipe.Calories); }
-            else { recipeToEdit.Calories = recipeToEdit.Calories; }
-
-            if (recipe.Cautions != null) { recipeToEdit.Cautions = recipe.Cautions; }
-            else { recipeToEdit.Cautions = recipeToEdit.Cautions; }
-
-            if (recipe.CuisineType != null) { recipeToEdit.CuisineType = recipe.CuisineType; }
-            else { recipeToEdit.CuisineType = recipeToEdit.CuisineType; }
-
-            if (recipe.Image != "") { recipeToEdit.Image = recipe.Image; }
-            else { recipeToEdit.Image = recipeToEdit.Image; }
-
-            if (recipe.IngredientLines != null) { recipeToEdit.IngredientLines = recipe.IngredientLines; }
-            else { recipeToEdit.IngredientLines = recipeToEdit.IngredientLines; }
-
-            if (recipe.MealType != null) { recipeToEdit.MealType = recipe.MealType; }
-            else { recipeToEdit.MealType = recipeToEdit.MealType; }
-
-            if (recipe.RecipeSteps != null) { recipeToEdit.RecipeSteps = recipe.RecipeSteps; }
-            else { recipeToEdit.RecipeSteps = recipeToEdit.RecipeSteps; }
-
-
-            _recipeService.Update(recipeToEdit);
+            var resultRecipe = await _editViewModelMapping.MapEditViewModel(recipe);
+            
+            _recipeService.Update(resultRecipe);
 
             return RedirectToAction("EditComplete");
 
+        }
+
+        public ActionResult EditComplete()
+        {
+            return View();
         }
     }
 }

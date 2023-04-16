@@ -15,6 +15,7 @@ namespace KuceZBronksuWEB.Interfaces
 
         Task<RecipeViewModel> GetById(string id);
         Task<EditViewModel> CreateEditViewModel();
+        Task<EditViewModel> GetEditViewModel(RecipeViewModel model);
 
     }
 }

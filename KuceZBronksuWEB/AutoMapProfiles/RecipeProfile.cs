@@ -14,6 +14,7 @@ namespace KuceZBronksuDAL.AutoMapProfiles
             public RecipeProfile()
             {
             CreateMap<Recipe, RecipeViewModel>();
+            CreateMap<Recipe, EditViewModel>();
             }
         
     }

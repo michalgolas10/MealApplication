@@ -4,6 +4,7 @@ using KuceZBronksuWEB.Models;
 using KuceZBronksuBLL.Services.IService;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System.Linq;
 
 namespace KuceZBronksuWEB.Services
 {
@@ -102,12 +103,59 @@ namespace KuceZBronksuWEB.Services
                     editViewModel.CuisineType.Add(cuisineType);
                 }
 
-                editViewModel.MealType.Distinct();
-                editViewModel.DietLabels.Distinct();
-                editViewModel.Cautions.Distinct();
-                editViewModel.HealthLabels.Distinct();
-                editViewModel.CuisineType.Distinct();
-                }
+            }
+            editViewModel.MealType.Distinct();
+            editViewModel.DietLabels.Distinct();
+            editViewModel.Cautions.Distinct();
+            editViewModel.HealthLabels.Distinct();
+            editViewModel.CuisineType.Distinct();
+            
+            return editViewModel;
+        }
+
+        public async Task<EditViewModel> GetEditViewModel(RecipeViewModel model)
+        {
+
+            var allRecipes = await _recipeService.GetAll();
+
+            EditViewModel editViewModel = new();
+            editViewModel.Label = model.Label;
+            editViewModel.Image = model.Image;
+            editViewModel.Calories = model.Calories;
+
+            List<string> ingredientLines = model.IngredientLines;
+            string stringIngredientLines = String.Join(", ", ingredientLines.ToArray());
+
+            editViewModel.IngredientLines = stringIngredientLines;
+
+            List<string> recipeSteps = model.RecipeSteps;
+            string stringRecipeSteps = String.Join(", ", recipeSteps.ToArray());
+
+            editViewModel.RecipeSteps = stringRecipeSteps;
+
+
+            List<string> cuisineList = new();
+            List<string> mealTypeList = new();
+            List<string> healthLabelList = new();
+            List<string> cautionList = new();
+            List<string> dietLabelList = new();
+
+            foreach (var recipe in allRecipes)
+            {
+                cuisineList.AddRange(recipe.CuisineType.ToList());
+                mealTypeList.AddRange(recipe.MealType.ToList());
+                healthLabelList.AddRange(recipe.HealthLabels.ToList());
+                cautionList.AddRange(recipe.Cautions.ToList());
+                dietLabelList.AddRange(recipe.DietLabels.ToList());
+            }
+
+
+            editViewModel.DietLabels = dietLabelList.Distinct().ToList();
+            editViewModel.HealthLabels = healthLabelList.Distinct().ToList();
+            editViewModel.Cautions = cautionList.Distinct().ToList();
+            editViewModel.CuisineType = cuisineList.Distinct().ToList();
+            editViewModel.MealType= mealTypeList.Distinct().ToList();   
+
             return editViewModel;
         }
 	}

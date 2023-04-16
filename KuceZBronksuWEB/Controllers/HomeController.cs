@@ -27,7 +27,7 @@ namespace KuceZBronksuWEB.Controllers
         {
             var listOfRecipes = await _recipeService.GetAll();
             var SearchViewModel = new SearchViewModel();
-            SearchViewModel.ListOfMealType = new List<string> { "breakfast","dinner/lunch","teatime"};
+            SearchViewModel.ListOfMealType = new List<string> { "breakfast","lunch/dinner","teatime"};
             ViewBag.SearchViewModel = SearchViewModel;
             var productsViews = listOfRecipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
             return View(productsViews);

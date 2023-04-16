@@ -4,7 +4,7 @@
 }
 <link rel="stylesheet" type="text/css" href="/css/styles.css">
 <h1>Recipe Details</h1>
-
+<div class="container">
 <div>
     <hr />
     <dl class="row">
@@ -69,6 +69,7 @@
             @Html.DisplayFor( m => item)
         </dd>
     }
+</div>
 </div>
 <div class="image">
     <img src="@Model.Image" alt="@Model.Image"></img>

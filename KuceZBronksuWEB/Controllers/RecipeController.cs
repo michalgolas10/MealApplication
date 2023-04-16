@@ -72,6 +72,10 @@ namespace KuceZBronksuWEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(EditViewModel pageModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Create");
+            }
             var doubleCalories = new double();
             var resultRecipe = _mapper.Map<Recipe>(pageModel);
             resultRecipe.Calories = Double.Parse(pageModel.Calories, CultureInfo.InvariantCulture);

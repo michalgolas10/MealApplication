@@ -7,6 +7,15 @@
 <div class="container">
 <div>
     <hr />
+        @if (Model.Image.Contains("/")) // Means that its image that someone put URL for.
+        {
+            <a href="#!"><img class="img-responsive" src="@Model.Image" alt="recipe image" /></a>
+        }
+        else
+        {
+            <img src="/Images/@Model.Image" class="img-responsive" alt="recipe image">
+            //<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
+        }
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Label)
@@ -70,9 +79,6 @@
         </dd>
     }
 </div>
-</div>
-<div class="image">
-    <img src="@Model.Image" alt="@Model.Image"></img>
 </div>
 <div>
     @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@

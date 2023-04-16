@@ -72,11 +72,15 @@ namespace KuceZBronksuWEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(EditViewModel pageModel)
         {
-            var doubleCalories = new double();
-            var resultRecipe = _mapper.Map<Recipe>(pageModel);
-            resultRecipe.Calories = Double.Parse(pageModel.Calories, CultureInfo.InvariantCulture);
-            _recipeService.AddNew(resultRecipe);
-            return RedirectToAction("CreateComplete");
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Create");
+            }
+                var doubleCalories = new double();
+                var resultRecipe = _mapper.Map<Recipe>(pageModel);
+                resultRecipe.Calories = Double.Parse(pageModel.Calories, CultureInfo.InvariantCulture);
+                _recipeService.AddNew(resultRecipe);
+                return RedirectToAction("CreateComplete");
         }
 		public async Task<ActionResult> AddToFavourites(string label)
 		{

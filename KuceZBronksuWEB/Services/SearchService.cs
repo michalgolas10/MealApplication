@@ -75,41 +75,27 @@ namespace KuceZBronksuWEB.Services
         public async Task<EditViewModel> CreateEditViewModel()
         {
             var allRecipes = await _recipeService.GetAll();
-            EditViewModel editViewModel= new EditViewModel();
-            foreach(var recipe in allRecipes)
+            List<string> cuisineList = new();
+            List<string> mealTypeList = new();
+            List<string> healthLabelList = new();
+            List<string> cautionList = new();
+            List<string> dietLabelList = new();
+            foreach (var recipe in allRecipes)
             {
-               foreach(var healthLabel in recipe.HealthLabels)
-               {
-                    editViewModel.HealthLabels.Add(healthLabel);
-               }
-
-               foreach(var mealType in recipe.MealType)
-                {
-                    editViewModel.MealType.Add(mealType);
-                }
-
-               foreach(var dietLabel in recipe.DietLabels)
-                {
-                    editViewModel.DietLabels.Add(dietLabel);
-                }
-
-               foreach(var caution in recipe.Cautions)
-                {
-                    editViewModel.Cautions.Add(caution);
-                }
-
-               foreach(var cuisineType in recipe.CuisineType)
-                {
-                    editViewModel.CuisineType.Add(cuisineType);
-                }
-
+                cuisineList.AddRange(recipe.CuisineType.ToList());
+                mealTypeList.AddRange(recipe.MealType.ToList());
+                healthLabelList.AddRange(recipe.HealthLabels.ToList());
+                cautionList.AddRange(recipe.Cautions.ToList());
+                dietLabelList.AddRange(recipe.DietLabels.ToList());
             }
-            editViewModel.MealType.Distinct();
-            editViewModel.DietLabels.Distinct();
-            editViewModel.Cautions.Distinct();
-            editViewModel.HealthLabels.Distinct();
-            editViewModel.CuisineType.Distinct();
-            
+            EditViewModel editViewModel = new()
+            {
+                DietLabels = dietLabelList.Distinct().ToList(),
+                HealthLabels = healthLabelList.Distinct().ToList(),
+                Cautions = cautionList.Distinct().ToList(),
+                CuisineType = cuisineList.Distinct().ToList(),
+                MealType = mealTypeList.Distinct().ToList(),
+            };
             return editViewModel;
         }
 

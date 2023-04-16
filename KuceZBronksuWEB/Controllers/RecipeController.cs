@@ -61,38 +61,20 @@ namespace KuceZBronksuWEB.Controllers
             return View(result);
         }
 
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            var editViewModel = await _search.CreateEditViewModel();
+            return View(editViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateViewModel pageModel)
+        public async Task<ActionResult> Create(EditViewModel pageModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(pageModel);
-            }
-            Recipe databaseModel = new Recipe
-            {
-                Label = pageModel.Label,
-                ShareAs = pageModel.ShareAs,
-                Calories = double.Parse(pageModel.Calories),
-                DietLabels = pageModel.DietLabels,
-                HealthLabels = pageModel.HealthLabels,
-                Cautions = pageModel.Cautions,
-                IngredientLines = pageModel.IngredientLines.Split(",").ToList(),
-                RecipeSteps = pageModel.RecipeSteps.Split(",").ToList(),
-                CuisineType = pageModel.CuisineType,
-                MealType = pageModel.MealType,
-                Image = pageModel.Images
-            };
+            var resultRecipe = await _editViewModelMapping.MapEditViewModel(pageModel);
 
-            _recipeService.AddNew(databaseModel);
-            //TempDb.Recipes.Add(databaseModel);
-
-            return RedirectToAction("Create");
+            _recipeService.Update(resultRecipe);
+            return RedirectToAction("EditComplete");
         }
 		public async Task<ActionResult> AddToFavourites(string label)
 		{
@@ -148,6 +130,10 @@ namespace KuceZBronksuWEB.Controllers
         }
 
         public ActionResult EditComplete()
+        {
+            return View();
+        }
+        public ActionResult CreateComplete()
         {
             return View();
         }

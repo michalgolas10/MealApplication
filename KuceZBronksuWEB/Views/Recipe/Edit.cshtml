@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4>Edit Recipe</h4>
-
+<div class="container">
 <div class="row">
+<h4>Edit Recipe</h4>
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -26,47 +26,6 @@
                 <input asp-for="IngredientLines" class="form-control" />
                 <span asp-validation-for="IngredientLines" class="text-danger"></span>
             </div>
-
-            @*<div class="form-group">
-                <label asp-for="IngredientLines" class="control-label"></label>
-                <ul class="ingridient-container">
-                    @foreach (var item in Model.IngredientLines)
-                    {
-                        <li class="ingridient-item">
-                            @item
-                            <button class="ingridient-delete" onclick="deleteIngridient(this)">delete</button>
-                        </li>
-                    }
-                </ul>
-                <span asp-validation-for="IngredientLines" class="text-danger"></span>
-            </div>*@
-            @*<div class="form-group">
-                <label asp-for="RecipeSteps" class="control-label"></label>
-                <input asp-for="RecipeSteps" class="form-control" />
-                <span asp-validation-for="RecipeSteps" class="text-danger"></span>
-            </div>*@
-@*
-            <div class="form-group">
-                <label asp-for="RecipeSteps" class="control-label"></label>
-                <input asp-for="RecipeSteps" id="recipe-steps" class="form-control" hidden="true" />
-                <ul class="steps-container">
-                    @foreach (var item in Model.RecipeSteps)
-                    {
-                        <li class="step-item" id="@item">
-                            @item
-                            <button class="step-delete" onclick="deleteStep(this)">delete</button>
-                        </li>
-                    }
-                </ul>
-                <span asp-validation-for="RecipeSteps" class="text-danger"></span>
-            </div>*@
-
-
-            @*<div class="form-group">
-                <label asp-for="Calories" class="control-label"></label>
-                <input asp-for="Calories" class="form-control" type="number" />
-                <span asp-validation-for="Calories" class="text-danger"></span>
-            </div>*@
              <div class="form-group">
                 <label asp-for="Calories" class="control-label"></label>
                 <input asp-for="Calories" class="form-control"/>
@@ -75,7 +34,7 @@
 
             <div class="form-group">
                 <label asp-for="Cautions" class="control-label"></label>
-                <select asp-for="Cautions" class="form-select" multiple aria-label="multiple select example">
+                <select asp-for="Cautions" class="js-select2" multiple aria-label="multiple select example">
                     @foreach (var item in Model.Cautions)
                     {
                         <option value="@item">@item</option>
@@ -88,7 +47,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="HealthLabels" class="control-label"></label>
-                <select asp-for="HealthLabels" class="form-select" multiple aria-label="multiple select example">
+                <select asp-for="HealthLabels" class="js-select2" multiple aria-label="multiple select example">
                     @foreach (var item in Model.HealthLabels)
                     {
                             <option value="@item">@item</option>
@@ -101,7 +60,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DietLabels" class="control-label"></label>
-                <select asp-for="DietLabels" class="form-select" multiple aria-label="multiple select example">
+                <select asp-for="DietLabels" class="js-select2" multiple aria-label="multiple select example">
                     @foreach (var item in Model.DietLabels)
                     {
                             <option value="@item">@item</option>
@@ -114,7 +73,7 @@
 
             <div class="form-group">
                 <label asp-for="CuisineType" class="control-label"></label>
-                <select asp-for="CuisineType" class="form-select" multiple aria-label="multiple select example">
+                <select asp-for="CuisineType" class="js-select2" multiple aria-label="multiple select example">
                     @foreach (var item in Model.CuisineType)
                     {
                         <option value="@item">@item</option>
@@ -127,7 +86,7 @@
 
             <div class="form-group">
                 <label asp-for="MealType" class="control-label"></label>
-                <select asp-for="MealType" class="form-select" multiple aria-label="multiple select example">
+                <select asp-for="MealType" class="js-select2" multiple aria-label="multiple select example">
                     @foreach (var item in Model.MealType)
                     {
                             <option value="@item">@item</option>
@@ -144,6 +103,8 @@
             </div>
 
         </form>
+    </div>
+    </div>
     </div>
 
 

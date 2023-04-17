@@ -1,0 +1,22 @@
+﻿.footer-image {
+    height: 17%;
+    width: 17%;
+}
+body {
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+}
+.wrapper {
+    flex:1;
+}
+#footer {
+    height: 2%;
+    margin: 0px !important;
+    padding: 2px !important;
+}
+#create-recipe {
+    text-align: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}

@@ -15,8 +15,8 @@ namespace KuceZBronksuWEB.Models
         [DisplayName("Image"), StringLength(200, MinimumLength = 2)]
         public string Image { get; set; }
 
-        [DisplayName("Ingredients"), StringLength(200, MinimumLength = 2)]
-        public string IngredientLines { get; set; }
+        //[DisplayName("Ingredients"), StringLength(200, MinimumLength = 2)]
+        public List<string> IngredientLines { get; set; }
 
         [DisplayName("Recipe Steps")]
         public string? RecipeSteps { get; set; }

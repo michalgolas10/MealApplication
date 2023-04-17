@@ -1,4 +1,4 @@
-﻿@model KuceZBronksuWEB.Models.EditViewModel
+﻿@model KuceZBronksuWEB.Models.EditAndCreateViewModel
 @{
     ViewData["Title"] = "Create Recipe";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -42,9 +42,6 @@
                     {
                         <option value="@item">@item</option>
                     }
-                  @*  <option value="Sulfites">Sulfites</option>
-                    <option value="Gluten">Gluten</option>
-                    <option value="Wheat">Wheat</option>*@
                 </select>
                 <span asp-validation-for="Cautions" class="text-danger"></span>
             </div>
@@ -55,9 +52,6 @@
                     {
                             <option value="@item">@item</option>
                     }
-                    @*<option value="Vegan">Vegan</option>
-                    <option value="Gluten-Free">Gluten-Free</option>
-                    <option value="Fish-Free">Fish-Free</option>*@
                 </select>
                 <span asp-validation-for="HealthLabels" class="text-danger"></span>
             </div>
@@ -68,8 +62,6 @@
                     {
                             <option value="@item">@item</option>
                     }
-                    @*<option value="Low-Fat">Low-Fat</option>
-                    <option value="Low-Sodium">Low-Sodium</option>*@
                 </select>
                 <span asp-validation-for="DietLabels" class="text-danger"></span>
             </div>
@@ -81,8 +73,6 @@
                     {
                         <option value="@item">@item</option>
                     }
-                    @*<option value="American">American</option>
-                    <option value="Mexican">Mexican</option>*@
                 </select>
                 <span asp-validation-for="CuisineType" class="text-danger"></span>
             </div>
@@ -94,8 +84,6 @@
                     {
                             <option value="@item">@item</option>
                     }
-@*                    <option value="Breakfast">Breakfast</option>
-                    <option value="Dinner">Dinner</option>*@
                 </select>
                 <span asp-validation-for="MealType" class="text-danger"></span>
             </div>

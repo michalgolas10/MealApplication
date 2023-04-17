@@ -28,7 +28,7 @@ namespace KuceZBronksuDAL.Repository
             }
         }
 
-        public async Task<List<T>> GetAll(string include)
+        public async Task<List<T>> GetAll(Expression<Func<T, object>>? include = null)
         {
             if (include != null)
             {

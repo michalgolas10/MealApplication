@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using KuceZBronksuWEB.Models;
 using System.Collections;
+using NuGet.Protocol;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Globalization;
 
 namespace KuceZBronksuDAL.AutoMapProfiles
 {
@@ -15,9 +18,12 @@ namespace KuceZBronksuDAL.AutoMapProfiles
             public RecipeProfile()
             {
             CreateMap<Recipe, RecipeViewModel>();
-            CreateMap<EditViewModel, Recipe>()
-                .ForMember(x => x.Calories, opt => opt.Ignore())
+            CreateMap<EditAndCreateViewModel, Recipe>()
+                .ForMember(dest=> dest.Calories, opts=> opts.MapFrom(src=> Double.Parse(src.Calories, CultureInfo.InvariantCulture)))
                 .ForMember(dest => dest.IngredientLines, opts => opts.MapFrom(src => src.IngredientLines.Split(',',StringSplitOptions.None).ToList()));
+            CreateMap<EditAndCreateViewModel, RecipeViewModel>();
+            CreateMap<RecipeViewModel,EditAndCreateViewModel>();
+            CreateMap<RecipeViewModel, Recipe>();
         }
     }
         

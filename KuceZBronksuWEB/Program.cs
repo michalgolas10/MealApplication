@@ -2,17 +2,13 @@ using KuceZBronksuDAL.Context;
 using KuceZBronksuDAL.FilesHandlers;
 using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
-using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
-using KuceZBronksuWEB.Services;
 using Microsoft.EntityFrameworkCore;
-using KuceZBronksuBLL.Services.IService;
 using KuceZBronksuBLL.Services;
 using KuceZBronksuDAL;
 using KuceZBronksuDAL.Models;
 using AutoMapper;
 using KuceZBronksuDAL.AutoMapProfiles;
-using KuceZBronksuWEB.AutoMapProfiles;
 
 namespace KuceZBronksuWEB
 {
@@ -24,13 +20,12 @@ namespace KuceZBronksuWEB
             builder.Services.AddDbContext<MealAppContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;")));
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            builder.Services.AddScoped<IService<Recipe>, RecipeService>();
-            builder.Services.AddScoped<IService<User>,UserService>();
+            builder.Services.AddScoped<RecipeService>();
+            builder.Services.AddScoped<UserService>();
             builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<ISearch<RecipeViewModel>, SearchService>();
             builder.Services.AddAutoMapper(typeof(RecipeViewModel),typeof(Program));
-            builder.Services.AddAutoMapper(typeof(EditViewModel), typeof(Program));
-            builder.Services.AddScoped<EditViewModelMapping>();
+            builder.Services.AddAutoMapper(typeof(EditAndCreateViewModel), typeof(Program));
+            builder.Services.AddAutoMapper(typeof(Recipe), typeof(Program));
             var app = builder.Build();
             CreateDbIfNotExists(app);
             // Configure the HTTP request pipeline.

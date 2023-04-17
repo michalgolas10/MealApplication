@@ -1,44 +1,34 @@
 using KuceZBronksuDAL;
-using KuceZBronksuWEB.Interfaces;
 using KuceZBronksuWEB.Models;
 using Microsoft.AspNetCore.Mvc;
-using KuceZBronksuBLL.Services.IService;
 using AutoMapper;
 using KuceZBronksuDAL.Models;
 using NuGet.Packaging;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using KuceZBronksuWEB.AutoMapProfiles;
 using System.Globalization;
+using KuceZBronksuBLL.Services;
 
 namespace KuceZBronksuWEB.Controllers
 {
     public class RecipeController : Controller
     {
-        private readonly ISearch<RecipeViewModel> _search;
-        private readonly IService<Recipe> _recipeService;
+        private readonly RecipeService _recipeService;
         private readonly IMapper _mapper;
-        private readonly IService<User> _userService;
-        private readonly EditViewModelMapping _editViewModelMapping;
+        private readonly UserService _userService;
 
-        public RecipeController(IService<User> userService, ISearch<RecipeViewModel> search, IService<Recipe> recipeService, IMapper mapper, 
-            EditViewModelMapping editViewModelMapping)
+        public RecipeController(UserService userService,
+            RecipeService recipeService, IMapper mapper)
         {
             _userService = userService;
-            _search = search;
             _recipeService = recipeService;
             _mapper = mapper;
-            _editViewModelMapping = editViewModelMapping;
         }
 
         // GET: RecipeController
         public async Task<ActionResult> Index()
         {
-            var listOfRecipes = await _recipeService.GetAll();
-            var SearchViewModel = new SearchViewModel();
-            SearchViewModel.ListOfMealType = new List<string> { "breakfast", "lunch/dinner", "teatime" };
-            ViewBag.SearchViewModel = SearchViewModel;
-            var recipesViews = listOfRecipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
-            return View(recipesViews);
+            ViewBag.SearchViewModel = await _recipeService.CreateSearchModelWithMealTypes();
+            return View(await _recipeService.GetAllRecipies());
         }
 
         [HttpPost]
@@ -48,91 +38,65 @@ namespace KuceZBronksuWEB.Controllers
             {
                 return View("Index");
             }
-            var listOfRecipes = await _search.Search(pageModel);
-            var SearchViewModel = new SearchViewModel();
-            SearchViewModel.ListOfMealType = new List<string> { "breakfast", "lunch/dinner", "teatime" };
-            ViewBag.SearchViewModel = SearchViewModel;
+            var listOfRecipes = await _recipeService.Search(pageModel);
+            ViewBag.SearchViewModel = await _recipeService.CreateSearchModelWithMealTypes();
             return View(listOfRecipes);
         }
 
         // GET: RecipeController/Details/5
         public async Task<ActionResult> ShowRecipeDetails(string label)
         {
-            var result = await _search.GetByName(label);
+            var result = await _recipeService.GetByName(label);
             return View(result);
         }
 
         public async Task<ActionResult> Create()
         {
-            var editViewModel = await _search.CreateEditViewModel();
-            return View(editViewModel);
+            return View(await _recipeService.CreateModelForEditAndCreate());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(EditViewModel pageModel)
+        public async Task<ActionResult> Create(EditAndCreateViewModel pageModel)
         {
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Create");
             }
-                var doubleCalories = new double();
-                var resultRecipe = _mapper.Map<Recipe>(pageModel);
-                resultRecipe.Calories = Double.Parse(pageModel.Calories, CultureInfo.InvariantCulture);
-                _recipeService.AddNew(resultRecipe);
+                _recipeService.AddRecipeFromCreateView(pageModel);
                 return RedirectToAction("CreateComplete");
         }
 		public async Task<ActionResult> AddToFavourites(string label)
 		{
-			var resultRecipe= await _search.GetByNameRecipe(label);
-            var users = await _userService.GetAll();
-            var user = users.FirstOrDefault();
-            var recipes = user.Recipes;
-            recipes.Add(resultRecipe);
-            user.Recipes= recipes;
-            _userService.Update(user);
+            await _userService.AddRecipeToFavourites(label);
             return RedirectToAction("Index");
 		}
         public async Task<ActionResult> FavouriteRecipes()
         {
-            var users = await _userService.GetAll();
-            var userId = users.FirstOrDefault().Id;
-            var listOfRecipes = await _search.GetRecipesOfUser(userId);
-			var recipesViews = listOfRecipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
-			return View(recipesViews);
+            //na razie w FavouriteRecipes nie dajemy string Id usera bo nie ma logowania!!!
+            return View(await _userService.GetFavouritesRecipesOfUser()) ;
 		}
 		public async Task<ActionResult> DeleteRecipesFromFavourites(string label)
         {
-			var resultRecipe = await _search.GetByNameRecipe(label);
-            resultRecipe.Users = new List<User>();
-            _recipeService.Update(resultRecipe);
+            await _userService.DeleteRecipeFromFavourites(label);
 			return RedirectToAction("FavouriteRecipes");
 		}
 
         public async Task<ActionResult> Edit(string label)
         {
-            var pageModel = await _search.GetByName(label);
-            var editViewModel = await _search.GetEditViewModel(pageModel);
-            //var editViewModel = await _search.CreateEditViewModel();
-            //ViewBag.EditViewModel = await _search.CreateEditViewModel();
-
-            return View(editViewModel);
+            return View(await _recipeService.CreateEditViewModelForEdit(label));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(EditViewModel recipe)
+        public async Task<ActionResult> Edit(EditAndCreateViewModel recipe)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View();
-            //}
-            var resultRecipe = await _editViewModelMapping.MapEditViewModel(recipe);
-            
-            _recipeService.Update(resultRecipe);
-
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            await _recipeService.UpdateEditedRecipe(recipe);
             return RedirectToAction("EditComplete");
-
         }
 
         public ActionResult EditComplete()

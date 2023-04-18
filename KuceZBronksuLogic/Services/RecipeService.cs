@@ -2,6 +2,7 @@
 using KuceZBronksuDAL;
 using KuceZBronksuDAL.Repository.IRepository;
 using KuceZBronksuWEB.Models;
+using System.ComponentModel;
 using System.Globalization;
 
 namespace KuceZBronksuBLL.Services
@@ -120,6 +121,19 @@ namespace KuceZBronksuBLL.Services
         public async Task UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel)
         {
             _repository.Update(_mapper.Map<Recipe>(editAndCreateViewModel));
+        }
+        //This method will throw 3 most Viewed recipe last days for now just rndm 3 recipes;
+        public async Task<List<RecipeViewModel>> GetThreeMostViewedRecipes()
+        {
+            var listOfRecipes = await GetAllRecipies();
+            Random rand = new Random();
+            List<RecipeViewModel> rndmRecipes = new()
+            {
+                listOfRecipes[rand.Next(0,listOfRecipes.Count)],
+                listOfRecipes[rand.Next(0,listOfRecipes.Count)],
+                listOfRecipes[rand.Next(0,listOfRecipes.Count)]
+            };
+            return rndmRecipes;
         }
     }
 }

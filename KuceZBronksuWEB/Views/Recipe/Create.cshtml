@@ -25,12 +25,15 @@
                     <span asp-validation-for="ShareAs" class="text-danger"></span>
                 </div>
             <div class="form-group">
-                
+                    <label asp-for="IngredientLines" class="control-label"></label>
                     <div id="survey_options">
-                    <input type="text" name="IngredientLines" class="survey_options" size="50" placeholder="First Ingredient" />
-                    <input type="text" name="IngredientLines" class="survey_options" size="50" placeholder="Second Ingredient" />
-                    <input type="text" name="IngredientLines" class="survey_options" size="50" placeholder="Next Ingredient" />
-                    </div>
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="First Ingredient" />
+                        <span asp-validation-for="IngredientLines" class="text-danger"></span>
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Second Ingredient" />
+                        <span asp-validation-for="IngredientLines" class="text-danger"></span>
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Next Ingredient" />
+                        <span asp-validation-for="IngredientLines" class="text-danger"></span>
+                    </div>  
                     <div class="controls">
                         <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
                         <a href="#" id="remove_fields"><i class="fa fa-plus"></i>Remove Field</a>

@@ -6,7 +6,7 @@ add_more_fields.onclick = function(){
   var newField = document.createElement('input');
   newField.setAttribute('type','text');
   newField.setAttribute('name','survey_options[]');
-  newField.setAttribute('class','survey_options');
+    newField.setAttribute('class','form-control');
   newField.setAttribute('siz',50);
   newField.setAttribute('placeholder','Another Field');
   survey_options.appendChild(newField);

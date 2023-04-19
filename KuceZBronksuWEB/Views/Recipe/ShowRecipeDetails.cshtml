@@ -2,87 +2,140 @@
 @{
     ViewData["Title"] = "Search";
 }
-<link rel="stylesheet" type="text/css" href="/css/styles.css">
-<div class="container">
-<h1>Recipe Details</h1>
-<div>
-    <hr />
-        @if (Model.Image.Contains("/")) // Means that its image that someone put URL for.
-        {
-            <a href="#!"><img class="img-responsive" src="@Model.Image" alt="recipe image" /></a>
-        }
-        else
-        {
-            <img src="/Images/@Model.Image" class="img-responsive" alt="recipe image">
-            //<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
-        }
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Label)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Label)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Calories)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Calories)
-        </dd>
-        <dt class="col-sm-2">Meal Type</dt>
-        @foreach (var item in Model.MealType)
-        {
-            <dd class="col-sm-10">
-                @Html.DisplayFor(m => item)
-            </dd>
-        }
-    </dl>
-    <dt class="col-sm-2">Recipe steps</dt>
-    <br>
-    @foreach (var item in Model.RecipeSteps)
-    {
-        <dd class="col-sm-10">
-            @Html.DisplayFor( m => item)
-        </dd>
-    }
+<style>
+	.containerr {
+		background-color: #fff;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0,0,0,0.1);
+		padding: 20px;
+		margin: auto;
+		max-width: 60%;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
 
-    <dt class="col-sm-2">Cuisine Type</dt>
-    <br>
-    @foreach (var item in Model.CuisineType)
-    {
-        <dd class="col-sm-10">
-            @Html.DisplayFor( m => item)
-        </dd>
-    }
-    <dt class="col-sm-2">HealthLabels</dt>
-    <br>
-    @foreach (var item in Model.HealthLabels)
-    {
-        <dd class="col-sm-10">
-            @Html.DisplayFor( m => item)
-        </dd>
-    }
-    <dt class="col-sm-2">Cautions</dt>
-    <br>
-    @foreach (var item in Model.Cautions)
-    {
-        <dd class="col-sm-10">
-            @Html.DisplayFor( m => item)
-        </dd>
-    }
-    <dt class="col-sm-2">DietLabels</dt>
-    <br>
-    @foreach (var item in Model.DietLabels)
-    {
-        <dd class="col-sm-10">
-            @Html.DisplayFor( m => item)
-        </dd>
-    }
-</div>
-</div>
-<div>
-    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
-    <a class="btn btn-primary btn-lg active" asp-action="Edit" asp-controller="Recipe" asp-route-label="@Model.Label">Edit</a>
-    <a asp-action="Index">Back to List</a>
-</div>
+	h1 {
+		font-size: 36px;
+		text-align: center;
+		margin-top: 30px;
+	}
+	h3 {
+		font-size: 22px;
+		text-align: center;
+		background-color: #fff;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0,0,0,0.1);
+		padding: 20px;
+		margin: auto;
+		max-width: 20%;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
 
+	.center-block {
+		margin: auto;
+		display: block;
+		max-width:40%;
+	}
+
+	img {
+		display: block;
+		margin: auto;
+		max-width: 100%;
+		height: auto;
+		margin-top: 30px;
+	}
+
+	p {
+		font-size: 18px;
+		margin: 20px 0;
+		text-align: center;
+	}
+
+	h2 {
+		font-size: 24px;
+		margin-top: 30px;
+	}
+
+	h4 {
+		font-size: 12px;
+		margin-top: 20px;
+	}
+
+	ul, ol {
+		font-size: 18px;
+		margin: 20px 0;
+		padding-left: 40px;
+	}
+
+	li {
+		margin: 5px 0;
+	}
+
+	.caution {
+		color: #ff0000;
+		font-weight: bold;
+		margin-top: 20px;
+	}
+
+	.health-labels {
+		margin-top: 20px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.health-label {
+		background-color: #0099ff;
+		color: #ffffff;
+		font-size: 16px;
+		padding: 5px 10px;
+		margin: 5px;
+		border-radius: 5px;
+	}
+</style>
+<div class=containerr>
+<h1>@Model.Label</h1>
+	@if (Model.Image.Contains("/")) // Means that its image that someone put URL for.
+	{
+		<img src="@Model.Image" class="img-responsive" alt="recipe image">
+	}
+	else
+	{
+		<img src="/Images/@Model.Image" class="img-responsive" alt="recipe image">
+		//<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
+	}
+	<h3>
+	<div class="center-block">
+	<label asp-for="Servings" class="h4"></label>
+	<input asp-for="Servings" class="form-control" />
+	<span asp-validation-for="Servings" class="text-danger"></span>
+	</div>
+	Calories: @Model.Calories.Substring(0,Model.Calories.IndexOf(','))
+	</h3>
+<h2>Ingredients</h2>
+<ul>
+		@foreach(var ingredient in Model.IngredientLines)
+		{
+			<li>@ingredient</li>
+		}
+	</ul>
+<h2>Instructions</h2>
+<ol>
+	<li>Step 1</li>
+	<li>Step 2</li>
+	<li>Step 3</li>
+	<li>Step 4</li>
+</ol>
+@foreach(var caution in Model.Cautions)
+	{
+	<p class="caution">This recipe contains @caution</p>
+	}
+<h2>Health Labels</h2>
+<div class="health-labels">
+	@foreach(var healthlabel in Model.HealthLabels)
+		{
+		<span class="health-label">@healthlabel</span>
+		}
+</div>
+</div>

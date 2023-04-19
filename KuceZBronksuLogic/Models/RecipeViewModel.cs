@@ -26,6 +26,7 @@ namespace KuceZBronksuWEB.Models
 
         public List<string> CuisineType { get; set; }
         public string Image { get; set; }
+        public int Servings { get; set; }
 
     }
 }

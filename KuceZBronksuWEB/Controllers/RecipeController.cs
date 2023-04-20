@@ -44,9 +44,11 @@ namespace KuceZBronksuWEB.Controllers
         }
 
         // GET: RecipeController/Details/5
-        public async Task<ActionResult> ShowRecipeDetails(string label)
+        public async Task<ActionResult> ShowRecipeDetails(RecipeViewModel model)
         {
-            var result = await _recipeService.GetByName(label);
+            var result = await _recipeService.GetByName(model.Label);
+            if(model.Servings!=0)
+            result.Servings = model.Servings;
             return View(result);
         }
 

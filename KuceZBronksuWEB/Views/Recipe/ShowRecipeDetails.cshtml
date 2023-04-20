@@ -6,7 +6,6 @@
 	.containerr {
 		background-color: #fff;
 		border-radius: 5px;
-		box-shadow: 0 0 10px rgba(0,0,0,0.1);
 		padding: 20px;
 		margin: auto;
 		max-width: 60%;
@@ -107,11 +106,23 @@
 	}
 	<h3>
 	<div class="center-block">
-	<label asp-for="Servings" class="h4"></label>
-	<input asp-for="Servings" class="form-control" />
-	<span asp-validation-for="Servings" class="text-danger"></span>
-	</div>
-	Calories: @Model.Calories.Substring(0,Model.Calories.IndexOf(','))
+			<form asp-controller="Recipe" asp-action="ShowRecipeDetails" method="post">
+                <label asp-for="Servings" class="h4"></label>
+				<input asp-for="Servings" value="@(Model.Servings.ToString("0.#"))" class="form-control" />
+                <span asp-validation-for="Servings" class="text-danger"></span>
+				@Html.HiddenFor(m => m.Label)
+				@Html.HiddenFor(m => m.IngredientLines)
+				@Html.HiddenFor(m => m.ShareAs)
+				@Html.HiddenFor(m => m.Calories)
+				@Html.HiddenFor(m => m.MealType)
+				@Html.HiddenFor(m => m.RecipeSteps)
+				@Html.HiddenFor(m => m.CuisineType)
+				@Html.HiddenFor(m => m.Image)
+				<br />
+			</form>
+</div>
+		Calories/Serving: @(Math.Round(Model.Calories / Model.Servings))
+		
 	</h3>
 <h2>Ingredients</h2>
 <ul>

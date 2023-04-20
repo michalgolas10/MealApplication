@@ -38,5 +38,7 @@ namespace KuceZBronksuWEB.Models
 
         [DisplayName("Cuisine Type"),Required]
         public List<string>? CuisineType { get; set; }
-    }
+
+		public decimal Servings { get; set; }
+	}
 }

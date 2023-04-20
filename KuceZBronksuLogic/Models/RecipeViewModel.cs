@@ -12,7 +12,7 @@ namespace KuceZBronksuWEB.Models
 
         public string? ShareAs { get; set; }
 
-        public string Calories { get; set; }
+        public int Calories { get; set; }
 
         public List<string> MealType { get; set; }
 
@@ -26,7 +26,7 @@ namespace KuceZBronksuWEB.Models
 
         public List<string> CuisineType { get; set; }
         public string Image { get; set; }
-        public int Servings { get; set; }
-
+        public decimal Servings { get; set; }
+        }
     }
-}
+

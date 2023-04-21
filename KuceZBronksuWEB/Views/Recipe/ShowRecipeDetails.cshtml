@@ -4,6 +4,9 @@
 }
 <style>
 	.containerr {
+		display: grid;
+		grid-template-rows: 50% 30%;
+		grid-template-columns: 50% 50%;
 		background-color: #fff;
 		border-radius: 5px;
 		padding: 20px;
@@ -30,9 +33,20 @@
 		margin-top: 20px;
 		margin-bottom: 20px;
 	}
+	.servingscalories{
+		text-align: center;
+		background-color: #fff;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0,0,0,0.1);
+		padding: 20px;
+		margin: auto;
+		max-width: 20%;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
 
 	.center-block {
-		margin: auto;
+		margin:auto;
 		display: block;
 		max-width:40%;
 	}
@@ -57,7 +71,7 @@
 	}
 
 	h4 {
-		font-size: 12px;
+		font-size: 18px;
 		margin-top: 20px;
 	}
 
@@ -74,7 +88,7 @@
 	.caution {
 		color: #ff0000;
 		font-weight: bold;
-		margin-top: 20px;
+		margin-top: 10px;
 	}
 
 	.health-labels {
@@ -92,8 +106,21 @@
 		margin: 5px;
 		border-radius: 5px;
 	}
+	.ingredients {
+		grid-row: 1;
+		grid-column: 2
+	}
+	.labelandimage{
+		grid-row: 1;
+		grid-column:1 
+	}
+	.rest{
+		grid-row: 2;
+		grid-column: 1 / -1;
+	}
 </style>
 <div class=containerr>
+    <div class="labelandimage">
 <h1>@Model.Label</h1>
 	@if (Model.Image.Contains("/")) // Means that its image that someone put URL for.
 	{
@@ -104,33 +131,34 @@
 		<img src="/Images/@Model.Image" class="img-responsive" alt="recipe image">
 		//<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
 	}
-	<h3>
-	<div class="center-block">
-			<form asp-controller="Recipe" asp-action="ShowRecipeDetails" method="post">
-                <label asp-for="Servings" class="h4"></label>
-				<input asp-for="Servings" value="@(Model.Servings.ToString("0.#"))" class="form-control" />
-                <span asp-validation-for="Servings" class="text-danger"></span>
-				@Html.HiddenFor(m => m.Label)
-				@Html.HiddenFor(m => m.IngredientLines)
-				@Html.HiddenFor(m => m.ShareAs)
-				@Html.HiddenFor(m => m.Calories)
-				@Html.HiddenFor(m => m.MealType)
-				@Html.HiddenFor(m => m.RecipeSteps)
-				@Html.HiddenFor(m => m.CuisineType)
-				@Html.HiddenFor(m => m.Image)
-				<br />
-			</form>
-</div>
-		Calories/Serving: @(Math.Round(Model.Calories / Model.Servings))
-		
-	</h3>
+    </div>
+	<div class="ingredients">
 <h2>Ingredients</h2>
 <ul>
 		@foreach(var ingredient in Model.IngredientLines)
 		{
 			<li>@ingredient</li>
 		}
-	</ul>
+    </ul>
+			<div class="center-block">
+				<form asp-controller="Recipe" asp-action="ShowRecipeDetails" method="post">
+					<label asp-for="Servings" class="h4"></label>
+					<input asp-for="Servings" value="@(Model.Servings.ToString("0.#"))" class="form-control" />
+					<span asp-validation-for="Servings" class="text-danger"></span>
+					@Html.HiddenFor(m => m.Label)
+					@Html.HiddenFor(m => m.IngredientLines)
+					@Html.HiddenFor(m => m.ShareAs)
+					@Html.HiddenFor(m => m.Calories)
+					@Html.HiddenFor(m => m.MealType)
+					@Html.HiddenFor(m => m.RecipeSteps)
+					@Html.HiddenFor(m => m.CuisineType)
+					@Html.HiddenFor(m => m.Image)
+					<br />
+				</form>
+            <h4>Calories/Serving: @(Math.Round(Model.Calories / Model.Servings))</h4>
+			</div>
+	</div>
+	<div class="rest">
 <h2>Instructions</h2>
 <ol>
 	<li>Step 1</li>
@@ -148,5 +176,6 @@
 		{
 		<span class="health-label">@healthlabel</span>
 		}
+</div>
 </div>
 </div>

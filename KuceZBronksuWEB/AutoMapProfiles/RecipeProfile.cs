@@ -19,12 +19,12 @@ namespace KuceZBronksuDAL.AutoMapProfiles
             public RecipeProfile()
             {
             CreateMap<Recipe, RecipeViewModel>()
-                .ForMember(dest => dest.Calories, opts => opts.MapFrom(src => Math.Round(src.Calories)));
+                .ForMember(dest => dest.Calories, opts => opts.MapFrom(src => Math.Round(src.Calories)))
+                .ReverseMap();
             CreateMap<EditAndCreateViewModel, Recipe>()
                 .ForMember(dest => dest.Calories, opts => opts.MapFrom(src => Double.Parse(src.Calories, CultureInfo.InvariantCulture)));
-            CreateMap<EditAndCreateViewModel, RecipeViewModel>();
-            CreateMap<RecipeViewModel,EditAndCreateViewModel>();
-            CreateMap<RecipeViewModel, Recipe>();
+            CreateMap<EditAndCreateViewModel, RecipeViewModel>()
+                .ReverseMap();
         }
     }
         

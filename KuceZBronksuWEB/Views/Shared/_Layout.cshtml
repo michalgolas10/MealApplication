@@ -17,39 +17,49 @@
     <link href="~/css/style.css" rel="stylesheet" />
     <link href="~/css/styles.css" rel="stylesheet" />
     <link href="~/css/simplepagination.css" rel="stylesheet" />
+    <link href="~/css/dropdown.css" rel="stylesheet" />
 </head>
 <body>
-        <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">                
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Kuce z Bronksu - MealAPP</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="Index">Recipes</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="FavouriteRecipes">Favourite Recipes</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="Create">Add Recipe</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Page header with logo and tagline-->
-        <!-- Page content-->
-        <div class="wrapper">
-        @RenderBody()
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Kuce z Bronksu - MealAPP</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="Index">Recipes</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="FavouriteRecipes">Favourite Recipes</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="Create">Add Recipe</a></li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn">Account</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
+                                <a asp-area="" asp-controller="Account" asp-action="Registration">Register</a>
+                            </div>
+                        </div>
+                    </li>
+            </ul>
         </div>
-        <!-- Footer-->
-<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" id="footer">
-    <div class="col-md-4 d-flex align-items-center">
-            <img class="footer-image" src="https://i.pinimg.com/originals/fb/be/f6/fbbef6c75fc036ffc3f3aa0e2b604cd3.jpg">
-      <span class="mb-3 mb-md-0 text-body-secondary">© 2023 KuceZBronksu Company, Inc</span>
+        </div>
+    </nav>
+    <!-- Page header with logo and tagline-->
+    <!-- Page content-->
+    <div class="wrapper">
+        @RenderBody()
     </div>
-  </footer>
+    <!-- Footer-->
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" id="footer">
+        <div class="col-md-4 d-flex align-items-center">
+            <img class="footer-image" src="https://i.pinimg.com/originals/fb/be/f6/fbbef6c75fc036ffc3f3aa0e2b604cd3.jpg">
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2023 KuceZBronksu Company, Inc</span>
+        </div>
+    </footer>
 
-        <!-- Core theme JS-->
+    <!-- Core theme JS-->
     @await RenderSectionAsync("Scripts", required: false)
-            <!-- Bootstrap core JS-->
+    <!-- Bootstrap core JS-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/popper.js"></script>
     <script src="~/js/bootstrap.min.js"></script>

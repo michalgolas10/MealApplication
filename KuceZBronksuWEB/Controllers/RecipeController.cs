@@ -70,7 +70,7 @@ namespace KuceZBronksuWEB.Controllers
         }
 		public async Task<ActionResult> AddToFavourites(string label)
 		{
-            await _userService.AddRecipeToFavourites(label);
+                    await _userService.AddRecipeToFavourites(label);
             return RedirectToAction("Index");
 		}
         public async Task<ActionResult> FavouriteRecipes()
@@ -109,5 +109,10 @@ namespace KuceZBronksuWEB.Controllers
         {
             return View();
         }
-    }
+		public async Task<ActionResult> DeleteRecipe(string label)
+		{
+			await _recipeService.DeleteRecipe(label);
+			return RedirectToAction("Index");
+		}
+	}
 }

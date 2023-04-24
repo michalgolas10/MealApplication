@@ -4,6 +4,7 @@ using KuceZBronksuDAL.Repository.IRepository;
 using KuceZBronksuWEB.Models;
 using System.ComponentModel;
 using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace KuceZBronksuBLL.Services
 {
@@ -32,7 +33,7 @@ namespace KuceZBronksuBLL.Services
         {
             return new SearchViewModel()
             {
-                ListOfMealType= new List<string>()
+                ListOfMealType = new List<string>()
                 {
                     "breakfast",
                     "lunch/dinner",
@@ -134,6 +135,12 @@ namespace KuceZBronksuBLL.Services
                 listOfRecipes[rand.Next(0,listOfRecipes.Count)]
             };
             return rndmRecipes;
+        }
+        public async Task DeleteRecipe(string label)
+        {
+			var allRecipes = await _repository.GetAll();
+			var recipeToDelete = await GetByName(label);
+            _repository.Delete(allRecipes.First(x => x.Label == recipeToDelete.Label));
         }
     }
 }

@@ -28,33 +28,13 @@ namespace KuceZBronksuBLL.Services
         }
         public async Task AddRecipeToFavourites(string label)
         {
-            var resultRecipe = await _recipeService.GetByName(label);
+            var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetByName(label));
             var users = await _repository.GetAll(x=>x.Recipes);
             //przypisujemy ulubione przepisy do pierwszego znalezionego użytkownika (admin)
             var user = users.FirstOrDefault();
-            if (user.Recipes.Any())
-            {
-                foreach (var userRecipe in user.Recipes)
-                {
-                    if (resultRecipe.Label != userRecipe.Label)
-                    {
-                        var recipes = user.Recipes.ToList();
-                        var resultRecipeRecipeModel = _mapper.Map<Recipe>(resultRecipe);
-                        recipes.Add(resultRecipeRecipeModel);
-                        user.Recipes = recipes;
-                        _repository.Update(user);
-                    }
-                }
+            user.Recipes.Add(resultRecipe);
             }
-            else
-            {
-                var recipes = user.Recipes.ToList();
-                var resultRecipeRecipeModel = _mapper.Map<Recipe>(resultRecipe);
-                recipes.Add(resultRecipeRecipeModel);
-                user.Recipes = recipes;
-                _repository.Update(user);
-            }
-        }
+        
         public async Task<List<RecipeViewModel>> GetFavouritesRecipesOfUser()
         {
             var user = await GetUserById();

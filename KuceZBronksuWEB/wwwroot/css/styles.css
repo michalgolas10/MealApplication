@@ -11985,3 +11985,9 @@ textarea.form-control-lg {
         margin: 10px auto;
     }
 }
+.img-responsive {
+    height: 250px !important;
+    width: 250px !important;
+    margin-left: auto;
+    margin-right: auto;
+}

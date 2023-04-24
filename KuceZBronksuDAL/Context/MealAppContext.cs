@@ -15,7 +15,7 @@ namespace KuceZBronksuDAL.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;", b => b.MigrationsAssembly("KuceZBronksuWEB"));
+            optionsBuilder.UseSqlServer(@"Server=tcp:kuce-z-bronksu-db.database.windows.net,1433;Initial Catalog=KuceZBronksu;Persist Security Info=False;User ID=dziunia;Password=zaq1@WSX;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;", b => b.MigrationsAssembly("KuceZBronksu"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

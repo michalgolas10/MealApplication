@@ -1,5 +1,6 @@
 ﻿using KuceZBronksuDAL.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace KuceZBronksuDAL.Context
@@ -16,7 +17,8 @@ namespace KuceZBronksuDAL.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=tcp:kuce-z-bronksu-db.database.windows.net,1433;Initial Catalog=KuceZBronksu;Persist Security Info=False;User ID=dziunia;Password=zaq1@WSX;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;", b => b.MigrationsAssembly("KuceZBronksu"));
-        }
+			optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+		}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -14,14 +14,16 @@ namespace KuceZBronksuBLL.Services
         private readonly IRepository<Recipe> _repository;
 
         readonly private IMapper _mapper;
-        public RecipeService(IRepository<Recipe> repository, IMapper mapper)
+        readonly private DescriptionService _description;
+        public RecipeService(IRepository<Recipe> repository, IMapper mapper, DescriptionService description)
         {
             this._repository = repository;
             _mapper = mapper;
+            _description = description;
         }
         public async Task<RecipeViewModel> GetRecipe(string Id)
         {
-            return _mapper.Map<RecipeViewModel>(await _repository.Get(DescriptString(Id)));
+            return _mapper.Map<RecipeViewModel>(await _repository.Get(_description.DescriptString(Id)));
         }
 		public async Task<List<RecipeViewModel>> GetAllRecipies()
         {
@@ -139,9 +141,6 @@ namespace KuceZBronksuBLL.Services
         {
             _repository.Delete(_mapper.Map<Recipe>(await GetRecipe(id)));
         }
-		private static string DescriptString(string input)
-		{
-            return input;
-		}
+		
 	}
 }

@@ -13,11 +13,11 @@ namespace KuceZBronksuDAL.Context
 
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<User> Users { get; set; }
-
+        public DbSet<FavouritesRecipes> FavouritesRecipes { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=tcp:kuce-z-bronksu-db.database.windows.net,1433;Initial Catalog=KuceZBronksu;Persist Security Info=False;User ID=dziunia;Password=zaq1@WSX;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;", b => b.MigrationsAssembly("KuceZBronksu"));
-			optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;", b => b.MigrationsAssembly("KuceZBronksuWEB"));
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 		}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -57,10 +57,16 @@ namespace KuceZBronksuDAL.Context
             .HasConversion(
             v => JsonConvert.SerializeObject(v),
             v => JsonConvert.DeserializeObject<List<string>>(v));
-            modelBuilder.Entity<Recipe>()
-                .HasMany(x => x.Users)
-                .WithMany(x => x.Recipes)
-                .UsingEntity(j => j.ToTable("FavouritesRecipes"));
+            modelBuilder.Entity<FavouritesRecipes>()
+            .HasKey(bc => new { bc.RecipeId, bc.UserId });
+            modelBuilder.Entity<FavouritesRecipes>()
+                .HasOne(bc => bc.Recipe)
+                .WithMany(b => b.FavouritesRecipes)
+                .HasForeignKey(bc => bc.RecipeId);
+            modelBuilder.Entity<FavouritesRecipes>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.FavouritesRecipes)
+                .HasForeignKey(bc => bc.UserId);
             base.OnModelCreating(modelBuilder);
         }
     }

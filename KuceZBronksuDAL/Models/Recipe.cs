@@ -24,7 +24,7 @@ namespace KuceZBronksuDAL
         public List<string>? CuisineType { get; set; }
 
         public List<string>? MealType { get; set; }
-        public ICollection<User>? Users { get; set; }
+        public ICollection<FavouritesRecipes> FavouritesRecipes { get; set; }
         public string? Image { get; set; }
         public decimal? Servings { get; set; }
     }

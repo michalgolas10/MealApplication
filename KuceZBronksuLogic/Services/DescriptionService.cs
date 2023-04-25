@@ -8,7 +8,7 @@ namespace KuceZBronksuBLL.Services
 {
 	public class DescriptionService
 	{
-		public string DescriptString(string input)
+		public string Descript(string input)
 		{
 			return input;
 		}

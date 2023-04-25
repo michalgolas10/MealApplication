@@ -44,11 +44,9 @@ namespace KuceZBronksuWEB.Controllers
         }
 
         // GET: RecipeController/Details/5
-        public async Task<ActionResult> ShowRecipeDetails(RecipeViewModel model)
+        public async Task<ActionResult> ShowRecipeDetails(string id)
         {
-            var result = await _recipeService.GetByName(model.Label);
-            if(model.Servings!=0)
-            result.Servings = model.Servings;
+            var result = await _recipeService.GetRecipe(id);
             return View(result);
         }
 
@@ -68,9 +66,9 @@ namespace KuceZBronksuWEB.Controllers
                 _recipeService.AddRecipeFromCreateView(pageModel);
                 return RedirectToAction("CreateComplete");
         }
-		public async Task<ActionResult> AddToFavourites(string label)
+		public async Task<ActionResult> AddToFavourites(string id)
 		{
-                    await _userService.AddRecipeToFavourites(label);
+                    await _userService.AddRecipeToFavourites(id);
             return RedirectToAction("Index");
 		}
         public async Task<ActionResult> FavouriteRecipes()
@@ -78,15 +76,15 @@ namespace KuceZBronksuWEB.Controllers
             //na razie w FavouriteRecipes nie dajemy string Id usera bo nie ma logowania!!!
             return View(await _userService.GetFavouritesRecipesOfUser()) ;
 		}
-		public async Task<ActionResult> DeleteRecipesFromFavourites(string label)
+		public async Task<ActionResult> DeleteRecipesFromFavourites(string id)
         {
-            await _userService.DeleteRecipeFromFavourites(label);
+            await _userService.DeleteRecipeFromFavourites(id);
 			return RedirectToAction("FavouriteRecipes");
 		}
 
-        public async Task<ActionResult> Edit(string label)
+        public async Task<ActionResult> Edit(string id)
         {
-            return View(await _recipeService.CreateEditViewModelForEdit(label));
+            return View(await _recipeService.CreateEditViewModelForEdit(id));
         }
 
         [HttpPost]
@@ -109,9 +107,9 @@ namespace KuceZBronksuWEB.Controllers
         {
             return View();
         }
-		public async Task<ActionResult> DeleteRecipe(string label)
+		public async Task<ActionResult> DeleteRecipe(string id)
 		{
-			await _recipeService.DeleteRecipe(label);
+			await _recipeService.DeleteRecipe(id);
 			return RedirectToAction("Index");
 		}
 	}

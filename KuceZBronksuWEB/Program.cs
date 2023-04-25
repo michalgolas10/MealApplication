@@ -9,6 +9,7 @@ using KuceZBronksuDAL;
 using KuceZBronksuDAL.Models;
 using AutoMapper;
 using KuceZBronksuDAL.AutoMapProfiles;
+using Microsoft.AspNetCore.Identity;
 
 namespace KuceZBronksuWEB
 {
@@ -23,7 +24,7 @@ namespace KuceZBronksuWEB
             builder.Services.AddScoped<RecipeService>();
             builder.Services.AddScoped<UserService>();
             builder.Services.AddControllersWithViews();
-            builder.Services.AddAutoMapper(typeof(RecipeViewModel),typeof(Program));
+			builder.Services.AddAutoMapper(typeof(RecipeViewModel),typeof(Program));
             builder.Services.AddAutoMapper(typeof(EditAndCreateViewModel), typeof(Program));
             builder.Services.AddAutoMapper(typeof(Recipe), typeof(Program));
             var app = builder.Build();

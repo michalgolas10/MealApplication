@@ -5,6 +5,7 @@ namespace KuceZBronksuWEB.Models
 {
     public class RecipeViewModel
     {
+        public string Id { get; set; }
         public string Label { get; set; }
 
         [DisplayName("Ingredients")]

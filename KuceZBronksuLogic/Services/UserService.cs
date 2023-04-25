@@ -26,13 +26,14 @@ namespace KuceZBronksuBLL.Services
             var allUsers = await _repository.GetAll(x=>x.Recipes);
             return allUsers.FirstOrDefault();   
         }
-        public async Task AddRecipeToFavourites(string label)
+        public async Task AddRecipeToFavourites(string id)
         {
-            var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetByName(label));
+            var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(id));
             var users = await _repository.GetAll(x=>x.Recipes);
             //przypisujemy ulubione przepisy do pierwszego znalezionego użytkownika (admin)
             var user = users.FirstOrDefault();
             user.Recipes.Add(resultRecipe);
+            _repository.Update(user);
             }
         
         public async Task<List<RecipeViewModel>> GetFavouritesRecipesOfUser()
@@ -40,20 +41,22 @@ namespace KuceZBronksuBLL.Services
             var user = await GetUserById();
             return user.Recipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
         }
-        public async Task DeleteRecipeFromFavourites(string label)
+        public async Task DeleteRecipeFromFavourites(string id)
         {
-            var recipeToDelete = await _recipeService.GetByName(label);
             //Usuwamy na razie recepture jedynego użytkownika jakiego mamy czyli admina!
             var user = await GetUserById();
             foreach(var userRecipe in user.Recipes)
             {
-                if (userRecipe.Label == recipeToDelete.Label)
+                if (userRecipe.Id == DescriptString(id))
                     user.Recipes.Remove(userRecipe);
             }
             var recipes = user.Recipes;
             _repository.Update(user);
         }
+		private static string DescriptString(string input)
+		{
+			return input;
+		}
 
-
-    }
+	}
 }

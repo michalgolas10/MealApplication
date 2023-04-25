@@ -2,6 +2,7 @@
 using KuceZBronksuDAL;
 using KuceZBronksuDAL.Repository.IRepository;
 using KuceZBronksuWEB.Models;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using System.ComponentModel;
 using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
@@ -18,12 +19,11 @@ namespace KuceZBronksuBLL.Services
             this._repository = repository;
             _mapper = mapper;
         }
-        public async Task<RecipeViewModel> GetByName(string label)
+        public async Task<RecipeViewModel> GetRecipe(string Id)
         {
-            var allRecipes = await _repository.GetAll();
-            return _mapper.Map<RecipeViewModel>(allRecipes.First(x => x.Label == label));
+            return _mapper.Map<RecipeViewModel>(await _repository.Get(DescriptString(Id)));
         }
-        public async Task<List<RecipeViewModel>> GetAllRecipies()
+		public async Task<List<RecipeViewModel>> GetAllRecipies()
         {
             var recipes = await _repository.GetAll(x => x.Users);
             var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
@@ -114,10 +114,9 @@ namespace KuceZBronksuBLL.Services
         {
             _repository.Insert(_mapper.Map<Recipe>(pageModel));
         }
-        public async Task<EditAndCreateViewModel> CreateEditViewModelForEdit(string label)
+        public async Task<EditAndCreateViewModel> CreateEditViewModelForEdit(string id)
         {
-            var recipe = await GetByName(label);
-            return _mapper.Map<EditAndCreateViewModel>(recipe);
+            return _mapper.Map<EditAndCreateViewModel>(await GetRecipe(id));
         }
         public async Task UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel)
         {
@@ -136,11 +135,13 @@ namespace KuceZBronksuBLL.Services
             };
             return rndmRecipes;
         }
-        public async Task DeleteRecipe(string label)
+        public async Task DeleteRecipe(string id)
         {
-			var allRecipes = await _repository.GetAll();
-			var recipeToDelete = await GetByName(label);
-            _repository.Delete(allRecipes.First(x => x.Label == recipeToDelete.Label));
+            _repository.Delete(_mapper.Map<Recipe>(await GetRecipe(id)));
         }
-    }
+		private static string DescriptString(string input)
+		{
+            return input;
+		}
+	}
 }

@@ -25,10 +25,10 @@
 									//<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
 								}
 								<h3 class="card-title text-center">@Html.DisplayFor(modelItem => item.Label)</h3>
-								<a class="btn btn-primary btn-lg active" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-label="@item.Label">Show details</a>
-								<a class="btn btn-primary btn-lg active" asp-action="AddToFavourites" asp-controller="Recipe" asp-route-label="@item.Label">Add to Favourites</a>
-								<a class="btn btn-primary btn-lg active" asp-action="Edit" asp-controller="Recipe" asp-route-label="@item.Label">Edit Recipe</a>
-								<a class="btn btn-primary btn-lg active" asp-action="DeleteRecipe" asp-controller="Recipe" asp-route-label="@item.Label">Delete Recipe</a>
+								<a class="btn btn-primary btn-lg active" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details</a>
+								<a class="btn btn-primary btn-lg active" asp-action="AddToFavourites" asp-controller="Recipe" asp-route-id="@item.Id">Add to Favourites</a>
+								<a class="btn btn-primary btn-lg active" asp-action="Edit" asp-controller="Recipe" asp-route-id="@item.Id">Edit Recipe</a>
+								<a class="btn btn-primary btn-lg active" asp-action="DeleteRecipe" asp-controller="Recipe" asp-route-id="@item.Id">Delete Recipe</a>
 								<div class="item-img-overlay">
 									<a href="#" class="show-image">
 										<span></span>

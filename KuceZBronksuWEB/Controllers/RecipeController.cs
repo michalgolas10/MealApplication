@@ -59,28 +59,28 @@ namespace KuceZBronksuWEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(EditAndCreateViewModel pageModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Create");
-            }
-                _recipeService.AddRecipeFromCreateView(pageModel);
-                return RedirectToAction("CreateComplete");
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(pageModel);
+            //}
+            _recipeService.AddRecipeFromCreateView(pageModel);
+            return RedirectToAction("CreateComplete");
         }
-		public async Task<ActionResult> AddToFavourites(string id)
-		{
-                    await _userService.AddRecipeToFavourites(id);
+        public async Task<ActionResult> AddToFavourites(string id)
+        {
+            await _userService.AddRecipeToFavourites(id);
             return RedirectToAction("Index");
-		}
+        }
         public async Task<ActionResult> FavouriteRecipes()
         {
             //na razie w FavouriteRecipes nie dajemy string Id usera bo nie ma logowania!!!
-            return View(await _userService.GetFavouritesRecipesOfUser()) ;
-		}
-		public async Task<ActionResult> DeleteRecipesFromFavourites(string id)
+            return View(await _userService.GetFavouritesRecipesOfUser());
+        }
+        public async Task<ActionResult> DeleteRecipesFromFavourites(string id)
         {
             await _userService.DeleteRecipeFromFavourites(id);
-			return RedirectToAction("FavouriteRecipes");
-		}
+            return RedirectToAction("FavouriteRecipes");
+        }
 
         public async Task<ActionResult> Edit(string id)
         {
@@ -91,10 +91,10 @@ namespace KuceZBronksuWEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(EditAndCreateViewModel recipe)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(recipe);
+            //}
             await _recipeService.UpdateEditedRecipe(recipe);
             return RedirectToAction("EditComplete");
         }
@@ -107,10 +107,10 @@ namespace KuceZBronksuWEB.Controllers
         {
             return View();
         }
-		public async Task<ActionResult> DeleteRecipe(string id)
-		{
-			await _recipeService.DeleteRecipe(id);
-			return RedirectToAction("Index");
-		}
-	}
+        public async Task<ActionResult> DeleteRecipe(string id)
+        {
+            await _recipeService.DeleteRecipe(id);
+            return RedirectToAction("Index");
+        }
+    }
 }

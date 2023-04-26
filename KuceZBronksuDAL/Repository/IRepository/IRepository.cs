@@ -9,7 +9,7 @@ namespace KuceZBronksuDAL.Repository.IRepository
 
         Task<T> Get(string Id);
 
-        void Delete(T entity);
+        void Delete(string Id);
 
         void Insert(T entity);
 

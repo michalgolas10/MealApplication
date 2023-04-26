@@ -139,7 +139,7 @@ namespace KuceZBronksuBLL.Services
         }
         public async Task DeleteRecipe(string id)
         {
-            _repository.Delete(_mapper.Map<Recipe>(await GetRecipe(id)));
+            _repository.Delete(id);
         }
 		
 	}

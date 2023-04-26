@@ -4,7 +4,6 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="container">
 <div class="row">
 <h4>Edit Recipe</h4>
@@ -12,9 +11,9 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Label" class="control-label">@Model.Label</label>
-                <input asp-for="Label" class="form-control" hidden="true" />
-                <span asp-validation-for="Label" class="text-danger" hidden="true"></span>
+                <label asp-for="Label" class="control-label"></label>
+                <input asp-for="Label" class="form-control" />
+                <span asp-validation-for="Label" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
@@ -45,6 +44,11 @@
                 <label asp-for="Calories" class="control-label"></label>
                 <input asp-for="Calories" class="form-control"/>
                 <span asp-validation-for="Calories" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Servings" class="control-label"></label>
+                    <input asp-for="Servings" class="form-control" />
+                    <span asp-validation-for="Servings" class="text-danger"></span>
             </div>
 
             <div class="form-group">

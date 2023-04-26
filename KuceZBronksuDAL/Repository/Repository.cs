@@ -19,10 +19,11 @@ namespace KuceZBronksuDAL.Repository
 
         public async Task<T> Get(string id) => await this._entities.SingleOrDefaultAsync(e => e.Id == id);
 
-        public void Delete(T entity)
+        public void Delete(string id)
         {
-            if (entity != null)
+            if (id != null)
             {
+                var entity = _entities.Find(id);
                 _entities.Remove(entity);
                 _context.SaveChanges();
             }
@@ -47,10 +48,11 @@ namespace KuceZBronksuDAL.Repository
             }
         }
 
-        public void Update(T entity)
+        public void Update(T entitys)
         {
-            if (entity != null)
+            if (entitys != null)
             {
+                var entity = _entities.Find(entitys.Id);
                 _entities.Update(entity);
                 _context.SaveChanges();
             }

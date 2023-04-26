@@ -61,11 +61,11 @@ namespace KuceZBronksuDAL.Context
             .HasKey(bc => new { bc.RecipeId, bc.UserId });
             modelBuilder.Entity<FavouritesRecipes>()
                 .HasOne(bc => bc.Recipe)
-                .WithMany(b => b.FavouritesRecipes)
+                .WithMany(b => b.RecipeFavouritesUsers)
                 .HasForeignKey(bc => bc.RecipeId);
             modelBuilder.Entity<FavouritesRecipes>()
                 .HasOne(bc => bc.User)
-                .WithMany(c => c.FavouritesRecipes)
+                .WithMany(c => c.UsersFavouritesRecipies)
                 .HasForeignKey(bc => bc.UserId);
             base.OnModelCreating(modelBuilder);
         }

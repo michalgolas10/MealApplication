@@ -5,6 +5,7 @@ using KuceZBronksuDAL.Repository.IRepository;
 using KuceZBronksuLogic;
 using KuceZBronksuWEB.Models;
 using Microsoft.Identity.Client;
+using System.Security.Cryptography.X509Certificates;
 
 namespace KuceZBronksuBLL.Services
 {
@@ -25,45 +26,46 @@ namespace KuceZBronksuBLL.Services
         //Metoda GetUserById bez parametrów wejściowych wyrzuca pierwszego napotkanego użytkownika
         public async Task<User> GetUserById()
         {
-            var allUsers = await _repository.GetAll(x=>x.FavouritesRecipes);
+            var allUsers = await _repository.GetAll(x=>x.UsersFavouritesRecipies);
             return allUsers.FirstOrDefault();   
         }
         public async Task AddRecipeToFavourites(string id)
         {
-            var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(id));
-            var users = await _repository.GetAll(x => x.FavouritesRecipes);
+            var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(_descriptionService.Descript(id)));
+            var users = await _repository.GetAll(x => x.UsersFavouritesRecipies);
             //przypisujemy ulubione przepisy do pierwszego znalezionego użytkownika (admin)
             var user = users.FirstOrDefault();
-            user.FavouritesRecipes.Add(new FavouritesRecipes()
+            user.UsersFavouritesRecipies = new List<FavouritesRecipes>
             {
-                RecipeId = resultRecipe.Id,
-                UserId = user.Id,
-                Recipe = resultRecipe,
-                User = user
-            }) ;
-            var model = user;
+                new FavouritesRecipes
+                {
+                    User = user,
+                    Recipe = resultRecipe
+                }
+            };
             _repository.Update(user);
             }
         
         public async Task<List<RecipeViewModel>> GetFavouritesRecipesOfUser()
         {
             var user = await GetUserById();
-            return user.FavouritesRecipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+            var favouritesRecipesToView = new List<RecipeViewModel>();
+            foreach (var favRecipe in user.UsersFavouritesRecipies)
+            {
+                favouritesRecipesToView.Add(await _recipeService.GetRecipe(favRecipe.RecipeId));
+            };
+            return favouritesRecipesToView;
         }
-        public async Task DeleteRecipeFromFavourites(string id)
+        public async Task DeleteRecipeFromFavourites(string idOfRecipeToRemove)
         {
             //Usuwamy na razie recepture jedynego użytkownika jakiego mamy czyli admina!
             var user = await GetUserById();
-            foreach(var userRecipe in user.FavouritesRecipes)
+            foreach(var userRecipe in user.UsersFavouritesRecipies)
             {
-                if (userRecipe.RecipeId == _descriptionService.Descript(id))
-                    user.FavouritesRecipes.Remove(new FavouritesRecipes()
-                    {
-                        Recipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(_descriptionService.Descript(id))),
-                        User = user,
-                        RecipeId = _descriptionService.Descript(id),
-                        UserId = user.Id
-                    }) ;
+                if(userRecipe.RecipeId == _descriptionService.Descript(idOfRecipeToRemove))
+                {
+                    user.UsersFavouritesRecipies.Remove(userRecipe);
+                };
             }
             _repository.Update(user);
 

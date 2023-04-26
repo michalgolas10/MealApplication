@@ -35,14 +35,15 @@ namespace KuceZBronksuBLL.Services
             var users = await _repository.GetAll(x => x.UsersFavouritesRecipies);
             //przypisujemy ulubione przepisy do pierwszego znalezionego użytkownika (admin)
             var user = users.FirstOrDefault();
-            user.UsersFavouritesRecipies = new List<FavouritesRecipes>
-            {
+            var recipe =
                 new FavouritesRecipes
                 {
                     User = user,
-                    Recipe = resultRecipe
-                }
-            };
+                    Recipe = resultRecipe,
+                    RecipeId = resultRecipe.Id,
+                    UserId = user.Id
+                };
+            user.UsersFavouritesRecipies.Add(recipe);
             _repository.Update(user);
             }
         

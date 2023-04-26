@@ -74,7 +74,8 @@ namespace KuceZBronksuWEB.Controllers
         public async Task<ActionResult> FavouriteRecipes()
         {
             //na razie w FavouriteRecipes nie dajemy string Id usera bo nie ma logowania!!!
-            return View(await _userService.GetFavouritesRecipesOfUser());
+            var zmienna = await _userService.GetFavouritesRecipesOfUser();
+            return View(zmienna);
         }
         public async Task<ActionResult> DeleteRecipesFromFavourites(string id)
         {

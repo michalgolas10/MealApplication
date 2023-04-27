@@ -17,7 +17,7 @@ namespace KuceZBronksuDAL.Repository
             _entities = context.Set<T>();
         }
 
-        public async Task<T> Get(string id) => await this._entities.SingleOrDefaultAsync(e => e.Id == id);
+        public async Task<T> Get(string id) => await this._entities.AsNoTracking<T>().SingleOrDefaultAsync(e => e.Id == id);
 
         public void Delete(string id)
         {
@@ -32,8 +32,8 @@ namespace KuceZBronksuDAL.Repository
         public async Task<List<T>> GetAll(Expression<Func<T, object>>? include = null)
         {
             if (include != null)
-            {//.AsNoTracking<T>()
-                return this._entities
+            {
+                return this._entities.AsNoTracking<T>()
                     .Include(include).AsEnumerable().ToList()!;
             }
 

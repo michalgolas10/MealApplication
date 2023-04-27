@@ -5,7 +5,7 @@
 namespace KuceZBronksuWEB.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigraton : Migration
+    public partial class IntitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

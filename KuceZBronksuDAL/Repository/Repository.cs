@@ -34,7 +34,7 @@ namespace KuceZBronksuDAL.Repository
             if (include != null)
             {
                 return this._entities.AsNoTracking<T>()
-                    .Include(include).AsEnumerable().ToList()!;
+					.Include(include).AsEnumerable().ToList()!;
             }
 
             return this._entities.AsEnumerable().ToList();
@@ -53,7 +53,8 @@ namespace KuceZBronksuDAL.Repository
         {
             if (entity != null)
             {
-                _entities.Update(entity);
+                _entities.AsNoTracking<T>();
+				_entities.Update(entity);
                 _context.SaveChanges();
             }
         }

@@ -101,13 +101,13 @@ namespace KuceZBronksuWEB.Migrations
             modelBuilder.Entity("KuceZBronksuDAL.Models.FavouritesRecipes", b =>
                 {
                     b.HasOne("KuceZBronksuDAL.Recipe", "Recipe")
-                        .WithMany("FavouritesRecipes")
+                        .WithMany("RecipeFavouritesUsers")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("KuceZBronksuDAL.Models.User", "User")
-                        .WithMany("FavouritesRecipes")
+                        .WithMany("UsersFavouritesRecipies")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -119,12 +119,12 @@ namespace KuceZBronksuWEB.Migrations
 
             modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
                 {
-                    b.Navigation("FavouritesRecipes");
+                    b.Navigation("UsersFavouritesRecipies");
                 });
 
             modelBuilder.Entity("KuceZBronksuDAL.Recipe", b =>
                 {
-                    b.Navigation("FavouritesRecipes");
+                    b.Navigation("RecipeFavouritesUsers");
                 });
 #pragma warning restore 612, 618
         }

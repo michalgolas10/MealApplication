@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KuceZBronksuWEB.Migrations
 {
     [DbContext(typeof(MealAppContext))]
-    [Migration("20230420005439_AddedServingsColumn")]
-    partial class AddedServingsColumn
+    [Migration("20230427004500_InitialMigraton")]
+    partial class InitialMigraton
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace KuceZBronksuWEB.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("KuceZBronksuDAL.Models.FavouritesRecipes", b =>
+                {
+                    b.Property<string>("RecipeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("RecipeId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavouritesRecipes");
+                });
 
             modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
                 {
@@ -86,34 +101,33 @@ namespace KuceZBronksuWEB.Migrations
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("RecipeUser", b =>
+            modelBuilder.Entity("KuceZBronksuDAL.Models.FavouritesRecipes", b =>
                 {
-                    b.Property<string>("RecipesId")
-                        .HasColumnType("nvarchar(450)");
+                    b.HasOne("KuceZBronksuDAL.Recipe", "Recipe")
+                        .WithMany("RecipeFavouritesUsers")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<string>("UsersId")
-                        .HasColumnType("nvarchar(450)");
+                    b.HasOne("KuceZBronksuDAL.Models.User", "User")
+                        .WithMany("UsersFavouritesRecipies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasKey("RecipesId", "UsersId");
+                    b.Navigation("Recipe");
 
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("FavouritesRecipes", (string)null);
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RecipeUser", b =>
+            modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
                 {
-                    b.HasOne("KuceZBronksuDAL.Recipe", null)
-                        .WithMany()
-                        .HasForeignKey("RecipesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("UsersFavouritesRecipies");
+                });
 
-                    b.HasOne("KuceZBronksuDAL.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("KuceZBronksuDAL.Recipe", b =>
+                {
+                    b.Navigation("RecipeFavouritesUsers");
                 });
 #pragma warning restore 612, 618
         }

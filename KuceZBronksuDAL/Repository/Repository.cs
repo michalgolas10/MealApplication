@@ -32,8 +32,8 @@ namespace KuceZBronksuDAL.Repository
         public async Task<List<T>> GetAll(Expression<Func<T, object>>? include = null)
         {
             if (include != null)
-            {
-                return this._entities.AsNoTracking<T>()
+            {//.AsNoTracking<T>()
+                return this._entities
                     .Include(include).AsEnumerable().ToList()!;
             }
 
@@ -49,11 +49,10 @@ namespace KuceZBronksuDAL.Repository
             }
         }
 
-        public void Update(T entitys)
+        public void Update(T entity)
         {
-            if (entitys != null)
+            if (entity != null)
             {
-                var entity = _entities.Find(entitys.Id);
                 _entities.Update(entity);
                 _context.SaveChanges();
             }

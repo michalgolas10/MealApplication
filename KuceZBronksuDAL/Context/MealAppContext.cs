@@ -17,7 +17,7 @@ namespace KuceZBronksuDAL.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;", b => b.MigrationsAssembly("KuceZBronksuWEB"));
-            //optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 		}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -62,12 +62,14 @@ namespace KuceZBronksuDAL.Context
             modelBuilder.Entity<FavouritesRecipes>()
                 .HasOne(bc => bc.Recipe)
                 .WithMany(b => b.RecipeFavouritesUsers)
-                .HasForeignKey(bc => bc.RecipeId);
-            modelBuilder.Entity<FavouritesRecipes>()
+                .HasForeignKey(bc => bc.RecipeId)
+                .OnDelete(DeleteBehavior.Cascade);
+			modelBuilder.Entity<FavouritesRecipes>()
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.UsersFavouritesRecipies)
-                .HasForeignKey(bc => bc.UserId);
-            base.OnModelCreating(modelBuilder);
+                .HasForeignKey(bc => bc.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+			base.OnModelCreating(modelBuilder);
         }
     }
 }

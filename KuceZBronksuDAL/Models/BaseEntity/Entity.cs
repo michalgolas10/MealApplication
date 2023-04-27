@@ -2,9 +2,9 @@
 
 namespace KuceZBronksuDAL.Models.BaseEntity
 {
-    public class Entity
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string? Id { get; set; }
-    }
+	public class Entity
+	{
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public string? Id { get; set; }
+	}
 }

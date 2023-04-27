@@ -9,7 +9,6 @@
 */
 
 (function($){
-
 	var methods = {
 		init: function(options) {
 			var o = $.extend({
@@ -139,7 +138,7 @@
 				tagName;
 
 			methods.destroy.call(this);
-			
+
 			tagName = (typeof this.prop === 'function') ? this.prop('tagName') : this.attr('tagName');
 
 			var $panel = tagName === 'UL' ? this : $('<ul></ul>').appendTo(this);
@@ -249,11 +248,9 @@
 			}
 			return o.onPageClick(pageIndex + 1, event);
 		}
-
 	};
 
 	$.fn.pagination = function(method) {
-
 		// Method calling logic
 		if (methods[method] && method.charAt(0) != '_') {
 			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
@@ -262,7 +259,5 @@
 		} else {
 			$.error('Method ' +  method + ' does not exist on jQuery.pagination');
 		}
-
 	};
-
 })(jQuery);

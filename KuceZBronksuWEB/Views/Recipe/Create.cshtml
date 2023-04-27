@@ -4,27 +4,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container">
-<div class="row">
-<h4>Create Recipe</h4>
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <h4>Create Recipe</h4>
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Label" class="control-label"></label>
                     <input asp-for="Label" class="form-control" />
                     <span asp-validation-for="Label" class="text-danger"></span>
                 </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
                 <div class="form-group">
                     <label asp-for="ShareAs" class="control-label"></label>
                     <input asp-for="ShareAs" class="form-control" />
                     <span asp-validation-for="ShareAs" class="text-danger"></span>
                 </div>
-            <div class="form-group">
+                <div class="form-group">
                     <label asp-for="IngredientLines" class="control-label"></label>
                     <div id="survey_options">
                         <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="First Ingredient" />
@@ -33,35 +33,40 @@
                         <span asp-validation-for="IngredientLines" class="text-danger"></span>
                         <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Next Ingredient" />
                         <span asp-validation-for="IngredientLines" class="text-danger"></span>
-                    </div>  
+                    </div>
                     <div class="controls">
                         <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
                         <a href="#" id="remove_fields"><i class="fa fa-plus"></i>Remove Field</a>
                     </div>
-            </div>
-             <div class="form-group">
-                <label asp-for="Calories" class="control-label"></label>
-                <input asp-for="Calories" class="form-control" type="Number"/>
-                <span asp-validation-for="Calories" class="text-danger"></span>
-            </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Calories" class="control-label"></label>
+                    <input asp-for="Calories" class="form-control" type="Number" />
+                    <span asp-validation-for="Calories" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Servings" class="control-label"></label>
+                    <input asp-for="Servings" class="form-control" type="Number" />
+                    <span asp-validation-for="Servings" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Cautions" class="control-label"></label>
-                <select asp-for="Cautions" class="js-select2" multiple aria-label="multiple select example">
-                    @if(Model.Cautions != null)
-                    {
-                        @foreach (var item in Model.Cautions)
-                        {
-                                <option value="null">@item</option>
-                        }
-                    }
-                </select>
-                <span asp-validation-for="Cautions" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HealthLabels" class="control-label"></label>
-                <select asp-for="HealthLabels" class="js-select2" multiple aria-label="multiple select example">
+                <div class="form-group">
+                    <label asp-for="Cautions" class="control-label"></label>
+                    <select asp-for="Cautions" class="js-select2" multiple aria-label="multiple select example">
                         @if (Model.Cautions != null)
+                        {
+                            @foreach (var item in Model.Cautions)
+                            {
+                                <option value="null">@item</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="Cautions" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HealthLabels" class="control-label"></label>
+                    <select asp-for="HealthLabels" class="js-select2" multiple aria-label="multiple select example">
+                        @if (Model.HealthLabels != null)
                         {
                             @foreach (var item in Model.HealthLabels)
                             {
@@ -69,12 +74,12 @@
                             }
                         }
                     </select>
-                <span asp-validation-for="HealthLabels" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DietLabels" class="control-label"></label>
-                <select asp-for="DietLabels" class="js-select2" multiple aria-label="multiple select example">
-                        @if (Model.Cautions != null)
+                    <span asp-validation-for="HealthLabels" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DietLabels" class="control-label"></label>
+                    <select asp-for="DietLabels" class="js-select2" multiple aria-label="multiple select example">
+                        @if (Model.DietLabels != null)
                         {
                             @foreach (var item in Model.DietLabels)
                             {
@@ -82,13 +87,13 @@
                             }
                         }
                     </select>
-                <span asp-validation-for="DietLabels" class="text-danger"></span>
-            </div>
+                    <span asp-validation-for="DietLabels" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="CuisineType" class="control-label"></label>
-                <select asp-for="CuisineType" class="js-select2" multiple aria-label="multiple select example">
-                        @if (Model.Cautions != null)
+                <div class="form-group">
+                    <label asp-for="CuisineType" class="control-label"></label>
+                    <select asp-for="CuisineType" class="js-select2" multiple aria-label="multiple select example">
+                        @if (Model.CuisineType != null)
                         {
                             @foreach (var item in Model.CuisineType)
                             {
@@ -96,13 +101,13 @@
                             }
                         }
                     </select>
-                <span asp-validation-for="CuisineType" class="text-danger"></span>
-            </div>
+                    <span asp-validation-for="CuisineType" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="MealType" class="control-label"></label>
-                <select asp-for="MealType" class="js-select2" multiple aria-label="multiple select example">
-                        @if (Model.Cautions != null)
+                <div class="form-group">
+                    <label asp-for="MealType" class="control-label"></label>
+                    <select asp-for="MealType" class="js-select2" multiple aria-label="multiple select example">
+                        @if (Model.MealType != null)
                         {
                             @foreach (var item in Model.MealType)
                             {
@@ -110,48 +115,48 @@
                             }
                         }
                     </select>
-                <span asp-validation-for="MealType" class="text-danger"></span>
-            </div>
+                    <span asp-validation-for="MealType" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a asp-action="Index"><input type="button" value="Back" class="btn btn-primary" /></a>
-            </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="Index"><input type="button" value="Back" class="btn btn-primary" /></a>
+                </div>
 
-        </form>
+            </form>
+        </div>
     </div>
-    </div>
-    </div>
+</div>
 
 
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-            integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
-            crossorigin="anonymous"></script>
-    <script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous"></script>
+<script>
 
-        $("button.step-delete,button.ingridient-delete").click(function (event) {
-            event.preventDefault();
-        });
+    $("button.step-delete,button.ingridient-delete").click(function (event) {
+        event.preventDefault();
+    });
 
-        function deleteIngridient(element) {
-            element.parentElement.remove()
+    function deleteIngridient(element) {
+        element.parentElement.remove()
+    }
+    function deleteStep(element) {
+        element.parentElement.remove()
+    }
+
+
+    $("input[type=submit]").submit(function (event) {
+        event.preventDefault();
+        var ingridientVal = "";
+        var ingridients = document.getElementsByClassName("ingridient-item");
+        for (ingridient of ingridients) {
+            ingridientVal += `${ingridient.outerText},`;
         }
-        function deleteStep(element) {
-            element.parentElement.remove()
-        }
+        document.getElementById("recipe-steps").value = ingridientVal;
+        event.submit();
+    });
 
 
-        $("input[type=submit]").submit(function (event) {
-            event.preventDefault();
-            var ingridientVal = "";
-            var ingridients = document.getElementsByClassName("ingridient-item");
-            for (ingridient of ingridients) {
-                ingridientVal += `${ingridient.outerText},`;
-            }
-            document.getElementById("recipe-steps").value = ingridientVal;
-            event.submit();
-        });
-
-
-    </script>
+</script>

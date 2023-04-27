@@ -11919,6 +11919,7 @@ textarea.form-control-lg {
     .d-print-none {
         display: none !important;
     }
+
     body {
         margin-top: 20px;
         background: #eee;
@@ -11985,6 +11986,7 @@ textarea.form-control-lg {
         margin: 10px auto;
     }
 }
+
 .img-responsive {
     height: 250px !important;
     width: 250px !important;

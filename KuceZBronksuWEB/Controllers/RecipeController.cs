@@ -59,10 +59,10 @@ namespace KuceZBronksuWEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(EditAndCreateViewModel pageModel)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(pageModel);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View(pageModel);
+            }
             _recipeService.AddRecipeFromCreateView(pageModel);
             return RedirectToAction("CreateComplete");
         }
@@ -92,10 +92,10 @@ namespace KuceZBronksuWEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(EditAndCreateViewModel recipe)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(recipe);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View(recipe);
+            }
             await _recipeService.UpdateEditedRecipe(recipe);
             return RedirectToAction("EditComplete");
         }

@@ -92,7 +92,8 @@ namespace KuceZBronksuWEB.Controllers
 
 		public async Task<ActionResult> Edit(string id)
 		{
-			return View(await _recipeService.CreateEditViewModelForEdit(id));
+			var temp = await _recipeService.CreateEditViewModelForEdit(id);
+            return View(temp);
 		}
 
 		[HttpPost]

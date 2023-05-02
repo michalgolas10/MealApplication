@@ -19,7 +19,7 @@ namespace KuceZBronksuBLL.Services
 			_recipeService = recipeService;
 		}
 
-		public async Task<User> GetUserById(string id) => await _repository.Get(id);
+		public async Task<User> GetUserById(int id) => await _repository.Get(id);
 
 		//Metoda GetUserById bez parametrów wejściowych wyrzuca pierwszego napotkanego użytkownika
 		public async Task<User> GetUserById()
@@ -27,7 +27,7 @@ namespace KuceZBronksuBLL.Services
 			var allUsers = await _repository.GetAll(x => x.Recipes);
 			return allUsers.FirstOrDefault();
 		}
-		public async Task<bool> AddRecipeToFavourites(string id)
+		public async Task<bool> AddRecipeToFavourites(int id)
 		{
 			var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(id));
 			var user = (await _repository.GetAll(x => x.Recipes)).FirstOrDefault();
@@ -48,7 +48,7 @@ namespace KuceZBronksuBLL.Services
         }
 
 
-        public async Task DeleteRecipeFromFavourites(string idOfRecipeToRemove)
+        public async Task DeleteRecipeFromFavourites(int idOfRecipeToRemove)
         {
             //Usuwamy na razie recepture jedynego użytkownika jakiego mamy czyli admina!
             var user = await GetUserById();

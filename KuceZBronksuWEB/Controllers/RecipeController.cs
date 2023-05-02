@@ -39,7 +39,7 @@ namespace KuceZBronksuWEB.Controllers
 		}
 
 		// GET: RecipeController/Details/5
-		public async Task<ActionResult> ShowRecipeDetails(string id)
+		public async Task<ActionResult> ShowRecipeDetails(int id)
 		{
 			var result = await _recipeService.GetRecipe(id);
 			return View(result);
@@ -63,7 +63,7 @@ namespace KuceZBronksuWEB.Controllers
 			return RedirectToAction("CreateComplete");
 		}
 
-		public async Task<ActionResult> AddToFavourites(string id)
+		public async Task<ActionResult> AddToFavourites(int id)
 		{
 			ViewBag.Duplicate = $"Recipe is already in your fav";
 
@@ -84,20 +84,20 @@ namespace KuceZBronksuWEB.Controllers
 			return View(zmienna);
 		}
 
-		public async Task<ActionResult> DeleteRecipesFromFavourites(string id)
+		public async Task<ActionResult> DeleteRecipesFromFavourites(int id)
 		{
 			await _userService.DeleteRecipeFromFavourites(id);
 			return RedirectToAction("FavouriteRecipes");
 		}
 
-		public async Task<ActionResult> Edit(string id)
+		public async Task<ActionResult> Edit(int id)
 		{
 			return View(await _recipeService.CreateEditViewModelForEdit(id));
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Edit(EditAndCreateViewModel recipe, string id)
+		public async Task<ActionResult> Edit(EditAndCreateViewModel recipe, int id)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -117,7 +117,7 @@ namespace KuceZBronksuWEB.Controllers
 			return View();
 		}
 
-		public async Task<ActionResult> DeleteRecipe(string id)
+		public async Task<ActionResult> DeleteRecipe(int id)
 		{
 			await _recipeService.DeleteRecipe(id);
 			return RedirectToAction("Index");

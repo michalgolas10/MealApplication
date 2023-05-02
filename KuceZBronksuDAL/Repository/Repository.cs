@@ -17,9 +17,9 @@ namespace KuceZBronksuDAL.Repository
 			_entities = context.Set<T>();
 		}
 
-		public async Task<T> Get(string id) => await this._entities.SingleOrDefaultAsync(e => e.Id == id);
+		public async Task<T> Get(int id) => await this._entities.SingleOrDefaultAsync(e => e.Id == id);
 
-		public void Delete(string id)
+		public void Delete(int id)
 		{
 			if (id != null)
 			{

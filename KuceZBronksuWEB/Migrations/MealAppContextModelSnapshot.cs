@@ -24,9 +24,11 @@ namespace KuceZBronksuWEB.Migrations
 
             modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -38,9 +40,11 @@ namespace KuceZBronksuWEB.Migrations
 
             modelBuilder.Entity("KuceZBronksuDAL.Recipe", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
 
                     b.Property<double>("Calories")
                         .HasColumnType("float");
@@ -78,8 +82,8 @@ namespace KuceZBronksuWEB.Migrations
                     b.Property<string>("ShareAs")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

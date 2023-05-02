@@ -17,7 +17,7 @@ namespace KuceZBronksuBLL.Services
 			_mapper = mapper;
 		}
 
-		public async Task<RecipeViewModel> GetRecipe(string Id)
+		public async Task<RecipeViewModel> GetRecipe(int Id)
 		{
 			return _mapper.Map<RecipeViewModel>(await _repository.Get(Id));
 		}
@@ -123,7 +123,7 @@ namespace KuceZBronksuBLL.Services
 			_repository.Insert(_mapper.Map<Recipe>(pageModel));
 		}
 
-		public async Task<EditAndCreateViewModel> CreateEditViewModelForEdit(string id)
+		public async Task<EditAndCreateViewModel> CreateEditViewModelForEdit(int id)
 		{
 			return _mapper.Map<EditAndCreateViewModel>(await GetRecipe(id));
 		}
@@ -147,7 +147,7 @@ namespace KuceZBronksuBLL.Services
 			return rndmRecipes;
 		}
 
-		public async Task DeleteRecipe(string id)
+		public async Task DeleteRecipe(int id)
 		{
 			_repository.Delete(id);
 		}

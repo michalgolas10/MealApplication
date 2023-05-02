@@ -10,23 +10,21 @@ namespace KuceZBronksuBLL.Services
 		private readonly IRepository<Recipe> _repository;
 
 		private readonly IMapper _mapper;
-		private readonly DescriptionService _description;
 
-		public RecipeService(IRepository<Recipe> repository, IMapper mapper, DescriptionService description)
+		public RecipeService(IRepository<Recipe> repository, IMapper mapper)
 		{
 			this._repository = repository;
 			_mapper = mapper;
-			_description = description;
 		}
 
 		public async Task<RecipeViewModel> GetRecipe(string Id)
 		{
-			return _mapper.Map<RecipeViewModel>(await _repository.Get(_description.Descript(Id)));
+			return _mapper.Map<RecipeViewModel>(await _repository.Get(Id));
 		}
 
 		public async Task<List<RecipeViewModel>> GetAllRecipies()
 		{
-			var recipes = await _repository.GetAll(x => x.RecipeFavouritesUsers);
+			var recipes = await _repository.GetAll(x=>x.User);
 			var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
 			return result;
 		}
@@ -46,7 +44,7 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task<List<RecipeViewModel>> Search(SearchViewModel model)
 		{
-			var recipies = await _repository.GetAll(x => x.RecipeFavouritesUsers);
+			var recipies = await _repository.GetAll(x => x.User);
 			if (model.IngrediendsList != null)
 			{
 				List<string> ingrediends = model.IngrediendsList.Split(',').ToList();

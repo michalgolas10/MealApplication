@@ -22,21 +22,6 @@ namespace KuceZBronksuWEB.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("KuceZBronksuDAL.Models.FavouritesRecipes", b =>
-                {
-                    b.Property<string>("RecipeId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("RecipeId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("FavouritesRecipes");
-                });
-
             modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -93,38 +78,28 @@ namespace KuceZBronksuWEB.Migrations
                     b.Property<string>("ShareAs")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("KuceZBronksuDAL.Models.FavouritesRecipes", b =>
+            modelBuilder.Entity("KuceZBronksuDAL.Recipe", b =>
                 {
-                    b.HasOne("KuceZBronksuDAL.Recipe", "Recipe")
-                        .WithMany("RecipeFavouritesUsers")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("KuceZBronksuDAL.Models.User", "User")
-                        .WithMany("UsersFavouritesRecipies")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Recipe");
+                        .WithMany("Recipes")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
                 {
-                    b.Navigation("UsersFavouritesRecipies");
-                });
-
-            modelBuilder.Entity("KuceZBronksuDAL.Recipe", b =>
-                {
-                    b.Navigation("RecipeFavouritesUsers");
+                    b.Navigation("Recipes");
                 });
 #pragma warning restore 612, 618
         }

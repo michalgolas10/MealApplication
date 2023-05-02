@@ -1,5 +1,6 @@
 ﻿using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Models.BaseEntity;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace KuceZBronksuDAL
 {
@@ -24,8 +25,8 @@ namespace KuceZBronksuDAL
 		public List<string>? CuisineType { get; set; }
 
 		public List<string>? MealType { get; set; }
-		public ICollection<FavouritesRecipes> RecipeFavouritesUsers { get; set; }
 		public string? Image { get; set; }
 		public decimal? Servings { get; set; }
+		public User? User { get; set; }
 	}
 }

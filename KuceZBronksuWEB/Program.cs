@@ -18,7 +18,6 @@ namespace KuceZBronksuWEB
 			builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			builder.Services.AddScoped<RecipeService>();
 			builder.Services.AddScoped<UserService>();
-			builder.Services.AddScoped<DescriptionService>();
 			builder.Services.AddControllersWithViews();
 			builder.Services.AddAutoMapper(typeof(RecipeViewModel), typeof(Program));
 			builder.Services.AddAutoMapper(typeof(EditAndCreateViewModel), typeof(Program));

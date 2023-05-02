@@ -1,6 +1,7 @@
 ﻿using KuceZBronksuDAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace KuceZBronksuDAL.Context
 {
@@ -12,7 +13,6 @@ namespace KuceZBronksuDAL.Context
 
 		public DbSet<Recipe> Recipes { get; set; }
 		public DbSet<User> Users { get; set; }
-		public DbSet<FavouritesRecipes> FavouritesRecipes { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -57,19 +57,10 @@ namespace KuceZBronksuDAL.Context
 			.HasConversion(
 			v => JsonConvert.SerializeObject(v),
 			v => JsonConvert.DeserializeObject<List<string>>(v));
-			modelBuilder.Entity<FavouritesRecipes>()
-			.HasKey(bc => new { bc.RecipeId, bc.UserId });
-			modelBuilder.Entity<FavouritesRecipes>()
-				.HasOne(bc => bc.Recipe)
-				.WithMany(b => b.RecipeFavouritesUsers)
-				.HasForeignKey(bc => bc.RecipeId)
-				.OnDelete(DeleteBehavior.Cascade);
-			modelBuilder.Entity<FavouritesRecipes>()
-				.HasOne(bc => bc.User)
-				.WithMany(c => c.UsersFavouritesRecipies)
-				.HasForeignKey(bc => bc.UserId)
-				.OnDelete(DeleteBehavior.Cascade);
-			base.OnModelCreating(modelBuilder);
-		}
+            modelBuilder.Entity<User>()
+			.HasMany(c => c.Recipes)
+			.WithOne(e => e.User)
+			.OnDelete(DeleteBehavior.ClientSetNull);
+        }
 	}
 }

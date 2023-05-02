@@ -2,6 +2,12 @@
 using KuceZBronksuDAL;
 using KuceZBronksuDAL.Repository.IRepository;
 using KuceZBronksuWEB.Models;
+using System.Reflection;
+using System;
+using Azure;
+using Microsoft.SqlServer.Server;
+using System.Security.Cryptography;
+using System.Security.Policy;
 
 namespace KuceZBronksuBLL.Services
 {
@@ -62,60 +68,81 @@ namespace KuceZBronksuBLL.Services
 			return result;
 		}
 
-		public EditAndCreateViewModel GetUniqueValuesOfRecipeLists(List<Recipe> allRecipes)
+		public EditAndCreateViewModel GetUniqueValuesOfRecipeLists()
 		{
-			var uniqueMealTypes = new List<string>();
-			var uniqueHealthLabels = new List<string>();
-			var uniqueDietLabels = new List<string>();
-			var uniqueCautions = new List<string>();
-			var uniqueCuisinTypes = new List<string>();
-			foreach (var recipe in allRecipes)
-			{
-				foreach (var healthLabels in recipe.HealthLabels)
-				{
-					if (!uniqueHealthLabels.Contains(healthLabels))
-						uniqueHealthLabels.Add(healthLabels);
-				}
-				foreach (var dietLabels in recipe.DietLabels)
-				{
-					if (!uniqueDietLabels.Contains(dietLabels))
-						uniqueDietLabels.Add(dietLabels);
-				}
-				foreach (var caution in recipe.Cautions)
-				{
-					if (!uniqueCautions.Contains(caution))
-						uniqueCautions.Add(caution);
-				}
-				foreach (var cuisinType in recipe.CuisineType)
-				{
-					if (!uniqueCuisinTypes.Contains(cuisinType))
-						uniqueCuisinTypes.Add(cuisinType);
-				}
-				foreach (var mealType in recipe.MealType)
-				{
-					if (!uniqueMealTypes.Contains(mealType))
-						uniqueMealTypes.Add(mealType);
-				}
-			}
 			return new EditAndCreateViewModel()
 			{
-				MealType = uniqueMealTypes,
-				HealthLabels = uniqueHealthLabels,
-				DietLabels = uniqueDietLabels,
-				Cautions = uniqueCautions,
-				CuisineType = uniqueCuisinTypes
+				MealType = new List<string>()
+				{
+					"breakfast",
+					"lunch/dinner",
+					"teatime"
+				},
+				HealthLabels = new List<string>()
+				{
+					"Vegan",
+					"Vegetarian",
+					"Pescatarian",
+					"Dairy-Free",
+					"Gluten-Free",
+					"Wheat-Free",
+					"Egg-Free",
+					"Peanut-Free",
+					"Tree-Nut-Free",
+					"Soy-Free",
+					"Fish-Free",
+					"Shellfish-Free",
+					"Pork-Free",
+					"Red-Meat-Free",
+					"Crustacean-Free",
+					"Celery-Free",
+					"Mustard-Free",
+					"Sesame-Free",
+					"Lupine-Free",
+					"Mollusk-Free",
+					"Alcohol-Free",
+					"No oil Added",
+					"Kosher",
+					"FODMAP-Free",
+					"Mediterranean",
+					"Sulfite-Free",
+					"Immuno-Supportive",
+					"Low Potassium",
+					"Kidney-Friendly",
+					"Sugar-Conscious",
+					"Keto-Friendly",
+					"Paleo",
+					"DASH",
+				},
+				DietLabels = new List<string>() 
+				{
+					"Low-Fat",
+					"Low-Sodium",
+					"Balanced",
+					"Low-Carb",
+					"High-Fiber"
+				},
+				Cautions = new List<string>()
+				{
+					"Sulfites",
+					"FODMAP",
+					"Gluten",
+					"Wheat",
+					"Soy",
+					"Tree-Nuts",
+				},
+				CuisineType = new List<string>()
+				{
+					"american",
+					"indian",
+					"british",
+					"mediterranean",
+					"french",
+					"nordic",
+					"mexican",
+					"italian"
+				}
 			};
-		}
-
-		public async Task<string> GenerateNewId()
-		{
-			return Guid.NewGuid().ToString();
-		}
-
-		public async Task<EditAndCreateViewModel> CreateModelForEditAndCreate()
-		{
-			var allRecipes = await _repository.GetAll();
-			return GetUniqueValuesOfRecipeLists(allRecipes);
 		}
 
 		public void AddRecipeFromCreateView(EditAndCreateViewModel pageModel)

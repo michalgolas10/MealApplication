@@ -1,6 +1,6 @@
 ﻿@model RecipeViewModel
 @{
-    ViewData["Title"] = "Search";
+	ViewData["Title"] = "Search";
 }
 <style>
 	.containerr {
@@ -21,6 +21,7 @@
 		text-align: center;
 		margin-top: 30px;
 	}
+
 	h3 {
 		font-size: 22px;
 		text-align: center;
@@ -33,7 +34,8 @@
 		margin-top: 20px;
 		margin-bottom: 20px;
 	}
-	.servingscalories{
+
+	.servingscalories {
 		text-align: center;
 		background-color: #fff;
 		border-radius: 5px;
@@ -46,9 +48,10 @@
 	}
 
 	.center-block {
-		margin:auto;
+		margin: auto;
 		display: block;
-		max-width:40%;2
+		max-width: 40%;
+		2
 	}
 
 	img {
@@ -106,70 +109,73 @@
 		margin: 5px;
 		border-radius: 5px;
 	}
+
 	.ingredients {
 		grid-row: 1;
 		grid-column: 2
 	}
-	.labelandimage{
+
+	.labelandimage {
 		grid-row: 1;
-		grid-column:1 
+		grid-column: 1
 	}
-	.rest{
+
+	.rest {
 		grid-row: 2;
 		grid-column: 1 / -1;
 	}
 </style>
 <div class=containerr>
-    <div class="labelandimage">
-<h1>@Model.Label</h1>
-	@if (Model.Image.Contains("/")) // Means that its image that someone put URL for.
-	{
-		<img src="@Model.Image" class="img-responsive" alt="recipe image">
-	}
-	else
-	{
-		<img src="/Images/@Model.Image" class="img-responsive" alt="recipe image">
-		//<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
-	}
-    </div>
-	<div class="ingredients">
-<h2>Ingredients</h2>
-<ul>
-		@foreach(var ingredient in Model.IngredientLines)
+	<div class="labelandimage">
+		<h1>@Model.Label</h1>
+		@if (Model.Image.Contains("/")) // Means that its image that someone put URL for.
 		{
-			<li>@ingredient</li>
+			<img src="@Model.Image" class="img-responsive" alt="recipe image">
 		}
-    </ul>
-			<div class="center-block">
-				<form asp-controller="Recipe" asp-action="ShowRecipeDetailsWithViewModel" method="post">
-					<label asp-for="Servings" class="h4"></label>
-					<input asp-for="Servings" value="@(Model.Servings.ToString("0.#"))" class="form-control" />
-					<span asp-validation-for="Servings" class="text-danger"></span>
-					@Html.HiddenFor(m => m.Id)
-					@Html.HiddenFor(m => m.Servings)
-					<br />
-				</form>
-            <h4>Calories/Serving: @(Math.Round(Model.Calories / Model.Servings))</h4>
-			</div>
+		else
+		{
+			<img src="/Images/@Model.Image" class="img-responsive" alt="recipe image">
+			//<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
+		}
+	</div>
+	<div class="ingredients">
+		<h2>Ingredients</h2>
+		<ul>
+			@foreach (var ingredient in Model.IngredientLines)
+			{
+				<li>@ingredient</li>
+			}
+		</ul>
+		<div class="center-block">
+			<form asp-controller="Recipe" asp-action="ShowRecipeDetailsWithViewModel" method="post">
+				<label asp-for="Servings" class="h4"></label>
+				<input asp-for="Servings" value="@(Model.Servings.ToString("0.#"))" class="form-control" />
+				<span asp-validation-for="Servings" class="text-danger"></span>
+				@Html.HiddenFor(m => m.Id)
+				@Html.HiddenFor(m => m.Servings)
+				<br />
+			</form>
+			<h4>Calories/Serving: @(Math.Round(Model.Calories / Model.Servings))</h4>
+		</div>
 	</div>
 	<div class="rest">
-<h2>Instructions</h2>
-<ol>
-	<li>Step 1</li>
-	<li>Step 2</li>
-	<li>Step 3</li>
-	<li>Step 4</li>
-</ol>
-@foreach(var caution in Model.Cautions)
-	{
-	<p class="caution">This recipe contains @caution</p>
-	}
-<h2>Health Labels</h2>
-<div class="health-labels">
-	@foreach(var healthlabel in Model.HealthLabels)
+		<h2>Instructions</h2>
+		<ol>
+			<li>Step 1</li>
+			<li>Step 2</li>
+			<li>Step 3</li>
+			<li>Step 4</li>
+		</ol>
+		@foreach (var caution in Model.Cautions)
 		{
-		<span class="health-label">@healthlabel</span>
+			<p class="caution">This recipe contains @caution</p>
 		}
-</div>
-</div>
+		<h2>Health Labels</h2>
+		<div class="health-labels">
+			@foreach (var healthlabel in Model.HealthLabels)
+			{
+				<span class="health-label">@healthlabel</span>
+			}
+		</div>
+	</div>
 </div>

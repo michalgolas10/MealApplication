@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace KuceZBronksuWEB.Models
 {
 	public class RecipeViewModel
 	{
-		public string Id { get; set; }
+		public int Id { get; set; }
 		public string Label { get; set; }
 
 		[DisplayName("Ingredients")]
@@ -12,7 +13,7 @@ namespace KuceZBronksuWEB.Models
 
 		public string? ShareAs { get; set; }
 
-		public int Calories { get; set; }
+		public decimal Calories { get; set; }
 
 		public List<string> MealType { get; set; }
 
@@ -26,6 +27,6 @@ namespace KuceZBronksuWEB.Models
 
 		public List<string> CuisineType { get; set; }
 		public string Image { get; set; }
-		public decimal Servings { get; set; }
+		public int Servings { get; set; }
 	}
 }

@@ -5,7 +5,7 @@ namespace KuceZBronksuWEB.Models
 {
 	public class EditAndCreateViewModel
 	{
-		public string? Id { get; set; }
+		public int? Id { get; set; }
 
 		[DisplayName("Name"), StringLength(100, MinimumLength = 2)]
 		public string Label { get; set; }

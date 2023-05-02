@@ -44,20 +44,25 @@ namespace KuceZBronksuWEB.Controllers
 			var result = await _recipeService.GetRecipe(id);
 			return View(result);
 		}
+		public async Task<ActionResult> ShowRecipeDetailsWithViewModel(RecipeViewModel model)
+		{
+			var result = await _recipeService.GetRecipe(model.Id);
+			result.Servings = model.Servings;
+			return View(result);
+		}
 
 		public async Task<ActionResult> Create()
 		{
-			return View(await _recipeService.CreateModelForEditAndCreate());
+			return View(_recipeService.GetUniqueValuesOfRecipeLists());
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Create(EditAndCreateViewModel pageModel)
 		{
-			pageModel.Id = await _recipeService.GenerateNewId();
 			if (!ModelState.IsValid)
 			{
-				return View(await _recipeService.CreateModelForEditAndCreate());
+				return View(_recipeService.GetUniqueValuesOfRecipeLists());
 			}
 			_recipeService.AddRecipeFromCreateView(pageModel);
 			return RedirectToAction("CreateComplete");
@@ -89,10 +94,11 @@ namespace KuceZBronksuWEB.Controllers
 			await _userService.DeleteRecipeFromFavourites(id);
 			return RedirectToAction("FavouriteRecipes");
 		}
-
+		
 		public async Task<ActionResult> Edit(int id)
 		{
-			return View(await _recipeService.CreateEditViewModelForEdit(id));
+			ViewBag.EditWithUniqueValues = await _recipeService.CreateEditViewModelForEdit(id);
+			return View(_recipeService.GetUniqueValuesOfRecipeLists());
 		}
 
 		[HttpPost]

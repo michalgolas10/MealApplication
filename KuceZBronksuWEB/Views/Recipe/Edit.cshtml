@@ -56,14 +56,17 @@
                 <select asp-for="Cautions" class="js-select2" multiple aria-label="multiple select example">
                         @foreach (var item in Model.Cautions)
                         {
-                            @foreach (var dist in ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).Cautions)
+                            if (
+                                ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).Cautions.ToList().Contains(item)
+                                           )
                             {
-                                if (dist == item)
-                                {
-                                   <option value="@item">@item</option>
-                                }
+                                <option value="@item">@item</option>
                             }
+                            else
+                            {
                                 <option value="null">@item</option>
+                            }
+
                         }
                 </select>
                 <span asp-validation-for="Cautions" class="text-danger"></span>
@@ -71,23 +74,20 @@
             <div class="form-group">
                 <label asp-for="HealthLabels" class="control-label"></label>
                 <select asp-for="HealthLabels" class="js-select2" multiple aria-label="multiple select example">
-                    @foreach (var item in Model.HealthLabels)
-                    {
-                            @foreach (var dist in ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).HealthLabels)
+                        @foreach (var item in Model.HealthLabels)
+                        {
+                            if (
+                            ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).HealthLabels.ToList().Contains(item)
+                            )
                             {
-                                if (dist == item)
-                                {
-                                    <option value="@item">@item</option>
-                                    break;
-                                }
-                                else
-                                {
-                                    <option value="null">@item</option>
-                                    break;
-                                }
+                                <option value="@item">@item</option>
                             }
-                            
-                    }
+                            else
+                            {
+                                <option value="null">@item</option>
+                            }
+
+                        }
                 </select>
                 <span asp-validation-for="HealthLabels" class="text-danger"></span>
             </div>
@@ -96,18 +96,15 @@
                 <select asp-for="DietLabels" class="js-select2" multiple aria-label="multiple select example">
                         @foreach (var item in Model.DietLabels)
                         {
-                            @foreach (var dist in ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).DietLabels)
+                            if (
+                                ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).DietLabels.ToList().Contains(item)
+                                           )
                             {
-                                if (dist == item)
-                                {
-                                    <option value="@item">@item</option>
-                                    break;
-                                }
-                                else
-                                {
-                                    <option value="null">@item</option>
-                                    break;
-                                }
+                                <option value="@item">@item</option>
+                            }
+                            else
+                            {
+                                <option value="null">@item</option>
                             }
 
                         }
@@ -120,18 +117,15 @@
                 <select asp-for="CuisineType" class="js-select2" multiple aria-label="multiple select example">
                         @foreach (var item in Model.CuisineType)
                         {
-                            @foreach (var dist in ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).CuisineType)
+                            if (
+                            ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).CuisineType.ToList().Contains(item)
+                            )
                             {
-                                if (dist == item)
-                                {
-                                    <option value="@item">@item</option>
-                                    break;
-                                }
-                                else
-                                {
-                                    <option value="null">@item</option>
-                                    break;
-                                }
+                                <option value="@item">@item</option>
+                            }
+                            else
+                            {
+                                <option value="null">@item</option>
                             }
 
                         }
@@ -142,19 +136,19 @@
             <div class="form-group">
                 <label asp-for="MealType" class="control-label"></label>
                 <select asp-for="MealType" class="js-select2" multiple aria-label="multiple select example">
-                    @foreach (var item in Model.MealType)
+                        @foreach (var item in Model.MealType)
                         {
-                            @foreach (var dist in ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).MealType)
+                            if (
+                            ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).MealType.ToList().Contains(item)
+                            )
                             {
-                                if (dist == item)
-                                {
-                                    <option value="@item">@item</option>
-                                }
-                                else
-                                {
-                                    <option value="null">@item</option>
-                                }
+                                <option value="@item">@item</option>
                             }
+                            else
+                            {
+                                <option value="null">@item</option>
+                            }
+
                         }
                 </select>
                 <span asp-validation-for="MealType" class="text-danger"></span>

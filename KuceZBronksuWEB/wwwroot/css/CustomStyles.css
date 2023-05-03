@@ -79,7 +79,8 @@ body {
 
 myImgCard {
     position: center;
-    display: flex;
+    /*display: flex;*/
+    display: 40%;
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
@@ -90,6 +91,34 @@ myImgCard {
     margin: 5px;
     background-color: black;
 }
+
+.myImgCard > hr {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.myImgCard > .list-group {
+    border-top: inherit;
+    border-bottom: inherit;
+}
+
+    .myImgCard > .list-group:first-child {
+        border-top-width: 0;
+        border-top-left-radius: calc(0.25rem - 1px);
+        border-top-right-radius: calc(0.25rem - 1px);
+    }
+
+    .myImgCard > .list-group:last-child {
+        border-bottom-width: 0;
+        border-bottom-right-radius: calc(0.25rem - 1px);
+        border-bottom-left-radius: calc(0.25rem - 1px);
+    }
+
+    .myImgCard > .card-header + .list-group,
+    .myImgCard > .list-group + .card-footer {
+        border-top: 0;
+    }
+
 
 .myCardButtons{
     margin-bottom: 5px;
@@ -110,6 +139,9 @@ myImgCard {
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
     text-align: center;
+    margin-top: 5px;
+    border: 5px solid #a0522d;
+ 
 }
 
 .card-title-my {
@@ -132,6 +164,7 @@ myImgCard {
     margin-left: auto;
     margin-right: auto;
 }
+
 
 
 @media (max-width: 768px) {
@@ -168,3 +201,36 @@ myImgCard {
     .my-card-header:first-child {
         border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
     }
+
+
+/*Details style*/
+
+.myDetailCardTitle {
+    /*position: relative;*/
+    position: center;
+    height: fit-content;
+    width: fit-content;
+    font-family: 'Lucida Handwriting';
+    /*font-size: small;*/
+    /*    display: flex;*/
+    /*flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;*/
+    text-align: center;
+    margin-top: 5px;
+}
+
+.img-responsive-details {
+    height: fit-content;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ingridients-title {
+    font-family: 'Lucida Handwriting';
+}

@@ -13,7 +13,7 @@
 		@foreach (var item in Model)
 		{
 			<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
-				<div class="card">
+					<div class="card">
 						@if (item.Image.Contains("/")) // Means that its image that someone put URL for.
 								{
 									<img src="@item.Image" class="img-responsive" alt="recipe image">

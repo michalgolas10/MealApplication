@@ -12,17 +12,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Label" class="control-label"></label>
-                <input asp-for="Label" class="form-control" placeholder=@Model.Label/>
+                    <input asp-for="Label" class="form-control" value="@(ViewBag.EditWithUniqueValues.Label)" />
                 <span asp-validation-for="Label" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" placeholder=@Model.Image/>
+                    <input asp-for="Image" class="form-control" value="@(ViewBag.EditWithUniqueValues.Image)" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
                 <div class="form-group">
                     <label asp-for="ShareAs" class="control-label"></label>
-                    <input asp-for="ShareAs" class="form-control" placeholder=@Model.ShareAs />
+                    <input asp-for="ShareAs" class="form-control" value="@(ViewBag.EditWithUniqueValues.ShareAs)" />
                     <span asp-validation-for="ShareAs" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -42,12 +42,12 @@
                 </div>
              <div class="form-group">
                 <label asp-for="Calories" class="control-label"></label>
-                    <input asp-for="Calories" class="form-control" placeholder=@Model.Calories />
+                    <input asp-for="Calories" class="form-control" value="@(ViewBag.EditWithUniqueValues.Calories)" />
                 <span asp-validation-for="Calories" class="text-danger"></span>
             </div>
              <div class="form-group">
                 <label asp-for="Servings" class="control-label"></label>
-                    <input asp-for="Servings" class="form-control" placeholder=@Model.Servings />
+                    <input asp-for="Servings" class="form-control" value="@(ViewBag.EditWithUniqueValues.Servings)" />
                     <span asp-validation-for="Servings" class="text-danger"></span>
             </div>
 

@@ -6,7 +6,7 @@ using KuceZBronksuDAL.Repository.IRepository;
 using KuceZBronksuWEB.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using KuceZBronksuWEB.Data;
+using KuceZBronksuDAL.Models;
 
 namespace KuceZBronksuWEB
 {
@@ -19,7 +19,7 @@ namespace KuceZBronksuWEB
 			options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;")));
 
                builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<AuthDbContext>();
+                .AddEntityFrameworkStores<MealAppContext>();
 			builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			builder.Services.AddScoped<RecipeService>();
 			builder.Services.AddScoped<UserService>();
@@ -48,8 +48,9 @@ namespace KuceZBronksuWEB
 			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapRazorPages();
 
-			app.Run();
+            app.Run();
 		}
 
 		private static void CreateDbIfNotExists(IHost host)

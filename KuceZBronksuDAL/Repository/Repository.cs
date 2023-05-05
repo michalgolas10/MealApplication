@@ -6,11 +6,10 @@ using System.Linq.Expressions;
 
 namespace KuceZBronksuDAL.Repository
 {
-	public class Repository<T> : IRepository<T> where T : Entity
+	public class Repository<T> : IRepository<T> where T : class,IEntity
     {
-		private readonly MealAppContext _context;
+        private readonly MealAppContext _context;
 		private readonly DbSet<T> _entities;
-
 		public Repository(MealAppContext context)
 		{
 			this._context = context;

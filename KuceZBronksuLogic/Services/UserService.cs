@@ -52,7 +52,7 @@ namespace KuceZBronksuBLL.Services
         {
             //Usuwamy na razie recepture jedynego użytkownika jakiego mamy czyli admina!
             var user = await GetUserById();
-			user.Recipes.Remove(user.Recipes.First(x=>x.Id==idOfRecipeToRemove));
+			user.Recipes.Remove(_mapper.Map < Recipe > (await _recipeService.GetRecipe(idOfRecipeToRemove)));
 			_repository.UpdateForDelete(user);
         }
     }

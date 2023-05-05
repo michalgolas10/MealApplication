@@ -4,9 +4,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace KuceZBronksuDAL
 {
-	public class Recipe : Entity
+	public class Recipe : IEntity
 	{
-		public string? Label { get; set; }
+        int? IEntity.Id { get; set; }
+        public string? Label { get; set; }
 
 		public string? ShareAs { get; set; }
 

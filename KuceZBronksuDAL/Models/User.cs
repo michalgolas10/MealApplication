@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 namespace KuceZBronksuDAL.Models
 {
-	public class User : IdentityUser
+	public class User : IdentityUser, IEntity
     {
+        int? IEntity.Id { get; set; }
         private readonly ILazyLoader _lazyLoader;
         public User()
         {

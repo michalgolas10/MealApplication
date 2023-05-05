@@ -1,4 +1,5 @@
 ﻿using KuceZBronksuDAL.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -10,7 +11,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace KuceZBronksuDAL.Context
 {
-	public class MealAppContext : IdentityDbContext<User>
+    public class MealAppContext : IdentityDbContext<User>
 	{
 		public MealAppContext(DbContextOptions<MealAppContext> options) : base(options)
 		{
@@ -62,6 +63,8 @@ namespace KuceZBronksuDAL.Context
 			.HasConversion(
 			v => JsonConvert.SerializeObject(v),
 			v => JsonConvert.DeserializeObject<List<string>>(v));
+			modelBuilder.Entity<IdentityUser>()
+				.HasKey(p => p.Id);
             modelBuilder.Entity<User>()
 			.HasMany(c => c.Recipes)
 			.WithOne(e => e.User)

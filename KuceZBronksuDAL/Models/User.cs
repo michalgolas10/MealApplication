@@ -1,15 +1,16 @@
 ﻿using KuceZBronksuDAL.Models.BaseEntity;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace KuceZBronksuDAL.Models
 {
-	public class User : IdentityUser, IEntity
+    public class User : IdentityUser, IEntity
     {
-        int? IEntity.Id { get; set; }
+        public int? Id { get; set; }
         private readonly ILazyLoader _lazyLoader;
         public User()
         {
-            
         }
         public User(ILazyLoader lazyLoader)
         {

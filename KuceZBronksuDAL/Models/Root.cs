@@ -1,6 +1,6 @@
 ﻿namespace KuceZBronksuDAL.Models
 {
-	public class Root
+    public class Root
 	{
 		public Recipe Recipe { get; set; }
 	}

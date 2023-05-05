@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using KuceZBronksuDAL;
 using KuceZBronksuDAL.Repository.IRepository;
-using KuceZBronksuWEB.Models;
 using System.Reflection;
 using System;
 using Azure;
 using Microsoft.SqlServer.Server;
 using System.Security.Cryptography;
 using System.Security.Policy;
+using KuceZBronksuBLL.Models;
+using KuceZBronksuDAL.Models;
 
 namespace KuceZBronksuBLL.Services
 {
-	public class RecipeService
+    public class RecipeService
 	{
 		private readonly IRepository<Recipe> _repository;
 
@@ -54,15 +54,15 @@ namespace KuceZBronksuBLL.Services
 			if (model.IngrediendsList != null)
 			{
 				List<string> ingrediends = model.IngrediendsList.Split(',').ToList();
-				recipies = KuceZBronksuLogic.Search.SearchByIngredients(ingrediends, recipies);
+				recipies = KuceZBronksuBLL.Search.SearchByIngredients(ingrediends, recipies);
 			}
 			if (model.ListOfMealType != null)
 			{
-				recipies = KuceZBronksuLogic.Search.SearchByMealType(model.ListOfMealType, recipies);
+				recipies = KuceZBronksuBLL.Search.SearchByMealType(model.ListOfMealType, recipies);
 			}
 			if (model.KcalAmount != null)
 			{
-				recipies = KuceZBronksuLogic.Search.SearchByKcal(model.KcalAmount.Value, 300d, recipies);
+				recipies = KuceZBronksuBLL.Search.SearchByKcal(model.KcalAmount.Value, 300d, recipies);
 			}
 			var result = recipies.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
 			return result;

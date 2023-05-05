@@ -1,16 +1,15 @@
 using KuceZBronksuBLL.Services;
-using KuceZBronksuDAL;
 using KuceZBronksuDAL.Context;
 using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
-using KuceZBronksuWEB.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using KuceZBronksuDAL.Models;
+using KuceZBronksuBLL.Models;
 
 namespace KuceZBronksuWEB
 {
-	public class Program
+    public class Program
 	{
 		public static void Main(string[] args)
 		{

@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
-using KuceZBronksuDAL;
+using KuceZBronksuBLL.Models;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository.IRepository;
-using KuceZBronksuWEB.Models;
 
 namespace KuceZBronksuBLL.Services
 {
-	public class UserService
+    public class UserService
 	{
 		private readonly IRepository<User> _repository;
 		private readonly RecipeService _recipeService;

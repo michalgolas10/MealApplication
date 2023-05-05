@@ -1,11 +1,11 @@
 using AutoMapper;
+using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services;
-using KuceZBronksuWEB.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KuceZBronksuWEB.Controllers
 {
-	public class RecipeController : Controller
+    public class RecipeController : Controller
 	{
 		private readonly RecipeService _recipeService;
 		private readonly IMapper _mapper;

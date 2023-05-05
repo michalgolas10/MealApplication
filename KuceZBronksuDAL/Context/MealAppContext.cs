@@ -1,11 +1,16 @@
 ﻿using KuceZBronksuDAL.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
+
+
+
+
 namespace KuceZBronksuDAL.Context
 {
-	public class MealAppContext : DbContext
+	public class MealAppContext : IdentityDbContext<User>
 	{
 		public MealAppContext(DbContextOptions<MealAppContext> options) : base(options)
 		{

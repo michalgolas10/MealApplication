@@ -1,9 +1,10 @@
 ﻿using KuceZBronksuDAL.Models.BaseEntity;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 namespace KuceZBronksuDAL.Models
 {
-	public class User : Entity
-	{
+	public class User : IdentityUser
+    {
         private readonly ILazyLoader _lazyLoader;
         public User()
         {
@@ -13,11 +14,6 @@ namespace KuceZBronksuDAL.Models
         {
             _lazyLoader = lazyLoader;
         }
-        public string? Name { get; set; }
-
-        //public string Password { get; set; }
-        //public string Email { get; set; }
-        //public UserRole Role { get; set; }
         private List<Recipe> _recipes;
         public List<Recipe> Recipes
         {

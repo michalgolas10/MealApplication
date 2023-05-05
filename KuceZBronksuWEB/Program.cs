@@ -5,6 +5,8 @@ using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
 using KuceZBronksuWEB.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using KuceZBronksuWEB.Data;
 
 namespace KuceZBronksuWEB
 {
@@ -15,6 +17,9 @@ namespace KuceZBronksuWEB
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services.AddDbContext<MealAppContext>(options =>
 			options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;")));
+
+               builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<AuthDbContext>();
 			builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			builder.Services.AddScoped<RecipeService>();
 			builder.Services.AddScoped<UserService>();
@@ -36,6 +41,7 @@ namespace KuceZBronksuWEB
 			app.UseStaticFiles();
 
 			app.UseRouting();
+               app.UseAuthentication();;
 
 			app.UseAuthorization();
 

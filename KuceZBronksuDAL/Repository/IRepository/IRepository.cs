@@ -14,7 +14,5 @@ namespace KuceZBronksuDAL.Repository.IRepository
 		void Insert(T entity);
 
 		void Update(T entity);
-		
-		void UpdateForDelete(T entity);
 	}
 }

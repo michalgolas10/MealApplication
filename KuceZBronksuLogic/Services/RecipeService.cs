@@ -30,7 +30,7 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task<List<RecipeViewModel>> GetAllRecipies()
 		{
-			var recipes = await _repository.GetAll(x=>x.User);
+			var recipes = await _repository.GetAll();
 			var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
 			return result;
 		}
@@ -50,7 +50,7 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task<List<RecipeViewModel>> Search(SearchViewModel model)
 		{
-			var recipies = await _repository.GetAll(x => x.User);
+			var recipies = await _repository.GetAll();
 			if (model.IngrediendsList != null)
 			{
 				List<string> ingrediends = model.IngrediendsList.Split(',').ToList();

@@ -57,14 +57,5 @@ namespace KuceZBronksuDAL.Repository
 				_context.SaveChanges();
 			}
 		}
-
-        public void UpdateForDelete(T entity)
-        {
-            if (entity != null)
-            {
-                _entities.Update(entity);
-                _context.SaveChanges();
-            }
-        }
     }
 }

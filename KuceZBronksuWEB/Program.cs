@@ -16,10 +16,12 @@ namespace KuceZBronksuWEB
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services.AddDbContext<MealAppContext>(options =>
 			options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;")));
+			builder.Services.AddMvc();
 			builder.Services.AddIdentity<User, IdentityRole<int>>()
 					.AddEntityFrameworkStores<MealAppContext>()
-					.AddDefaultTokenProviders();
-			builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+					.AddDefaultTokenProviders()
+					.AddDefaultUI();
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			builder.Services.AddScoped<RecipeService>();
 			builder.Services.AddScoped<UserService>();
 			builder.Services.AddControllersWithViews();

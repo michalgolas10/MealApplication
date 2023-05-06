@@ -1,6 +1,8 @@
 using AutoMapper;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services;
+using KuceZBronksuDAL.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KuceZBronksuWEB.Controllers
@@ -10,13 +12,15 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly RecipeService _recipeService;
 		private readonly IMapper _mapper;
 		private readonly UserService _userService;
+		private readonly UserManager<User> _userManager;
 
 		public RecipeController(UserService userService,
-			RecipeService recipeService, IMapper mapper)
+			RecipeService recipeService, IMapper mapper, UserManager<User> userManager)
 		{
 			_userService = userService;
 			_recipeService = recipeService;
 			_mapper = mapper;
+			_userManager = userManager;
 		}
 
 		// GET: RecipeController
@@ -71,8 +75,8 @@ namespace KuceZBronksuWEB.Controllers
 		public async Task<ActionResult> AddToFavourites(int id)
 		{
 			ViewBag.Duplicate = $"Recipe is already in your fav";
-
-			bool hasBeenAdded = await _userService.AddRecipeToFavourites(id);
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			bool hasBeenAdded = await _userService.AddRecipeToFavourites(id, idOfUser);
 
 			if (hasBeenAdded == true)
 			{
@@ -84,14 +88,15 @@ namespace KuceZBronksuWEB.Controllers
 
 		public async Task<ActionResult> FavouriteRecipes()
 		{
-			//na razie w FavouriteRecipes nie dajemy string Id usera bo nie ma logowania!!!
-			var zmienna = await _userService.GetFavouritesRecipesOfUser();
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			var zmienna = await _userService.GetFavouritesRecipesOfUser(idOfUser);
 			return View(zmienna);
 		}
 
-		public async Task<ActionResult> DeleteRecipesFromFavourites(int id)
+		public async Task<ActionResult> DeleteRecipesFromFavourites(int idOfRecipe)
 		{
-			await _userService.DeleteRecipeFromFavourites(id);
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			await _userService.DeleteRecipeFromFavourites(idOfRecipe, idOfUser);
 			return RedirectToAction("FavouriteRecipes");
 		}
 		

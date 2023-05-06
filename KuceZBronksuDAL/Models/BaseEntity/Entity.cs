@@ -2,7 +2,7 @@
 
 namespace KuceZBronksuDAL.Models.BaseEntity
 {
-	public interface IEntity
+	public class Entity
 	{
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int? Id { get; set; }

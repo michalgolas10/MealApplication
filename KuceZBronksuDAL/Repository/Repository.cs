@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace KuceZBronksuDAL.Repository
 {
-	public class Repository<T> : IRepository<T> where T : class,IEntity
+	public class Repository<T> : IRepository<T> where T : Entity
     {
         private readonly MealAppContext _context;
 		private readonly DbSet<T> _entities;

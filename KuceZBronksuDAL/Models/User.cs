@@ -5,9 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KuceZBronksuDAL.Models
 {
-    public class User : IdentityUser, IEntity
+    public class User : IdentityUser<int>
     {
-        public int? Id { get; set; }
         private readonly ILazyLoader _lazyLoader;
         public User()
         {

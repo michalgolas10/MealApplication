@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KuceZBronksuDAL.Models
 {
-    public class Recipe : IEntity
+    public class Recipe : Entity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }

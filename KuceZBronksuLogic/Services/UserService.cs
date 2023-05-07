@@ -14,6 +14,7 @@ namespace KuceZBronksuBLL.Services
 		private readonly RecipeService _recipeService;
 		private readonly IMapper _mapper;
 		private readonly UserManager<User> _userManager;
+		private readonly RoleManager<IdentityRole> _roleManager;
 
 		public UserService(UserManager<User> userManager, RecipeService recipeService, IMapper mapper)
 		{
@@ -37,6 +38,7 @@ namespace KuceZBronksuBLL.Services
 		public async Task<List<RecipeViewModel>> GetFavouritesRecipesOfUser(int iduser)
 		{
 			var user = await _userManager.FindByIdAsync(iduser.ToString());
+			await _userManager.AddToRoleAsync(user, "admin");
 			var ListOfRecipiesToBePassedToView = user.Recipes;
 			return ListOfRecipiesToBePassedToView.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
         }

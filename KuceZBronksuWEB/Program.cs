@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuBLL.Models;
+using AutoMapper;
 
 namespace KuceZBronksuWEB
 {
     public class Program
 	{
-		public static void Main(string[] args)
+		public async static Task Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services.AddDbContext<MealAppContext>(options =>
@@ -20,6 +21,7 @@ namespace KuceZBronksuWEB
             builder.Services.AddIdentity<User, IdentityRole<int>>()
 					.AddEntityFrameworkStores<MealAppContext>()
 					.AddDefaultTokenProviders()
+					.AddRoles<IdentityRole<int>>()
 					.AddDefaultUI();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			builder.Services.AddScoped<RecipeService>();
@@ -29,7 +31,7 @@ namespace KuceZBronksuWEB
 			builder.Services.AddAutoMapper(typeof(EditAndCreateViewModel), typeof(Program));
 			builder.Services.AddAutoMapper(typeof(Recipe), typeof(Program));
 			var app = builder.Build();
-			CreateDbIfNotExists(app);
+			await CreateDbIfNotExists(app);
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())
 			{
@@ -54,14 +56,16 @@ namespace KuceZBronksuWEB
             app.Run();
 		}
 
-		private static void CreateDbIfNotExists(IHost host)
+		private async static Task CreateDbIfNotExists(IHost host)
 		{
 			using var scope = host.Services.CreateScope();
 			var services = scope.ServiceProvider;
 			try
 			{
-				var context = services.GetRequiredService<MealAppContext>();
-				MealAppSeed.Initialize(context);
+                var context = services.GetRequiredService<MealAppContext>();
+				var userManager = services.GetRequiredService<UserManager<User>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
+				await MealAppSeed.Initialize(context, userManager, roleManager);
 			}
 			catch (Exception ex)
 			{

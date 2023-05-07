@@ -16,7 +16,7 @@ namespace KuceZBronksuDAL.Repository
 			_entities = context.Set<T>();
 		}
 
-		public async Task<T> Get(int id) => await this._entities.SingleOrDefaultAsync(e => e.Id == id);
+		public async Task<T> Get(int id) => await this._entities.AsNoTracking().SingleOrDefaultAsync(e => e.Id == id);
 
 		public void Delete(int id)
 		{
@@ -32,7 +32,7 @@ namespace KuceZBronksuDAL.Repository
 		{
 			if (include != null)
 			{
-				return this._entities
+                return this._entities.AsNoTracking()
 					.Include(include).AsEnumerable().ToList()!;
 			}
 
@@ -52,7 +52,6 @@ namespace KuceZBronksuDAL.Repository
 		{
 			if (entity != null)
 			{
-				_context.ChangeTracker.Clear();
                 _entities.Update(entity);
 				_context.SaveChanges();
 			}

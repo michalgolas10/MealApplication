@@ -93,10 +93,10 @@ namespace KuceZBronksuWEB.Controllers
 			return View(zmienna);
 		}
 
-		public async Task<ActionResult> DeleteRecipesFromFavourites(int idOfRecipe)
+		public async Task<ActionResult> DeleteRecipesFromFavourites(int id)
 		{
 			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
-			await _userService.DeleteRecipeFromFavourites(idOfRecipe, idOfUser);
+			await _userService.DeleteRecipeFromFavourites(id, idOfUser);
 			return RedirectToAction("FavouriteRecipes");
 		}
 		

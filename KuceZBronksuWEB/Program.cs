@@ -17,7 +17,7 @@ namespace KuceZBronksuWEB
 			builder.Services.AddDbContext<MealAppContext>(options =>
 			options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;")));
 			builder.Services.AddMvc();
-			builder.Services.AddIdentity<User, IdentityRole<int>>()
+            builder.Services.AddIdentity<User, IdentityRole<int>>()
 					.AddEntityFrameworkStores<MealAppContext>()
 					.AddDefaultTokenProviders()
 					.AddDefaultUI();

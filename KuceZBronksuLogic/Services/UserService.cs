@@ -2,8 +2,10 @@
 using KuceZBronksuBLL.Models;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository.IRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using static Azure.Core.HttpHeader;
 
 namespace KuceZBronksuBLL.Services
 {
@@ -19,10 +21,10 @@ namespace KuceZBronksuBLL.Services
 			_userManager = userManager;
 			_recipeService = recipeService;
 		}
-		public async Task<bool> AddRecipeToFavourites(int idOfRecipe, int IdOfUser)
+		public async Task<bool> AddRecipeToFavourites(int idOfRecipe, int idOfUser)
 		{
-			var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(idOfRecipe));
-			var user = await _userManager.FindByIdAsync($"{IdOfUser}");
+            var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(idOfRecipe));
+			var user = await _userManager.FindByIdAsync(idOfUser.ToString());
 			if(user.Recipes.Contains(resultRecipe))
 			{
 				return false;
@@ -43,8 +45,8 @@ namespace KuceZBronksuBLL.Services
         public async Task DeleteRecipeFromFavourites(int idOfRecipeToRemove, int iduser)         
 		{
             //Usuwamy na razie recepture jedynego użytkownika jakiego mamy czyli admina!
-            var user = await _userManager.FindByIdAsync($"{iduser}");
-			user.Recipes.Remove(_mapper.Map < Recipe > (await _recipeService.GetRecipe(idOfRecipeToRemove)));
+            var user = await _userManager.FindByIdAsync(iduser.ToString());
+            user.Recipes = user.Recipes.Where(x => x.Id != idOfRecipeToRemove).ToList();
 			await _userManager.UpdateAsync(user);
 		}
     }

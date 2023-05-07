@@ -1,107 +1,53 @@
 ﻿using AutoMapper;
-using KuceZBronksuDAL;
+using KuceZBronksuBLL.Models;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository.IRepository;
-using KuceZBronksuWEB.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using static Azure.Core.HttpHeader;
 
 namespace KuceZBronksuBLL.Services
 {
-	public class UserService
+    public class UserService
 	{
-		private readonly IRepository<User> _repository;
 		private readonly RecipeService _recipeService;
 		private readonly IMapper _mapper;
-		private readonly DescriptionService _descriptionService;
+		private readonly UserManager<User> _userManager;
 
-		public UserService(IRepository<User> repository, RecipeService recipeService, IMapper mapper, DescriptionService descriptionService)
+		public UserService(UserManager<User> userManager, RecipeService recipeService, IMapper mapper)
 		{
 			_mapper = mapper;
-			this._repository = repository;
+			_userManager = userManager;
 			_recipeService = recipeService;
-			_descriptionService = descriptionService;
 		}
-
-		public async Task<User> GetUserById(string id) => await _repository.Get(id);
-
-		//Metoda GetUserById bez parametrów wejściowych wyrzuca pierwszego napotkanego użytkownika
-		public async Task<User> GetUserById()
+		public async Task<bool> AddRecipeToFavourites(int idOfRecipe, int idOfUser)
 		{
-			var allUsers = await _repository.GetAll(x => x.UsersFavouritesRecipies);
-			return allUsers.FirstOrDefault();
-		}
-
-		//public async Task AddRecipeToFavourites(string id)
-		//{
-		//    var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(_descriptionService.Descript(id)));
-		//    var users = await _repository.GetAll(x => x.UsersFavouritesRecipies);
-		//    //przypisujemy ulubione przepisy do pierwszego znalezionego użytkownika (admin)
-		//    var user = users.FirstOrDefault();
-		//    var recipe =
-		//        new FavouritesRecipes
-		//        {
-		//            User = user,
-		//            Recipe = resultRecipe,
-		//            RecipeId = resultRecipe.Id,
-		//            UserId = user.Id
-		//        };
-		//    user.UsersFavouritesRecipies.Add(recipe);
-		//    _repository.Update(user);
-		//    }
-		public async Task<bool> AddRecipeToFavourites(string id)
-		{
-			var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(_descriptionService.Descript(id)));
-			var users = await _repository.GetAll(x => x.UsersFavouritesRecipies);
-			//przypisujemy ulubione przepisy do pierwszego znalezionego użytkownika (admin)
-			var user = users.FirstOrDefault();
-			user.UsersFavouritesRecipies.Add(new FavouritesRecipes()
-			{
-				User = user,
-				Recipe = resultRecipe, //nwm po co to w tym modelu potrzebne, ktoś wyjaśni?
-				RecipeId = resultRecipe.Id,
-				UserId = user.Id
-			});
-
-			var isUnique = !user.UsersFavouritesRecipies.Any(x => x.RecipeId == resultRecipe.Id);
-			if (isUnique)
-			{
-				_repository.Update(user);
-				return true;
-			}
-			else
+            var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(idOfRecipe));
+			var user = await _userManager.FindByIdAsync(idOfUser.ToString());
+			if(user.Recipes.Contains(resultRecipe))
 			{
 				return false;
 			}
+			user.Recipes.Add(resultRecipe);
+			await _userManager.UpdateAsync(user);
+			return true;
 		}
 
-		public async Task<List<RecipeViewModel>> GetFavouritesRecipesOfUser()
+		public async Task<List<RecipeViewModel>> GetFavouritesRecipesOfUser(int iduser)
 		{
-			var user = await GetUserById();
-			var favouritesRecipesToView = new List<RecipeViewModel>();
-			foreach (var favRecipe in user.UsersFavouritesRecipies)
-			{
-				favouritesRecipesToView.Add(await _recipeService.GetRecipe(favRecipe.RecipeId));
-			};
-			return favouritesRecipesToView;
-		}
+			var user = await _userManager.FindByIdAsync(iduser.ToString());
+			var ListOfRecipiesToBePassedToView = user.Recipes;
+			return ListOfRecipiesToBePassedToView.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+        }
 
-		public async Task DeleteRecipeFromFavourites(string idOfRecipeToRemove)
+
+        public async Task DeleteRecipeFromFavourites(int idOfRecipeToRemove, int iduser)         
 		{
-			//Usuwamy na razie recepture jedynego użytkownika jakiego mamy czyli admina!
-			var user = await GetUserById();
-			List<FavouritesRecipes> favouritesRecipes = new();
-			foreach (var favRecipe in user.UsersFavouritesRecipies)
-			{
-				if (favRecipe.RecipeId != idOfRecipeToRemove)
-					favouritesRecipes.Add(favRecipe);
-			};
-			var NewUser = new User()
-			{
-				Id = user.Id,
-				Name = user.Name,
-				UsersFavouritesRecipies = favouritesRecipes
-			};
-			_repository.Delete(user.Id);
-			_repository.Insert(NewUser);
+            //Usuwamy na razie recepture jedynego użytkownika jakiego mamy czyli admina!
+            var user = await _userManager.FindByIdAsync(iduser.ToString());
+            user.Recipes = user.Recipes.Where(x => x.Id != idOfRecipeToRemove).ToList();
+			await _userManager.UpdateAsync(user);
 		}
-	}
+    }
 }

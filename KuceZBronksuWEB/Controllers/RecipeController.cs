@@ -1,22 +1,26 @@
 using AutoMapper;
+using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services;
-using KuceZBronksuWEB.Models;
+using KuceZBronksuDAL.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KuceZBronksuWEB.Controllers
 {
-	public class RecipeController : Controller
+    public class RecipeController : Controller
 	{
 		private readonly RecipeService _recipeService;
 		private readonly IMapper _mapper;
 		private readonly UserService _userService;
+		private readonly UserManager<User> _userManager;
 
 		public RecipeController(UserService userService,
-			RecipeService recipeService, IMapper mapper)
+			RecipeService recipeService, IMapper mapper, UserManager<User> userManager)
 		{
 			_userService = userService;
 			_recipeService = recipeService;
 			_mapper = mapper;
+			_userManager = userManager;
 		}
 
 		// GET: RecipeController
@@ -39,35 +43,40 @@ namespace KuceZBronksuWEB.Controllers
 		}
 
 		// GET: RecipeController/Details/5
-		public async Task<ActionResult> ShowRecipeDetails(string id)
+		public async Task<ActionResult> ShowRecipeDetails(int id)
 		{
 			var result = await _recipeService.GetRecipe(id);
+			return View(result);
+		}
+		public async Task<ActionResult> ShowRecipeDetailsWithViewModel(RecipeViewModel model)
+		{
+			var result = await _recipeService.GetRecipe(model.Id);
+			result.Servings = model.Servings;
 			return View(result);
 		}
 
 		public async Task<ActionResult> Create()
 		{
-			return View(await _recipeService.CreateModelForEditAndCreate());
+			return View(_recipeService.GetUniqueValuesOfRecipeLists());
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Create(EditAndCreateViewModel pageModel)
 		{
-			pageModel.Id = await _recipeService.GenerateNewId();
 			if (!ModelState.IsValid)
 			{
-				return View(await _recipeService.CreateModelForEditAndCreate());
+				return View(_recipeService.GetUniqueValuesOfRecipeLists());
 			}
 			_recipeService.AddRecipeFromCreateView(pageModel);
 			return RedirectToAction("CreateComplete");
 		}
 
-		public async Task<ActionResult> AddToFavourites(string id)
+		public async Task<ActionResult> AddToFavourites(int id)
 		{
 			ViewBag.Duplicate = $"Recipe is already in your fav";
-
-			bool hasBeenAdded = await _userService.AddRecipeToFavourites(id);
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			bool hasBeenAdded = await _userService.AddRecipeToFavourites(id, idOfUser);
 
 			if (hasBeenAdded == true)
 			{
@@ -79,26 +88,28 @@ namespace KuceZBronksuWEB.Controllers
 
 		public async Task<ActionResult> FavouriteRecipes()
 		{
-			//na razie w FavouriteRecipes nie dajemy string Id usera bo nie ma logowania!!!
-			var zmienna = await _userService.GetFavouritesRecipesOfUser();
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			var zmienna = await _userService.GetFavouritesRecipesOfUser(idOfUser);
 			return View(zmienna);
 		}
 
-		public async Task<ActionResult> DeleteRecipesFromFavourites(string id)
+		public async Task<ActionResult> DeleteRecipesFromFavourites(int id)
 		{
-			await _userService.DeleteRecipeFromFavourites(id);
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			await _userService.DeleteRecipeFromFavourites(id, idOfUser);
 			return RedirectToAction("FavouriteRecipes");
 		}
-
-		public async Task<ActionResult> Edit(string id)
+		
+		public async Task<ActionResult> Edit(int id)
 		{
-			var temp = await _recipeService.CreateEditViewModelForEdit(id);
-            return View(temp);
+			ViewBag.EditWithUniqueValues = await _recipeService.CreateEditViewModelForEdit(id);
+			var modelToPass = _recipeService.GetUniqueValuesOfRecipeLists();
+			return View(modelToPass);
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Edit(EditAndCreateViewModel recipe, string id)
+		public async Task<ActionResult> Edit(EditAndCreateViewModel recipe, int id)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -118,7 +129,7 @@ namespace KuceZBronksuWEB.Controllers
 			return View();
 		}
 
-		public async Task<ActionResult> DeleteRecipe(string id)
+		public async Task<ActionResult> DeleteRecipe(int id)
 		{
 			await _recipeService.DeleteRecipe(id);
 			return RedirectToAction("Index");

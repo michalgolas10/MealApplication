@@ -7,19 +7,18 @@ using System.Linq.Expressions;
 namespace KuceZBronksuDAL.Repository
 {
 	public class Repository<T> : IRepository<T> where T : Entity
-	{
-		private readonly MealAppContext _context;
+    {
+        private readonly MealAppContext _context;
 		private readonly DbSet<T> _entities;
-
 		public Repository(MealAppContext context)
 		{
 			this._context = context;
 			_entities = context.Set<T>();
 		}
 
-		public async Task<T> Get(string id) => await this._entities.AsNoTracking<T>().SingleOrDefaultAsync(e => e.Id == id);
+		public async Task<T> Get(int id) => await this._entities.AsNoTracking().SingleOrDefaultAsync(e => e.Id == id);
 
-		public void Delete(string id)
+		public void Delete(int id)
 		{
 			if (id != null)
 			{
@@ -33,7 +32,7 @@ namespace KuceZBronksuDAL.Repository
 		{
 			if (include != null)
 			{
-				return this._entities.AsNoTracking<T>()
+                return this._entities
 					.Include(include).AsEnumerable().ToList()!;
 			}
 
@@ -53,10 +52,9 @@ namespace KuceZBronksuDAL.Repository
 		{
 			if (entity != null)
 			{
-				_entities.AsNoTracking<T>();
-				_entities.Update(entity);
+                _entities.Update(entity);
 				_context.SaveChanges();
 			}
 		}
-	}
+    }
 }

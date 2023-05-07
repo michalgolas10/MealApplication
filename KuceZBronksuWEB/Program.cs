@@ -1,24 +1,29 @@
 using KuceZBronksuBLL.Services;
-using KuceZBronksuDAL;
 using KuceZBronksuDAL.Context;
 using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
-using KuceZBronksuWEB.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using KuceZBronksuDAL.Models;
+using KuceZBronksuBLL.Models;
 
 namespace KuceZBronksuWEB
 {
-	public class Program
+    public class Program
 	{
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services.AddDbContext<MealAppContext>(options =>
 			options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;")));
-			builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+			builder.Services.AddMvc();
+            builder.Services.AddIdentity<User, IdentityRole<int>>()
+					.AddEntityFrameworkStores<MealAppContext>()
+					.AddDefaultTokenProviders()
+					.AddDefaultUI();
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			builder.Services.AddScoped<RecipeService>();
 			builder.Services.AddScoped<UserService>();
-			builder.Services.AddScoped<DescriptionService>();
 			builder.Services.AddControllersWithViews();
 			builder.Services.AddAutoMapper(typeof(RecipeViewModel), typeof(Program));
 			builder.Services.AddAutoMapper(typeof(EditAndCreateViewModel), typeof(Program));
@@ -37,14 +42,16 @@ namespace KuceZBronksuWEB
 			app.UseStaticFiles();
 
 			app.UseRouting();
+               app.UseAuthentication();;
 
 			app.UseAuthorization();
 
 			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapRazorPages();
 
-			app.Run();
+            app.Run();
 		}
 
 		private static void CreateDbIfNotExists(IHost host)

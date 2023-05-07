@@ -1,32 +1,36 @@
 ﻿using AutoMapper;
-using KuceZBronksuDAL;
 using KuceZBronksuDAL.Repository.IRepository;
-using KuceZBronksuWEB.Models;
+using System.Reflection;
+using System;
+using Azure;
+using Microsoft.SqlServer.Server;
+using System.Security.Cryptography;
+using System.Security.Policy;
+using KuceZBronksuBLL.Models;
+using KuceZBronksuDAL.Models;
 
 namespace KuceZBronksuBLL.Services
 {
-	public class RecipeService
+    public class RecipeService
 	{
 		private readonly IRepository<Recipe> _repository;
 
 		private readonly IMapper _mapper;
-		private readonly DescriptionService _description;
 
-		public RecipeService(IRepository<Recipe> repository, IMapper mapper, DescriptionService description)
+		public RecipeService(IRepository<Recipe> repository, IMapper mapper)
 		{
 			this._repository = repository;
 			_mapper = mapper;
-			_description = description;
 		}
 
-		public async Task<RecipeViewModel> GetRecipe(string Id)
+		public async Task<RecipeViewModel> GetRecipe(int Id)
 		{
-			return _mapper.Map<RecipeViewModel>(await _repository.Get(_description.Descript(Id)));
+			return _mapper.Map<RecipeViewModel>(await _repository.Get(Id));
 		}
 
 		public async Task<List<RecipeViewModel>> GetAllRecipies()
 		{
-			var recipes = await _repository.GetAll(x => x.RecipeFavouritesUsers);
+			var recipes = await _repository.GetAll();
 			var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
 			return result;
 		}
@@ -46,78 +50,99 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task<List<RecipeViewModel>> Search(SearchViewModel model)
 		{
-			var recipies = await _repository.GetAll(x => x.RecipeFavouritesUsers);
+			var recipies = await _repository.GetAll();
 			if (model.IngrediendsList != null)
 			{
 				List<string> ingrediends = model.IngrediendsList.Split(',').ToList();
-				recipies = KuceZBronksuLogic.Search.SearchByIngredients(ingrediends, recipies);
+				recipies = KuceZBronksuBLL.Search.SearchByIngredients(ingrediends, recipies);
 			}
 			if (model.ListOfMealType != null)
 			{
-				recipies = KuceZBronksuLogic.Search.SearchByMealType(model.ListOfMealType, recipies);
+				recipies = KuceZBronksuBLL.Search.SearchByMealType(model.ListOfMealType, recipies);
 			}
 			if (model.KcalAmount != null)
 			{
-				recipies = KuceZBronksuLogic.Search.SearchByKcal(model.KcalAmount.Value, 300d, recipies);
+				recipies = KuceZBronksuBLL.Search.SearchByKcal(model.KcalAmount.Value, 300d, recipies);
 			}
 			var result = recipies.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
 			return result;
 		}
 
-		public EditAndCreateViewModel GetUniqueValuesOfRecipeLists(List<Recipe> allRecipes)
+		public EditAndCreateViewModel GetUniqueValuesOfRecipeLists()
 		{
-			var uniqueMealTypes = new List<string>();
-			var uniqueHealthLabels = new List<string>();
-			var uniqueDietLabels = new List<string>();
-			var uniqueCautions = new List<string>();
-			var uniqueCuisinTypes = new List<string>();
-			foreach (var recipe in allRecipes)
-			{
-				foreach (var healthLabels in recipe.HealthLabels)
-				{
-					if (!uniqueHealthLabels.Contains(healthLabels))
-						uniqueHealthLabels.Add(healthLabels);
-				}
-				foreach (var dietLabels in recipe.DietLabels)
-				{
-					if (!uniqueDietLabels.Contains(dietLabels))
-						uniqueDietLabels.Add(dietLabels);
-				}
-				foreach (var caution in recipe.Cautions)
-				{
-					if (!uniqueCautions.Contains(caution))
-						uniqueCautions.Add(caution);
-				}
-				foreach (var cuisinType in recipe.CuisineType)
-				{
-					if (!uniqueCuisinTypes.Contains(cuisinType))
-						uniqueCuisinTypes.Add(cuisinType);
-				}
-				foreach (var mealType in recipe.MealType)
-				{
-					if (!uniqueMealTypes.Contains(mealType))
-						uniqueMealTypes.Add(mealType);
-				}
-			}
 			return new EditAndCreateViewModel()
 			{
-				MealType = uniqueMealTypes,
-				HealthLabels = uniqueHealthLabels,
-				DietLabels = uniqueDietLabels,
-				Cautions = uniqueCautions,
-				CuisineType = uniqueCuisinTypes
+				MealType = new List<string>()
+				{
+					"breakfast",
+					"lunch/dinner",
+					"teatime"
+				},
+				HealthLabels = new List<string>()
+				{
+					"Vegan",
+					"Vegetarian",
+					"Pescatarian",
+					"Dairy-Free",
+					"Gluten-Free",
+					"Wheat-Free",
+					"Egg-Free",
+					"Peanut-Free",
+					"Tree-Nut-Free",
+					"Soy-Free",
+					"Fish-Free",
+					"Shellfish-Free",
+					"Pork-Free",
+					"Red-Meat-Free",
+					"Crustacean-Free",
+					"Celery-Free",
+					"Mustard-Free",
+					"Sesame-Free",
+					"Lupine-Free",
+					"Mollusk-Free",
+					"Alcohol-Free",
+					"No oil Added",
+					"Kosher",
+					"FODMAP-Free",
+					"Mediterranean",
+					"Sulfite-Free",
+					"Immuno-Supportive",
+					"Low Potassium",
+					"Kidney-Friendly",
+					"Sugar-Conscious",
+					"Keto-Friendly",
+					"Paleo",
+					"DASH",
+				},
+				DietLabels = new List<string>() 
+				{
+					"Low-Fat",
+					"Low-Sodium",
+					"Balanced",
+					"Low-Carb",
+					"High-Fiber"
+				},
+				Cautions = new List<string>()
+				{
+					"Sulfites",
+					"FODMAP",
+					"Gluten",
+					"Wheat",
+					"Soy",
+					"Tree-Nuts",
+				},
+				CuisineType = new List<string>()
+				{
+					"american",
+					"indian",
+					"british",
+					"mediterranean",
+					"french",
+					"nordic",
+					"mexican",
+					"italian"
+				}
 			};
-		}
-
-		public async Task<string> GenerateNewId()
-		{
-			return Guid.NewGuid().ToString();
-		}
-
-		public async Task<EditAndCreateViewModel> CreateModelForEditAndCreate()
-		{
-			var allRecipes = await _repository.GetAll();
-			return GetUniqueValuesOfRecipeLists(allRecipes);
 		}
 
 		public void AddRecipeFromCreateView(EditAndCreateViewModel pageModel)
@@ -125,7 +150,7 @@ namespace KuceZBronksuBLL.Services
 			_repository.Insert(_mapper.Map<Recipe>(pageModel));
 		}
 
-		public async Task<EditAndCreateViewModel> CreateEditViewModelForEdit(string id)
+		public async Task<EditAndCreateViewModel> CreateEditViewModelForEdit(int id)
 		{
 			return _mapper.Map<EditAndCreateViewModel>(await GetRecipe(id));
 		}
@@ -149,7 +174,7 @@ namespace KuceZBronksuBLL.Services
 			return rndmRecipes;
 		}
 
-		public async Task DeleteRecipe(string id)
+		public async Task DeleteRecipe(int id)
 		{
 			_repository.Delete(id);
 		}

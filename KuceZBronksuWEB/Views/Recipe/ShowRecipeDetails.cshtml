@@ -1,4 +1,5 @@
-﻿@model RecipeViewModel
+﻿@using KuceZBronksuBLL.Models;
+@model RecipeViewModel
 @{
     ViewData["Title"] = "Search";
 }
@@ -141,18 +142,12 @@
 		}
     </ul>
 			<div class="center-block">
-				<form asp-controller="Recipe" asp-action="ShowRecipeDetails" method="post">
+				<form asp-controller="Recipe" asp-action="ShowRecipeDetailsWithViewModel" method="post">
 					<label asp-for="Servings" class="h4"></label>
 					<input asp-for="Servings" value="@(Model.Servings.ToString("0.#"))" class="form-control" />
 					<span asp-validation-for="Servings" class="text-danger"></span>
-					@Html.HiddenFor(m => m.Label)
-					@Html.HiddenFor(m => m.IngredientLines)
-					@Html.HiddenFor(m => m.ShareAs)
-					@Html.HiddenFor(m => m.Calories)
-					@Html.HiddenFor(m => m.MealType)
-					@Html.HiddenFor(m => m.RecipeSteps)
-					@Html.HiddenFor(m => m.CuisineType)
-					@Html.HiddenFor(m => m.Image)
+					@Html.HiddenFor(m => m.Id)
+					@Html.HiddenFor(m => m.Servings)
 					<br />
 				</form>
             <h4>Calories/Serving: @(Math.Round(Model.Calories / Model.Servings))</h4>

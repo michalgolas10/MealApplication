@@ -1,4 +1,9 @@
 ﻿@using KuceZBronksuBLL.Models;
+@using Microsoft.AspNetCore.Identity
+@using KuceZBronksuDAL.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @model IEnumerable<RecipeViewModel>
 @{
     ViewData["Title"] = "Search";
@@ -29,7 +34,10 @@
 								}
 								<h3 class="card-title text-center">@Html.DisplayFor(modelItem => item.Label)</h3>
 								<a class="btn btn-primary btn-lg active" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details</a>
-								<a class="btn btn-primary btn-lg active" asp-action="AddToFavourites" asp-controller="Recipe" asp-route-id="@item.Id">Add to Favourites</a>
+								@if (SignInManager.IsSignedIn(User))
+								{
+									<a class="btn btn-primary btn-lg active" asp-action="AddToFavourites" asp-controller="Recipe" asp-route-id="@item.Id">Add to Favourites</a>
+								}
 								<a class="btn btn-primary btn-lg active" asp-action="Edite" asp-controller="Recipe" asp-route-id="@item.Id">Edit Recipe</a>
 								<a class="btn btn-primary btn-lg active" asp-action="DeleteRecipe" asp-controller="Recipe" asp-route-id="@item.Id">Delete Recipe</a>
 								<div class="item-img-overlay">

@@ -32,7 +32,7 @@ namespace KuceZBronksuDAL.Repository
 		{
 			if (include != null)
 			{
-                return this._entities.AsNoTracking()
+                return this._entities
 					.Include(include).AsEnumerable().ToList()!;
 			}
 

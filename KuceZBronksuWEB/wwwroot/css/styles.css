@@ -3216,7 +3216,7 @@ textarea.form-control-lg {
         border-color: #0d6efd;
     }
 
-.btn-secondary {
+/*.btn-secondary {
     color: #fff;
     background-color: #6c757d;
     border-color: #6c757d;
@@ -3249,7 +3249,7 @@ textarea.form-control-lg {
         color: #fff;
         background-color: #6c757d;
         border-color: #6c757d;
-    }
+    }*/
 
 .btn-success {
     color: #fff;
@@ -4905,7 +4905,8 @@ textarea.form-control-lg {
     }
 
 .card {
-    position: relative;
+    /*position: relative;*/
+    position: center;
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -11985,11 +11986,4 @@ textarea.form-control-lg {
         background-color: #228bdf;
         margin: 10px auto;
     }
-}
-
-.img-responsive {
-    height: 250px !important;
-    width: 250px !important;
-    margin-left: auto;
-    margin-right: auto;
 }

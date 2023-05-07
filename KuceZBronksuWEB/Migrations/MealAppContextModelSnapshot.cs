@@ -66,12 +66,7 @@ namespace KuceZBronksuWEB.Migrations
                     b.Property<string>("ShareAs")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Recipes");
                 });
@@ -277,13 +272,19 @@ namespace KuceZBronksuWEB.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("KuceZBronksuDAL.Models.Recipe", b =>
+            modelBuilder.Entity("RecipeUser", b =>
                 {
-                    b.HasOne("KuceZBronksuDAL.Models.User", "User")
-                        .WithMany("Recipes")
-                        .HasForeignKey("UserId");
+                    b.Property<int>("RecipesId")
+                        .HasColumnType("int");
 
-                    b.Navigation("User");
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecipesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("FavouritesRecipes", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -337,9 +338,19 @@ namespace KuceZBronksuWEB.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("KuceZBronksuDAL.Models.User", b =>
+            modelBuilder.Entity("RecipeUser", b =>
                 {
-                    b.Navigation("Recipes");
+                    b.HasOne("KuceZBronksuDAL.Models.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("RecipesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KuceZBronksuDAL.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

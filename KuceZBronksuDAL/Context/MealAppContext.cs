@@ -64,10 +64,10 @@ namespace KuceZBronksuDAL.Context
 			.HasConversion(
 			v => JsonConvert.SerializeObject(v),
 			v => JsonConvert.DeserializeObject<List<string>>(v));
-            modelBuilder.Entity<User>()
+			modelBuilder.Entity<User>()
 			.HasMany(c => c.Recipes)
-			.WithOne(e => e.User)
-			.OnDelete(DeleteBehavior.ClientSetNull);
-        }
+			.WithMany(c => c.Users)
+			.UsingEntity(j => j.ToTable("FavouritesRecipes"));
+		}
 	}
 }

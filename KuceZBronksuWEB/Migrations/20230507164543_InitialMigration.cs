@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace KuceZBronksuWEB.Migrations
 {
     /// <inheritdoc />
-    public partial class addedidentity : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,6 +50,30 @@ namespace KuceZBronksuWEB.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Recipes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Label = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShareAs = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DietLabels = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HealthLabels = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cautions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IngredientLines = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RecipeSteps = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Calories = table.Column<double>(type: "float", nullable: false),
+                    CuisineType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MealType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Servings = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recipes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -159,33 +183,27 @@ namespace KuceZBronksuWEB.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Recipes",
+                name: "FavouritesRecipes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Label = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShareAs = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DietLabels = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HealthLabels = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Cautions = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IngredientLines = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RecipeSteps = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Calories = table.Column<double>(type: "float", nullable: false),
-                    CuisineType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MealType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Servings = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    RecipesId = table.Column<int>(type: "int", nullable: false),
+                    UsersId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Recipes", x => x.Id);
+                    table.PrimaryKey("PK_FavouritesRecipes", x => new { x.RecipesId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_Recipes_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_FavouritesRecipes_AspNetUsers_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FavouritesRecipes_Recipes_RecipesId",
+                        column: x => x.RecipesId,
+                        principalTable: "Recipes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -228,9 +246,9 @@ namespace KuceZBronksuWEB.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recipes_UserId",
-                table: "Recipes",
-                column: "UserId");
+                name: "IX_FavouritesRecipes_UsersId",
+                table: "FavouritesRecipes",
+                column: "UsersId");
         }
 
         /// <inheritdoc />
@@ -252,13 +270,16 @@ namespace KuceZBronksuWEB.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Recipes");
+                name: "FavouritesRecipes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Recipes");
         }
     }
 }

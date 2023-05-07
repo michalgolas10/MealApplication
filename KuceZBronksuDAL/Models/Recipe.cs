@@ -27,6 +27,6 @@ namespace KuceZBronksuDAL.Models
         public List<string>? MealType { get; set; }
         public string? Image { get; set; }
         public decimal? Servings { get; set; }
-        public User? User { get; set; }
+        public List<User>? Users { get; set; }
     }
 }

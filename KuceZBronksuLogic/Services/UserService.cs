@@ -36,7 +36,7 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task<List<RecipeViewModel>> GetFavouritesRecipesOfUser(int iduser)
 		{
-			var user = await _userManager.FindByIdAsync($"{iduser}");
+			var user = await _userManager.FindByIdAsync(iduser.ToString());
 			var ListOfRecipiesToBePassedToView = user.Recipes;
 			return ListOfRecipiesToBePassedToView.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
         }

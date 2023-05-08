@@ -57,6 +57,10 @@ namespace KuceZBronksuBLL.Services
 			var allUsers = await _userManager.GetUsersInRoleAsync("NormalUser");
 			return allUsers.Select(e => _mapper.Map<UserViewModel>(e)).ToList();
 		}
+		public async Task<List<RecipeViewModel>> RecipeToAddToWeb()
+		{
+			await 
+		}
 	}
 }
 

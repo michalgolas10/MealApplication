@@ -55,7 +55,8 @@
       "Users": null,
       "Image": "rusticapricotjam.jpg",
       "Id": null,
-      "Servings": 12
+      "Servings": 12,
+      "Approved": 1
     }
   },
   {
@@ -112,7 +113,8 @@
       "Users": null,
       "Image": "mulbeeryjam.jpg",
       "Id": null,
-      "Servings": 2
+      "Servings": 2,
+      "Approved": 1
     }
   },
   {
@@ -168,7 +170,8 @@
       "Users": null,
       "Image": "kefirdateshakerecipe.jpg",
       "Id": null,
-      "Servings": 2
+      "Servings": 2,
+      "Approved": 1
     }
   },
   {
@@ -220,7 +223,8 @@
       "Users": null,
       "Image": "MomofukuMilkBar'sCerealMilkRecipe.jpg",
       "Id": null,
-      "Servings": 4
+      "Servings": 4,
+      "Approved": 1
     }
   },
   {
@@ -272,7 +276,8 @@
       "Users": null,
       "Image": "thesecretingredient(mangochutney)ToastiesRecipe.jpg",
       "Id": null,
-      "Servings": 2
+      "Servings": 2,
+      "Approved": 1
     }
   },
   {
@@ -324,7 +329,8 @@
       "Users": null,
       "Image": "eggsinbaconbasketsrecipe.jpg",
       "Id": null,
-      "Servings": 4
+      "Servings": 4,
+      "Approved": 1
     }
   },
   {
@@ -388,7 +394,8 @@
       "Users": null,
       "Image": "saltpreservedmeyerlemons.jpg",
       "Id": null,
-      "Servings": 10
+      "Servings": 10,
+      "Approved": 1
     }
   },
   {
@@ -446,7 +453,8 @@
       "Users": null,
       "Image": "veganmatchabananasmoothierecipe.jpg",
       "Id": null,
-      "Servings": 1
+      "Servings": 1,
+      "Approved": 1
     }
   },
   {
@@ -503,7 +511,8 @@
       "Users": null,
       "Image": "raspberryrosejamrecipe.jpg",
       "Id": null,
-      "Servings": 4.5
+      "Servings": 4.5,
+      "Approved": 1
     }
   },
   {
@@ -563,7 +572,8 @@
       "Image": "rosehipcordialrecipe.jpg",
       "Id": null,
 
-      "Servings": 4
+      "Servings": 4,
+      "Approved": 1
     }
   },
   {
@@ -619,7 +629,8 @@
       "Users": null,
       "Image": "thecrisperwhispererBananapeanutbuttersmoothies.jpg",
       "Id": null,
-      "Servings": 2
+      "Servings": 2,
+      "Approved": 1
     }
   },
   {
@@ -673,7 +684,8 @@
       "Users": null,
       "Image": "greekyogurtandstrawberryphyllocupsrecipe.jpg",
       "Id": null,
-      "Servings": 6
+      "Servings": 6,
+      "Approved": 1
     }
   },
   {
@@ -726,7 +738,8 @@
       "Users": null,
       "Image": "howsmokedsalmonsandwichwithpickledbeetroot.jpg",
       "Id": null,
-      "Servings": 3
+      "Servings": 3,
+      "Approved": 1
     }
   },
   {
@@ -781,7 +794,8 @@
       "Image": "pecanstickybuns.jpg",
       "Id": null,
 
-      "Servings": 8
+      "Servings": 8,
+      "Approved": 1
     }
   },
   {
@@ -839,7 +853,8 @@
       "Image": "garlicprawns.jpg",
       "Id": null,
 
-      "Servings": 4
+      "Servings": 4,
+      "Approved": 1
     }
   },
   {
@@ -897,7 +912,8 @@
       "Image": "individualstrawberry-orangebakedoatmeal.jpg",
       "Id": null,
 
-      "Servings": 4
+      "Servings": 4,
+      "Approved": 1
     }
   },
   {
@@ -957,7 +973,8 @@
       "Image": "pumpkincheesecakewithagringersnapcrust.jpg",
       "Id": null,
 
-      "Servings": 18
+      "Servings": 18,
+      "Approved": 1
     }
   },
   {
@@ -1016,7 +1033,8 @@
       "Image": "mexicanchickenfajitasrecipes.jpg",
       "Id": null,
 
-      "Servings": 4
+      "Servings": 4,
+      "Approved": 1
     }
   },
   {
@@ -1084,7 +1102,8 @@
       "Image": "ThreeBeanChiliwithBulgur.jpg",
       "Id": null,
 
-      "Servings": 10
+      "Servings": 10,
+      "Approved": 1
     }
   },
   {
@@ -1147,7 +1166,8 @@
       "Image": "WhiteChickenChili.jpg",
       "Id": null,
 
-      "Servings": 8
+      "Servings": 8,
+      "Approved": 1
     }
   },
   {
@@ -1205,7 +1225,8 @@
       "Image": "capresesalad.jpg",
       "Id": null,
 
-      "Servings": 2
+      "Servings": 2,
+      "Approved": 1
     }
   },
   {
@@ -1260,7 +1281,8 @@
       "Image": "CherryCordialCakeBalls.jpg",
       "Id": null,
 
-      "Servings": 20
+      "Servings": 20,
+      "Approved": 1
     }
   },
   {
@@ -1321,7 +1343,8 @@
       "Image": "whitechockledmacadamiacookies.jpg",
       "Id": null,
 
-      "Servings": 10
+      "Servings": 10,
+      "Approved": 1
     }
   },
   {
@@ -1380,7 +1403,8 @@
       "Image": "CBDPeanutButterBrownies.jpg",
       "Id": null,
 
-      "Servings": 12
+      "Servings": 12,
+      "Approved": 1
     }
   },
   {
@@ -1444,7 +1468,8 @@
       "Image": "Oatmeal,Raisin,Coconut,and ChiaSeedCookies.jpg",
       "Id": null,
 
-      "Servings": 30
+      "Servings": 30,
+      "Approved": 1
     }
   }
 ]

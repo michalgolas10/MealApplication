@@ -28,5 +28,6 @@ namespace KuceZBronksuBLL.Models
         public List<string> CuisineType { get; set; }
         public string Image { get; set; }
         public int Servings { get; set; }
+        public bool Approved { get; set; }
     }
 }

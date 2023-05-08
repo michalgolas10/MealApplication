@@ -28,5 +28,6 @@ namespace KuceZBronksuDAL.Models
         public string? Image { get; set; }
         public decimal? Servings { get; set; }
         public List<User>? Users { get; set; }
+        public bool Approved { get; set; }
     }
 }

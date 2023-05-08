@@ -16,7 +16,6 @@ namespace KuceZBronksuDAL.Context
 		public MealAppContext(DbContextOptions<MealAppContext> options) : base(options)
 		{
 		}
-
 		public DbSet<Recipe> Recipes { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

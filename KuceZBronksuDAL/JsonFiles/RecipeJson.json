@@ -56,7 +56,7 @@
       "Image": "rusticapricotjam.jpg",
       "Id": null,
       "Servings": 12,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -114,7 +114,7 @@
       "Image": "mulbeeryjam.jpg",
       "Id": null,
       "Servings": 2,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -171,7 +171,7 @@
       "Image": "kefirdateshakerecipe.jpg",
       "Id": null,
       "Servings": 2,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -224,7 +224,7 @@
       "Image": "MomofukuMilkBar'sCerealMilkRecipe.jpg",
       "Id": null,
       "Servings": 4,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -330,7 +330,7 @@
       "Image": "eggsinbaconbasketsrecipe.jpg",
       "Id": null,
       "Servings": 4,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -395,7 +395,7 @@
       "Image": "saltpreservedmeyerlemons.jpg",
       "Id": null,
       "Servings": 10,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -454,7 +454,7 @@
       "Image": "veganmatchabananasmoothierecipe.jpg",
       "Id": null,
       "Servings": 1,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -512,7 +512,7 @@
       "Image": "raspberryrosejamrecipe.jpg",
       "Id": null,
       "Servings": 4.5,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -573,7 +573,7 @@
       "Id": null,
 
       "Servings": 4,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -630,7 +630,7 @@
       "Image": "thecrisperwhispererBananapeanutbuttersmoothies.jpg",
       "Id": null,
       "Servings": 2,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -685,7 +685,7 @@
       "Image": "greekyogurtandstrawberryphyllocupsrecipe.jpg",
       "Id": null,
       "Servings": 6,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -739,7 +739,7 @@
       "Image": "howsmokedsalmonsandwichwithpickledbeetroot.jpg",
       "Id": null,
       "Servings": 3,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -795,7 +795,7 @@
       "Id": null,
 
       "Servings": 8,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -854,7 +854,7 @@
       "Id": null,
 
       "Servings": 4,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -913,7 +913,7 @@
       "Id": null,
 
       "Servings": 4,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -974,7 +974,7 @@
       "Id": null,
 
       "Servings": 18,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -1034,7 +1034,7 @@
       "Id": null,
 
       "Servings": 4,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -1103,7 +1103,7 @@
       "Id": null,
 
       "Servings": 10,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -1167,7 +1167,7 @@
       "Id": null,
 
       "Servings": 8,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -1226,7 +1226,7 @@
       "Id": null,
 
       "Servings": 2,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -1282,7 +1282,7 @@
       "Id": null,
 
       "Servings": 20,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -1344,7 +1344,7 @@
       "Id": null,
 
       "Servings": 10,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -1404,7 +1404,7 @@
       "Id": null,
 
       "Servings": 12,
-      "Approved": 1
+      "Approved": true
     }
   },
   {
@@ -1469,7 +1469,7 @@
       "Id": null,
 
       "Servings": 30,
-      "Approved": 1
+      "Approved": true
     }
   }
 ]

@@ -30,7 +30,7 @@ namespace KuceZBronksuWEB.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole<int>> _roleManager;
 
         public RegisterModel(
             UserManager<User> userManager,
@@ -38,7 +38,7 @@ namespace KuceZBronksuWEB.Areas.Identity.Pages.Account
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole<int>> roleManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;

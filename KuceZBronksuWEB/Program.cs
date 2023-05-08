@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuBLL.Models;
 using AutoMapper;
+using Microsoft.Identity.Client;
 
 namespace KuceZBronksuWEB
 {
@@ -30,6 +31,7 @@ namespace KuceZBronksuWEB
 			builder.Services.AddAutoMapper(typeof(RecipeViewModel), typeof(Program));
 			builder.Services.AddAutoMapper(typeof(EditAndCreateViewModel), typeof(Program));
 			builder.Services.AddAutoMapper(typeof(Recipe), typeof(Program));
+			builder.Services.AddAutoMapper(typeof(User), typeof(Program));
 			var app = builder.Build();
 			await CreateDbIfNotExists(app);
 			// Configure the HTTP request pipeline.

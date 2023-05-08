@@ -16,13 +16,12 @@ namespace KuceZBronksuDAL.Context
 			{
 				context.Recipes.Add(recipe);
 			}
-
 			await roleManager.CreateAsync(new IdentityRole<int> { Name = "Admin"});
-			var serviceAdmin = new User { Email = "serviceadmin@admin.com", UserName = "serviceadmin@admin.com" };
-
+            await roleManager.CreateAsync(new IdentityRole<int> { Name = "NormalUser" });
+            var serviceAdmin = new User { Email = "serviceadmin@admin.com", UserName = "serviceadmin@admin.com" };
 			var result = await userManager.CreateAsync(serviceAdmin);
-            await userManager.AddPasswordAsync(serviceAdmin, "passworD123");
-            await userManager.AddToRoleAsync(serviceAdmin, "Admin"); // todo: check if enough
+			userManager.AddPasswordAsync(serviceAdmin, "passworD.123");
+            await userManager.AddToRoleAsync(serviceAdmin, "Admin");
             context.SaveChanges();
 		}
 	}

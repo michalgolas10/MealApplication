@@ -277,7 +277,7 @@
       "Image": "thesecretingredient(mangochutney)ToastiesRecipe.jpg",
       "Id": null,
       "Servings": 2,
-      "Approved": 1
+      "Approved": true
     }
   },
   {

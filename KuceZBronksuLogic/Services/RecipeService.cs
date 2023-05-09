@@ -32,7 +32,7 @@ namespace KuceZBronksuBLL.Services
 		{
 			var recipes = await _repository.GetAll();
 			var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
-			return result;
+			return result.Where(x => x.Approved == true).ToList();
 		}
 
 		public async Task<SearchViewModel> CreateSearchModelWithMealTypes()
@@ -180,10 +180,10 @@ namespace KuceZBronksuBLL.Services
 		}
         public async Task<List<RecipeViewModel>> RecipeWaitingToBeAdd()
         {
-			var result = (await GetAllRecipies()).Where(x => x.Approved == false);
+			var result = (await _repository.GetAll()).Where(x => x.Approved == false);
             var recipeViewModelToBePassed = result.ToList();
-			return recipeViewModelToBePassed;
-        }
+			return recipeViewModelToBePassed.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+		}
 		public async Task ChangeApprovedOfRecipe(int id)
 		{
 			var recipeToChangeApprove = await _repository.Get(id);

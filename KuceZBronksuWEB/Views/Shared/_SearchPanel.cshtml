@@ -15,12 +15,9 @@
                 <input asp-for="IngrediendsList" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." />
             </div>
             <br>
-            <div class="small text-muted" width="100%">Meal type</div>
+            <div class="small text-muted">Meal type</div>
             <div class="input-group">
-            @Html.ListBoxFor(s=>s.ListOfMealType,
-            new MultiSelectList(@Model.ListOfMealType),
-                            new {@class = "js-select2"
-            })
+                            @Html.ListBoxFor(s=>s.ListOfMealType,new MultiSelectList(@Model.ListOfMealType),new {@class = "js-select2"})
             </div>
             <br>
             <div class="small text-muted">Kcal amount</div>

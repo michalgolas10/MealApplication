@@ -2,8 +2,10 @@ using AutoMapper;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services;
 using KuceZBronksuDAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -27,7 +29,7 @@ namespace KuceZBronksuWEB.Controllers
 		public async Task<ActionResult> Index()
 		{
 			ViewBag.SearchViewModel = await _recipeService.CreateSearchModelWithMealTypes();
-			return View(await _recipeService.GetAllRecipies());
+            return View(await _recipeService.GetAllRecipies());
 		}
 
 		[HttpPost]
@@ -128,7 +130,7 @@ namespace KuceZBronksuWEB.Controllers
 		{
 			return View();
 		}
-
+		[Authorize(Roles = "Admin")]
 		public async Task<ActionResult> DeleteRecipe(int id)
 		{
 			await _recipeService.DeleteRecipe(id);

@@ -55,13 +55,20 @@ namespace KuceZBronksuBLL.Services
 		public async Task<List<UserViewModel>> ShowAllUsers()
 		{
 			var allUsers = await _userManager.GetUsersInRoleAsync("NormalUser");
-			return allUsers.Select(e => _mapper.Map<UserViewModel>(e)).ToList();
+			var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+			foreach (var adminUser in adminUsers)
+			{
+				allUsers.Add(adminUser);
+			}
+			var UserViewModelsToPass = allUsers.Select(e => _mapper.Map<UserViewModel>(e)).ToList();
+			foreach(var userViewModel in UserViewModelsToPass)
+			{
+				userViewModel.Roles = (await _userManager.GetRolesAsync(await _userManager.FindByEmailAsync(userViewModel.Email))).ToList();
+			}
+			return UserViewModelsToPass;
 		}
-		//public async Task<List<RecipeViewModel>> RecipeToAddToWeb()
-		//{
-		//	await 
-		//}
 	}
 }
+
 
   

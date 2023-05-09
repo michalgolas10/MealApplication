@@ -6,10 +6,6 @@
 }
 
 <h1>RecipesToAdd</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -62,9 +58,8 @@
                 @Html.DisplayFor(modelItem => item.Approved)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <a class="btn btn-primary btn-lg active" asp-action="AddRecipe" asp-controller="Account" asp-route-id=@item.Id>Add Recipe</a>
+                    <a class="btn btn-primary btn-lg active" asp-action="DeleteRecipe" asp-controller="Account" asp-route-id=@item.Id>Delete Recipe</a>
             </td>
         </tr>
 }

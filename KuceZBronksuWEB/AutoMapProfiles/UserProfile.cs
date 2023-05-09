@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuDAL.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace KuceZBronksuWEB.AutoMapProfiles
 {
@@ -8,7 +9,10 @@ namespace KuceZBronksuWEB.AutoMapProfiles
     {
         public UserProfile()
         {
-            CreateMap<User, UserViewModel>();
+            CreateMap<User, UserViewModel>()
+                .ForMember(dest => dest.Email, opts => opts.MapFrom(src => src.Email))
+                .ForMember(dest => dest.UserName, opts => opts.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.EmailConfirmed, opts => opts.MapFrom(src => src.EmailConfirmed));
         }
     }
 }

@@ -178,5 +178,17 @@ namespace KuceZBronksuBLL.Services
 		{
 			_repository.Delete(id);
 		}
-	}
+        public async Task<List<RecipeViewModel>> RecipeWaitingToBeAdd()
+        {
+			var result = (await GetAllRecipies()).Where(x => x.Approved == false);
+            var recipeViewModelToBePassed = result.ToList();
+			return recipeViewModelToBePassed;
+        }
+		public async Task ChangeApprovedOfRecipe(int id)
+		{
+			var recipeToChangeApprove = await _repository.Get(id);
+			recipeToChangeApprove.Approved = true;
+			_repository.Update(recipeToChangeApprove);
+		}
+    }
 }

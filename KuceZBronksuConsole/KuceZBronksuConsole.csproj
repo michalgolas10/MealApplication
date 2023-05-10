@@ -8,8 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KuceZBronksuDLL\KuceZBronksuDAL.csproj" />
-    <ProjectReference Include="..\KuceZBronksuLogic\KuceZBronksuLogic.csproj" />
+    <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KuceZBronksuDAL\KuceZBronksuDAL.csproj" />
+    <ProjectReference Include="..\KuceZBronksuLogic\KuceZBronksuBLL.csproj" />
   </ItemGroup>
 
 </Project>

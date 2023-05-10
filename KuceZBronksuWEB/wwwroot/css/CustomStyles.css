@@ -1,0 +1,223 @@
+﻿.footer-image {
+    height: 17%;
+    width: 17%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.wrapper {
+    flex: 1;
+    margin: 5px 15px 5px 15px;
+}
+
+#footer {
+    height: 2%;
+    margin: 0px !important;
+    padding: 2px !important;
+}
+
+#create-recipe {
+    text-align: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+    .btn-secondary:hover {
+        color: #fff;
+        background-color: #5c636a;
+        border-color: #565e64;
+    }
+
+    .btn-check:focus + .btn-secondary, .btn-secondary:focus {
+        color: #fff;
+        background-color: #5c636a;
+        border-color: #565e64;
+        box-shadow: 0 0 0 0.25rem rgba(130, 138, 145, 0.5);
+    }
+
+    .btn-check:checked + .btn-secondary, .btn-check:active + .btn-secondary, .btn-secondary:active, .btn-secondary.active, .show > .btn-secondary.dropdown-toggle {
+        color: #fff;
+        background-color: #565e64;
+        border-color: #51585e;
+    }
+
+        .btn-check:checked + .btn-secondary:focus, .btn-check:active + .btn-secondary:focus, .btn-secondary:active:focus, .btn-secondary.active:focus, .show > .btn-secondary.dropdown-toggle:focus {
+            box-shadow: 0 0 0 0.25rem rgba(130, 138, 145, 0.5);
+        }
+
+    .btn-secondary:disabled, .btn-secondary.disabled {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+.myCard {
+    /*position: relative;*/
+    position: center;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #f3c89a;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    margin: 5px;
+}
+
+myImgCard {
+    position: center;
+    /*display: flex;*/
+    display: 40%;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #f3c89a;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    margin: 5px;
+    background-color: black;
+}
+
+.myImgCard > hr {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.myImgCard > .list-group {
+    border-top: inherit;
+    border-bottom: inherit;
+}
+
+    .myImgCard > .list-group:first-child {
+        border-top-width: 0;
+        border-top-left-radius: calc(0.25rem - 1px);
+        border-top-right-radius: calc(0.25rem - 1px);
+    }
+
+    .myImgCard > .list-group:last-child {
+        border-bottom-width: 0;
+        border-bottom-right-radius: calc(0.25rem - 1px);
+        border-bottom-left-radius: calc(0.25rem - 1px);
+    }
+
+    .myImgCard > .card-header + .list-group,
+    .myImgCard > .list-group + .card-footer {
+        border-top: 0;
+    }
+
+.myCardButtons {
+    margin-bottom: 5px;
+}
+
+.myCardTitle {
+    /*position: relative;*/
+    position: center;
+    height: 150px;
+    font-family: 'Lucida Handwriting';
+    font-size: small;
+    /*    display: flex;*/
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    text-align: center;
+    margin-top: 5px;
+    border: 5px solid #a0522d;
+}
+
+.card-title-my {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: 'Lucida Handwriting';
+}
+
+.recipeCard {
+    border: 5px solid #f3c89a;
+    border-radius: 0.25rem;
+    margin-bottom: 5px;
+}
+
+.img-responsive {
+    height: 250px !important;
+    width: 250px !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .myCardTitle-sm {
+        height: fit-content;
+        font-family: 'Lucida Handwriting';
+    }
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 576px) {
+}
+
+.my-card-header {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    font-family: Impact;
+    font-size: 20px;
+    color: saddlebrown;
+    background-color: bisque;
+}
+
+    .my-card-header:first-child {
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+    }
+
+/*Details style*/
+
+.myDetailCardTitle {
+    /*position: relative;*/
+    position: center;
+    height: fit-content;
+    width: fit-content;
+    font-family: 'Lucida Handwriting';
+    /*font-size: small;*/
+    /*    display: flex;*/
+    /*flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;*/
+    text-align: center;
+    margin-top: 5px;
+}
+
+.img-responsive-details {
+    height: fit-content;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ingridients-title {
+    font-family: 'Lucida Handwriting';
+}

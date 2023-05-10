@@ -1,0 +1,67 @@
+﻿@model IEnumerable<KuceZBronksuBLL.Models.RecipeViewModel>
+
+@{
+    ViewData["Title"] = "RecipesToAdd";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>RecipesToAdd</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Label)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShareAs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Calories)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Servings)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Approved)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Label)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShareAs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Calories)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Servings)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Approved)
+            </td>
+            <td>
+                    <a class="btn btn-primary btn-lg active" asp-action="AddRecipe" asp-controller="Account" asp-route-id=@item.Id>Add Recipe</a>
+                    <a class="btn btn-primary btn-lg active" asp-action="DeleteRecipe" asp-controller="Account" asp-route-id=@item.Id>Delete Recipe</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,35 @@
+﻿@using KuceZBronksuBLL.Models;
+@model SearchViewModel
+<style>
+    </style>
+<form asp-action="Search" asp-controller="Recipe">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+    <div class="card mb-4">
+        <div class="my-card-header">Search Recipe</div>
+
+        <div class="card-body">
+            <div class="small text-muted">Ingredients</div>
+            <div class="input-group">
+                <input asp-for="IngrediendsList" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." />
+            </div>
+            <br>
+            <div class="small text-muted">Meal type</div>
+            <div class="input-group">
+                            @Html.ListBoxFor(s=>s.ListOfMealType,new MultiSelectList(@Model.ListOfMealType),new {@class = "js-select2"})
+            </div>
+            <br>
+            <div class="small text-muted">Kcal amount</div>
+            <div class="input-group">
+                <input asp-for="KcalAmount" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." />
+
+            </div>
+            <br>
+            <button class="btn btn-primary" id="button-search" type="submit">Search</button>
+        </div>
+        </div>
+        </div>
+        </div>
+    </div>
+</form>

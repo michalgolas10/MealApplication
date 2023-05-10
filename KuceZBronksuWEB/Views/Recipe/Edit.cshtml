@@ -1,0 +1,199 @@
+﻿@using KuceZBronksuBLL.Models;
+@model EditAndCreateViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+<div class="row">
+<h4>Edit Recipe</h4>
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Label" class="control-label"></label>
+                    <input asp-for="Label" class="form-control" value="@(ViewBag.EditWithUniqueValues.Label)" />
+                <span asp-validation-for="Label" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" class="form-control" value="@(ViewBag.EditWithUniqueValues.Image)" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+                <div class="form-group">
+                    <label asp-for="ShareAs" class="control-label"></label>
+                    <input asp-for="ShareAs" class="form-control" value="@(ViewBag.EditWithUniqueValues.ShareAs)" />
+                    <span asp-validation-for="ShareAs" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IngredientLines" class="control-label"></label>
+                    <div id="survey_options">
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="First Ingredient" />
+                        <span asp-validation-for="IngredientLines" class="text-danger"></span>
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Second Ingredient" />
+                        <span asp-validation-for="IngredientLines" class="text-danger"></span>
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Next Ingredient" />
+                        <span asp-validation-for="IngredientLines" class="text-danger"></span>
+                    </div>
+                    <div class="controls">
+                        <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+                        <a href="#" id="remove_fields"><i class="fa fa-plus"></i>Remove Field</a>
+                    </div>
+                </div>
+             <div class="form-group">
+                <label asp-for="Calories" class="control-label"></label>
+                    <input asp-for="Calories" class="form-control" value="@(ViewBag.EditWithUniqueValues.Calories)" />
+                <span asp-validation-for="Calories" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Servings" class="control-label"></label>
+                    <input asp-for="Servings" class="form-control" value="@(ViewBag.EditWithUniqueValues.Servings)" />
+                    <span asp-validation-for="Servings" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Cautions" class="control-label"></label>
+                <select asp-for="Cautions" class="js-select2" multiple aria-label="multiple select example">
+                        @foreach (var item in Model.Cautions)
+                        {
+                            if (
+                                ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).Cautions.ToList().Contains(item)
+                                           )
+                            {
+                                <option value="@item">@item</option>
+                            }
+                            else
+                            {
+                                <option value="null">@item</option>
+                            }
+
+                        }
+                </select>
+                <span asp-validation-for="Cautions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HealthLabels" class="control-label"></label>
+                <select asp-for="HealthLabels" class="js-select2" multiple aria-label="multiple select example">
+                        @foreach (var item in Model.HealthLabels)
+                        {
+                            if (
+                            ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).HealthLabels.ToList().Contains(item)
+                            )
+                            {
+                                <option value="@item">@item</option>
+                            }
+                            else
+                            {
+                                <option value="null">@item</option>
+                            }
+
+                        }
+                </select>
+                <span asp-validation-for="HealthLabels" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DietLabels" class="control-label"></label>
+                <select asp-for="DietLabels" class="js-select2" multiple aria-label="multiple select example">
+                        @foreach (var item in Model.DietLabels)
+                        {
+                            if (
+                                ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).DietLabels.ToList().Contains(item)
+                                           )
+                            {
+                                <option value="@item">@item</option>
+                            }
+                            else
+                            {
+                                <option value="null">@item</option>
+                            }
+
+                        }
+                </select>
+                <span asp-validation-for="DietLabels" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CuisineType" class="control-label"></label>
+                <select asp-for="CuisineType" class="js-select2" multiple aria-label="multiple select example">
+                        @foreach (var item in Model.CuisineType)
+                        {
+                            if (
+                            ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).CuisineType.ToList().Contains(item)
+                            )
+                            {
+                                <option value="@item">@item</option>
+                            }
+                            else
+                            {
+                                <option value="null">@item</option>
+                            }
+
+                        }
+                </select>
+                <span asp-validation-for="CuisineType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MealType" class="control-label"></label>
+                <select asp-for="MealType" class="js-select2" multiple aria-label="multiple select example">
+                        @foreach (var item in Model.MealType)
+                        {
+                            if (
+                            ((EditAndCreateViewModel)ViewBag.EditWithUniqueValues).MealType.ToList().Contains(item)
+                            )
+                            {
+                                <option value="@item">@item</option>
+                            }
+                            else
+                            {
+                                <option value="null">@item</option>
+                            }
+
+                        }
+                </select>
+                <span asp-validation-for="MealType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index"><input type="button" value="Back" class="btn btn-primary" /></a>
+            </div>
+
+        </form>
+    </div>
+    </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+            integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+            crossorigin="anonymous"></script>
+    <script>
+
+        $("button.step-delete,button.ingridient-delete").click(function (event) {
+            event.preventDefault();
+        });
+
+        function deleteIngridient(element) {
+            element.parentElement.remove()
+        }
+        function deleteStep(element) {
+            element.parentElement.remove()
+        }
+
+
+        $("input[type=submit]").submit(function (event) {
+            event.preventDefault();
+            var ingridientVal = "";
+            var ingridients = document.getElementsByClassName("ingridient-item");
+            for (ingridient of ingridients) {
+                ingridientVal += `${ingridient.outerText},`;
+            }
+            document.getElementById("recipe-steps").value = ingridientVal;
+            event.submit();
+        });
+
+
+    </script>

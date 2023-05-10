@@ -1,17 +1,11 @@
 ﻿using AutoMapper;
-using KuceZBronksuDAL.Repository.IRepository;
-using System.Reflection;
-using System;
-using Azure;
-using Microsoft.SqlServer.Server;
-using System.Security.Cryptography;
-using System.Security.Policy;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuDAL.Models;
+using KuceZBronksuDAL.Repository.IRepository;
 
 namespace KuceZBronksuBLL.Services
 {
-    public class RecipeService
+	public class RecipeService
 	{
 		private readonly IRepository<Recipe> _repository;
 
@@ -114,7 +108,7 @@ namespace KuceZBronksuBLL.Services
 					"Paleo",
 					"DASH",
 				},
-				DietLabels = new List<string>() 
+				DietLabels = new List<string>()
 				{
 					"Low-Fat",
 					"Low-Sodium",
@@ -178,17 +172,19 @@ namespace KuceZBronksuBLL.Services
 		{
 			_repository.Delete(id);
 		}
-        public async Task<List<RecipeViewModel>> RecipeWaitingToBeAdd()
-        {
+
+		public async Task<List<RecipeViewModel>> RecipeWaitingToBeAdd()
+		{
 			var result = (await _repository.GetAll()).Where(x => x.Approved == false);
-            var recipeViewModelToBePassed = result.ToList();
+			var recipeViewModelToBePassed = result.ToList();
 			return recipeViewModelToBePassed.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
 		}
+
 		public async Task ChangeApprovedOfRecipe(int id)
 		{
 			var recipeToChangeApprove = await _repository.Get(id);
 			recipeToChangeApprove.Approved = true;
 			_repository.Update(recipeToChangeApprove);
 		}
-    }
+	}
 }

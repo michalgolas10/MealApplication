@@ -1,25 +1,27 @@
-﻿using KuceZBronksuDAL.Models.BaseEntity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KuceZBronksuDAL.Models
 {
-    public class User : IdentityUser<int>
-    {
-        private readonly ILazyLoader _lazyLoader;
-        public User()
-        {
-        }
-        public User(ILazyLoader lazyLoader)
-        {
-            _lazyLoader = lazyLoader;
-        }
-        private List<Recipe> _recipes;
-        public List<Recipe> Recipes
-        {
-            get => _lazyLoader.Load(this, ref _recipes);
-            set => _recipes = value;
-        }
-    }
+	public class User : IdentityUser<int>
+	{
+		private readonly ILazyLoader _lazyLoader;
+
+		public User()
+		{
+		}
+
+		public User(ILazyLoader lazyLoader)
+		{
+			_lazyLoader = lazyLoader;
+		}
+
+		private List<Recipe> _recipes;
+
+		public List<Recipe> Recipes
+		{
+			get => _lazyLoader.Load(this, ref _recipes);
+			set => _recipes = value;
+		}
+	}
 }

@@ -7,9 +7,10 @@ using System.Linq.Expressions;
 namespace KuceZBronksuDAL.Repository
 {
 	public class Repository<T> : IRepository<T> where T : Entity
-    {
-        private readonly MealAppContext _context;
+	{
+		private readonly MealAppContext _context;
 		private readonly DbSet<T> _entities;
+
 		public Repository(MealAppContext context)
 		{
 			this._context = context;
@@ -32,7 +33,7 @@ namespace KuceZBronksuDAL.Repository
 		{
 			if (include != null)
 			{
-                return this._entities
+				return this._entities
 					.Include(include).AsEnumerable().ToList()!;
 			}
 
@@ -52,9 +53,9 @@ namespace KuceZBronksuDAL.Repository
 		{
 			if (entity != null)
 			{
-                _entities.Update(entity);
+				_entities.Update(entity);
 				_context.SaveChanges();
 			}
 		}
-    }
+	}
 }

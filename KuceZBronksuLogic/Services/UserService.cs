@@ -31,6 +31,7 @@ namespace KuceZBronksuBLL.Services
 			{
 				return false;
 			}
+
 			user.Recipes.Add(resultRecipe);
 			await _userManager.UpdateAsync(user);
 			return true;

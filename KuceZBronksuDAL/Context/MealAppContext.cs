@@ -3,19 +3,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-
-
-
-
 
 namespace KuceZBronksuDAL.Context
 {
-    public class MealAppContext :IdentityDbContext<User, IdentityRole<int>, int>
+	public class MealAppContext : IdentityDbContext<User, IdentityRole<int>, int>
 	{
 		public MealAppContext(DbContextOptions<MealAppContext> options) : base(options)
 		{
 		}
+
 		public DbSet<Recipe> Recipes { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

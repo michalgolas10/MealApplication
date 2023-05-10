@@ -1,19 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using KuceZBronksuBLL.Services;
+﻿using KuceZBronksuBLL.Services;
 using Microsoft.AspNetCore.Authorization;
-using System.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KuceZBronksuWEB.Controllers
 {
-    public class AccountController : Controller
+	public class AccountController : Controller
 	{
 		private readonly UserService _userService;
 		private readonly RecipeService _recipeService;
+
 		public AccountController(UserService userService, RecipeService recipeService)
 		{
-			_recipeService= recipeService;
+			_recipeService = recipeService;
 			_userService = userService;
 		}
+
 		public IActionResult Login()
 		{
 			return View();
@@ -23,34 +24,38 @@ namespace KuceZBronksuWEB.Controllers
 		{
 			return View();
 		}
-        [Authorize(Roles = "Admin")]
-        public IActionResult AdministratorPanel()
+
+		[Authorize(Roles = "Admin")]
+		public IActionResult AdministratorPanel()
 		{
 			return View();
 		}
+
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> ShowAllUsers()
 		{
 			return View(await _userService.ShowAllUsers());
 		}
+
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> ShowRecipeWaitingToBeAdd()
-        {
+		{
 			var result = (await _recipeService.RecipeWaitingToBeAdd()).ToList();
-            return View(result);
-        }
+			return View(result);
+		}
+
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> AddRecipe(int id)
 		{
 			await _recipeService.ChangeApprovedOfRecipe(id);
-            return RedirectToAction("ShowRecipeWaitingToBeAdd");
-        }
+			return RedirectToAction("ShowRecipeWaitingToBeAdd");
+		}
+
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> DeleteRecipe(int id)
-        {
-            await _recipeService.DeleteRecipe(id);
-            return RedirectToAction("ShowRecipeWaitingToBeAdd");
-        }
-
-    }
+		{
+			await _recipeService.DeleteRecipe(id);
+			return RedirectToAction("ShowRecipeWaitingToBeAdd");
+		}
+	}
 }

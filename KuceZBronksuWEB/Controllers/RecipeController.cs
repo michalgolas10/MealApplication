@@ -5,11 +5,10 @@ using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace KuceZBronksuWEB.Controllers
 {
-    public class RecipeController : Controller
+	public class RecipeController : Controller
 	{
 		private readonly RecipeService _recipeService;
 		private readonly IMapper _mapper;
@@ -29,7 +28,7 @@ namespace KuceZBronksuWEB.Controllers
 		public async Task<ActionResult> Index()
 		{
 			ViewBag.SearchViewModel = await _recipeService.CreateSearchModelWithMealTypes();
-            return View(await _recipeService.GetAllRecipies());
+			return View(await _recipeService.GetAllRecipies());
 		}
 
 		[HttpPost]
@@ -50,6 +49,7 @@ namespace KuceZBronksuWEB.Controllers
 			var result = await _recipeService.GetRecipe(id);
 			return View(result);
 		}
+
 		public async Task<ActionResult> ShowRecipeDetailsWithViewModel(RecipeViewModel model)
 		{
 			var result = await _recipeService.GetRecipe(model.Id);
@@ -101,7 +101,7 @@ namespace KuceZBronksuWEB.Controllers
 			await _userService.DeleteRecipeFromFavourites(id, idOfUser);
 			return RedirectToAction("FavouriteRecipes");
 		}
-		
+
 		public async Task<ActionResult> Edit(int id)
 		{
 			ViewBag.EditWithUniqueValues = await _recipeService.CreateEditViewModelForEdit(id);
@@ -130,6 +130,7 @@ namespace KuceZBronksuWEB.Controllers
 		{
 			return View();
 		}
+
 		[Authorize(Roles = "Admin")]
 		public async Task<ActionResult> DeleteRecipe(int id)
 		{

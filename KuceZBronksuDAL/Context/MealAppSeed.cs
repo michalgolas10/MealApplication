@@ -6,7 +6,7 @@ namespace KuceZBronksuDAL.Context
 {
 	public class MealAppSeed
 	{
-		public async static Task Initialize(MealAppContext context, UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager)
+		public static async Task Initialize(MealAppContext context, UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager)
 		{
 			context.Database.EnsureCreated();
 			if (context.Recipes.Any())
@@ -16,17 +16,17 @@ namespace KuceZBronksuDAL.Context
 			{
 				context.Recipes.Add(recipe);
 			}
-            await roleManager.CreateAsync(new IdentityRole<int> { Name = "Admin" });
-            await roleManager.CreateAsync(new IdentityRole<int> { Name = "NormalUser" });
+			await roleManager.CreateAsync(new IdentityRole<int> { Name = "Admin" });
+			await roleManager.CreateAsync(new IdentityRole<int> { Name = "NormalUser" });
 			var serviceAdmin = new User
 			{
 				Email = "janedoe@example.com",
 				UserName = "janedoe@example.com",
 				EmailConfirmed = true
-            };
-            var result = await userManager.CreateAsync(serviceAdmin, "Password.123");
-            await userManager.AddToRoleAsync(serviceAdmin, "Admin");
-            context.SaveChanges();
-        }
+			};
+			var result = await userManager.CreateAsync(serviceAdmin, "Password.123");
+			await userManager.AddToRoleAsync(serviceAdmin, "Admin");
+			context.SaveChanges();
+		}
 	}
 }

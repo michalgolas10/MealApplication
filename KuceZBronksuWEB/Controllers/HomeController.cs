@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services;
-using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

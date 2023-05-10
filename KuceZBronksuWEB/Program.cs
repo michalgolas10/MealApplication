@@ -1,30 +1,28 @@
+using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services;
 using KuceZBronksuDAL.Context;
+using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using KuceZBronksuDAL.Models;
-using KuceZBronksuBLL.Models;
-using AutoMapper;
-using Microsoft.Identity.Client;
+using Microsoft.EntityFrameworkCore;
 
 namespace KuceZBronksuWEB
 {
-    public class Program
+	public class Program
 	{
-		public async static Task Main(string[] args)
+		public static async Task Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services.AddDbContext<MealAppContext>(options =>
 			options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;")));
 			builder.Services.AddMvc();
-            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
 					.AddRoles<IdentityRole<int>>()
 					.AddEntityFrameworkStores<MealAppContext>()
 					.AddDefaultTokenProviders()
 					.AddDefaultUI();
-            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+			builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			builder.Services.AddScoped<RecipeService>();
 			builder.Services.AddScoped<UserService>();
 			builder.Services.AddControllersWithViews();
@@ -46,27 +44,27 @@ namespace KuceZBronksuWEB
 			app.UseStaticFiles();
 
 			app.UseRouting();
-               app.UseAuthentication();;
+			app.UseAuthentication(); ;
 
 			app.UseAuthorization();
 
 			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+			app.MapRazorPages();
 
-            app.Run();
+			app.Run();
 		}
 
-		private async static Task CreateDbIfNotExists(IHost host)
+		private static async Task CreateDbIfNotExists(IHost host)
 		{
 			using var scope = host.Services.CreateScope();
 			var services = scope.ServiceProvider;
 			try
 			{
-                var context = services.GetRequiredService<MealAppContext>();
+				var context = services.GetRequiredService<MealAppContext>();
 				var userManager = services.GetRequiredService<UserManager<User>>();
-                var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
+				var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
 				await MealAppSeed.Initialize(context, userManager, roleManager);
 			}
 			catch (Exception ex)

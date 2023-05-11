@@ -1,0 +1,53 @@
+﻿@using KuceZBronksuBLL.Models;
+@using Microsoft.AspNetCore.Identity
+@using KuceZBronksuDAL.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@model IEnumerable<RecipeViewModel>
+<style>
+#myHeader {
+  font-size : 20px;
+  text-align: center;
+}
+</style>
+<div class="container">
+	<div class="row">
+		@foreach (var item in Model)
+		{
+			<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
+				<div class="card">
+					@if (item.Image.Contains("/")) // Means that its image that someone put URL for.
+					{
+						<img src="@item.Image" class="img-responsive" alt="recipe image">
+					}
+					else
+					{
+						<img src="/Images/@item.Image" class="img-responsive" alt="recipe image">
+						//<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
+					}
+				</div>
+				<div class="myCardTitle-sm myCardTitle" >
+					<h3 class="card-title-my text center d-flex align-items-center" id="myHeader">@Html.DisplayFor(modelItem => item.Label)</h3>
+				</div>
+				<div class="myCardButtons">
+					<div class="myCard">
+						<a class="btn btn-primary" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details</a>
+					</div><div class="myCard">
+						@if (SignInManager.IsSignedIn(User))
+						{
+							<a class="btn btn-secondary" asp-action="AddToFavourites" asp-controller="Recipe" asp-route-id="@item.Id">Add to Favourites</a>
+						}
+					</div><div class="myCard">
+						<a class="btn btn-primary" asp-action="Edit" asp-controller="Recipe" asp-route-id="@item.Id">Edit Recipe</a>
+					</div><div class="myCard">
+						@if (User.IsInRole("Admin"))
+						{
+							<a class="btn btn-primary" asp-action="DeleteRecipe" asp-controller="Recipe" asp-route-id="@item.Id">Delete Recipe</a>
+						}
+					</div>
+
+				</div>
+			</div>
+		}
+	</div>
+</div>

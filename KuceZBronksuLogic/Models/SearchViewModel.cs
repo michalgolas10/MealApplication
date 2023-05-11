@@ -5,5 +5,6 @@
 		public string? IngrediendsList { get; set; }
 		public double? KcalAmount { get; set; }
 		public List<string>? ListOfMealType { get; set; }
+		public List<string>? ListOfEmptyMealType { get; set; }
 	}
 }

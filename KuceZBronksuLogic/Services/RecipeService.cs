@@ -47,6 +47,7 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task<List<RecipeViewModel>> Search(SearchViewModel model)
 		{
+			model.ListOfMealType = model.ListOfEmptyMealType;
 			var recipies = await _repository.GetAll();
 			var result = new List<Recipe>();
 			if (model.IngrediendsList != null)

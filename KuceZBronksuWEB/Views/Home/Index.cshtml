@@ -2,6 +2,9 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
+<link rel="stylesheet" type="text/css" href="/css/site.css">
+
 <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
         <div class="text-center my-0">
@@ -23,16 +26,18 @@
                             <td><div class="item-img-wrap">
                                 @if (item.Image.Contains("/")) // Means that its image that someone put URL for.
                                 {
-                                        <a href="#!"><img class="img-responsive" src="@item.Image" alt="recipe image" /></a>
+                                        @*<a href="#!"><img class="img-responsive" src="@item.Image" alt="recipe image" /></a>*@
+                                        <a href="#!"><img class="myImgCardTop3" src="@item.Image" alt="recipe image" /></a>
                                 }
                                 else
                                 {
-                                    <img src="/Images/@item.Image" class="img-responsive" alt="recipe image">
+                                    @*<img src="/Images/@item.Image" class="img-responsive" alt="recipe image">*@
+                                        <img src="/Images/@item.Image" class="myImgCardTop3" alt="recipe image">
                                     //<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
                                 }
                             <div class="card-body">
                                 <h2 class="card-title">@item.Label</h2>
-                                        <a class="btn btn-primary btn-lg active" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details!</a>
+                                        <a class="btn btn-primary" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details!</a>
                             </div>
                         </div>
                         </td>

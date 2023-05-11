@@ -11,7 +11,10 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Label" class="control-label"></label>
+                <div class="labelTitle">
+                @*<label asp-for="Label" class="control-label"></label>*@
+                <label asp-for="Label"></label>
+                    </div>
                 <input asp-for="Label" class="form-control" />
                 <span asp-validation-for="Label" class="text-danger"></span>
             </div>

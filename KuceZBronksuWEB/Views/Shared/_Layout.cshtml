@@ -12,20 +12,22 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="~/css/CustomStyles.css" />
     <link href="~/css/select2.min.css" rel="stylesheet" />
-    @*<link href="~/css/style.css" rel="stylesheet" />*@
+    <link href="~/css/style.css" rel="stylesheet" />
     <link href="~/css/styles.css" rel="stylesheet" />
-    <link href="~/css/simplepagination.css" rel="stylesheet" />
-    <link href="~/css/dropdown.css" rel="stylesheet" />
+    @*<link href="~/css/simplepagination.css" rel="stylesheet" />*@
+    @*<link href="~/css/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
     <!-- Responsive navbar-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    @*<nav class="navbar navbar-expand-lg navbar-light">*@
+    @*<nav class="navbar navbar-expand-lg navbar-light  bg-light">*@
+    <nav class=" navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Kuce z Bronksu - MealAPP</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-collapse ms-auto" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="Index">Recipes</a></li>

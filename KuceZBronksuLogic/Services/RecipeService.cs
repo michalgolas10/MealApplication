@@ -2,6 +2,9 @@
 using KuceZBronksuBLL.Models;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository.IRepository;
+using System;
+using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace KuceZBronksuBLL.Services
 {
@@ -45,21 +48,32 @@ namespace KuceZBronksuBLL.Services
 		public async Task<List<RecipeViewModel>> Search(SearchViewModel model)
 		{
 			var recipies = await _repository.GetAll();
+			var result = new List<Recipe>();
 			if (model.IngrediendsList != null)
 			{
-				List<string> ingrediends = model.IngrediendsList.Split(',').ToList();
-				recipies = KuceZBronksuBLL.Search.SearchByIngredients(ingrediends, recipies);
+				var matches = new List<Recipe>();
+				var ingredients = model.IngrediendsList.Split(',').ToList();
+				foreach (var ingredient in ingredients)
+				{
+					matches = recipies.Where(x => x.IngredientLines.Any(r => r.Contains(ingredient))).ToList();
+				}
+				result.AddRange(matches);
 			}
 			if (model.ListOfMealType != null)
 			{
-				recipies = KuceZBronksuBLL.Search.SearchByMealType(model.ListOfMealType, recipies);
+				var matches = new List<Recipe>();
+				foreach (var mealtype in model.ListOfMealType)
+				{
+					matches = recipies.Where(x => x.MealType.Any(r => r.Contains(mealtype))).ToList();
+				}
+				result.AddRange(matches);
 			}
 			if (model.KcalAmount != null)
 			{
-				recipies = KuceZBronksuBLL.Search.SearchByKcal(model.KcalAmount.Value, 300d, recipies);
+				var matches = recipies.Where(x => x.Calories < model.KcalAmount + 150 && x.Calories > model.KcalAmount - 150).ToList();
+				result.AddRange(matches);
 			}
-			var result = recipies.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
-			return result;
+			return result.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
 		}
 
 		public EditAndCreateViewModel GetUniqueValuesOfRecipeLists()

@@ -104,9 +104,11 @@ namespace KuceZBronksuWEB.Controllers
 
 		public async Task<ActionResult> Edit(int id)
 		{
-			ViewBag.EditWithUniqueValues = await _recipeService.CreateEditViewModelForEdit(id);
+            var modelForViewBagFilled = await _recipeService.CreateEditViewModelForEdit(id);
+			ViewBag.EditWithUniqueValues = modelForViewBagFilled;
 			var modelToPass = _recipeService.GetUniqueValuesOfRecipeLists();
-			return View(modelToPass);
+			modelToPass.IngredientLines = modelForViewBagFilled.IngredientLines;
+            return View(modelToPass);
 		}
 
 		[HttpPost]

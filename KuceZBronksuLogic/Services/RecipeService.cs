@@ -16,7 +16,7 @@ namespace KuceZBronksuBLL.Services
 
 		public RecipeService(IRepository<Recipe> repository, IMapper mapper)
 		{
-			this._repository = repository;
+			this._repository = repository ?? throw new NullReferenceException("Database cant be null");
 			_mapper = mapper;
 		}
 

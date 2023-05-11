@@ -29,12 +29,11 @@
                 <div class="form-group">
                     <label asp-for="IngredientLines" class="control-label"></label>
                     <div id="survey_options">
-                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="First Ingredient" />
+                        @for(int i = 0; i < Model.IngredientLines.Count; i++)
+                        {
+                            <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Write ingredient" value="@ViewBag.EditWithUniqueValues.IngredientLines[i]" />
                         <span asp-validation-for="IngredientLines" class="text-danger"></span>
-                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Second Ingredient" />
-                        <span asp-validation-for="IngredientLines" class="text-danger"></span>
-                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Next Ingredient" />
-                        <span asp-validation-for="IngredientLines" class="text-danger"></span>
+                        }
                     </div>
                     <div class="controls">
                         <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
@@ -170,6 +169,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
             integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
             crossorigin="anonymous"></script>
+<script src="~/js/script.js"></script>
     <script>
 
         $("button.step-delete,button.ingridient-delete").click(function (event) {
@@ -195,5 +195,8 @@
             event.submit();
         });
 
+
+    </script>
+    <script>
 
     </script>

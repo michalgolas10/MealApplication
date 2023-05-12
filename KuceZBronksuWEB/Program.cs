@@ -4,6 +4,7 @@ using KuceZBronksuDAL.Context;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
+using KuceZBronksuBLL.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,8 +24,8 @@ namespace KuceZBronksuWEB
 					.AddDefaultTokenProviders()
 					.AddDefaultUI();
 			builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-			builder.Services.AddScoped<RecipeService>();
-			builder.Services.AddScoped<UserService>();
+			builder.Services.AddTransient<IRecipeService,RecipeService>();
+			builder.Services.AddTransient<IUserService,UserService>();
 			builder.Services.AddControllersWithViews();
 			builder.Services.AddAutoMapper(typeof(RecipeViewModel), typeof(Program));
 			builder.Services.AddAutoMapper(typeof(EditAndCreateViewModel), typeof(Program));

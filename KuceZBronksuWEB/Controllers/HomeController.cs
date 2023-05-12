@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services;
+using KuceZBronksuBLL.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -9,10 +10,10 @@ namespace KuceZBronksuWEB.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
-		private readonly RecipeService _recipeService;
+		private readonly IRecipeService _recipeService;
 		private readonly IMapper _mapper;
 
-		public HomeController(ILogger<HomeController> logger, RecipeService recipeService, IMapper mapper)
+		public HomeController(ILogger<HomeController> logger, IRecipeService recipeService, IMapper mapper)
 		{
 			_logger = logger;
 			_mapper = mapper;
@@ -22,7 +23,7 @@ namespace KuceZBronksuWEB.Controllers
 		public async Task<IActionResult> Index()
 		{
 			var listOfRecipes = await _recipeService.GetThreeMostViewedRecipes();
-			ViewBag.SearchViewModel = await _recipeService.CreateSearchModelWithMealTypes();
+			ViewBag.SearchViewModel = _recipeService.CreateSearchModelWithMealTypes();
 			return View(listOfRecipes);
 		}
 

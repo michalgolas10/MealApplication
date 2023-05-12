@@ -1,4 +1,5 @@
 ﻿using KuceZBronksuBLL.Services;
+using KuceZBronksuBLL.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,10 +7,10 @@ namespace KuceZBronksuWEB.Controllers
 {
 	public class AccountController : Controller
 	{
-		private readonly UserService _userService;
-		private readonly RecipeService _recipeService;
+		private readonly IUserService _userService;
+		private readonly IRecipeService _recipeService;
 
-		public AccountController(UserService userService, RecipeService recipeService)
+		public AccountController(IUserService userService, IRecipeService recipeService)
 		{
 			_recipeService = recipeService;
 			_userService = userService;
@@ -54,7 +55,7 @@ namespace KuceZBronksuWEB.Controllers
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> DeleteRecipe(int id)
 		{
-			await _recipeService.DeleteRecipe(id);
+			_recipeService.DeleteRecipe(id);
 			return RedirectToAction("ShowRecipeWaitingToBeAdd");
 		}
 	}

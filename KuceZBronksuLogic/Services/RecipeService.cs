@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using KuceZBronksuBLL.Models;
+using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository.IRepository;
 using System;
@@ -8,7 +9,7 @@ using System.Xml;
 
 namespace KuceZBronksuBLL.Services
 {
-	public class RecipeService
+	public class RecipeService : IRecipeService
 	{
 		private readonly IRepository<Recipe> _repository;
 
@@ -22,7 +23,7 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task<RecipeViewModel> GetRecipe(int Id)
 		{
-			return _mapper.Map<RecipeViewModel>(await _repository.Get(Id));
+			return (_mapper.Map<RecipeViewModel>(await (_repository.Get(Id))));
 		}
 
 		public async Task<List<RecipeViewModel>> GetAllRecipies()
@@ -32,7 +33,7 @@ namespace KuceZBronksuBLL.Services
 			return result.Where(x => x.Approved == true).ToList();
 		}
 
-		public async Task<SearchViewModel> CreateSearchModelWithMealTypes()
+		public SearchViewModel CreateSearchModelWithMealTypes()
 		{
 			return new SearchViewModel()
 			{
@@ -164,7 +165,7 @@ namespace KuceZBronksuBLL.Services
 			return _mapper.Map<EditAndCreateViewModel>(await GetRecipe(id));
 		}
 
-		public async Task UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel)
+		public void UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel)
 		{
 			_repository.Update(_mapper.Map<Recipe>(editAndCreateViewModel));
 		}
@@ -183,7 +184,7 @@ namespace KuceZBronksuBLL.Services
 			return rndmRecipes;
 		}
 
-		public async Task DeleteRecipe(int id)
+		public void DeleteRecipe(int id)
 		{
 			_repository.Delete(id);
 		}

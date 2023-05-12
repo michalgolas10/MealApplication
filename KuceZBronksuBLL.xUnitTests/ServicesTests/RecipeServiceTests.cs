@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services;
+using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
@@ -20,13 +21,13 @@ namespace KuceZBronksuBLL.xUnitTests.ServicesTests
     {
         private readonly Mock<IRepository<Recipe>> _repositoryMock;
         private readonly Mock<IMapper> _mapperMock;
-        private readonly RecipeService _recipeService;
+        private readonly Mock<IRecipeService> _recipeServiceMock
 
         public RecipeServiceTests()
         {
             _repositoryMock = new Mock<IRepository<Recipe>>();
             _mapperMock = new Mock<IMapper>();
-            _recipeService = new RecipeService(_repositoryMock.Object, _mapperMock.Object);
+            _recipeServiceMock = new Mock<IRecipeService>();
         }
 
         [Fact]

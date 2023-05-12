@@ -1,6 +1,7 @@
 using AutoMapper;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services;
+using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -10,13 +11,13 @@ namespace KuceZBronksuWEB.Controllers
 {
 	public class RecipeController : Controller
 	{
-		private readonly RecipeService _recipeService;
+		private readonly IRecipeService _recipeService;
 		private readonly IMapper _mapper;
-		private readonly UserService _userService;
+		private readonly IUserService _userService;
 		private readonly UserManager<User> _userManager;
 
-		public RecipeController(UserService userService,
-			RecipeService recipeService, IMapper mapper, UserManager<User> userManager)
+		public RecipeController(IUserService userService,
+			IRecipeService recipeService, IMapper mapper, UserManager<User> userManager)
 		{
 			_userService = userService;
 			_recipeService = recipeService;
@@ -27,7 +28,7 @@ namespace KuceZBronksuWEB.Controllers
 		// GET: RecipeController
 		public async Task<ActionResult> Index()
 		{
-			ViewBag.SearchViewModel = await _recipeService.CreateSearchModelWithMealTypes();
+			ViewBag.SearchViewModel = _recipeService.CreateSearchModelWithMealTypes();
 			return View(await _recipeService.GetAllRecipies());
 		}
 
@@ -39,7 +40,7 @@ namespace KuceZBronksuWEB.Controllers
 				return View("Index");
 			}
 			var listOfRecipes = await _recipeService.Search(pageModel);
-			ViewBag.SearchViewModel = await _recipeService.CreateSearchModelWithMealTypes();
+			ViewBag.SearchViewModel = _recipeService.CreateSearchModelWithMealTypes();
 			return View(listOfRecipes);
 		}
 
@@ -119,7 +120,7 @@ namespace KuceZBronksuWEB.Controllers
 			{
 				return View((await _recipeService.CreateEditViewModelForEdit(id)));
 			}
-			await _recipeService.UpdateEditedRecipe(recipe);
+			_recipeService.UpdateEditedRecipe(recipe);
 			return RedirectToAction("EditComplete");
 		}
 
@@ -134,9 +135,9 @@ namespace KuceZBronksuWEB.Controllers
 		}
 
 		[Authorize(Roles = "Admin")]
-		public async Task<ActionResult> DeleteRecipe(int id)
+		public ActionResult DeleteRecipe(int id)
 		{
-			await _recipeService.DeleteRecipe(id);
+			_recipeService.DeleteRecipe(id);
 			return RedirectToAction("Index");
 		}
 	}

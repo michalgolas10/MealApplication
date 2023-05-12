@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using KuceZBronksuBLL.Models;
+using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository.IRepository;
 using Microsoft.AspNetCore.Http;
@@ -10,14 +11,14 @@ using static Azure.Core.HttpHeader;
 
 namespace KuceZBronksuBLL.Services
 {
-	public class UserService
+	public class UserService : IUserService
 	{
-		private readonly RecipeService _recipeService;
+		private readonly IRecipeService _recipeService;
 		private readonly IMapper _mapper;
 		private readonly UserManager<User> _userManager;
 		private readonly RoleManager<IdentityRole> _roleManager;
 
-		public UserService(UserManager<User> userManager, RecipeService recipeService, IMapper mapper)
+		public UserService(UserManager<User> userManager, IRecipeService recipeService, IMapper mapper)
 		{
 			_mapper = mapper;
 			_userManager = userManager;

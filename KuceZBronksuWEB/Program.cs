@@ -7,6 +7,8 @@ using KuceZBronksuDAL.Repository.IRepository;
 using KuceZBronksuBLL.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using KuceZBronksuBLL.ConfigurationMail;
+using Hangfire;
 
 namespace KuceZBronksuWEB
 {
@@ -16,7 +18,21 @@ namespace KuceZBronksuWEB
 		{
 			var builder = WebApplication.CreateBuilder(args);
 			builder.Services.AddDbContext<MealAppContext>(options =>
-			options.UseSqlServer(builder.Configuration.GetConnectionString(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;")));
+			options.UseSqlServer("name=AuthDbContextConnection"));
+			var connectionstring = builder.Configuration.GetConnectionString("DefaultConnection");
+			builder.Services.AddHangfire(configuration => configuration
+			.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+			.UseSimpleAssemblyNameTypeSerializer()
+			.UseRecommendedSerializerSettings()
+			.UseSqlServerStorage(connectionstring, new Hangfire.SqlServer.SqlServerStorageOptions
+			{
+				CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+				SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+				QueuePollInterval = TimeSpan.Zero,
+				UseRecommendedIsolationLevel = true,
+				DisableGlobalLocks = true,
+			})) ;
+			builder.Services.AddHangfireServer();
 			builder.Services.AddMvc();
 			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
 					.AddRoles<IdentityRole<int>>()
@@ -25,7 +41,10 @@ namespace KuceZBronksuWEB
 					.AddDefaultUI();
 			builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			builder.Services.AddTransient<IRecipeService,RecipeService>();
+			builder.Services.AddTransient<ITimeService, TimeService>();
 			builder.Services.AddTransient<IUserService,UserService>();
+			builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+			builder.Services.AddTransient<IMailService, MailService>();
 			builder.Services.AddControllersWithViews();
 			builder.Services.AddAutoMapper(typeof(RecipeViewModel), typeof(Program));
 			builder.Services.AddAutoMapper(typeof(EditAndCreateViewModel), typeof(Program));
@@ -48,10 +67,11 @@ namespace KuceZBronksuWEB
 			app.UseAuthentication(); ;
 
 			app.UseAuthorization();
-
+			app.UseHangfireDashboard();
 			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
+			RecurringJob.AddOrUpdate<ITimeService>("SendEmailToAdmin",service => service.SendEmailToAdmin(),Cron.Minutely);
 			app.MapRazorPages();
 
 			app.Run();

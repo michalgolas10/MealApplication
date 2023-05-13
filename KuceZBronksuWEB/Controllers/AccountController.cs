@@ -1,7 +1,10 @@
-﻿using KuceZBronksuBLL.Services;
+﻿using KuceZBronksuBLL.Models;
+using KuceZBronksuBLL.Services;
 using KuceZBronksuBLL.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Asn1.Pkcs;
+using Hangfire;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -53,7 +56,7 @@ namespace KuceZBronksuWEB.Controllers
 		}
 
 		[Authorize(Roles = "Admin")]
-		public async Task<IActionResult> DeleteRecipe(int id)
+		public IActionResult DeleteRecipe(int id)
 		{
 			_recipeService.DeleteRecipe(id);
 			return RedirectToAction("ShowRecipeWaitingToBeAdd");

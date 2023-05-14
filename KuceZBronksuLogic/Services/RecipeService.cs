@@ -26,11 +26,11 @@ namespace KuceZBronksuBLL.Services
 			return (_mapper.Map<RecipeViewModel>(await (_repository.Get(Id))));
 		}
 
-		public async Task<List<RecipeViewModel>> GetAllRecipies()
+		public async Task<IEnumerable<RecipeViewModel>> GetAllRecipies()
 		{
 			var recipes = await _repository.GetAll();
 			var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
-			return result.Where(x => x.Approved == true).ToList();
+			return result.Where(x => x.Approved == true);
 		}
 
 		public SearchViewModel CreateSearchModelWithMealTypes()
@@ -45,7 +45,7 @@ namespace KuceZBronksuBLL.Services
 				}
 			};
 		}
-		public async Task<List<RecipeViewModel>> Search(SearchViewModel model)
+		public async Task<IEnumerable<RecipeViewModel>> Search(SearchViewModel model)
 		{
 			model.ListOfMealType = model.ListOfEmptyMealType;
 			var recipes = await _repository.GetAll();
@@ -69,7 +69,7 @@ namespace KuceZBronksuBLL.Services
 			{
 				recipes = recipes.Where(x => x.Calories < model.KcalAmount + 150 && x.Calories > model.KcalAmount - 150);
 			}
-			return recipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+			return recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
 		}
 
 		public EditAndCreateViewModel GetUniqueValuesOfRecipeLists()
@@ -165,17 +165,11 @@ namespace KuceZBronksuBLL.Services
 		}
 
 		//This method will throw 3 most Viewed recipe last days for now just rndm 3 recipes;
-		public async Task<List<RecipeViewModel>> GetThreeMostViewedRecipes()
+		public async Task<IEnumerable<RecipeViewModel>> GetThreeMostViewedRecipes()
 		{
 			var listOfRecipes = await GetAllRecipies();
-			Random rand = new Random();
-			List<RecipeViewModel> rndmRecipes = new()
-			{
-				listOfRecipes[rand.Next(0,listOfRecipes.Count)],
-				listOfRecipes[rand.Next(0,listOfRecipes.Count)],
-				listOfRecipes[rand.Next(0,listOfRecipes.Count)]
-			};
-			return rndmRecipes;
+			listOfRecipes = listOfRecipes.Take(3).ToList();
+			return listOfRecipes;
 		}
 
 		public void DeleteRecipe(int id)
@@ -183,11 +177,11 @@ namespace KuceZBronksuBLL.Services
 			_repository.Delete(id);
 		}
 
-		public async Task<List<RecipeViewModel>> RecipeWaitingToBeAdd()
+		public async Task<IEnumerable<RecipeViewModel>> RecipeWaitingToBeAdd()
 		{
 			var result = (await _repository.GetAll()).Where(x => x.Approved == false);
 			var recipeViewModelToBePassed = result;
-			return recipeViewModelToBePassed.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+			return recipeViewModelToBePassed.Select(e => _mapper.Map<RecipeViewModel>(e));
 		}
 
 		public async Task ChangeApprovedOfRecipe(int id)

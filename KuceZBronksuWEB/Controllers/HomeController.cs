@@ -22,7 +22,7 @@ namespace KuceZBronksuWEB.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			var listOfRecipes = await _recipeService.GetThreeMostViewedRecipes();
+				var listOfRecipes = await _recipeService.GetThreeMostViewedRecipes();
 			ViewBag.SearchViewModel = _recipeService.CreateSearchModelWithMealTypes();
 			return View(listOfRecipes);
 		}

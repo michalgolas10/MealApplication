@@ -1,10 +1,10 @@
-﻿
+﻿@using KuceZBronksuBLL.Models;
+@model AdminViewModel
 @{
     ViewData["Title"] = "AdministratorPanel";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>AdministratorPanel</h1>
-
 <a class="btn btn-primary btn-lg active" asp-action="ShowAllUsers" asp-controller="Account">Show all users</a>
 <a class="btn btn-primary btn-lg active" asp-action="ShowRecipeWaitingToBeAdd" asp-controller="Account">Show Recipes waiting for add</a>

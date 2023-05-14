@@ -39,13 +39,13 @@ namespace KuceZBronksuBLL.Services
 			return true;
 		}
 
-		public async Task<List<RecipeViewModel>> GetFavouritesRecipesOfUser(int iduser)
+		public async Task<IEnumerable<RecipeViewModel>> GetFavouritesRecipesOfUser(int iduser)
 		{
 			var user = await _userManager.FindByIdAsync(iduser.ToString());
 			if (user.Recipes != null)
 			{
 				var ListOfRecipiesToBePassedToView = user.Recipes;
-			return ListOfRecipiesToBePassedToView.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+			return ListOfRecipiesToBePassedToView.Select(e => _mapper.Map<RecipeViewModel>(e));
 			}
 			return new List<RecipeViewModel>();
 		}
@@ -53,12 +53,11 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task DeleteRecipeFromFavourites(int idOfRecipeToRemove, int iduser)
 		{
-			//Usuwamy na razie recepture jedynego użytkownika jakiego mamy czyli admina!
 			var user = await _userManager.FindByIdAsync(iduser.ToString());
 			user.Recipes = user.Recipes.Where(x => x.Id != idOfRecipeToRemove).ToList();
 			await _userManager.UpdateAsync(user);
 		}
-		public async Task<List<UserViewModel>> ShowAllUsers()
+		public async Task<IEnumerable<UserViewModel>> ShowAllUsers()
 		{
 			var allUsers = await _userManager.GetUsersInRoleAsync("NormalUser");
 			var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
@@ -66,7 +65,7 @@ namespace KuceZBronksuBLL.Services
 			{
 				allUsers.Add(adminUser);
 			}
-			var UserViewModelsToPass = allUsers.Select(e => _mapper.Map<UserViewModel>(e)).ToList();
+			var UserViewModelsToPass = allUsers.Select(e => _mapper.Map<UserViewModel>(e));
 			foreach(var userViewModel in UserViewModelsToPass)
 			{
 				userViewModel.Roles = (await _userManager.GetRolesAsync(await _userManager.FindByEmailAsync(userViewModel.Email))).ToList();
@@ -75,6 +74,3 @@ namespace KuceZBronksuBLL.Services
 		}
 	}
 }
-
-
-  

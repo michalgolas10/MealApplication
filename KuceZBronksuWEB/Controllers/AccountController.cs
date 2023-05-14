@@ -41,7 +41,7 @@ namespace KuceZBronksuWEB.Controllers
 			return View(await _userService.ShowAllUsers());
 		}
 
-		[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
 		public async Task<IActionResult> ShowRecipeWaitingToBeAdd()
 		{
 			var result = (await _recipeService.RecipeWaitingToBeAdd()).ToList();

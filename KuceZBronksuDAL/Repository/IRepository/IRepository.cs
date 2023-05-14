@@ -5,7 +5,7 @@ namespace KuceZBronksuDAL.Repository.IRepository
 {
 	public interface IRepository<T> where T : Entity
 	{
-		Task<List<T>> GetAll(Expression<Func<T, object>>? include = null);
+		Task<IEnumerable<T>> GetAll(Expression<Func<T, object>>? include = null);
 
 		Task<T> Get(int Id);
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KuceZBronksuWEB.Migrations
 {
     [DbContext(typeof(MealAppContext))]
-    [Migration("20230511095239_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230514151447_InitialCommit")]
+    partial class InitialCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

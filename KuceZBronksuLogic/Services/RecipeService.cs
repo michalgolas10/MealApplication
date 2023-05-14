@@ -29,7 +29,7 @@ namespace KuceZBronksuBLL.Services
 		public async Task<List<RecipeViewModel>> GetAllRecipies()
 		{
 			var recipes = await _repository.GetAll();
-			var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+			var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
 			return result.Where(x => x.Approved == true).ToList();
 		}
 
@@ -45,37 +45,31 @@ namespace KuceZBronksuBLL.Services
 				}
 			};
 		}
-
 		public async Task<List<RecipeViewModel>> Search(SearchViewModel model)
 		{
 			model.ListOfMealType = model.ListOfEmptyMealType;
-			var recipies = await _repository.GetAll();
-			var result = new List<Recipe>();
+			var recipes = await _repository.GetAll();
 			if (model.IngrediendsList != null)
 			{
-				var matches = new List<Recipe>();
-				var ingredients = model.IngrediendsList.Split(',').ToList();
+				var ingredients = model.IngrediendsList.Split(',');
 				foreach (var ingredient in ingredients)
 				{
-					matches = recipies.Where(x => x.IngredientLines.Any(r => r.Contains(ingredient))).ToList();
+					recipes = recipes.Where(x => x.IngredientLines.Any(r => r.Contains(ingredient)));
 				}
-				result.AddRange(matches);
 			}
 			if (model.ListOfMealType != null)
 			{
 				var matches = new List<Recipe>();
 				foreach (var mealtype in model.ListOfMealType)
 				{
-					matches = recipies.Where(x => x.MealType.Any(r => r.Contains(mealtype))).ToList();
+					recipes = recipes.Where(x => x.MealType.Any(r => r.Contains(mealtype)));
 				}
-				result.AddRange(matches);
 			}
 			if (model.KcalAmount != null)
 			{
-				var matches = recipies.Where(x => x.Calories < model.KcalAmount + 150 && x.Calories > model.KcalAmount - 150).ToList();
-				result.AddRange(matches);
+				recipes = recipes.Where(x => x.Calories < model.KcalAmount + 150 && x.Calories > model.KcalAmount - 150);
 			}
-			return result.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+			return recipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
 		}
 
 		public EditAndCreateViewModel GetUniqueValuesOfRecipeLists()
@@ -192,7 +186,7 @@ namespace KuceZBronksuBLL.Services
 		public async Task<List<RecipeViewModel>> RecipeWaitingToBeAdd()
 		{
 			var result = (await _repository.GetAll()).Where(x => x.Approved == false);
-			var recipeViewModelToBePassed = result.ToList();
+			var recipeViewModelToBePassed = result;
 			return recipeViewModelToBePassed.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
 		}
 

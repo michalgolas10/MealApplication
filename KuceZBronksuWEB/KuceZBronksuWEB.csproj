@@ -54,7 +54,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Migrations\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

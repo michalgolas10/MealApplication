@@ -2,6 +2,7 @@
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
+using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -19,11 +20,11 @@ namespace KuceZBronksuBLL.Services
 		private readonly RoleManager<IdentityRole> _roleManager;
 
 		public UserService(UserManager<User> userManager, IRecipeService recipeService, IMapper mapper)
-		{
-			_mapper = mapper;
-			_userManager = userManager;
-			_recipeService = recipeService;
-		}
+        {
+            _mapper = mapper;
+			_userManager = userManager ?? throw new NullReferenceException("DatabaseIdentityUser cant be null");
+            _recipeService = recipeService ?? throw new NullReferenceException("RecipeService cant be null");
+        }
 		public async Task<bool> AddRecipeToFavourites(int idOfRecipe, int idOfUser)
 		{
 			var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(idOfRecipe));
@@ -41,9 +42,12 @@ namespace KuceZBronksuBLL.Services
 		public async Task<List<RecipeViewModel>> GetFavouritesRecipesOfUser(int iduser)
 		{
 			var user = await _userManager.FindByIdAsync(iduser.ToString());
-			await _userManager.AddToRoleAsync(user, "admin");
-			var ListOfRecipiesToBePassedToView = user.Recipes;
+			if (user.Recipes != null)
+			{
+				var ListOfRecipiesToBePassedToView = user.Recipes;
 			return ListOfRecipiesToBePassedToView.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+			}
+			return new List<RecipeViewModel>();
 		}
 
 

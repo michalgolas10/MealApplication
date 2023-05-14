@@ -29,15 +29,15 @@ namespace KuceZBronksuDAL.Repository
 			}
 		}
 
-		public async Task<List<T>> GetAll(Expression<Func<T, object>>? include = null)
+		public async Task<IEnumerable<T>> GetAll(Expression<Func<T, object>>? include = null)
 		{
 			if (include != null)
 			{
 				return this._entities
-					.Include(include).AsEnumerable().ToList()!;
+					.Include(include).AsEnumerable();
 			}
 
-			return this._entities.AsEnumerable().ToList();
+			return this._entities.AsEnumerable();
 		}
 
 		public void Insert(T entity)

@@ -3,6 +3,9 @@
 
 Br¹zowy - napisy - rgba(160, 82, 45)
 Kremowy - t³o - rgb(255, 228, 196)
+background-color: #cd853f;
+border-color: #af804f;
+focus background-color: #a0522d;
 
 */
 
@@ -40,6 +43,9 @@ body {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
 
+
+
+
 .navbar {
     top: 0;
     display: flex;
@@ -69,7 +75,8 @@ body {
 }
 
     .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
-        color: rgba( 255, 255, 255, 0.75);
+        /*color: rgba( 255, 255, 255, 0.75);*/
+        color: #cd853f;
     }
 
     .navbar-light .navbar-nav .nav-link.disabled {
@@ -110,17 +117,18 @@ body {
     padding-top: 0.3125rem;
     padding-bottom: 0.3125rem;
     margin-right: 1rem;
-    font-size: 1.8rem;
     text-decoration: none;
     white-space: nowrap;
 }
 
 .navbar-light .navbar-brand {
-    color: rgba(0, 0, 0, 0.9);
+    /*color: rgba(0, 0, 0, 0.9);*/
+    color: #cd853f;
 }
 
     .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
-        color: rgba(0, 0, 0, 0.9);
+        /*color: rgba(0, 0, 0, 0.9);*/
+        color: #a0522d;
     }
 
     .navbar-brand:focus, .navbar-brand:hover {
@@ -137,6 +145,75 @@ body {
     margin-right: 5px;
 }
 
+@media (min-width: 576px) {
+    .navbar-brand {
+    font-size: 1.4rem;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 1.2rem;
+    }
+
+    .dropbtn {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 1.2rem;
+    }
+
+    .dropbtn {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar-brand {
+    font-size: 1.4rem;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 14px;
+    }
+
+    .dropbtn {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .navbar-brand {
+     font-size: 1.5rem;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 1.2rem;
+    }
+
+    .dropbtn {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 1400px) {
+    .navbar-brand {
+    font-size: 1.6rem;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 1.4rem;
+    }
+
+    .dropbtn {
+         font-size: 1.4rem;
+    }
+}
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -164,9 +241,10 @@ body {
 
 /* Dropdown Button */
 .dropbtn {
-    color: rgba(205, 133, 63, 0.55);
+    color: rgb(255, 228, 196);
+    background-color: #cd853f;
+    border-color: #af804f;
     font-weight: bold;
-    font-size: 1.2rem;
     text-transform: uppercase;
     padding-right: 0.5rem;
     padding-left: 0.5rem;
@@ -178,6 +256,9 @@ body {
 
     /* Dropdown button on hover & focus */
     .dropbtn:hover, .dropbtn:focus {
+        color: #fff;
+        background-color: #a0522d;
+        border-color: #8b4513;
     }
 
 /* The container <div> - needed to position the dropdown content */
@@ -188,6 +269,7 @@ body {
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
     display: none;
+    background-color: rgb(255, 228, 196);
     position: absolute;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -201,12 +283,18 @@ body {
         display: block;
         color: rgba( /*255, 255, 255*/ 205, 133, 63, 0.55);
         font-weight: bold;
-        font-size: 1.2rem;
+        /*font-size: 1.2rem;*/
         text-transform: uppercase;
     }
 
         /* Change color of dropdown links on hover */
         .dropdown-content a:hover {
+        }
+
+        .dropdown-content a:hover, .dropdown-content:focus {
+            color: #fff;
+            background-color: #a0522d;
+            border-color: #8b4513;
         }
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */

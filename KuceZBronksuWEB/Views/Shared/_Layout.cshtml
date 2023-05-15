@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="~/css/styles.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/textFit.js"></script>
+    <script src="~/js/jquery.fittext.js"></script>
 </head>
 <body>
     <!-- Responsive navbar-->
@@ -59,7 +63,7 @@
     <!-- Core theme JS-->
     @await RenderSectionAsync("Scripts", required: false)
     <!-- Bootstrap core JS-->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="~/js/popper.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -70,6 +74,7 @@
     <script src="~/js/jquery.simplepagination.js"></script>
     <script src="~/js/script.js"></script>
     <script src="~/js/custom.js"></script>
+
     <script>
         jQuery(function ($) {
             var items = $("#content tbody tr");

@@ -458,10 +458,13 @@ myImgCard {
 
 .myCardTitle {
     /*position: relative;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: center;
     height: 150px;
     font-family: 'Lucida Handwriting';
-    font-size: small;
+    /*font-size: small;*/
     /*    display: flex;*/
     flex-direction: column;
     min-width: 0;
@@ -472,6 +475,7 @@ myImgCard {
     border-radius: 0.25rem;
     text-align: center;
     margin-top: 5px;
+    padding: 15px;
     border: 5px solid #a0522d;
 }
 
@@ -505,7 +509,7 @@ myImgCard {
 
 @media (max-width: 768px) {
     .myCardTitle-sm {
-        height: fit-content;
+        height: 150px;
         font-family: 'Lucida Handwriting';
     }
 }

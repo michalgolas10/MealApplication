@@ -26,9 +26,9 @@
 									//<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
 								}
 				</div>
-					<div class="myCardTitle-sm myCardTitle">
-						<h3 class="card-title-my text center d-flex align-items-center">@Html.DisplayFor(modelItem => item.Label)</h3>
-				</div>
+					@*<div class="myCardTitle-sm myCardTitle text-center">*@
+						@*<h3 class="card-title-my text center d-flex align-items-center">@Html.DisplayFor(modelItem => item.Label)</h3>*@
+				<h3 class="myCardTitle-sm myCardTitle text-center">@Html.DisplayFor(modelItem => item.Label)</h3>
 				<div class="myCardButtons">
 					<div class="myCard">
 						<a class="btn btn-primary" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details</a>
@@ -49,6 +49,11 @@
 
 <script>
 	alert(@TempData["alertMessage"]);
+</script>
+
+<script>
+	textFit(document.getElementsByClassName('myCardTitle'),{alignVert:true, alignHoriz:true, minFontSize: 15});
+	textFit(document.getElementsByClassName('myCardTitle-sm'), { alignVert: true, alignHoriz: true, minFontSize: 15 });
 </script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

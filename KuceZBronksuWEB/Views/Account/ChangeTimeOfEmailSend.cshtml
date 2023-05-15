@@ -1,19 +1,21 @@
 ﻿@model KuceZBronksuBLL.Models.TimeViewModel
+
 @{
-    ViewData["Title"] = "AdministratorPanel";
+    ViewData["Title"] = "ChangeTimeOfEmailSend";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>AdministratorPanel</h1>
-<a class="btn btn-primary btn-lg active" asp-action="ShowAllUsers" asp-controller="Account">Show all users</a>
-<a class="btn btn-primary btn-lg active" asp-action="ShowRecipeWaitingToBeAdd" asp-controller="Account">Show Recipes waiting for add</a>
+<h1>ChangeTimeOfEmailSend</h1>
+
+<h4>TimeViewModel</h4>
+<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="ChangeTimeOfCyclicalEmailing">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <h3>How often you want to email be sended to administrator.Put value of number of days</h3>
-                <input asp-for="TimeOfCyclicalEmailing" class="form-control" placeholder="Number of days"/>
+                <label asp-for="TimeOfCyclicalEmailing" class="control-label"></label>
+                <input asp-for="TimeOfCyclicalEmailing" class="form-control" />
                 <span asp-validation-for="TimeOfCyclicalEmailing" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -22,3 +24,11 @@
         </form>
     </div>
 </div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

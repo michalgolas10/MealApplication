@@ -8,16 +8,15 @@
 <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
         <div class="text-center my-0">
-            <h1 class="fw-bolder">Welcome to our MEAL APP!</h1>
+            <h1 class="fw-bolder writing-font">Welcome to our MEAL APP!</h1>
             <p class="lead mb-0">Search for a meal according to your preferences</p>
         </div>
     </div>
 </header>
 <div class="container">
-    <h2>Most Viewed Recipes</h2>
     <div class="row">
         <!-- Blog entries-->
-        <div class="col-lg-8">
+        @*<div class="col-lg-8">
             <div id="pagination"></div>
             <table id="content">
                 <tbody>
@@ -26,12 +25,12 @@
                             <td><div class="item-img-wrap">
                                 @if (item.Image.Contains("/")) // Means that its image that someone put URL for.
                                 {
-                                        @*<a href="#!"><img class="img-responsive" src="@item.Image" alt="recipe image" /></a>*@
+                                        //<a href="#!"><img class="img-responsive" src="@item.Image" alt="recipe image" /></a>
                                         <a href="#!"><img class="myImgCardTop3" src="@item.Image" alt="recipe image" /></a>
                                 }
                                 else
                                 {
-                                    @*<img src="/Images/@item.Image" class="img-responsive" alt="recipe image">*@
+                                    //<img src="/Images/@item.Image" class="img-responsive" alt="recipe image">
                                         <img src="/Images/@item.Image" class="myImgCardTop3" alt="recipe image">
                                     //<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
                                 }
@@ -45,8 +44,38 @@
                     }
                 </tbody>
             </table>
+        </div>*@
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 recipeCard">
+            <h2 class="writing-font text-center">Most Viewed Recipes</h2>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 recipeCard">
+                        <div class="myCardTitle-sm myCardTitle">
+                            <h3 class="card-title-my text center d-flex align-items-center">@Html.DisplayFor(modelItem => item.Label)</h3>
+                        </div>
+                        <div class="card">
+                            @if (item.Image.Contains("/")) // Means that its image that someone put URL for.
+                            {
+                                <img src="@item.Image" class="img-responsive" alt="recipe image">
+                            }
+                            else
+                            {
+                                <img src="/Images/@item.Image" class="img-responsive" alt="recipe image">
+                                //<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
+                            }
+                        </div>
+                        <div class="myCardButtons">
+                            <div class="myCard">
+                                <a class="btn btn-primary" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
             @Html.Partial("~/Views/Shared/_SearchPanel.cshtml", (SearchViewModel)ViewBag.SearchViewModel)
         </div>
     </div>

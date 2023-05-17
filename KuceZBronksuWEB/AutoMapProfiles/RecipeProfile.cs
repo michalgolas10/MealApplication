@@ -12,7 +12,8 @@ namespace KuceZBronksuWEB.AutoMapProfiles
 				.ForMember(dest => dest.Calories, opts => opts.MapFrom(src => Math.Round(src.Calories)))
 				.ReverseMap();
 			CreateMap<EditAndCreateViewModel, Recipe>()
-				.ForMember(dest => dest.Calories, opts => opts.MapFrom(src => src.Calories));
+				.ForMember(dest => dest.Calories, opts => opts.MapFrom(src => src.Calories))
+				.ForMember(dest => dest.Approved,opts => opts.Equals(false));
 			CreateMap<EditAndCreateViewModel, RecipeViewModel>()
 				.ReverseMap();
 		}

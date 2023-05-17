@@ -23,13 +23,11 @@
         </div>
     </div>
 </header>
-<div class="container">
-    <h2>Most Viewed Recipes</h2>
+    
     <div class="row">
-        <!-- Blog entries-->
-        <div class="col-lg-8">
-            <div id="pagination"></div>
-            <table id="content">
+	<div class="col-lg-8">
+        <h2 style="margin-left:20%">Most Viewed Recipes</h2>
+            <table id="content" style="margin-left:20%">
                 <tbody>
                     @foreach(var item in Model){
                     <tr>
@@ -45,7 +43,7 @@
                                 }
                             <div class="card-body">
                                 <h2 class="card-title">@item.Label</h2>
-                                        <a class="btn btn-primary btn-lg active" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details!</a>
+                                    <a class="btn btn-primary" id="button-search" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details!</a>
                             </div>
                         </div>
                         </td>
@@ -53,9 +51,9 @@
                     }
                 </tbody>
             </table>
+        <div id="pagination" style="margin-left:20%"></div>
         </div>
         <div class="col-lg-4">
             @Html.Partial("~/Views/Shared/_SearchPanel.cshtml", (SearchViewModel)ViewBag.SearchViewModel)
         </div>
     </div>
-</div>

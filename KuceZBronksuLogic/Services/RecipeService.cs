@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using KuceZBronksuBLL.Models;
+using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository.IRepository;
+using System;
+using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace KuceZBronksuBLL.Services
 {
-	public class RecipeService
+	public class RecipeService : IRecipeService
 	{
 		private readonly IRepository<Recipe> _repository;
 
@@ -13,23 +17,23 @@ namespace KuceZBronksuBLL.Services
 
 		public RecipeService(IRepository<Recipe> repository, IMapper mapper)
 		{
-			this._repository = repository;
+			this._repository = repository ?? throw new NullReferenceException("Database cant be null");
 			_mapper = mapper;
 		}
 
 		public async Task<RecipeViewModel> GetRecipe(int Id)
 		{
-			return _mapper.Map<RecipeViewModel>(await _repository.Get(Id));
+			return (_mapper.Map<RecipeViewModel>(await (_repository.Get(Id))));
 		}
 
-		public async Task<List<RecipeViewModel>> GetAllRecipies()
+		public async Task<IEnumerable<RecipeViewModel>> GetAllRecipies()
 		{
 			var recipes = await _repository.GetAll();
-			var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
-			return result.Where(x => x.Approved == true).ToList();
+			var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
+			return result.Where(x => x.Approved == true);
 		}
 
-		public async Task<SearchViewModel> CreateSearchModelWithMealTypes()
+		public SearchViewModel CreateSearchModelWithMealTypes()
 		{
 			return new SearchViewModel()
 			{
@@ -41,25 +45,31 @@ namespace KuceZBronksuBLL.Services
 				}
 			};
 		}
-
-		public async Task<List<RecipeViewModel>> Search(SearchViewModel model)
+		public async Task<IEnumerable<RecipeViewModel>> Search(SearchViewModel model)
 		{
-			var recipies = await _repository.GetAll();
+			model.ListOfMealType = model.ListOfEmptyMealType;
+			var recipes = await _repository.GetAll();
 			if (model.IngrediendsList != null)
 			{
-				List<string> ingrediends = model.IngrediendsList.Split(',').ToList();
-				recipies = KuceZBronksuBLL.Search.SearchByIngredients(ingrediends, recipies);
+				var ingredients = model.IngrediendsList.Split(',');
+				foreach (var ingredient in ingredients)
+				{
+					recipes = recipes.Where(x => x.IngredientLines.Any(r => r.Contains(ingredient)));
+				}
 			}
 			if (model.ListOfMealType != null)
 			{
-				recipies = KuceZBronksuBLL.Search.SearchByMealType(model.ListOfMealType, recipies);
+				var matches = new List<Recipe>();
+				foreach (var mealtype in model.ListOfMealType)
+				{
+					recipes = recipes.Where(x => x.MealType.Any(r => r.Contains(mealtype)));
+				}
 			}
 			if (model.KcalAmount != null)
 			{
-				recipies = KuceZBronksuBLL.Search.SearchByKcal(model.KcalAmount.Value, 300d, recipies);
+				recipes = recipes.Where(x => x.Calories < model.KcalAmount + 150 && x.Calories > model.KcalAmount - 150);
 			}
-			var result = recipies.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
-			return result;
+			return recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
 		}
 
 		public EditAndCreateViewModel GetUniqueValuesOfRecipeLists()
@@ -149,35 +159,29 @@ namespace KuceZBronksuBLL.Services
 			return _mapper.Map<EditAndCreateViewModel>(await GetRecipe(id));
 		}
 
-		public async Task UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel)
+		public void UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel)
 		{
 			_repository.Update(_mapper.Map<Recipe>(editAndCreateViewModel));
 		}
 
 		//This method will throw 3 most Viewed recipe last days for now just rndm 3 recipes;
-		public async Task<List<RecipeViewModel>> GetThreeMostViewedRecipes()
+		public async Task<IEnumerable<RecipeViewModel>> GetThreeMostViewedRecipes()
 		{
 			var listOfRecipes = await GetAllRecipies();
-			Random rand = new Random();
-			List<RecipeViewModel> rndmRecipes = new()
-			{
-				listOfRecipes[rand.Next(0,listOfRecipes.Count)],
-				listOfRecipes[rand.Next(0,listOfRecipes.Count)],
-				listOfRecipes[rand.Next(0,listOfRecipes.Count)]
-			};
-			return rndmRecipes;
+			listOfRecipes = listOfRecipes.Take(3).ToList();
+			return listOfRecipes;
 		}
 
-		public async Task DeleteRecipe(int id)
+		public void DeleteRecipe(int id)
 		{
 			_repository.Delete(id);
 		}
 
-		public async Task<List<RecipeViewModel>> RecipeWaitingToBeAdd()
+		public async Task<IEnumerable<RecipeViewModel>> RecipeWaitingToBeAdd()
 		{
 			var result = (await _repository.GetAll()).Where(x => x.Approved == false);
-			var recipeViewModelToBePassed = result.ToList();
-			return recipeViewModelToBePassed.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
+			var recipeViewModelToBePassed = result;
+			return recipeViewModelToBePassed.Select(e => _mapper.Map<RecipeViewModel>(e));
 		}
 
 		public async Task ChangeApprovedOfRecipe(int id)

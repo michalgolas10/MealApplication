@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using KuceZBronksuBLL.ConfigurationMail;
 using Hangfire;
 using KuceZBronksuWEB.Middlewares;
+using Serilog;
 
 namespace KuceZBronksuWEB
 {
@@ -32,7 +33,9 @@ namespace KuceZBronksuWEB
 				QueuePollInterval = TimeSpan.Zero,
 				UseRecommendedIsolationLevel = true,
 				DisableGlobalLocks = true,
-			})) ;
+			}));
+			builder.Host.UseSerilog((context, configuration) =>
+			configuration.ReadFrom.Configuration(context.Configuration));
 			builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 			builder.Services.AddHangfireServer();
 			builder.Services.AddMvc();
@@ -67,6 +70,7 @@ namespace KuceZBronksuWEB
 
 			app.UseRouting();
 			app.UseAuthentication(); ;
+			app.UseSerilogRequestLogging();
 
 			app.UseAuthorization();
 			app.UseHangfireDashboard();

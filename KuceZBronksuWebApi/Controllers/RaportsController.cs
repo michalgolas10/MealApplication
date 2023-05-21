@@ -1,10 +1,13 @@
 ﻿using KuceZBronksuBLL.Models;
-using KuceZBronksuWebApi.Models;
-using KuceZBronksuWebApi.Services.IServices;
+using KuceZBronksuWebApi.BLL.Services.IServices;
+using KuceZBronksuWebApi.Contracts;
+using KuceZBronksuWebApi.DAL.Database;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KuceZBronksuWebApi.Controllers
 {
+    [ApiController]
+	[Route("api/[controller]")]
 	public class RaportsController : ControllerBase
 	{
 		private readonly IRaportService _raportService;
@@ -14,11 +17,13 @@ namespace KuceZBronksuWebApi.Controllers
 			_raportService = raportService;
 		}
 
-		[HttpGet]
-		public async Task<ActionResult<Raport>> Get()
+
+		[HttpPost]
+		public IActionResult GenerateFavReport([FromBody] CreateFavRaportRequest request)
 		{
-			var raport = _raportService.CreateRaport();
-			return Ok(raport);
+			_raportService.CreateRaportOfFavs();
+
+			return Ok();
 		}
 	}
 }

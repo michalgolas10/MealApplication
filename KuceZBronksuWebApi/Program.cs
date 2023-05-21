@@ -1,9 +1,5 @@
-using KuceZBronksuBLL.Services.IServices;
-using KuceZBronksuBLL.Services;
-using KuceZBronksuWebApi.Services.IServices;
-using KuceZBronksuWebApi.Services;
-using KuceZBronksuBLL.Models;
-using KuceZBronksuDAL.Models;
+using KuceZBronksuWebApi.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,15 +9,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IRecipeService, RecipeService>();
-builder.Services.AddTransient<ITimeService, TimeService>();
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<IMailService, MailService>();
-builder.Services.AddScoped<IRaportService, RaportService>();
-builder.Services.AddAutoMapper(typeof(RecipeViewModel), typeof(Program));
-builder.Services.AddAutoMapper(typeof(EditAndCreateViewModel), typeof(Program));
-builder.Services.AddAutoMapper(typeof(Recipe), typeof(Program));
-builder.Services.AddAutoMapper(typeof(User), typeof(Program));
+
+builder.Services.AddDbContext<APIDbContext>(options =>
+			options.UseSqlServer("name=AuthDbContextConnection"));
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 

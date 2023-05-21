@@ -22,8 +22,8 @@ namespace KuceZBronksuBLL.Services
 		public UserService(UserManager<User> userManager, IRecipeService recipeService, IMapper mapper)
         {
             _mapper = mapper;
-			_userManager = userManager ?? throw new NullReferenceException("DatabaseIdentityUser cant be null");
-            _recipeService = recipeService ?? throw new NullReferenceException("RecipeService cant be null");
+			_userManager = userManager;
+            _recipeService = recipeService;
         }
 		public async Task<bool> AddRecipeToFavourites(int idOfRecipe, int idOfUser)
 		{
@@ -45,8 +45,9 @@ namespace KuceZBronksuBLL.Services
 			if (user.Recipes != null)
 			{
 				var ListOfRecipiesToBePassedToView = user.Recipes;
-			return ListOfRecipiesToBePassedToView.Select(e => _mapper.Map<RecipeViewModel>(e));
+				return ListOfRecipiesToBePassedToView.Select(e => _mapper.Map<RecipeViewModel>(e));
 			}
+
 			return new List<RecipeViewModel>();
 		}
 

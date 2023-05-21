@@ -1,28 +1,21 @@
-﻿using KuceZBronksuWebApi.BLL.Services.IServices;
-using KuceZBronksuWebApi.DAL.Database;
+﻿using AutoMapper;
+using KuceZBronksuWebApi.BLL.Services.IServices;
+using KuceZBronksuWebApi.Contracts;
 
 namespace KuceZBronksuWebApi.BLL.Services
 {
 	public class RecipeAnalysisService : IRecipeAnalysisService
 	{
-		public Task<RecipeAnalysis> GetAll()
+		private readonly IMapper _mapper;
+
+		public RecipeAnalysisService(IMapper mapper)
 		{
-			throw new NotImplementedException();
+			_mapper = mapper;
 		}
 
-		public Task<RecipeAnalysis> GetRecipeFavs()
+		public Task<CreateDateForAnalysisRequest> IRecipeAnalysisService.GetAll()
 		{
-			throw new NotImplementedException();
-		}
 
-		public Task<RecipeAnalysis> UpdateFav()
-		{
-			throw new NotImplementedException();
-		}
-
-		public Task<RecipeAnalysis> UpdateViews()
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

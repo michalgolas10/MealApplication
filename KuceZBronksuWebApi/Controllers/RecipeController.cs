@@ -1,8 +1,8 @@
-﻿using KuceZBronksuBLL.Models;
-using KuceZBronksuBLL.Services.IServices;
+﻿using KuceZBronksuBLL.Services.IServices;
+using KuceZBronksuWebApi.BLL.Services.IServices;
 using KuceZBronksuWebApi.Contracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace KuceZBronksuWebApi.Controllers
 {
@@ -10,17 +10,24 @@ namespace KuceZBronksuWebApi.Controllers
 	[Route("api/[controller]")]
 	public class RecipeController : ControllerBase
 	{
-		private readonly IRecipeService _recipeService;
-		public RecipeController(IRecipeService recipeService)
+		private readonly IRecipeAnalysisService _recipeAnalysisService;
+		public RecipeController(IRecipeAnalysisService recipeAnalysisService)
 		{
-			_recipeService = recipeService;
+			_recipeAnalysisService = recipeAnalysisService;
 		}
 
 
-		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdateRecipeFav([FromRoute] int id, [FromBody]UpdateRecipeAnalysisDataRequest request)
+		[HttpGet]
+		public async Task<IActionResult> Get(CreateDateForAnalysisRequest request)
 		{
+			// GET - jak chcemy raport - dej dane Panie królu złoty
 
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Post()
+		{
+			//POST - wysyłanie danych tutaj przyjmujemy dane i przekazujemy do bazy danych
 		}
 
 	}

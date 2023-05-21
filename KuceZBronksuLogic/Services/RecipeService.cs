@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using KuceZBronksuBLL.Helpers;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
@@ -23,7 +24,7 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task<RecipeViewModel> GetRecipe(int Id)
 		{
-			return (_mapper.Map<RecipeViewModel>(await (_repository.Get(Id))));
+			return _mapper.Map<RecipeViewModel>(await (_repository.Get(Id)));
 		}
 
 		public async Task<IEnumerable<RecipeViewModel>> GetAllRecipies()
@@ -44,6 +45,8 @@ namespace KuceZBronksuBLL.Services
 					"teatime"
 				}
 			};
+
+
 		}
 		public async Task<IEnumerable<RecipeViewModel>> Search(SearchViewModel model)
 		{

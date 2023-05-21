@@ -1,6 +1,7 @@
 ﻿using KuceZBronksuDAL.FilesHandlers;
 using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Diagnostics;
 
 namespace KuceZBronksuDAL.Context
 {
@@ -25,6 +26,10 @@ namespace KuceZBronksuDAL.Context
 				EmailConfirmed = true
 			};
 			var result = await userManager.CreateAsync(serviceAdmin, "Password.123");
+			if (!result.Succeeded)
+			{
+				Debugger.Break();
+			}
 			await userManager.AddToRoleAsync(serviceAdmin, "Admin");
 			context.SaveChanges();
 		}

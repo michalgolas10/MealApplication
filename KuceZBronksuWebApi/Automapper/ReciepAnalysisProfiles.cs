@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuWebApi.BLL.DTOs;
+using KuceZBronksuWebApi.BLL.Services;
 
 namespace KuceZBronksuWebApi.Automapper
 {
@@ -8,7 +9,8 @@ namespace KuceZBronksuWebApi.Automapper
 	{
 		ReciepAnalysisProfiles()
 		{
-			CreateMap<RecipeAnalysisDto, Recipe>().ReverseMap();
+			CreateMap<RecipeActivityDto, RecipeActivity>().ReverseMap();
+			CreateMap<FavoriteActivityDto, FavoriteActivity>().ReverseMap();
 		}
 	}
 }

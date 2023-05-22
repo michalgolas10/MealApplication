@@ -53,10 +53,10 @@
                                     {
                                     <a asp-area="Identity" asp-page="/Account/Login">Log in</a>
                                     <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+                                    }
                                     @if (User.IsInRole("Admin"))
                                     {
                                 <a asp-area="" asp-controller="Account" asp-action="AdministratorPanel">Admin Panel</a>
-                                    }
                                     }
                             </div>
                         </div>

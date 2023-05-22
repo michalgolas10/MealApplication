@@ -6,6 +6,9 @@ using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Framework;
+using Microsoft.Extensions.Logging;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using static Azure.Core.HttpHeader;
@@ -17,60 +20,93 @@ namespace KuceZBronksuBLL.Services
 		private readonly IRecipeService _recipeService;
 		private readonly IMapper _mapper;
 		private readonly UserManager<User> _userManager;
-		private readonly RoleManager<IdentityRole> _roleManager;
+		private readonly ILogger<UserService> _logger;
 
-		public UserService(UserManager<User> userManager, IRecipeService recipeService, IMapper mapper)
+		public UserService(UserManager<User> userManager, IRecipeService recipeService, IMapper mapper, ILogger<UserService> logger)
         {
             _mapper = mapper;
-			_userManager = userManager ?? throw new NullReferenceException("DatabaseIdentityUser cant be null");
-            _recipeService = recipeService ?? throw new NullReferenceException("RecipeService cant be null");
+			_userManager = userManager;
+			_recipeService = recipeService;
+			_logger = logger;
         }
 		public async Task<bool> AddRecipeToFavourites(int idOfRecipe, int idOfUser)
 		{
-			var resultRecipe = _mapper.Map<Recipe>(await _recipeService.GetRecipe(idOfRecipe));
-			var user = await _userManager.FindByIdAsync(idOfUser.ToString());
-			if (user.Recipes.Contains(resultRecipe))
+			var recipeThatIsAddedToFavourite = await _recipeService.GetRecipe(idOfRecipe);
+			var resultRecipe = _mapper.Map<Recipe>(recipeThatIsAddedToFavourite);
+			try
 			{
-				return false;
+				var user = await _userManager.FindByIdAsync(idOfUser.ToString());
+				if (user.Recipes.Contains(resultRecipe))
+				{
+					return false;
+				}
+				user.Recipes.Add(resultRecipe);
+				await _userManager.UpdateAsync(user);
+				return true;
 			}
-
-			user.Recipes.Add(resultRecipe);
-			await _userManager.UpdateAsync(user);
-			return true;
+			catch(NullReferenceException)
+			{
+				_logger.LogError($"User of Id:{idOfUser} Couldnt be loaded");
+				throw new NullReferenceException($"User of Id:{idOfUser} Couldnt be loaded");
+			}
 		}
 
-		public async Task<IEnumerable<RecipeViewModel>> GetFavouritesRecipesOfUser(int iduser)
+		public async Task<IEnumerable<RecipeViewModel>> GetFavouritesRecipesOfUser(int idOfUser)
 		{
-			var user = await _userManager.FindByIdAsync(iduser.ToString());
-			if (user.Recipes != null)
+			try
 			{
-				var ListOfRecipiesToBePassedToView = user.Recipes;
-			return ListOfRecipiesToBePassedToView.Select(e => _mapper.Map<RecipeViewModel>(e));
+				var user = await _userManager.FindByIdAsync(idOfUser.ToString());
+				if (user.Recipes != null)
+				{
+					var ListOfRecipiesToBePassedToView = user.Recipes;
+					return ListOfRecipiesToBePassedToView.Select(e => _mapper.Map<RecipeViewModel>(e));
+				}
+				return new List<RecipeViewModel>();
 			}
-			return new List<RecipeViewModel>();
+			catch (NullReferenceException)
+			{
+				_logger.LogError($"User of Id:{idOfUser} Couldnt be loaded");
+				throw new NullReferenceException($"User of Id:{idOfUser} Couldnt be loaded");
+			}
 		}
 
 
-		public async Task DeleteRecipeFromFavourites(int idOfRecipeToRemove, int iduser)
+		public async Task DeleteRecipeFromFavourites(int idOfRecipeToRemove, int idOfUser)
 		{
-			var user = await _userManager.FindByIdAsync(iduser.ToString());
-			user.Recipes = user.Recipes.Where(x => x.Id != idOfRecipeToRemove).ToList();
-			await _userManager.UpdateAsync(user);
+			try
+			{
+				var user = await _userManager.FindByIdAsync(idOfUser.ToString());
+				user.Recipes = user.Recipes.Where(x => x.Id != idOfRecipeToRemove).ToList();
+				await _userManager.UpdateAsync(user);
+			}
+			catch (NullReferenceException)
+			{
+				_logger.LogError($"User of Id:{idOfUser} Couldnt be loaded");
+				throw new NullReferenceException($"User of Id:{idOfUser} Couldnt be loaded");
+			}
 		}
 		public async Task<IEnumerable<UserViewModel>> ShowAllUsers()
 		{
-			var allUsers = await _userManager.GetUsersInRoleAsync("NormalUser");
-			var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
-			foreach (var adminUser in adminUsers)
+			try
 			{
-				allUsers.Add(adminUser);
+				var allUsers = await _userManager.GetUsersInRoleAsync("NormalUser");
+				var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+				foreach (var adminUser in adminUsers)
+				{
+					allUsers.Add(adminUser);
+				}
+				var UserViewModelsToPass = allUsers.Select(e => _mapper.Map<UserViewModel>(e));
+				foreach (var userViewModel in UserViewModelsToPass)
+				{
+					userViewModel.Roles = (await _userManager.GetRolesAsync(await _userManager.FindByEmailAsync(userViewModel.Email))).ToList();
+				}
+				return UserViewModelsToPass;
 			}
-			var UserViewModelsToPass = allUsers.Select(e => _mapper.Map<UserViewModel>(e));
-			foreach(var userViewModel in UserViewModelsToPass)
+			catch(NullReferenceException)
 			{
-				userViewModel.Roles = (await _userManager.GetRolesAsync(await _userManager.FindByEmailAsync(userViewModel.Email))).ToList();
+				_logger.LogError("Users NormalUser / Admin couldnt be loaded from DB");
+				throw new NullReferenceException("Users NormalUser / Admin couldnt be loaded from DB");
 			}
-			return UserViewModelsToPass;
 		}
 	}
 }

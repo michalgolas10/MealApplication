@@ -9,7 +9,7 @@ namespace KuceZBronksuDAL.Context
 		public static async Task Initialize(MealAppContext context, UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager)
 		{
 			context.Database.EnsureCreated();
-			if (context.Recipes.Any())
+			if (context.Users.Any())
 				return;
 			DataFileHandler.ReadingDataFromFile();
 			foreach (var recipe in TempDb.Recipes)

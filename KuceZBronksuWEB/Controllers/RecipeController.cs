@@ -6,6 +6,7 @@ using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -28,15 +29,16 @@ namespace KuceZBronksuWEB.Controllers
 		// GET: RecipeController
 		public async Task<ActionResult> Index()
 		{
-            ViewBag.SearchViewModel = _recipeService.CreateSearchModelWithMealTypes();
-			return View(await _recipeService.GetAllRecipies());
+            ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
+			var containerOfRecipesModelView = await _recipeService.GetAllRecipies();
+			return View(containerOfRecipesModelView);
 		}
 
 		[HttpPost]
 		public async Task<ActionResult> Search(SearchViewModel pageModel)
 		{
             var listOfRecipes = await _recipeService.Search(pageModel);
-			ViewBag.SearchViewModel = _recipeService.CreateSearchModelWithMealTypes();
+			ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
 				if (pageModel==null)
 			{
 				return View(listOfRecipes);
@@ -60,7 +62,7 @@ namespace KuceZBronksuWEB.Controllers
 
 		public async Task<ActionResult> Create()
 		{
-            return View(_recipeService.GetUniqueValuesOfRecipeLists());
+            return View(ModelHelper.GetUniqueValuesOfRecipeLists());
 		}
 
 		[HttpPost]
@@ -69,7 +71,7 @@ namespace KuceZBronksuWEB.Controllers
 		{
             if (!ModelState.IsValid)
 			{
-				return View(_recipeService.GetUniqueValuesOfRecipeLists());
+				return View(ModelHelper.GetUniqueValuesOfRecipeLists());
 			}
 			_recipeService.AddRecipeFromCreateView(pageModel);
 			return RedirectToAction("CreateComplete");
@@ -104,7 +106,7 @@ namespace KuceZBronksuWEB.Controllers
 		{
             var modelForViewBagFilled = await _recipeService.CreateEditViewModelForEdit(id);
 			ViewBag.EditWithUniqueValues = modelForViewBagFilled;
-			var modelToPass = _recipeService.GetUniqueValuesOfRecipeLists();
+			var modelToPass = ModelHelper.GetUniqueValuesOfRecipeLists();
 			modelToPass.IngredientLines = modelForViewBagFilled.IngredientLines;
             return View(modelToPass);
 		}

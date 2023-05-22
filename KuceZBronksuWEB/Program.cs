@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using KuceZBronksuBLL.ConfigurationMail;
 using Hangfire;
-using WebApi.Helpers;
+using KuceZBronksuWEB.Middlewares;
+using Serilog;
 
 namespace KuceZBronksuWEB
 {
@@ -32,7 +33,10 @@ namespace KuceZBronksuWEB
 				QueuePollInterval = TimeSpan.Zero,
 				UseRecommendedIsolationLevel = true,
 				DisableGlobalLocks = true,
-			})) ;
+			}));
+			builder.Host.UseSerilog((context, configuration) =>
+			configuration.ReadFrom.Configuration(context.Configuration));
+			builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 			builder.Services.AddHangfireServer();
 			builder.Services.AddMvc();
 			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -54,22 +58,23 @@ namespace KuceZBronksuWEB
 			var app = builder.Build();
 			await CreateDbIfNotExists(app);
 			// Configure the HTTP request pipeline.
-			app.UseMiddleware<ErrorHandlerMiddleware>();
 			if (!app.Environment.IsDevelopment())
 			{
 				app.UseExceptionHandler("/Home/Error");
 				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
+
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
 			app.UseRouting();
 			app.UseAuthentication(); ;
+			app.UseSerilogRequestLogging();
 
 			app.UseAuthorization();
-            
-            app.UseHangfireDashboard();
+			app.UseHangfireDashboard();
+			app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");

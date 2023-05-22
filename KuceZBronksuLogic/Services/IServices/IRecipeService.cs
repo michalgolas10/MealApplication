@@ -11,9 +11,7 @@ namespace KuceZBronksuBLL.Services.IServices
 	{
 		public Task<RecipeViewModel> GetRecipe(int Id);
 		public Task<IEnumerable<RecipeViewModel>> GetAllRecipies();
-		public SearchViewModel CreateSearchModelWithMealTypes();
 		public Task<IEnumerable<RecipeViewModel>> Search(SearchViewModel model);
-		public EditAndCreateViewModel GetUniqueValuesOfRecipeLists();
 		public void AddRecipeFromCreateView(EditAndCreateViewModel pageModel);
 		public Task<EditAndCreateViewModel> CreateEditViewModelForEdit(int id);
 		public void UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel);

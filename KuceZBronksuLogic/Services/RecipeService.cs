@@ -17,137 +17,73 @@ namespace KuceZBronksuBLL.Services
 
 		public RecipeService(IRepository<Recipe> repository, IMapper mapper)
 		{
-			this._repository = repository ?? throw new NullReferenceException("Database cant be null");
+			this._repository = repository;
 			_mapper = mapper;
 		}
 
 		public async Task<RecipeViewModel> GetRecipe(int Id)
 		{
-			return (_mapper.Map<RecipeViewModel>(await (_repository.Get(Id))));
+			try
+			{
+			var result = await (_repository.Get(Id));
+			return (_mapper.Map<RecipeViewModel>(result));
+			}
+			catch(NullReferenceException) 
+			{
+				throw new NullReferenceException($"Problem with down. recipe of Id:{Id}" );
+			}
 		}
 
 		public async Task<IEnumerable<RecipeViewModel>> GetAllRecipies()
 		{
-			var recipes = await _repository.GetAll();
-			var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
-			return result.Where(x => x.Approved == true);
+			try
+			{
+				var recipes = await _repository.GetAll();
+				var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
+				return result.Where(x => x.Approved == true);
+			}
+			catch(NullReferenceException) 
+			{
+				throw new NullReferenceException("recipes get from DB are null");
+			}
 		}
 
-		public SearchViewModel CreateSearchModelWithMealTypes()
-		{
-			return new SearchViewModel()
-			{
-				ListOfMealType = new List<string>()
-				{
-					"breakfast",
-					"lunch/dinner",
-					"teatime"
-				}
-			};
-		}
+		
 		public async Task<IEnumerable<RecipeViewModel>> Search(SearchViewModel model)
 		{
 			model.ListOfMealType = model.ListOfEmptyMealType;
-			var recipes = await _repository.GetAll();
-			if (model.IngrediendsList != null)
+			try
 			{
-				var ingredients = model.IngrediendsList.Split(',');
-				foreach (var ingredient in ingredients)
+				var recipes = await _repository.GetAll();
+				if (model.IngrediendsList != null)
 				{
-					recipes = recipes.Where(x => x.IngredientLines.Any(r => r.Contains(ingredient)));
+					var ingredients = model.IngrediendsList.Split(',');
+					foreach (var ingredient in ingredients)
+					{
+						recipes = recipes.Where(x => x.IngredientLines.Any(r => r.Contains(ingredient)));
+					}
 				}
-			}
-			if (model.ListOfMealType != null)
-			{
-				var matches = new List<Recipe>();
-				foreach (var mealtype in model.ListOfMealType)
+				if (model.ListOfMealType != null)
 				{
-					recipes = recipes.Where(x => x.MealType.Any(r => r.Contains(mealtype)));
+					var matches = new List<Recipe>();
+					foreach (var mealtype in model.ListOfMealType)
+					{
+						recipes = recipes.Where(x => x.MealType.Any(r => r.Contains(mealtype)));
+					}
 				}
+				if (model.KcalAmount != null)
+				{
+					recipes = recipes.Where(x => x.Calories < model.KcalAmount + 150 && x.Calories > model.KcalAmount - 150);
+				}
+				return recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
 			}
-			if (model.KcalAmount != null)
+			catch (NullReferenceException)
 			{
-				recipes = recipes.Where(x => x.Calories < model.KcalAmount + 150 && x.Calories > model.KcalAmount - 150);
+				throw new NullReferenceException("Recipes from db are null");
 			}
-			return recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
 		}
 
-		public EditAndCreateViewModel GetUniqueValuesOfRecipeLists()
-		{
-			return new EditAndCreateViewModel()
-			{
-				MealType = new List<string>()
-				{
-					"breakfast",
-					"lunch/dinner",
-					"teatime"
-				},
-				HealthLabels = new List<string>()
-				{
-					"Vegan",
-					"Vegetarian",
-					"Pescatarian",
-					"Dairy-Free",
-					"Gluten-Free",
-					"Wheat-Free",
-					"Egg-Free",
-					"Peanut-Free",
-					"Tree-Nut-Free",
-					"Soy-Free",
-					"Fish-Free",
-					"Shellfish-Free",
-					"Pork-Free",
-					"Red-Meat-Free",
-					"Crustacean-Free",
-					"Celery-Free",
-					"Mustard-Free",
-					"Sesame-Free",
-					"Lupine-Free",
-					"Mollusk-Free",
-					"Alcohol-Free",
-					"No oil Added",
-					"Kosher",
-					"FODMAP-Free",
-					"Mediterranean",
-					"Sulfite-Free",
-					"Immuno-Supportive",
-					"Low Potassium",
-					"Kidney-Friendly",
-					"Sugar-Conscious",
-					"Keto-Friendly",
-					"Paleo",
-					"DASH",
-				},
-				DietLabels = new List<string>()
-				{
-					"Low-Fat",
-					"Low-Sodium",
-					"Balanced",
-					"Low-Carb",
-					"High-Fiber"
-				},
-				Cautions = new List<string>()
-				{
-					"Sulfites",
-					"FODMAP",
-					"Gluten",
-					"Wheat",
-					"Soy",
-					"Tree-Nuts",
-				},
-				CuisineType = new List<string>()
-				{
-					"american",
-					"indian",
-					"british",
-					"mediterranean",
-					"french",
-					"nordic",
-					"mexican",
-					"italian"
-				}
-			};
-		}
+		
 
 		public void AddRecipeFromCreateView(EditAndCreateViewModel pageModel)
 		{
@@ -179,16 +115,24 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task<IEnumerable<RecipeViewModel>> RecipeWaitingToBeAdd()
 		{
-			var result = (await _repository.GetAll()).Where(x => x.Approved == false);
+			var recipeWaitingToBeAdd = (await _repository.GetAll()).Where(x => x.Approved == false);
+			var result = (recipeWaitingToBeAdd);
 			var recipeViewModelToBePassed = result;
 			return recipeViewModelToBePassed.Select(e => _mapper.Map<RecipeViewModel>(e));
 		}
 
 		public async Task ChangeApprovedOfRecipe(int id)
 		{
-			var recipeToChangeApprove = await _repository.Get(id);
-			recipeToChangeApprove.Approved = true;
-			_repository.Update(recipeToChangeApprove);
+			try
+			{
+				var recipeToChangeApprove = await _repository.Get(id);
+				recipeToChangeApprove.Approved = true;
+				_repository.Update(recipeToChangeApprove);
+			}
+			catch(NullReferenceException)
+			{
+				throw new NullReferenceException($"Recipe of ID :{id} couldnt be loaded");
+			}
 		}
 	}
 }

@@ -24,7 +24,7 @@ namespace KuceZBronksuWEB.Controllers
 		{
 			_logger.LogInformation("Kupa dupa pierdzi skupa");
 				var listOfRecipes = await _recipeService.GetThreeMostViewedRecipes();
-			ViewBag.SearchViewModel = _recipeService.CreateSearchModelWithMealTypes();
+			ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
 			return View(listOfRecipes);
 		}
 

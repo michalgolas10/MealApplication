@@ -11,16 +11,19 @@ using MailKit.Net.Smtp;
 using KuceZBronksuBLL.ConfigurationMail;
 using MimeKit;
 using MailKit.Security;
+using KuceZBronksuDAL.Models;
+using Microsoft.Extensions.Logging;
 
 namespace KuceZBronksuBLL.Services
 {
 	public class MailService : IMailService
 	{
 		private readonly MailSettings _settings;
-
-		public MailService(IOptions<MailSettings> settings)
+		private readonly ILogger<MailSettings> _logger;
+		public MailService(IOptions<MailSettings> settings, ILogger<MailSettings> logger)
 		{
 			_settings = settings.Value;
+			_logger = logger;
 		}
 
 		public async Task<bool> SendAsync(MailDataModel mailData, CancellationToken ct = default)
@@ -88,12 +91,13 @@ namespace KuceZBronksuBLL.Services
 				await smtp.DisconnectAsync(true, ct);
 
 				#endregion
-
+				_logger.LogInformation("Email succefully sended");
 				return true;
 
 			}
 			catch (Exception)
 			{
+				_logger.LogError("Problem with email send");
 				return false;
 			}
 		}

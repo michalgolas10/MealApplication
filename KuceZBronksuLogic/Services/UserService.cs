@@ -6,6 +6,8 @@ using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Build.Framework;
+using Microsoft.Extensions.Logging;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using static Azure.Core.HttpHeader;
@@ -17,12 +19,14 @@ namespace KuceZBronksuBLL.Services
 		private readonly IRecipeService _recipeService;
 		private readonly IMapper _mapper;
 		private readonly UserManager<User> _userManager;
+		private readonly ILogger<UserService> _logger;
 
-		public UserService(UserManager<User> userManager, IRecipeService recipeService, IMapper mapper)
+		public UserService(UserManager<User> userManager, IRecipeService recipeService, IMapper mapper, ILogger<UserService> logger)
         {
             _mapper = mapper;
-			_userManager = userManager ?? throw new NullReferenceException("DatabaseIdentityUser cant be null");
-            _recipeService = recipeService ?? throw new NullReferenceException("RecipeService cant be null");
+			_userManager = userManager;
+			_recipeService = recipeService;
+			_logger = logger;
         }
 		public async Task<bool> AddRecipeToFavourites(int idOfRecipe, int idOfUser)
 		{
@@ -41,6 +45,7 @@ namespace KuceZBronksuBLL.Services
 			}
 			catch(NullReferenceException)
 			{
+				_logger.LogError($"User of Id:{idOfUser} Couldnt be loaded");
 				throw new NullReferenceException($"User of Id:{idOfUser} Couldnt be loaded");
 			}
 		}
@@ -59,6 +64,7 @@ namespace KuceZBronksuBLL.Services
 			}
 			catch (NullReferenceException)
 			{
+				_logger.LogError($"User of Id:{idOfUser} Couldnt be loaded");
 				throw new NullReferenceException($"User of Id:{idOfUser} Couldnt be loaded");
 			}
 		}
@@ -74,6 +80,7 @@ namespace KuceZBronksuBLL.Services
 			}
 			catch (NullReferenceException)
 			{
+				_logger.LogError($"User of Id:{idOfUser} Couldnt be loaded");
 				throw new NullReferenceException($"User of Id:{idOfUser} Couldnt be loaded");
 			}
 		}
@@ -96,6 +103,7 @@ namespace KuceZBronksuBLL.Services
 			}
 			catch(NullReferenceException)
 			{
+				_logger.LogError("Users NormalUser / Admin couldnt be loaded from DB");
 				throw new NullReferenceException("Users NormalUser / Admin couldnt be loaded from DB");
 			}
 		}

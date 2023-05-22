@@ -3,6 +3,8 @@ using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository.IRepository;
+using Microsoft.Extensions.Logging;
+using Serilog.Core;
 using System;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -15,8 +17,11 @@ namespace KuceZBronksuBLL.Services
 
 		private readonly IMapper _mapper;
 
-		public RecipeService(IRepository<Recipe> repository, IMapper mapper)
+		private readonly ILogger<IRecipeService> _logger;
+
+		public RecipeService(IRepository<Recipe> repository, IMapper mapper, ILogger<IRecipeService> logger)
 		{
+			_logger = logger;
 			this._repository = repository;
 			_mapper = mapper;
 		}
@@ -30,7 +35,8 @@ namespace KuceZBronksuBLL.Services
 			}
 			catch(NullReferenceException) 
 			{
-				throw new NullReferenceException($"Problem with down. recipe of Id:{Id}" );
+				_logger.LogError($"Problem with download recipe of Id:{Id}");
+				throw new NullReferenceException($"Problem with download recipe of Id:{Id}" );
 			}
 		}
 
@@ -44,6 +50,7 @@ namespace KuceZBronksuBLL.Services
 			}
 			catch(NullReferenceException) 
 			{
+				_logger.LogError("recipes get from DB are null");
 				throw new NullReferenceException("recipes get from DB are null");
 			}
 		}
@@ -79,6 +86,7 @@ namespace KuceZBronksuBLL.Services
 			}
 			catch (NullReferenceException)
 			{
+				_logger.LogError("recipes get from DB are null");
 				throw new NullReferenceException("Recipes from db are null");
 			}
 		}
@@ -131,6 +139,7 @@ namespace KuceZBronksuBLL.Services
 			}
 			catch(NullReferenceException)
 			{
+				_logger.LogError($"Recipe of ID :{id} couldnt be loaded");
 				throw new NullReferenceException($"Recipe of ID :{id} couldnt be loaded");
 			}
 		}

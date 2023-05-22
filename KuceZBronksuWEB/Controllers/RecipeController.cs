@@ -6,6 +6,7 @@ using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -29,7 +30,8 @@ namespace KuceZBronksuWEB.Controllers
 		public async Task<ActionResult> Index()
 		{
             ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
-			return View(await _recipeService.GetAllRecipies());
+			var containerOfRecipesModelView = await _recipeService.GetAllRecipies();
+			return View(containerOfRecipesModelView);
 		}
 
 		[HttpPost]

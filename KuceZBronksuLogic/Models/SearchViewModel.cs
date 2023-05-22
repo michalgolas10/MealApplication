@@ -1,16 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace KuceZBronksuBLL.Models
 {
 	public class SearchViewModel
 	{
 		[Required]
-		public string? IngrediendsList { get; set; }
+        [DisplayName("Ingredients")]
+        public string? IngrediendsList { get; set; }
 		[Required]
-		public int? KcalAmount { get; set; }
+        [DisplayName("Kcal Amount")]
+        public int? KcalAmount { get; set; }
 		[Required]
 		public IEnumerable<string>? ListOfMealType { get; set; }
 		[Required]
-		public IEnumerable<string>? ListOfEmptyMealType { get; set; }
+        [DisplayName("Meal Type")]
+        public IEnumerable<string>? ListOfEmptyMealType { get; set; }
 	}
 }

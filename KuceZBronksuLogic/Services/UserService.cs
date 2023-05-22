@@ -36,13 +36,18 @@ namespace KuceZBronksuBLL.Services
 			try
 			{
 				var user = await _userManager.FindByIdAsync(idOfUser.ToString());
-				if (user.Recipes.Contains(resultRecipe))
+				if (user.Recipes == null)
 				{
-					return false;
+					var UsersRecipes = new List<Recipe>();
+					user.Recipes = UsersRecipes;
 				}
-				user.Recipes.Add(resultRecipe);
-				await _userManager.UpdateAsync(user);
-				return true;
+					if (user.Recipes.Contains(resultRecipe))
+					{
+						return false;
+					}
+					user.Recipes.Add(resultRecipe);
+					await _userManager.UpdateAsync(user);
+					return true;
 			}
 			catch(NullReferenceException)
 			{

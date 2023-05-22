@@ -5,6 +5,6 @@ namespace KuceZBronksuDAL.Models
 {
 	public class User : IdentityUser<int>
 	{
-		public ICollection<Recipe>? Recipes;
+		public List<Recipe>? Recipes;
 	}
 }

@@ -91,7 +91,7 @@ namespace KuceZBronksuWEB.Controllers
 		public async Task<ActionResult> FavouriteRecipes()
 		{
             var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
-			var zmienna = await _userService.GetFavouritesRecipesOfUser(idOfUser);
+			var zmienna = (await _userService.GetFavouritesRecipesOfUser(idOfUser)).ToList();
 			return View(zmienna);
 		}
 

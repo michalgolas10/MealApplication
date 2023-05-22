@@ -46,7 +46,7 @@ namespace KuceZBronksuBLL.Services
 			{
 				var recipes = await _repository.GetAll();
 				var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
-				return result.Where(x => x.Approved == true);
+				return result.Where(x => x.Approved == true).ToList();
 			}
 			catch(NullReferenceException) 
 			{
@@ -82,7 +82,7 @@ namespace KuceZBronksuBLL.Services
 				{
 					recipes = recipes.Where(x => x.Calories < model.KcalAmount + 150 && x.Calories > model.KcalAmount - 150);
 				}
-				return recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
+				return recipes.Select(e => _mapper.Map<RecipeViewModel>(e)).ToList();
 			}
 			catch (NullReferenceException)
 			{

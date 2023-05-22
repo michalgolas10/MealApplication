@@ -41,10 +41,6 @@
                         <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="FavouriteRecipes">Favourite Recipes</a></li>
                     }
                     <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="Create">Add Recipe</a></li>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="AdministratorPanel">Administrator Panel</a></li>
-                    }
                     <li class="nav-item">
                         <div class="dropdown">
                             <button onclick="myFunction()" class="dropbtn">Account</button>
@@ -55,9 +51,12 @@
                                     }
                                     else
                                     {
-                                <a asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
-                                <a asp-area="" asp-controller="Account" asp-action="Registration">Register</a>
+                                    <a asp-area="Identity" asp-page="/Account/Login">Log in</a>
+                                    <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
                                 <a asp-area="" asp-controller="Account" asp-action="AdministratorPanel">Admin Panel</a>
+                                    }
                                     }
                             </div>
                         </div>

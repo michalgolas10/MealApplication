@@ -95,12 +95,14 @@ namespace KuceZBronksuBLL.Services
 				{
 					allUsers.Add(adminUser);
 				}
-				var UserViewModelsToPass = allUsers.Select(e => _mapper.Map<UserViewModel>(e));
+				var UserViewModelsToPass = allUsers.Select(e => _mapper.Map<UserViewModel>(e)).ToList();
 				foreach (var userViewModel in UserViewModelsToPass)
 				{
-					userViewModel.Roles = (await _userManager.GetRolesAsync(await _userManager.FindByEmailAsync(userViewModel.Email))).ToList();
+					var roleOfUser = (await _userManager.GetRolesAsync(await _userManager.FindByEmailAsync(userViewModel.Email))).ToList();
+
+					userViewModel.Roles = roleOfUser;
 				}
-				return UserViewModelsToPass;
+				return UserViewModelsToPass.ToList();
 			}
 			catch(NullReferenceException)
 			{

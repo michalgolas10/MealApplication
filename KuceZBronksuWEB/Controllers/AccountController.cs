@@ -41,13 +41,16 @@ namespace KuceZBronksuWEB.Controllers
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> ShowAllUsers()
 		{
-			return View(await _userService.ShowAllUsers());
+			var users = await _userService.ShowAllUsers();
+
+            return View(users);
 		}
 
         [Authorize(Roles = "Admin")]
 		public async Task<IActionResult> ShowRecipeWaitingToBeAdd()
 		{
-			var result = (await _recipeService.RecipeWaitingToBeAdd()).ToList();
+			var recipeWaitingToBeAdd = (await _recipeService.RecipeWaitingToBeAdd()).ToList();
+			var result = recipeWaitingToBeAdd;
 			return View(result);
 		}
 

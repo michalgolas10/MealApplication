@@ -95,16 +95,28 @@ namespace KuceZBronksuBLL.Services
 
 		public void AddRecipeFromCreateView(EditAndCreateViewModel pageModel)
 		{
+			_logger.LogInformation("Adding Recipe To DB");
 			_repository.Insert(_mapper.Map<Recipe>(pageModel));
 		}
 
 		public async Task<EditAndCreateViewModel> CreateEditViewModelForEdit(int id)
 		{
-			return _mapper.Map<EditAndCreateViewModel>(await GetRecipe(id));
+			try
+			{
+			var recipePassedToView = await GetRecipe(id);
+			return _mapper.Map<EditAndCreateViewModel>(recipePassedToView);
+			}
+			catch (NullReferenceException)
+			{
+				_logger.LogError("Couldnt load recipe from DB");
+				throw new NullReferenceException("Couldnt load recipe from DB");
+			}
+			
 		}
 
 		public void UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel)
 		{
+			_logger.LogInformation("Updating Recipe From DB");
 			_repository.Update(_mapper.Map<Recipe>(editAndCreateViewModel));
 		}
 
@@ -118,15 +130,24 @@ namespace KuceZBronksuBLL.Services
 
 		public void DeleteRecipe(int id)
 		{
+			_logger.LogInformation("Deleting Recipe From DB");
 			_repository.Delete(id);
 		}
 
 		public async Task<IEnumerable<RecipeViewModel>> RecipeWaitingToBeAdd()
 		{
-			var recipeWaitingToBeAdd = (await _repository.GetAll()).Where(x => x.Approved == false);
-			var result = (recipeWaitingToBeAdd);
-			var recipeViewModelToBePassed = result;
-			return recipeViewModelToBePassed.Select(e => _mapper.Map<RecipeViewModel>(e));
+			try
+			{
+				var recipeWaitingToBeAdd = (await _repository.GetAll()).Where(x => x.Approved == false);
+				var result = (recipeWaitingToBeAdd);
+				var recipeViewModelToBePassed = result;
+				return recipeViewModelToBePassed.Select(e => _mapper.Map<RecipeViewModel>(e));
+			}
+			catch (NullReferenceException)
+			{
+				_logger.LogError("Problem with load unaccepted recipes");
+				throw new NullReferenceException("Problem with load unaccepted recipes");
+			}
 		}
 
 		public async Task ChangeApprovedOfRecipe(int id)

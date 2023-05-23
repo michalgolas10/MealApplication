@@ -5,6 +5,23 @@ namespace KuceZBronksuDAL.Models
 {
 	public class User : IdentityUser<int>
 	{
-		public List<Recipe>? Recipes;
-	}
+        private readonly ILazyLoader _lazyLoader;
+
+        public User()
+        {
+        }
+
+        public User(ILazyLoader lazyLoader)
+        {
+            _lazyLoader = lazyLoader;
+        }
+
+        private List<Recipe> _recipes;
+
+        public List<Recipe> Recipes
+        {
+            get => _lazyLoader.Load(this, ref _recipes);
+            set => _recipes = value;
+        }
+    }
 }

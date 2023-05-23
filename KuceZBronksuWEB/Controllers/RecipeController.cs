@@ -49,9 +49,17 @@ namespace KuceZBronksuWEB.Controllers
 		// GET: RecipeController/Details/5
 		public async Task<ActionResult> ShowRecipeDetails(int id)
 		{
-            var result = await _recipeService.GetRecipe(id);
-			return View(result);
-		}
+            var RecipeCount = (await _recipeService.GetAllRecipies()).Count();
+            if (id > 0 && id < RecipeCount)
+            {
+                var result = await _recipeService.GetRecipe(id);
+                return View(result);
+            }
+            else
+            {
+                throw new Exception("There is no such a recipe in database!");
+            }
+        }
 
 		public async Task<ActionResult> ShowRecipeDetailsWithViewModel(RecipeViewModel model)
 		{

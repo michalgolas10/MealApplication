@@ -19,18 +19,8 @@ namespace KuceZBronksuWEB.Middlewares
             }
             catch (Exception e)
             {
-                _logger.LogError(e, e.Message);
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                ProblemDetails problem = new()
-                {
-                    Status = (int)HttpStatusCode.InternalServerError,
-                    Type = "Server error",
-                    Title = "Server error",
-                    Detail = "An internal server has occured"
-                };
-                var json = JsonSerializer.Serialize(problem);
-                await context.Response.WriteAsync(json);
-                context.Response.ContentType = "application/json"; 
+                _logger.LogError(e.Message);
+                throw new Exception(e.Message, e);
             }
         }
     }

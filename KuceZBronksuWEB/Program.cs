@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using KuceZBronksuBLL.ConfigurationMail;
 using Hangfire;
-using KuceZBronksuWEB.Middlewares;
 using Serilog;
+using KuceZBronksuWEB.Middlewares;
 
 namespace KuceZBronksuWEB
 {
@@ -36,9 +36,9 @@ namespace KuceZBronksuWEB
 			}));
 			builder.Host.UseSerilog((context, configuration) =>
 			configuration.ReadFrom.Configuration(context.Configuration));
-			builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
-			builder.Services.AddHangfireServer();
-			builder.Services.AddMvc();
+            builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
+            builder.Services.AddHangfireServer();
+            builder.Services.AddMvc();
 			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
 					.AddRoles<IdentityRole<int>>()
 					.AddEntityFrameworkStores<MealAppContext>()
@@ -57,12 +57,17 @@ namespace KuceZBronksuWEB
 			builder.Services.AddAutoMapper(typeof(User), typeof(Program));
 			var app = builder.Build();
 			await CreateDbIfNotExists(app);
-			// Configure the HTTP request pipeline.
-				app.UseExceptionHandler("/Home/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
 
-			app.UseHttpsRedirection();
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
 			app.UseRouting();
@@ -71,8 +76,8 @@ namespace KuceZBronksuWEB
 
 			app.UseAuthorization();
 			app.UseHangfireDashboard();
-			app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
-			app.MapControllerRoute(
+            app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+            app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
 			RecurringJob.AddOrUpdate<ITimeService>("SendEmailToAdmin",service => service.SendEmailToAdmin(),Cron.Minutely);

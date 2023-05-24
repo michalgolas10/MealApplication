@@ -36,9 +36,7 @@
                 @foreach (var item in Model)
                 {
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 recipeCard">
-                        <div class="myCardTitle-sm myCardTitle">
-                            <h3 class="card-title-my text center d-flex align-items-center">@Html.DisplayFor(modelItem => item.Label)</h3>
-                        </div>
+                        <h3 class="myCardTitle-sm myCardTitle text-center">@Html.DisplayFor(modelItem => item.Label)</h3>
                         <div class="card">
                             @if (item.Image.Contains("/")) // Means that its image that someone put URL for.
                             {

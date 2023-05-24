@@ -33,7 +33,7 @@ namespace KuceZBronksuBLL.Services
 			var result = await (_repository.Get(Id));
 			return (_mapper.Map<RecipeViewModel>(result));
 			}
-			catch(NullReferenceException) 
+			catch(NullReferenceException)
 			{
 				_logger.LogError($"Problem with download recipe of Id:{Id}");
 				throw new NullReferenceException($"Problem with download recipe of Id:{Id}" );
@@ -48,14 +48,14 @@ namespace KuceZBronksuBLL.Services
 				var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
 				return result.Where(x => x.Approved == true).ToList();
 			}
-			catch(NullReferenceException) 
+			catch(NullReferenceException)
 			{
 				_logger.LogError("recipes get from DB are null");
 				throw new NullReferenceException("recipes get from DB are null");
 			}
 		}
 
-		
+
 		public async Task<IEnumerable<RecipeViewModel>> Search(SearchViewModel model)
 		{
 			model.ListOfMealType = model.ListOfEmptyMealType;
@@ -91,8 +91,6 @@ namespace KuceZBronksuBLL.Services
 			}
 		}
 
-		
-
 		public void AddRecipeFromCreateView(EditAndCreateViewModel pageModel)
 		{
 			_logger.LogInformation("Adding Recipe To DB");
@@ -111,7 +109,6 @@ namespace KuceZBronksuBLL.Services
 				_logger.LogError("Couldnt load recipe from DB");
 				throw new NullReferenceException("Couldnt load recipe from DB");
 			}
-			
 		}
 
 		public void UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel)

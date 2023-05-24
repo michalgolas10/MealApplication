@@ -42,7 +42,7 @@ namespace KuceZBronksuBLL.Services
 		{
 			int userIdToInt;
 			userIdToInt = int.Parse(userId);
-			var apiEndpoint = "https://localhost:7225/VisitedCar";
+			var apiEndpoint = "https://localhost:7294/VisitedRecipes";
 			var recipeToPost = new VisitedRecipesDTO
 			{
 				UserId = userIdToInt,
@@ -59,7 +59,7 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task ReportUserLoginAsync(int userId)
 		{
-			var apiEndpoint = "https://localhost:7225/Report";
+			var apiEndpoint = "https://localhost:7294/ReportUserLogin";
 			var userToPost = new LastLoggedUsersReportDto
 			{
 				UserId = userId,
@@ -67,7 +67,7 @@ namespace KuceZBronksuBLL.Services
 				LoginCount = +1
 			};
 
-			_mapper.Map<LastLoggedUsers>(userToPost);
+			_mapper.Map<LastLoggedUsersReport>(userToPost);
 			var response = await PostUserActivityAsync(userToPost, apiEndpoint);
 			if (!response.IsSuccessStatusCode)
 			{

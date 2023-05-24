@@ -103,6 +103,8 @@ namespace KuceZBronksuWEB.Controllers
 			bool hasBeenAdded = await _userService.AddRecipeToFavourites(id, idOfUser);
 			if (hasBeenAdded == true)
 			{
+				var recipe = await _recipeService.GetRecipe(id);
+				await _reportService.ReportAddedToFavouriteAsync(recipe, idOfUser);
 				return RedirectToAction("Index");
 			}
 			return RedirectToAction("Index");

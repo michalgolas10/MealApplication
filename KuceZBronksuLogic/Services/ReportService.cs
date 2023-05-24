@@ -74,5 +74,25 @@ namespace KuceZBronksuBLL.Services
 				_logger.LogError("Couldnt Report User Login");
 			}
 		}
+
+		public async Task ReportAddedToFavouriteAsync(RecipeViewModel favouriteRecipe, int userId)
+		{
+			var apiEndpoint = "https://localhost:7294/AddedToFavourite";
+			var userToPost = new RecipeAddedToFavouriteDTO
+			{
+				UserId = userId,
+				RecipeId = favouriteRecipe.Id,
+				DateWhenClicked = DateTime.Now,
+				LabelOfRecie = favouriteRecipe.Label
+
+			};
+
+			_mapper.Map<RecipeAddedToFavourite>(userToPost);
+			var response = await PostUserActivityAsync(userToPost, apiEndpoint);
+			if (!response.IsSuccessStatusCode)
+			{
+				_logger.LogError("Couldnt Report Adding To Favourite By User");
+			}
+		}
 	}
 }

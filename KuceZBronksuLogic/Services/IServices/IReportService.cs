@@ -12,5 +12,6 @@ namespace KuceZBronksuBLL.Services.IServices
 		Task ReportRecipeVisitAsync(RecipeViewModel visitedRecipe, string userId);
 		Task ReportUserLoginAsync(int userId);
 		Task<int> GetUserIdAsync(string email);
+		Task ReportAddedToFavouriteAsync(RecipeViewModel favouriteRecipe, int userId)
 	}
 }

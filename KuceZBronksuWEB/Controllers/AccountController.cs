@@ -67,5 +67,6 @@ namespace KuceZBronksuWEB.Controllers
             RecurringJob.AddOrUpdate<ITimeService>("SendEmailToAdmin", service => service.SendEmailToAdmin(), Cron.Daily(model.TimeOfCyclicalEmailing));
             return RedirectToAction("AdministratorPanel");
         }
+
     }
 }

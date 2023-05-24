@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuDAL.Models
 {
-	internal class LastLoggedReport
+	public class LastLoggedUsers
 	{
+		public int UserId { get; set; }
+		public DateTime LastLogged { get; set; }
+		public int LoginCount { get; set; }
 	}
 }

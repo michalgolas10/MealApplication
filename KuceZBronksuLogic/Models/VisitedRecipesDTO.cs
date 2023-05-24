@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuBLL.Models
 {
-	internal class VisitedRecipesDTO
+	public class VisitedRecipesDTO
 	{
+		public int UserId { get; set; }
+		public int RecipeId { get; set; }
+		public DateTime DateWhenClicked { get; set; }
+		public string? LabelOfRecie { get; set; }
 	}
 }

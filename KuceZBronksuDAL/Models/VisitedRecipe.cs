@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuDAL.Models
 {
-	internal class VisitedRecipe
+	public class VisitedRecipe
 	{
+		public int UserId { get; set; }
+		public int RecipeId { get; set; }
+		public DateTime DateWhenClicked { get; set; }
+		public string? LabelOfRecipe { get; set; }
 	}
 }

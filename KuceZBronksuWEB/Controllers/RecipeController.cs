@@ -96,7 +96,6 @@ namespace KuceZBronksuWEB.Controllers
 			_recipeService.AddRecipeFromCreateView(pageModel);
 			return RedirectToAction("CreateComplete");
 		}
-
 		public async Task<ActionResult> AddToFavourites(int id)
 		{
             var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));

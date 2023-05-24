@@ -21,17 +21,6 @@ namespace KuceZBronksuWEB.Controllers
 			_userService = userService;
 			_timeService = timeService;
 		}
-
-		public IActionResult Login()
-		{
-			return View();
-		}
-
-		public IActionResult Registration()
-		{
-			return View();
-		}
-
 		[Authorize(Roles = "Admin")]
 		public IActionResult AdministratorPanel()
 		{

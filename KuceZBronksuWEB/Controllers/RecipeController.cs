@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
+using System.Security.Claims;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -59,9 +60,11 @@ namespace KuceZBronksuWEB.Controllers
 		public async Task<ActionResult> ShowRecipeDetails(int id)
 		{
             var RecipeCount = (await _recipeService.GetAllRecipies()).Count();
-            if (id > 0 && id < RecipeCount)
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (id > 0 && id < RecipeCount)
             {
                 var result = await _recipeService.GetRecipe(id);
+				await _reportService.ReportRecipeVisitAsync(result,userId);
                 return View(result);
             }
             else

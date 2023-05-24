@@ -38,10 +38,10 @@ namespace KuceZBronksuBLL.Services
 			return userId;
 		}
 
-		public async Task ReportRecipeVisitAsync(RecipeViewModel visitedRecipe, string userId)
+		public async Task ReportRecipeVisitAsync(RecipeViewModel visitedRecipe, int userId)
 		{
 			int userIdToInt;
-			userIdToInt = int.Parse(userId);
+			userIdToInt = userId;
 			var apiEndpoint = "https://localhost:7294/VisitedRecipes";
 			var recipeToPost = new VisitedRecipesDTO
 			{

@@ -60,11 +60,11 @@ namespace KuceZBronksuWEB.Controllers
 		public async Task<ActionResult> ShowRecipeDetails(int id)
 		{
             var RecipeCount = (await _recipeService.GetAllRecipies()).Count();
-			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
 			if (id > 0 && id < RecipeCount)
             {
                 var result = await _recipeService.GetRecipe(id);
-				await _reportService.ReportRecipeVisitAsync(result,userId);
+				await _reportService.ReportRecipeVisitAsync(result,idOfUser);
                 return View(result);
             }
             else

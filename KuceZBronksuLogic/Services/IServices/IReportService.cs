@@ -9,7 +9,7 @@ namespace KuceZBronksuBLL.Services.IServices
 {
 	public interface IReportService
 	{
-		Task ReportRecipeVisitAsync(RecipeViewModel visitedRecipe, string userId);
+		Task ReportRecipeVisitAsync(RecipeViewModel visitedRecipe, int userId);
 		Task ReportUserLoginAsync(int userId);
 		Task<int> GetUserIdAsync(string email);
 	}

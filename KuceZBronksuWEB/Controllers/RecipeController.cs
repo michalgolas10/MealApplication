@@ -16,22 +16,31 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly IMapper _mapper;
 		private readonly IUserService _userService;
 		private readonly UserManager<User> _userManager;
+		private readonly IReportService _reportService;
 
 		public RecipeController(IUserService userService,
-			IRecipeService recipeService, IMapper mapper, UserManager<User> userManager)
+			IRecipeService recipeService, IMapper mapper, UserManager<User> userManager, IReportService reportService)
 		{
 			_userService = userService;
 			_recipeService = recipeService;
 			_mapper = mapper;
 			_userManager = userManager;
+			_reportService = reportService;
 		}
 
 		// GET: RecipeController
 		public async Task<ActionResult> Index()
 		{
             ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
-			var containerOfRecipesModelView = await _recipeService.GetAllRecipies();
-			return View(containerOfRecipesModelView);
+			try
+			{
+				var containerOfRecipesModelView = await _recipeService.GetAllRecipies();
+				return View(containerOfRecipesModelView);
+			}
+			catch (NullReferenceException)
+			{
+				throw new NullReferenceException("Smth went wrong with load most viewed recipes!");
+			}
 		}
 
 		[HttpPost]

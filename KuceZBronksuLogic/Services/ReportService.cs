@@ -43,7 +43,6 @@ namespace KuceZBronksuBLL.Services
 			var apiEndpoint = "https://localhost:7294/VisitedRecipes";
 			var recipeToPost = new VisitedRecipesDTO
 			{
-				RecipeId = visitedRecipe.Id,
 				DateWhenClicked = DateTime.Now
 			};
 			_mapper.Map<VisitedRecipe>(recipeToPost);

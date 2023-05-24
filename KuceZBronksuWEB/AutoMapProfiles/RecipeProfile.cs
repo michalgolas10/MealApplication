@@ -16,6 +16,10 @@ namespace KuceZBronksuWEB.AutoMapProfiles
 				.ForMember(dest => dest.Approved,opts => opts.Equals(false));
 			CreateMap<EditAndCreateViewModel, RecipeViewModel>()
 				.ReverseMap();
+			CreateMap<VisitedRecipe,VisitedRecipesDTO>()
+				.ReverseMap();
+			CreateMap<LastLoggedUsers,LastLoggedUsersReportDto>()
+				.ReverseMap();
 		}
 	}
 }

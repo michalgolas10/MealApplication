@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,18 +19,19 @@ namespace KuceZBronksuBLL.Services
 		private readonly IMapper _mapper;
 		private readonly UserManager<User> _userManager;
 		private readonly ILogger<ReportService> _logger;
-		public ReportService(IMapper mapper, UserManager<User> userManager, ILogger<ReportService> logger )
+		private readonly IHttpClientFactory _httpClientFactory;
+		public ReportService(IMapper mapper, UserManager<User> userManager, ILogger<ReportService> logger, IHttpClientFactory httpClientFactory)
         {
 			_mapper = mapper;
 			_userManager = userManager;
 			_logger = logger;
-			httpClient = new HttpClient();
+			_httpClientFactory= httpClientFactory;
         }
 		private async Task<HttpResponseMessage> PostUserActivityAsync(object reportModel, string apiEndpoint)
 		{
 			var json = Newtonsoft.Json.JsonConvert.SerializeObject(reportModel);
 			var content = new StringContent(json, Encoding.UTF8, "application/json");
-			return await httpClient.PostAsync(apiEndpoint, content);
+			return await _httpClientFactory.CreateClient().PostAsync(apiEndpoint, content);
 		}
 		public async Task<int> GetUserIdAsync(string email)
 		{
@@ -37,15 +39,15 @@ namespace KuceZBronksuBLL.Services
 			var userId = user.Id;
 			return userId;
 		}
-
 		public async Task ReportRecipeVisitAsync(RecipeViewModel visitedRecipe)
 		{
-			var apiEndpoint = "https://localhost:7294/VisitedRecipes";
+			var apiEndpoint = "https://localhost:7294/VisitedRecipe";
 			var recipeToPost = new VisitedRecipesDTO
 			{
-				DateWhenClicked = DateTime.Now
+				RecipeId = visitedRecipe.Id,
+				DateWhenClicked = DateTime.Now,
+				LabelOfRecipe = visitedRecipe.Label
 			};
-			_mapper.Map<VisitedRecipe>(recipeToPost);
 			var response = await PostUserActivityAsync(recipeToPost, apiEndpoint);
 			if (!response.IsSuccessStatusCode)
 			{
@@ -55,15 +57,13 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task ReportUserLoginAsync(int userId)
 		{
-			var apiEndpoint = "https://localhost:7294/ReportUserLogin";
+			var apiEndpoint = "https://localhost:7294/Report";
 			var userToPost = new LastLoggedUsersReportDto
 			{
 				UserId = userId,
 				LastLogged = DateTime.Now,
 				LoginCount = +1
 			};
-
-			_mapper.Map<LastLoggedUsersReport>(userToPost);
 			var response = await PostUserActivityAsync(userToPost, apiEndpoint);
 			if (!response.IsSuccessStatusCode)
 			{
@@ -74,17 +74,14 @@ namespace KuceZBronksuBLL.Services
 		public async Task ReportAddedToFavouriteAsync(RecipeViewModel favouriteRecipe, int userId)
 		{
 			var apiEndpoint = "https://localhost:7294/AddedToFavourite";
-			var userToPost = new RecipeAddedToFavouriteDTO
+			var recipeToPost = new RecipeAddedToFavouriteDTO
 			{
 				UserId = userId,
 				RecipeId = favouriteRecipe.Id,
 				DateWhenClicked = DateTime.Now,
 				LabelOfRecie = favouriteRecipe.Label
-
 			};
-
-			_mapper.Map<RecipeAddedToFavourite>(userToPost);
-			var response = await PostUserActivityAsync(userToPost, apiEndpoint);
+			var response = await PostUserActivityAsync(recipeToPost, apiEndpoint);
 			if (!response.IsSuccessStatusCode)
 			{
 				_logger.LogError("Couldnt Report Adding To Favourite By User");

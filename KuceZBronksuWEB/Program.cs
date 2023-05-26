@@ -56,6 +56,7 @@ namespace KuceZBronksuWEB
 			builder.Services.AddAutoMapper(typeof(EditAndCreateViewModel), typeof(Program));
 			builder.Services.AddAutoMapper(typeof(Recipe), typeof(Program));
 			builder.Services.AddAutoMapper(typeof(User), typeof(Program));
+			builder.Services.AddHttpClient();
 			var app = builder.Build();
 			await CreateDbIfNotExists(app);
 

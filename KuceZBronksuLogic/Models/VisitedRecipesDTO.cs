@@ -10,6 +10,6 @@ namespace KuceZBronksuBLL.Models
 	{
 		public int RecipeId { get; set; }
 		public DateTime DateWhenClicked { get; set; }
-		public string? LabelOfRecie { get; set; }
+		public string? LabelOfRecipe { get; set; }
 	}
 }

@@ -7,11 +7,11 @@ namespace KuceZBronksuAPI.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	public class VisitedCarController : ControllerBase
+	public class VisitedRecipeController : ControllerBase
 	{
 		private readonly MealAppContext _context;
-		private readonly ILogger<VisitedCarController> _logger;
-		public VisitedCarController(ILogger<VisitedCarController> logger, MealAppContext context)
+		private readonly ILogger<VisitedRecipeController> _logger;
+		public VisitedRecipeController(ILogger<VisitedRecipeController> logger, MealAppContext context)
 		{
 			_logger = logger;
 			_context = context;

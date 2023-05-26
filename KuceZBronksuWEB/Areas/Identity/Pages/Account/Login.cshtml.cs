@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -15,9 +16,11 @@ namespace KuceZBronksuWEB.Areas.Identity.Pages.Account
 	{
 		private readonly SignInManager<User> _signInManager;
 		private readonly ILogger<LoginModel> _logger;
+		private readonly IReportService _reportService;
 
-		public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger)
+		public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger, IReportService reportService)
 		{
+			_reportService = reportService;
 			_signInManager = signInManager;
 			_logger = logger;
 		}
@@ -109,6 +112,11 @@ namespace KuceZBronksuWEB.Areas.Identity.Pages.Account
 				if (result.Succeeded)
 				{
 					_logger.LogInformation("User logged in.");
+
+					var userEmail = Input.Email;
+					var customer = await _reportService.GetUserIdAsync(userEmail);
+					await _reportService.ReportUserLoginAsync(customer);
+
 					return LocalRedirect(returnUrl);
 				}
 				if (result.RequiresTwoFactor)

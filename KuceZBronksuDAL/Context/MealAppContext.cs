@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
 
 namespace KuceZBronksuDAL.Context
@@ -16,6 +17,7 @@ namespace KuceZBronksuDAL.Context
 
 		public DbSet<LastLoggedUsersReport> LastLoggings { get; set; }
 		public DbSet<VisitedRecipe> VisitedRecipes { get; set; }
+		public DbSet<RecipeAddedToFavourite> RecipeAddedToFavourites { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -68,6 +70,10 @@ namespace KuceZBronksuDAL.Context
 			modelBuilder.Entity<LastLoggedUsersReport>();
 
 			modelBuilder.Entity<VisitedRecipe>(eb =>
+			{
+				eb.Property(v => v.Created).HasDefaultValueSql("getutcdate()");
+			});
+			modelBuilder.Entity<RecipeAddedToFavourite>(eb =>
 			{
 				eb.Property(v => v.Created).HasDefaultValueSql("getutcdate()");
 			});

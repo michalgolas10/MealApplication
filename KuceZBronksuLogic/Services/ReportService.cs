@@ -73,7 +73,7 @@ namespace KuceZBronksuBLL.Services
 
 		public async Task ReportAddedToFavouriteAsync(RecipeViewModel favouriteRecipe, int userId)
 		{
-			var apiEndpoint = "https://localhost:7294/AddedToFavourite";
+			var apiEndpoint = "https://localhost:7294/AddedFavouriteRecipe";
 			var recipeToPost = new RecipeAddedToFavouriteDTO
 			{
 				UserId = userId,

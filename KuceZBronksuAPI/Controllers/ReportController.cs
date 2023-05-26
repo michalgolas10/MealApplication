@@ -40,12 +40,5 @@ namespace KuceZBronksuAPI.Controllers
 			await _context.AddAsync(lastLoggedReport);
 			await _context.SaveChangesAsync();
 		}
-
-		[HttpPut(Name = "UpdateLastLoggedUser")]
-		public async Task UpdateAsync([FromBody] LastLoggedUsersReport lastLoggedReport)
-		{
-			_context.LastLoggings.Update(lastLoggedReport);
-			await _context.SaveChangesAsync();
-		}
 	}
 }

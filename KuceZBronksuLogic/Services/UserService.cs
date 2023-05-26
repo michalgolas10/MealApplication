@@ -21,9 +21,11 @@ namespace KuceZBronksuBLL.Services
 		private readonly IMapper _mapper;
 		private readonly UserManager<User> _userManager;
 		private readonly ILogger<UserService> _logger;
+		private readonly IReportService _reportService;
 
-		public UserService(UserManager<User> userManager, IRecipeService recipeService, IMapper mapper, ILogger<UserService> logger)
+		public UserService(IReportService reportService, UserManager<User> userManager, IRecipeService recipeService, IMapper mapper, ILogger<UserService> logger)
         {
+			_reportService = reportService;
             _mapper = mapper;
 			_userManager = userManager;
 			_recipeService = recipeService;
@@ -47,6 +49,7 @@ namespace KuceZBronksuBLL.Services
 					}
 					user.Recipes.Add(resultRecipe);
 					await _userManager.UpdateAsync(user);
+				await _reportService.ReportAddedToFavouriteAsync(recipeThatIsAddedToFavourite,user.Id);
 					return true;
 			}
 			catch(NullReferenceException)
@@ -55,7 +58,10 @@ namespace KuceZBronksuBLL.Services
 				throw new NullReferenceException($"User of Id:{idOfUser} Couldnt be loaded");
 			}
 		}
-
+		public async Task<bool> ItsRecipeInUsersFavourite(int userId, int recipeId)
+		{
+			var user = await _userManager.FindByIdAsync(userId)
+		}
 		public async Task<IEnumerable<RecipeViewModel>> GetFavouritesRecipesOfUser(int idOfUser)
 		{
 			try

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Framework;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Logging;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
@@ -60,7 +61,9 @@ namespace KuceZBronksuBLL.Services
 		}
 		public async Task<bool> ItsRecipeInUsersFavourite(int userId, int recipeId)
 		{
-			var user = await _userManager.FindByIdAsync(userId)
+			var user = await _userManager.FindByIdAsync(userId.ToString());
+			var recipe = await _recipeService.GetRecipe(recipeId);
+			return user.Recipes.Contains(_mapper.Map<Recipe>(recipe));
 		}
 		public async Task<IEnumerable<RecipeViewModel>> GetFavouritesRecipesOfUser(int idOfUser)
 		{

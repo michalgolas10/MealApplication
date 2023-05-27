@@ -4,10 +4,6 @@ using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository.IRepository;
 using Microsoft.Extensions.Logging;
-using Serilog.Core;
-using System;
-using System.Text.RegularExpressions;
-using System.Xml;
 
 namespace KuceZBronksuBLL.Services
 {
@@ -30,13 +26,13 @@ namespace KuceZBronksuBLL.Services
 		{
 			try
 			{
-			var result = await (_repository.Get(Id));
-			return (_mapper.Map<RecipeViewModel>(result));
+				var result = await (_repository.Get(Id));
+				return (_mapper.Map<RecipeViewModel>(result));
 			}
-			catch(NullReferenceException)
+			catch (NullReferenceException)
 			{
 				_logger.LogError($"Problem with download recipe of Id:{Id}");
-				throw new NullReferenceException($"Problem with download recipe of Id:{Id}" );
+				throw new NullReferenceException($"Problem with download recipe of Id:{Id}");
 			}
 		}
 
@@ -48,13 +44,12 @@ namespace KuceZBronksuBLL.Services
 				var result = recipes.Select(e => _mapper.Map<RecipeViewModel>(e));
 				return result.Where(x => x.Approved == true).ToList();
 			}
-			catch(NullReferenceException)
+			catch (NullReferenceException)
 			{
 				_logger.LogError("recipes get from DB are null");
 				throw new NullReferenceException("recipes get from DB are null");
 			}
 		}
-
 
 		public async Task<IEnumerable<RecipeViewModel>> Search(SearchViewModel model)
 		{
@@ -101,8 +96,8 @@ namespace KuceZBronksuBLL.Services
 		{
 			try
 			{
-			var recipePassedToView = await GetRecipe(id);
-			return _mapper.Map<EditAndCreateViewModel>(recipePassedToView);
+				var recipePassedToView = await GetRecipe(id);
+				return _mapper.Map<EditAndCreateViewModel>(recipePassedToView);
 			}
 			catch (NullReferenceException)
 			{
@@ -155,7 +150,7 @@ namespace KuceZBronksuBLL.Services
 				recipeToChangeApprove.Approved = true;
 				_repository.Update(recipeToChangeApprove);
 			}
-			catch(NullReferenceException)
+			catch (NullReferenceException)
 			{
 				_logger.LogError($"Recipe of ID :{id} couldnt be loaded");
 				throw new NullReferenceException($"Recipe of ID :{id} couldnt be loaded");

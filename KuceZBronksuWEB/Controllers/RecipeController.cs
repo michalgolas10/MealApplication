@@ -1,13 +1,11 @@
 using AutoMapper;
+using KuceZBronksuBLL.Helpers;
 using KuceZBronksuBLL.Models;
-using KuceZBronksuBLL.Services;
 using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
-using System.Security.Claims;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -32,7 +30,7 @@ namespace KuceZBronksuWEB.Controllers
 		// GET: RecipeController
 		public async Task<ActionResult> Index()
 		{
-            ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
+			ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
 			try
 			{
 				var containerOfRecipesModelView = await _recipeService.GetAllRecipies();
@@ -47,9 +45,9 @@ namespace KuceZBronksuWEB.Controllers
 		[HttpPost]
 		public async Task<ActionResult> Search(SearchViewModel pageModel)
 		{
-            var listOfRecipes = await _recipeService.Search(pageModel);
+			var listOfRecipes = await _recipeService.Search(pageModel);
 			ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
-				if (pageModel==null)
+			if (pageModel == null)
 			{
 				return View(listOfRecipes);
 			}
@@ -59,45 +57,46 @@ namespace KuceZBronksuWEB.Controllers
 		// GET: RecipeController/Details/5
 		public async Task<ActionResult> ShowRecipeDetails(int id)
 		{
-            var RecipeCount = (await _recipeService.GetAllRecipies()).Count();
+			var RecipeCount = (await _recipeService.GetAllRecipies()).Count();
 			if (id > 0 && id < RecipeCount)
-            {
-                var result = await _recipeService.GetRecipe(id);
+			{
+				var result = await _recipeService.GetRecipe(id);
 				await _reportService.ReportRecipeVisitAsync(result);
-                return View(result);
-            }
-            else
-            {
-                throw new Exception("There is no such a recipe in database!");
-            }
-        }
+				return View(result);
+			}
+			else
+			{
+				throw new Exception("There is no such a recipe in database!");
+			}
+		}
 
 		public async Task<ActionResult> ShowRecipeDetailsWithViewModel(RecipeViewModel model)
 		{
-            var result = await _recipeService.GetRecipe(model.Id);
+			var result = await _recipeService.GetRecipe(model.Id);
 			result.Servings = model.Servings;
 			return View(result);
 		}
 
 		public async Task<ActionResult> Create()
 		{
-            return View(ModelHelper.GetUniqueValuesOfRecipeLists());
+			return View(ModelHelper.GetUniqueValuesOfRecipeLists());
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Create(EditAndCreateViewModel pageModel)
 		{
-            if (!ModelState.IsValid)
+			if (!ModelState.IsValid)
 			{
 				return View(ModelHelper.GetUniqueValuesOfRecipeLists());
 			}
 			_recipeService.AddRecipeFromCreateView(pageModel);
 			return RedirectToAction("CreateComplete");
 		}
+
 		public async Task<ActionResult> AddToFavourites(int id)
 		{
-            var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
 			bool hasBeenAdded = await _userService.AddRecipeToFavourites(id, idOfUser);
 			if (hasBeenAdded == true)
 			{
@@ -110,32 +109,32 @@ namespace KuceZBronksuWEB.Controllers
 
 		public async Task<ActionResult> FavouriteRecipes()
 		{
-            var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
 			var zmienna = (await _userService.GetFavouritesRecipesOfUser(idOfUser)).ToList();
 			return View(zmienna);
 		}
 
 		public async Task<ActionResult> DeleteRecipesFromFavourites(int id)
 		{
-            var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
 			await _userService.DeleteRecipeFromFavourites(id, idOfUser);
 			return RedirectToAction("FavouriteRecipes");
 		}
 
 		public async Task<ActionResult> Edit(int id)
 		{
-            var modelForViewBagFilled = await _recipeService.CreateEditViewModelForEdit(id);
+			var modelForViewBagFilled = await _recipeService.CreateEditViewModelForEdit(id);
 			ViewBag.EditWithUniqueValues = modelForViewBagFilled;
 			var modelToPass = ModelHelper.GetUniqueValuesOfRecipeLists();
 			modelToPass.IngredientLines = modelForViewBagFilled.IngredientLines;
-            return View(modelToPass);
+			return View(modelToPass);
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Edit(EditAndCreateViewModel recipe, int id)
 		{
-            if (!ModelState.IsValid)
+			if (!ModelState.IsValid)
 			{
 				return View((await _recipeService.CreateEditViewModelForEdit(id)));
 			}
@@ -145,18 +144,18 @@ namespace KuceZBronksuWEB.Controllers
 
 		public ActionResult EditComplete()
 		{
-            return View();
+			return View();
 		}
 
 		public ActionResult CreateComplete()
 		{
-            return View();
+			return View();
 		}
 
 		[Authorize(Roles = "Admin")]
 		public ActionResult DeleteRecipe(int id)
 		{
-            _recipeService.DeleteRecipe(id);
+			_recipeService.DeleteRecipe(id);
 			return RedirectToAction("Index");
 		}
 	}

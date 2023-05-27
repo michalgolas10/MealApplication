@@ -4,12 +4,7 @@ using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace KuceZBronksuBLL.Services
 {
@@ -20,25 +15,29 @@ namespace KuceZBronksuBLL.Services
 		private readonly UserManager<User> _userManager;
 		private readonly ILogger<ReportService> _logger;
 		private readonly IHttpClientFactory _httpClientFactory;
+
 		public ReportService(IMapper mapper, UserManager<User> userManager, ILogger<ReportService> logger, IHttpClientFactory httpClientFactory)
-        {
+		{
 			_mapper = mapper;
 			_userManager = userManager;
 			_logger = logger;
-			_httpClientFactory= httpClientFactory;
-        }
+			_httpClientFactory = httpClientFactory;
+		}
+
 		private async Task<HttpResponseMessage> PostUserActivityAsync(object reportModel, string apiEndpoint)
 		{
 			var json = Newtonsoft.Json.JsonConvert.SerializeObject(reportModel);
 			var content = new StringContent(json, Encoding.UTF8, "application/json");
 			return await _httpClientFactory.CreateClient().PostAsync(apiEndpoint, content);
 		}
+
 		public async Task<int> GetUserIdAsync(string email)
 		{
 			var user = _userManager.Users.FirstOrDefault(c => c.Email == email);
 			var userId = user.Id;
 			return userId;
 		}
+
 		public async Task ReportRecipeVisitAsync(RecipeViewModel visitedRecipe)
 		{
 			var apiEndpoint = "https://localhost:7294/VisitedRecipe";

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KuceZBronksuBLL.Models
+﻿namespace KuceZBronksuBLL.Models
 {
 	public class MailDataModel
 	{
 		// Receiver
 		public List<string> To { get; }
+
 		public List<string> Bcc { get; }
 
 		public List<string> Cc { get; }

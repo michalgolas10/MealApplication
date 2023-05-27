@@ -13,12 +13,12 @@ namespace KuceZBronksuWEB.AutoMapProfiles
 				.ReverseMap();
 			CreateMap<EditAndCreateViewModel, Recipe>()
 				.ForMember(dest => dest.Calories, opts => opts.MapFrom(src => src.Calories))
-				.ForMember(dest => dest.Approved,opts => opts.Equals(false));
+				.ForMember(dest => dest.Approved, opts => opts.Equals(false));
 			CreateMap<EditAndCreateViewModel, RecipeViewModel>()
 				.ReverseMap();
-			CreateMap<VisitedRecipe,VisitedRecipesDTO>()
+			CreateMap<VisitedRecipe, VisitedRecipesDTO>()
 				.ReverseMap();
-			CreateMap<LastLoggedUsersReport,LastLoggedUsersReportDto>()
+			CreateMap<LastLoggedUsersReport, LastLoggedUsersReportDto>()
 				.ReverseMap();
 			CreateMap<RecipeAddedToFavourite, RecipeAddedToFavouriteDTO>()
 				.ReverseMap();

@@ -2,17 +2,8 @@
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
-using KuceZBronksuDAL.Repository;
-using KuceZBronksuDAL.Repository.IRepository;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Build.Framework;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Logging;
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Claims;
-using static Azure.Core.HttpHeader;
 
 namespace KuceZBronksuBLL.Services
 {
@@ -25,13 +16,14 @@ namespace KuceZBronksuBLL.Services
 		private readonly IReportService _reportService;
 
 		public UserService(IReportService reportService, UserManager<User> userManager, IRecipeService recipeService, IMapper mapper, ILogger<UserService> logger)
-        {
+		{
 			_reportService = reportService;
-            _mapper = mapper;
+			_mapper = mapper;
 			_userManager = userManager;
 			_recipeService = recipeService;
 			_logger = logger;
-        }
+		}
+
 		public async Task<bool> AddRecipeToFavourites(int idOfRecipe, int idOfUser)
 		{
 			var recipeThatIsAddedToFavourite = await _recipeService.GetRecipe(idOfRecipe);
@@ -44,27 +36,29 @@ namespace KuceZBronksuBLL.Services
 					var UsersRecipes = new List<Recipe>();
 					user.Recipes = UsersRecipes;
 				}
-					if (user.Recipes.Contains(resultRecipe))
-					{
-						return false;
-					}
-					user.Recipes.Add(resultRecipe);
-					await _userManager.UpdateAsync(user);
-				await _reportService.ReportAddedToFavouriteAsync(recipeThatIsAddedToFavourite,user.Id);
-					return true;
+				if (user.Recipes.Contains(resultRecipe))
+				{
+					return false;
+				}
+				user.Recipes.Add(resultRecipe);
+				await _userManager.UpdateAsync(user);
+				await _reportService.ReportAddedToFavouriteAsync(recipeThatIsAddedToFavourite, user.Id);
+				return true;
 			}
-			catch(NullReferenceException)
+			catch (NullReferenceException)
 			{
 				_logger.LogError($"User of Id:{idOfUser} Couldnt be loaded");
 				throw new NullReferenceException($"User of Id:{idOfUser} Couldnt be loaded");
 			}
 		}
+
 		public async Task<bool> ItsRecipeInUsersFavourite(int userId, int recipeId)
 		{
 			var user = await _userManager.FindByIdAsync(userId.ToString());
 			var recipe = await _recipeService.GetRecipe(recipeId);
 			return user.Recipes.Contains(_mapper.Map<Recipe>(recipe));
 		}
+
 		public async Task<IEnumerable<RecipeViewModel>> GetFavouritesRecipesOfUser(int idOfUser)
 		{
 			try
@@ -84,7 +78,6 @@ namespace KuceZBronksuBLL.Services
 			}
 		}
 
-
 		public async Task DeleteRecipeFromFavourites(int idOfRecipeToRemove, int idOfUser)
 		{
 			try
@@ -99,6 +92,7 @@ namespace KuceZBronksuBLL.Services
 				throw new NullReferenceException($"User of Id:{idOfUser} Couldnt be loaded");
 			}
 		}
+
 		public async Task<IEnumerable<UserViewModel>> ShowAllUsers()
 		{
 			try
@@ -118,7 +112,7 @@ namespace KuceZBronksuBLL.Services
 				}
 				return UserViewModelsToPass.ToList();
 			}
-			catch(NullReferenceException)
+			catch (NullReferenceException)
 			{
 				_logger.LogError("Users NormalUser / Admin couldnt be loaded from DB");
 				throw new NullReferenceException("Users NormalUser / Admin couldnt be loaded from DB");

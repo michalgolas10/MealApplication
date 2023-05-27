@@ -1,7 +1,6 @@
 using KuceZBronksuDAL.Context;
 using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KuceZBronksuAPI.Controllers
 {
@@ -11,6 +10,7 @@ namespace KuceZBronksuAPI.Controllers
 	{
 		private readonly MealAppContext _context;
 		private readonly ILogger<VisitedRecipeController> _logger;
+
 		public VisitedRecipeController(ILogger<VisitedRecipeController> logger, MealAppContext context)
 		{
 			_logger = logger;

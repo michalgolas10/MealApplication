@@ -10,6 +10,7 @@ namespace KuceZBronksuAPI.Controllers
 	{
 		private readonly MealAppContext _context;
 		private readonly ILogger<VisitedRecipeController> _logger;
+
 		public AddedFavouriteRecipeController(ILogger<VisitedRecipeController> logger, MealAppContext context)
 		{
 			_logger = logger;

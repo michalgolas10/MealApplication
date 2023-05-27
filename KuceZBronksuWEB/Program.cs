@@ -1,16 +1,16 @@
+using Hangfire;
+using KuceZBronksuBLL.ConfigurationMail;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services;
+using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Context;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
-using KuceZBronksuBLL.Services.IServices;
+using KuceZBronksuWEB.Middlewares;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using KuceZBronksuBLL.ConfigurationMail;
-using Hangfire;
 using Serilog;
-using KuceZBronksuWEB.Middlewares;
 
 namespace KuceZBronksuWEB
 {
@@ -36,9 +36,9 @@ namespace KuceZBronksuWEB
 			}));
 			builder.Host.UseSerilog((context, configuration) =>
 			configuration.ReadFrom.Configuration(context.Configuration));
-            builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
-            builder.Services.AddHangfireServer();
-            builder.Services.AddMvc();
+			builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
+			builder.Services.AddHangfireServer();
+			builder.Services.AddMvc();
 			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
 					.AddRoles<IdentityRole<int>>()
 					.AddEntityFrameworkStores<MealAppContext>()
@@ -46,9 +46,9 @@ namespace KuceZBronksuWEB
 					.AddDefaultUI();
 			builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			builder.Services.AddTransient<IReportService, ReportService>();
-			builder.Services.AddTransient<IRecipeService,RecipeService>();
+			builder.Services.AddTransient<IRecipeService, RecipeService>();
 			builder.Services.AddTransient<ITimeService, TimeService>();
-			builder.Services.AddTransient<IUserService,UserService>();
+			builder.Services.AddTransient<IUserService, UserService>();
 			builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
 			builder.Services.AddTransient<IMailService, MailService>();
 			builder.Services.AddControllersWithViews();
@@ -60,16 +60,16 @@ namespace KuceZBronksuWEB
 			var app = builder.Build();
 			await CreateDbIfNotExists(app);
 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+			if (app.Environment.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+			}
+			else
+			{
+				app.UseExceptionHandler("/Home/Error");
+			}
 
-            app.UseHttpsRedirection();
+			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
 			app.UseRouting();
@@ -78,11 +78,11 @@ namespace KuceZBronksuWEB
 
 			app.UseAuthorization();
 			app.UseHangfireDashboard();
-            app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
-            app.MapControllerRoute(
+			app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
-			RecurringJob.AddOrUpdate<ITimeService>("SendEmailToAdmin",service => service.SendEmailToAdmin(),Cron.Minutely);
+			RecurringJob.AddOrUpdate<ITimeService>("SendEmailToAdmin", service => service.SendEmailToAdmin(), Cron.Minutely);
 			app.MapRazorPages();
 
 			app.Run();

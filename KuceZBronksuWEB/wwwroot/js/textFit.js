@@ -27,7 +27,6 @@
     // Browser
     root.textFit = factory();
   }
-
 }(typeof global === "object" ? global : this, function () {
   "use strict";
 
@@ -44,7 +43,6 @@
   };
 
   return function textFit(els, options) {
-
     if (!options) options = {};
 
     // Extend options.
@@ -158,7 +156,7 @@
       innerSpan.style.fontSize = mid + 'px';
       var innerSpanBoundingClientRect = innerSpan.getBoundingClientRect();
       if (
-        innerSpanBoundingClientRect.width <= originalWidth 
+        innerSpanBoundingClientRect.width <= originalWidth
         && (settings.widthOnly || innerSpanBoundingClientRect.height <= originalHeight)
       ) {
         size = mid;

@@ -2,8 +2,10 @@
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace KuceZBronksuBLL.Services
 {
@@ -116,6 +118,23 @@ namespace KuceZBronksuBLL.Services
 			{
 				_logger.LogError("Users NormalUser / Admin couldnt be loaded from DB");
 				throw new NullReferenceException("Users NormalUser / Admin couldnt be loaded from DB");
+			}
+		}
+		public async Task ListOfRecipesWithFavButton(List<RecipeViewModel> listOfRecipes, ClaimsPrincipal principal)
+		{
+			var user = await _userManager.GetUserAsync(principal);
+			var userRecipes = user.Recipes;
+			var userRecipesMapped = userRecipes.Select(e => _mapper.Map<RecipeViewModel>(e));
+			var result = new List<RecipeViewModel>();
+			foreach (var recipe in listOfRecipes)
+			{
+				foreach (var recipeofUser in userRecipesMapped)
+				{
+					if (recipeofUser.Id == recipe.Id)
+					{
+						recipe.IsFavourite = true;
+					}
+				}
 			}
 		}
 	}

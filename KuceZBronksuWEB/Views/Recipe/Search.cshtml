@@ -38,7 +38,14 @@
 						</div><div class="myCard">
 							@if (SignInManager.IsSignedIn(User))
 							{
-								<a class="btn btn-primary" asp-action="AddToFavourites" asp-controller="Recipe" asp-route-id="@item.Id">Add to Favourites</a>
+								@if (!item.IsFavourite)
+								{
+									<a class="btn btn-primary" asp-action="AddToFavourites" asp-controller="Recipe" asp-route-id="@item.Id">Add to Favourites</a>
+								}
+								else
+								{
+									<a class="btn btn-primary" asp-action="DeleteRecipesFromFavouritesFromSearchOrIndex" asp-controller="Recipe" asp-route-id="@item.Id">Delete from Favourites</a>
+								}
 							}
 						</div><div class="myCard">
 							@if (SignInManager.IsSignedIn(User))

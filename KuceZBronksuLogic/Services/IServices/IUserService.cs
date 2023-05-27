@@ -1,4 +1,5 @@
 ﻿using KuceZBronksuBLL.Models;
+using System.Security.Claims;
 
 namespace KuceZBronksuBLL.Services.IServices
 {
@@ -11,5 +12,6 @@ namespace KuceZBronksuBLL.Services.IServices
 		public Task DeleteRecipeFromFavourites(int idOfRecipeToRemove, int iduser);
 
 		public Task<IEnumerable<UserViewModel>> ShowAllUsers();
+		public Task ListOfRecipesWithFavButton(List<RecipeViewModel> listOfRecipes, ClaimsPrincipal principal);
 	}
 }

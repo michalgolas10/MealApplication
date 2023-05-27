@@ -6,6 +6,8 @@ using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Security.Claims;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -16,15 +18,17 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly IUserService _userService;
 		private readonly UserManager<User> _userManager;
 		private readonly IReportService _reportService;
+		private readonly SignInManager<User> _signInManager;
 
 		public RecipeController(IUserService userService,
-			IRecipeService recipeService, IMapper mapper, UserManager<User> userManager, IReportService reportService)
+			IRecipeService recipeService, IMapper mapper, UserManager<User> userManager, IReportService reportService, SignInManager<User> signInManager)
 		{
 			_userService = userService;
 			_recipeService = recipeService;
 			_mapper = mapper;
 			_userManager = userManager;
 			_reportService = reportService;
+			_signInManager = signInManager;
 		}
 
 		// GET: RecipeController
@@ -33,7 +37,9 @@ namespace KuceZBronksuWEB.Controllers
 			ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
 			try
 			{
-				var containerOfRecipesModelView = await _recipeService.GetAllRecipies();
+				var containerOfRecipesModelView = (await _recipeService.GetAllRecipies()).ToList();
+				if (_signInManager.IsSignedIn(User))
+					await _userService.ListOfRecipesWithFavButton(containerOfRecipesModelView, HttpContext.User as ClaimsPrincipal);
 				return View(containerOfRecipesModelView);
 			}
 			catch (NullReferenceException)
@@ -45,7 +51,9 @@ namespace KuceZBronksuWEB.Controllers
 		[HttpPost]
 		public async Task<ActionResult> Search(SearchViewModel pageModel)
 		{
-			var listOfRecipes = await _recipeService.Search(pageModel);
+			var listOfRecipes = (await _recipeService.Search(pageModel)).ToList();
+			if(_signInManager.IsSignedIn(User))
+				await _userService.ListOfRecipesWithFavButton(listOfRecipes, HttpContext.User as ClaimsPrincipal);
 			ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
 			if (pageModel == null)
 			{
@@ -119,6 +127,12 @@ namespace KuceZBronksuWEB.Controllers
 			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
 			await _userService.DeleteRecipeFromFavourites(id, idOfUser);
 			return RedirectToAction("FavouriteRecipes");
+		}
+		public async Task<ActionResult> DeleteRecipesFromFavouritesFromSearchOrIndex(int id)
+		{
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			await _userService.DeleteRecipeFromFavourites(id, idOfUser);
+			return RedirectToAction("Index");
 		}
 
 		public async Task<ActionResult> Edit(int id)

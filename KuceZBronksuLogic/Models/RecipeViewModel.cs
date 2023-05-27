@@ -28,5 +28,6 @@ namespace KuceZBronksuBLL.Models
 		public string Image { get; set; }
 		public int Servings { get; set; }
 		public bool Approved { get; set; }
+		public bool IsFavourite { get; set; }
 	}
 }

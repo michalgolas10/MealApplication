@@ -1,3 +1,4 @@
+using KuceZBronksuAPIBLL.Services.IServices;
 using KuceZBronksuDAL.Context;
 using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,13 @@ namespace KuceZBronksuAPI.Controllers
 	{
 		private readonly MealAppContext _context;
 		private readonly ILogger<VisitedRecipeController> _logger;
+		private readonly IRecipeManager _recipeManager;
 
-		public VisitedRecipeController(ILogger<VisitedRecipeController> logger, MealAppContext context)
+		public VisitedRecipeController(ILogger<VisitedRecipeController> logger, MealAppContext context, IRecipeManager recipeManager)
 		{
 			_logger = logger;
 			_context = context;
+			_recipeManager = recipeManager;
 		}
 
 		[HttpPost(Name = "AddVisitedRecipes")]
@@ -22,6 +25,14 @@ namespace KuceZBronksuAPI.Controllers
 		{
 			await _context.AddAsync(lastLoggedReport);
 			await _context.SaveChangesAsync();
+		}
+
+		[HttpGet (Name = "GetRecipeViewsData")]
+		public async Task<IActionResult> GetRecipeViewsData()
+		{
+			var recipes = await _recipeManager.GetAll();
+
+			return Ok(recipes);
 		}
 	}
 }

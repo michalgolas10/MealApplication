@@ -7,12 +7,12 @@ namespace KuceZBronksuAPI.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	public class ReportController : ControllerBase
+	public class LoggedUser : ControllerBase
 	{
 		private readonly MealAppContext _context;
-		private readonly ILogger<ReportController> _logger;
+		private readonly ILogger<LoggedUser> _logger;
 
-		public ReportController(ILogger<ReportController> logger, MealAppContext context)
+		public LoggedUser(ILogger<LoggedUser> logger, MealAppContext context)
 		{
 			_logger = logger;
 			_context = context;
@@ -28,15 +28,6 @@ namespace KuceZBronksuAPI.Controllers
 		[HttpPost(Name = "AddLastLoggedUser")]
 		public async Task AddAsync([FromBody] LastLoggedUsersReport lastLoggedReport)
 		{
-			var existingRow = await _context.LastLoggings
-				.FirstOrDefaultAsync<LastLoggedUsersReport>(x => x.UserId == lastLoggedReport.UserId);
-
-			if (existingRow != null)
-			{
-				_context.LastLoggings.Update(lastLoggedReport);
-				await _context.SaveChangesAsync();
-				return;
-			}
 			await _context.AddAsync(lastLoggedReport);
 			await _context.SaveChangesAsync();
 		}

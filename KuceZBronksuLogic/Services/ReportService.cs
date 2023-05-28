@@ -61,7 +61,6 @@ namespace KuceZBronksuBLL.Services
 			{
 				UserId = userId,
 				LastLogged = DateTime.Now,
-				LoginCount = +1
 			};
 			var response = await PostUserActivityAsync(userToPost, apiEndpoint);
 			if (!response.IsSuccessStatusCode)

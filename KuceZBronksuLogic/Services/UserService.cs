@@ -44,7 +44,6 @@ namespace KuceZBronksuBLL.Services
 				}
 				user.Recipes.Add(resultRecipe);
 				await _userManager.UpdateAsync(user);
-				await _reportService.ReportAddedToFavouriteAsync(recipeThatIsAddedToFavourite, user.Id);
 				return true;
 			}
 			catch (NullReferenceException)

@@ -152,7 +152,7 @@ namespace KuceZBronksuWEB.Controllers
 			{
 				return View((await _recipeService.CreateEditViewModelForEdit(id)));
 			}
-			_recipeService.UpdateEditedRecipe(recipe);
+			await _recipeService.UpdateEditedRecipe(recipe);
 			TempData["shortMessage"] = "Recipe edited successfully. Waiting for administrator approval";
 			return RedirectToAction("Index");
 		}

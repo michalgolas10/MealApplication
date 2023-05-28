@@ -36,7 +36,6 @@ namespace KuceZBronksuDAL.Repository
 				return this._entities
 					.Include(include).AsEnumerable();
 			}
-
 			return this._entities.AsEnumerable();
 		}
 
@@ -47,7 +46,6 @@ namespace KuceZBronksuDAL.Repository
 				_entities.AddAsync(entity);
 				_context.SaveChanges();
 			}
-            Console.WriteLine("Kupa dupa");
         }
 
 		public void Update(T entity)

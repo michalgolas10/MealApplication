@@ -34,6 +34,7 @@ namespace KuceZBronksuWEB.Controllers
 		// GET: RecipeController
 		public async Task<ActionResult> Index()
 		{
+			ViewBag.Message = TempData["shortMessage"];
 			ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
 			try
 			{
@@ -51,8 +52,9 @@ namespace KuceZBronksuWEB.Controllers
 		[HttpPost]
 		public async Task<ActionResult> Search(SearchViewModel pageModel)
 		{
+			ViewBag.Message = TempData["shortMessage"];
 			var listOfRecipes = (await _recipeService.Search(pageModel)).ToList();
-			if(_signInManager.IsSignedIn(User))
+			if (_signInManager.IsSignedIn(User))
 				await _userService.ListOfRecipesWithFavButton(listOfRecipes, HttpContext.User as ClaimsPrincipal);
 			ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
 			if (pageModel == null)
@@ -85,21 +87,40 @@ namespace KuceZBronksuWEB.Controllers
 			return View(result);
 		}
 
-		public async Task<ActionResult> Create()
+		public ActionResult Create()
 		{
 			return View(ModelHelper.GetUniqueValuesOfRecipeLists());
 		}
 
+
+		public async Task<ActionResult> FavouriteRecipes()
+		{
+			ViewBag.Message = TempData["shortMessage"];
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			var favUserRecipes = (await _userService.GetFavouritesRecipesOfUser(idOfUser)).ToList();
+			return View(favUserRecipes);
+		}
+		public async Task<ActionResult> Edit(int id)
+		{
+			var modelForViewBagFilled = await _recipeService.CreateEditViewModelForEdit(id);
+			ViewBag.EditWithUniqueValues = modelForViewBagFilled;
+			var modelToPass = ModelHelper.GetUniqueValuesOfRecipeLists();
+			modelToPass.IngredientLines = modelForViewBagFilled.IngredientLines;
+			return View(modelToPass);
+		}
+
+
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Create(EditAndCreateViewModel pageModel)
+		public ActionResult Create(EditAndCreateViewModel pageModel)
 		{
 			if (!ModelState.IsValid)
 			{
 				return View(ModelHelper.GetUniqueValuesOfRecipeLists());
 			}
 			_recipeService.AddRecipeFromCreateView(pageModel);
-			return RedirectToAction("CreateComplete");
+			TempData["shortMessage"] = "Recipe created successfully. Waiting for administrator approval";
+			return RedirectToAction("Index");
 		}
 
 		public async Task<ActionResult> AddToFavourites(int id)
@@ -110,38 +131,17 @@ namespace KuceZBronksuWEB.Controllers
 			{
 				var recipe = await _recipeService.GetRecipe(id);
 				await _reportService.ReportAddedToFavouriteAsync(recipe, idOfUser);
+				TempData["shortMessage"] = "Recipe added successfully to favourite";
 				return RedirectToAction("Index");
 			}
 			return RedirectToAction("Index");
 		}
-
-		public async Task<ActionResult> FavouriteRecipes()
-		{
-			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
-			var zmienna = (await _userService.GetFavouritesRecipesOfUser(idOfUser)).ToList();
-			return View(zmienna);
-		}
-
 		public async Task<ActionResult> DeleteRecipesFromFavourites(int id)
 		{
 			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
 			await _userService.DeleteRecipeFromFavourites(id, idOfUser);
+			TempData["shortMessage"] = "Recipe deleted from favourites";
 			return RedirectToAction("FavouriteRecipes");
-		}
-		public async Task<ActionResult> DeleteRecipesFromFavouritesFromSearchOrIndex(int id)
-		{
-			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
-			await _userService.DeleteRecipeFromFavourites(id, idOfUser);
-			return RedirectToAction("Index");
-		}
-
-		public async Task<ActionResult> Edit(int id)
-		{
-			var modelForViewBagFilled = await _recipeService.CreateEditViewModelForEdit(id);
-			ViewBag.EditWithUniqueValues = modelForViewBagFilled;
-			var modelToPass = ModelHelper.GetUniqueValuesOfRecipeLists();
-			modelToPass.IngredientLines = modelForViewBagFilled.IngredientLines;
-			return View(modelToPass);
 		}
 
 		[HttpPost]
@@ -153,23 +153,22 @@ namespace KuceZBronksuWEB.Controllers
 				return View((await _recipeService.CreateEditViewModelForEdit(id)));
 			}
 			_recipeService.UpdateEditedRecipe(recipe);
-			return RedirectToAction("EditComplete");
+			TempData["shortMessage"] = "Recipe edited successfully. Waiting for administrator approval";
+			return RedirectToAction("Index");
 		}
-
-		public ActionResult EditComplete()
+		public async Task<ActionResult> DeleteRecipesFromFavouritesFromSearchOrIndex(int id)
 		{
-			return View();
-		}
-
-		public ActionResult CreateComplete()
-		{
-			return View();
+			var idOfUser = int.Parse(_userManager.GetUserId(HttpContext.User));
+			await _userService.DeleteRecipeFromFavourites(id, idOfUser);
+			TempData["shortMessage"] = "Recipe deleted from favourites";
+			return RedirectToAction("Index");
 		}
 
 		[Authorize(Roles = "Admin")]
 		public ActionResult DeleteRecipe(int id)
 		{
 			_recipeService.DeleteRecipe(id);
+			TempData["shortMessage"] = "Deleted recipe from Db";
 			return RedirectToAction("Index");
 		}
 	}

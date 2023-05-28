@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuAPIBLL.Models
 {
-	public class VisitedRecipeBO
+	public class VisitedRecipeDTO
 	{
 		public int RecipeId { get; set; }
 		public DateTime DateWhenClicked { get; set; }

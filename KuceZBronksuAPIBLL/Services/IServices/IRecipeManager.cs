@@ -1,4 +1,5 @@
 ﻿using KuceZBronksuAPIBLL.Models;
+using KuceZBronksuDAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace KuceZBronksuAPIBLL.Services.IServices
 {
 	public interface IRecipeManager
 	{
-		Task<IEnumerable<VisitedRecipeBO>> GetAll();
+		Task<List<VisitedRecipeDTO>> GetAll();
 	}
 }

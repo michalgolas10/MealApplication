@@ -8,7 +8,7 @@ namespace KuceZBronksuAPI.AutoMapProfiles
 	{
 		public RecipeProfiles()
 		{
-			CreateMap<VisitedRecipe, VisitedRecipeBO>().ReverseMap();
+			CreateMap<VisitedRecipeDTO, VisitedRecipe>().ReverseMap();
 		}
 	}
 }

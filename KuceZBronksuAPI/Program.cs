@@ -1,6 +1,9 @@
+using KuceZBronksuAPIBLL.Models;
 using KuceZBronksuAPIBLL.Services;
 using KuceZBronksuAPIBLL.Services.IServices;
 using KuceZBronksuDAL.Context;
+using KuceZBronksuDAL.Repository;
+using KuceZBronksuDAL.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace KuceZBronksuAPI;
@@ -18,12 +21,13 @@ public class Program
 			options.UseSqlServer(builder.Configuration
 			.GetConnectionString("DefaultConnection"))
 		);
+
+		builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+		builder.Services.AddTransient<IRecipeManager, RecipeManager>();
+		builder.Services.AddAutoMapper(typeof(VisitedRecipeDTO), typeof(Program));
 		builder.Services.AddControllers();
-		// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 		builder.Services.AddEndpointsApiExplorer();
 		builder.Services.AddSwaggerGen();
-		builder.Services.AddScoped<IRecipeManager, RecipeManager>();
-
 		var app = builder.Build();
 
 		// Configure the HTTP request pipeline.

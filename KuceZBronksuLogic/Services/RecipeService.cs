@@ -106,10 +106,17 @@ namespace KuceZBronksuBLL.Services
 			}
 		}
 
-		public void UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel)
+		public async Task UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel)
 		{
 			_logger.LogInformation("Updating Recipe From DB");
-			_repository.Update(_mapper.Map<Recipe>(editAndCreateViewModel));
+			var editedRecipe = _mapper.Map<Recipe>(editAndCreateViewModel);
+			var recipeDO = await _repository.Get(editedRecipe.Id.Value);
+			editedRecipe.Approved = false;
+			_repository.Update(editedRecipe);
+			_repository.Delete(editedRecipe.Id.Value);
+			recipeDO.Approved = true;
+			recipeDO.Id = null;
+			_repository.Insert(recipeDO);
 		}
 
 		//This method will throw 3 most Viewed recipe last days for now just rndm 3 recipes;

@@ -23,7 +23,7 @@ public class Program
 		);
 
 		builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-		builder.Services.AddTransient<IRecipeManager, RecipeManager>();
+		builder.Services.AddTransient<IReportManager, ReportManager>();
 		builder.Services.AddAutoMapper(typeof(VisitedRecipeDTO), typeof(Program));
 		builder.Services.AddControllers();
 		builder.Services.AddEndpointsApiExplorer();

@@ -2,7 +2,7 @@
 
 namespace KuceZBronksuDAL.Models
 {
-	public class LastLoggedUsersReport : Entity
+	public class LastLoggedUsers : Entity
 	{
 		public int UserId { get; set; }
 		public DateTime LastLogged { get; set; }

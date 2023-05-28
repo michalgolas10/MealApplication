@@ -14,7 +14,7 @@ namespace KuceZBronksuDAL.Context
 
 		public DbSet<Recipe> Recipes { get; set; }
 
-		public DbSet<LastLoggedUsersReport> LastLoggings { get; set; }
+		public DbSet<LastLoggedUsers> LastLoggings { get; set; }
 		public DbSet<VisitedRecipe> VisitedRecipes { get; set; }
 		public DbSet<RecipeAddedToFavourite> RecipeAddedToFavourites { get; set; }
 
@@ -66,7 +66,7 @@ namespace KuceZBronksuDAL.Context
 			.HasMany(c => c.Recipes)
 			.WithMany(c => c.Users)
 			.UsingEntity(j => j.ToTable("FavouritesRecipes"));
-			modelBuilder.Entity<LastLoggedUsersReport>();
+			modelBuilder.Entity<LastLoggedUsers>();
 
 			modelBuilder.Entity<VisitedRecipe>(eb =>
 			{

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuAPIBLL.Services.IServices
 {
-	public interface IRecipeManager
+	public interface IReportManager
 	{
-		Task<List<VisitedRecipeDTO>> GetAll();
+		Task<List<VisitedRecipeDTO>> GetReport();
 	}
 }

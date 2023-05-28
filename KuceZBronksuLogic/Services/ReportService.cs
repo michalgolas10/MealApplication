@@ -57,7 +57,7 @@ namespace KuceZBronksuBLL.Services
 		public async Task ReportUserLoginAsync(int userId)
 		{
 			var apiEndpoint = "https://localhost:7294/LoggedUser";
-			var userToPost = new LastLoggedUsersReportDto
+			var userToPost = new LastLoggedUsersDto
 			{
 				UserId = userId,
 				LastLogged = DateTime.Now,

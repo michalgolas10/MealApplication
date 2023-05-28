@@ -19,14 +19,14 @@ namespace KuceZBronksuAPI.Controllers
 		}
 
 		[HttpGet(Name = "GetAllLastLoggedUsers")]
-		public async Task<IEnumerable<LastLoggedUsersReport>> Get()
+		public async Task<IEnumerable<LastLoggedUsers>> Get()
 		{
 			var allLastLogged = await _context.LastLoggings.ToListAsync();
 			return allLastLogged;
 		}
 
 		[HttpPost(Name = "AddLastLoggedUser")]
-		public async Task AddAsync([FromBody] LastLoggedUsersReport lastLoggedReport)
+		public async Task AddAsync([FromBody] LastLoggedUsers lastLoggedReport)
 		{
 			await _context.AddAsync(lastLoggedReport);
 			await _context.SaveChangesAsync();

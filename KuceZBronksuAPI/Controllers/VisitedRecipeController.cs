@@ -11,9 +11,9 @@ namespace KuceZBronksuAPI.Controllers
 	{
 		private readonly MealAppContext _context;
 		private readonly ILogger<VisitedRecipeController> _logger;
-		private readonly IRecipeManager _recipeManager;
+		private readonly IReportManager _recipeManager;
 
-		public VisitedRecipeController(ILogger<VisitedRecipeController> logger, MealAppContext context, IRecipeManager recipeManager)
+		public VisitedRecipeController(ILogger<VisitedRecipeController> logger, MealAppContext context, IReportManager recipeManager)
 		{
 			_logger = logger;
 			_context = context;
@@ -30,7 +30,7 @@ namespace KuceZBronksuAPI.Controllers
 		[HttpGet (Name = "GetRecipeViewsData")]
 		public async Task<IActionResult> GetRecipeViewsData()
 		{
-			var recipes = await _recipeManager.GetAll();
+			var recipes = await _recipeManager.GetReport();
 
 			return Ok(recipes);
 		}

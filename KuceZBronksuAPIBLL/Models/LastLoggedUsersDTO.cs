@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuAPIBLL.Models
 {
-	internal class LastLoggedUsersDTO
+	public class LastLoggedUsersDTO
 	{
 	}
 }

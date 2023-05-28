@@ -10,6 +10,6 @@ namespace KuceZBronksuAPIBLL.Services.IServices
 {
 	public interface IReportManager
 	{
-		Task<List<VisitedRecipeDTO>> GetReport();
+		Task<string> GetReport();
 	}
 }

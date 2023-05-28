@@ -113,7 +113,6 @@ namespace KuceZBronksuBLL.Services
 			var recipeDO = await _repository.Get(editedRecipe.Id.Value);
 			editedRecipe.Approved = false;
 			_repository.Update(editedRecipe);
-			_repository.Delete(editedRecipe.Id.Value);
 			recipeDO.Approved = true;
 			recipeDO.Id = null;
 			_repository.Insert(recipeDO);

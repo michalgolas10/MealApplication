@@ -9,12 +9,17 @@ using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
 using KuceZBronksuWEB.Middlewares;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Serilog;
+using System.Globalization;
+using System.Reflection;
 
 namespace KuceZBronksuWEB
 {
-	public class Program
+    public class Program
 	{
 		public static async Task Main(string[] args)
 		{
@@ -38,7 +43,36 @@ namespace KuceZBronksuWEB
 			configuration.ReadFrom.Configuration(context.Configuration));
 			builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 			builder.Services.AddHangfireServer();
-			builder.Services.AddMvc();
+
+			builder.Services.AddSingleton<LanguageService>();
+			builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+			builder.Services.AddMvc()
+				.AddViewLocalization()
+				.AddDataAnnotationsLocalization(options =>
+				{	
+					options.DataAnnotationLocalizerProvider = (type, factory) =>
+					{
+						var assemblyName = new AssemblyName(typeof(ShareResource).GetTypeInfo().Assembly.FullName);
+						return factory.Create("ShareResource", assemblyName.Name);
+					};
+				});
+			builder.Services.Configure<RequestLocalizationOptions>(
+				options =>
+				{
+					var supportedCultures = new List<CultureInfo>
+					{
+						new CultureInfo("en-US"),
+						new CultureInfo("pl-PL"),
+                        new CultureInfo("de-DE"),
+                    };
+
+					options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+					options.SupportedCultures = supportedCultures;
+					options.SupportedUICultures= supportedCultures;
+					options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
+				}
+			);
 			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
 					.AddRoles<IdentityRole<int>>()
 					.AddEntityFrameworkStores<MealAppContext>()
@@ -68,7 +102,8 @@ namespace KuceZBronksuWEB
 			{
 				app.UseExceptionHandler("/Home/Error");
 			}
-
+			var IocOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+			app.UseRequestLocalization(IocOptions.Value);
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 

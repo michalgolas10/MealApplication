@@ -70,8 +70,8 @@ namespace KuceZBronksuWEB.Controllers
 			return View();
 		}
 
-        [Authorize(Roles = "Admin")]
-		public async Task <IActionResult> CreateRaportOfViews()
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> CreateRaportOfViews()
 		{
 			string stringModel = await _apiService.GetDataFromApi();
 
@@ -80,3 +80,6 @@ namespace KuceZBronksuWEB.Controllers
 
 			return View(visitedRecipesDTOs);
 		}
+	}
+}
+

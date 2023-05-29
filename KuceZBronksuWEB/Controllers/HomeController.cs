@@ -34,7 +34,7 @@ namespace KuceZBronksuWEB.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			var listOfRecipes = await _recipeService.GetThreeMostViewedRecipes();
+            var listOfRecipes = await _recipeService.GetThreeMostViewedRecipes();
 			ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
 			return View(listOfRecipes);
 		}
@@ -44,9 +44,7 @@ namespace KuceZBronksuWEB.Controllers
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignOutAsync()
+        public async Task<IActionResult> LogOutActionPlease()
 		{
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index");

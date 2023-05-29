@@ -171,6 +171,9 @@
   <data name="Show details" xml:space="preserve">
     <value>Pokaż szczegóły</value>
   </data>
+  <data name="Sign Out" xml:space="preserve">
+    <value>Wyloguj</value>
+  </data>
   <data name="Welcome to our MEAL APP!" xml:space="preserve">
     <value>Witaj w naszej kulinarnej aplikacji!</value>
   </data>

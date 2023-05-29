@@ -1,7 +1,9 @@
 ﻿using Hangfire;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services.IServices;
+using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KuceZBronksuWEB.Controllers
@@ -11,9 +13,11 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly IUserService _userService;
 		private readonly IRecipeService _recipeService;
 		private readonly ITimeService _timeService;
+		private readonly SignInManager<User> _signInManager;
 
-		public AccountController(IUserService userService, IRecipeService recipeService, ITimeService timeService)
+		public AccountController(SignInManager<User> signInManager, IUserService userService, IRecipeService recipeService, ITimeService timeService)
 		{
+			_signInManager = signInManager;
 			_recipeService = recipeService;
 			_userService = userService;
 			_timeService = timeService;

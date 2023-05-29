@@ -56,7 +56,7 @@
                             <div id="myDropdown" class="dropdown-content">
                                     @if (SignInManager.IsSignedIn(User))
                                     {
-                                <a id="logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a>
+                                    <a asp-controller="Home" asp-action="SignOutAsync">@language.Getkey("Sign Out")</a>
                                     }
                                     else
                                     {

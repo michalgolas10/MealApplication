@@ -1,37 +1,39 @@
 ﻿@using KuceZBronksuBLL.Models;
+@using KuceZBronksuBLL.Services
+@inject LanguageService language
 @model SearchViewModel
 <style>
-    </style>
+</style>
 <form asp-action="Search" asp-controller="Recipe">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-    <div class="card mb-4">
-        <div class="my-card-header text-center">Search Recipe</div>
+                <div class="card mb-4">
+                    <div class="my-card-header text-center">@language.Getkey("Search Recipe")</div>
 
-        <div class="card-body">
-            <div class="small text-muted">Ingredients</div>
-            <div class="input-group">
-                <input asp-for="IngrediendsList" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." />
-            </div>
-                            <span asp-validation-for="IngrediendsList" class="text-danger"></span>
-            <br>
-            <div class="small text-muted">Meal type</div>
-            <div class="input-group">
+                    <div class="card-body">
+                        <div class="small text-muted">@language.Getkey("Ingredients")</div>
+                        <div class="input-group">
+                            <input asp-for="IngrediendsList" class="form-control" type="text" placeholder=@language.Getkey("Enter search term...") aria-label="Enter search term..." />
+                        </div>
+                        <span asp-validation-for="IngrediendsList" class="text-danger"></span>
+                        <br>
+                        <div class="small text-muted">@language.Getkey("Meal type")</div>
+                        <div class="input-group">
                             @Html.ListBoxFor(s=>s.ListOfEmptyMealType,new MultiSelectList(@Model.ListOfMealType),new {@class = "js-select2"})
                         </div>
-                            <span asp-validation-for="ListOfEmptyMealType" class="text-danger"></span>
-            <br>
-            <div class="small text-muted">Kcal amount</div>
-            <div class="input-group">
-                <input asp-for="KcalAmount" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." />
+                        <span asp-validation-for="ListOfEmptyMealType" class="text-danger"></span>
+                        <br>
+                        <div class="small text-muted">@language.Getkey("Kcal amount")</div>
+                        <div class="input-group">
+                            <input asp-for="KcalAmount" class="form-control" type="text" placeholder=@language.Getkey("Enter search term...") aria-label="Enter search term..." />
+                        </div>
+                        <span asp-validation-for="KcalAmount" class="text-danger"></span>
+                        <br>
+                        <button class="btn btn-primary" id="button-search" type="submit">@language.Getkey("Search")</button>
+                    </div>
+                </div>
             </div>
-                            <span asp-validation-for="KcalAmount" class="text-danger"></span>
-            <br>
-            <button class="btn btn-primary" id="button-search" type="submit">Search</button>
-        </div>
-        </div>
-        </div>
         </div>
     </div>
 </form>

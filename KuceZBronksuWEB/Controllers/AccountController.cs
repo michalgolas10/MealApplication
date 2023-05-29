@@ -1,7 +1,9 @@
-﻿using Hangfire;
+using Hangfire;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services.IServices;
+using KuceZBronksuDAL.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -14,9 +16,11 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly ITimeService _timeService;
 		private readonly IApiService _apiService;
 		private readonly IReportService _reportService;
+		private readonly SignInManager<User> _signInManager;
 
-		public AccountController(IUserService userService, IRecipeService recipeService, ITimeService timeService, IApiService apiService, IReportService reportService)
+		public AccountController(SignInManager<User> signInManager, IUserService userService, IRecipeService recipeService, ITimeService timeService, IApiService apiService, IReportService reportService)
 		{
+			_signInManager = signInManager;
 			_recipeService = recipeService;
 			_userService = userService;
 			_timeService = timeService;
@@ -66,14 +70,7 @@ namespace KuceZBronksuWEB.Controllers
 			return View();
 		}
 
-		[Authorize(Roles = "Admin")]
-		public IActionResult ChangeTimeOfCyclicalEmailing(TimeViewModel model)
-		{
-			RecurringJob.AddOrUpdate<ITimeService>("SendEmailToAdmin", service => service.SendEmailToAdmin(), Cron.Daily(model.TimeOfCyclicalEmailing));
-			return RedirectToAction("AdministratorPanel");
-		}
-
-		[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
 		public async Task <IActionResult> CreateRaportOfViews()
 		{
 			string stringModel = await _apiService.GetDataFromApi();
@@ -83,5 +80,3 @@ namespace KuceZBronksuWEB.Controllers
 
 			return View(visitedRecipesDTOs);
 		}
-	}
-}

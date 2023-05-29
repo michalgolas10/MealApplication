@@ -1,8 +1,10 @@
 @using KuceZBronksuBLL.Models;
+@using KuceZBronksuBLL.Services
 @using Microsoft.AspNetCore.Identity
 @using KuceZBronksuDAL.Models
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+@inject LanguageService language
 
 @model IEnumerable<RecipeViewModel>
 @{
@@ -20,9 +22,9 @@
             }
             else
             {
-            <h1 class="fw-bolder writing-font">Welcome to our MEAL APP!</h1>
+                <h1 class="fw-bolder writing-font">@language.Getkey("Welcome to our MEAL APP!")</h1>
 
-            <p class="lead mb-0">Search for a meal according to your preferences</p>
+            <p class="lead mb-0">@language.Getkey("Search for a meal according to your preferences")</p>
             }
         </div>
     </div>
@@ -31,7 +33,7 @@
     <div class="row">
         <!-- Blog entries-->
         <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 recipeCard">
-            <h2 class="writing-font text-center">Most Viewed Recipes</h2>
+            <h2 class="writing-font text-center">@language.Getkey("Most Viewed Recipes")</h2>
             <div class="row">
                 @foreach (var item in Model)
                 {
@@ -50,7 +52,7 @@
                         </div>
                         <div class="myCardButtons">
                             <div class="myCard">
-                                <a class="btn btn-primary" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details</a>
+                                <a class="btn btn-primary" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">@language.Getkey("Show details")</a>
                             </div>
                         </div>
                     </div>

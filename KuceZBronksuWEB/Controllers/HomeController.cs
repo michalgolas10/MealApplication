@@ -2,6 +2,7 @@
 using KuceZBronksuBLL.Helpers;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services.IServices;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -18,6 +19,13 @@ namespace KuceZBronksuWEB.Controllers
 			_logger = logger;
 			_mapper = mapper;
 			_recipeService = recipeService;
+		}
+		public IActionResult ChangeLanguage(string culture)
+		{
+			Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+				CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+				new CookieOptions() { Expires = DateTimeOffset.UtcNow.AddYears(1) });
+			return Redirect(Request.Headers["Referer"].ToString());
 		}
 
 		public async Task<IActionResult> Index()

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<KuceZBronksuBLL.Models.VisitedRecipesDTO>
+
+@{
+    ViewData["Title"] = "CreateRaportOfViews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nazwa przepisu
+            </th>
+            <th>
+                Data kliknięcia
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LabelOfRecipe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateWhenClicked)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,4 +1,5 @@
-﻿using KuceZBronksuBLL.Models;
+﻿using KuceZBronksuAPIBLL.Models;
+using KuceZBronksuBLL.Models;
 
 namespace KuceZBronksuBLL.Services.IServices
 {
@@ -11,5 +12,7 @@ namespace KuceZBronksuBLL.Services.IServices
 		Task<int> GetUserIdAsync(string email);
 
 		Task ReportAddedToFavouriteAsync(RecipeViewModel favouriteRecipe, int userId);
-	}
+		Task CreateVisitedRecipeReportAsync(IEnumerable<VisitedRecipesDTO>? visitedRecipesDTOs);
+        Task<List<VisitedRecipeDTO>> GetAll();
+    }
 }

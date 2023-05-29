@@ -3,6 +3,7 @@ using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace KuceZBronksuWEB.Controllers
 {
@@ -11,12 +12,16 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly IUserService _userService;
 		private readonly IRecipeService _recipeService;
 		private readonly ITimeService _timeService;
+		private readonly IApiService _apiService;
+		private readonly IReportService _reportService;
 
-		public AccountController(IUserService userService, IRecipeService recipeService, ITimeService timeService)
+		public AccountController(IUserService userService, IRecipeService recipeService, ITimeService timeService, IApiService apiService, IReportService reportService)
 		{
 			_recipeService = recipeService;
 			_userService = userService;
 			_timeService = timeService;
+			_apiService = apiService;
+			_reportService = reportService;
 		}
 
 		[Authorize(Roles = "Admin")]
@@ -66,6 +71,17 @@ namespace KuceZBronksuWEB.Controllers
 		{
 			RecurringJob.AddOrUpdate<ITimeService>("SendEmailToAdmin", service => service.SendEmailToAdmin(), Cron.Daily(model.TimeOfCyclicalEmailing));
 			return RedirectToAction("AdministratorPanel");
+		}
+
+		[Authorize(Roles = "Admin")]
+		public async Task <IActionResult> CreateRaportOfViews()
+		{
+			string stringModel = await _apiService.GetDataFromApi();
+
+			IEnumerable<VisitedRecipesDTO> visitedRecipesDTOs = JsonConvert.DeserializeObject<IEnumerable<VisitedRecipesDTO>>(stringModel);
+			//await _reportService.CreateVisitedRecipeReportAsync(visitedRecipesDTOs);
+
+			return View(visitedRecipesDTOs);
 		}
 	}
 }

@@ -30,7 +30,8 @@ namespace KuceZBronksuAPI.Controllers
 		[HttpGet (Name = "GetRecipeViewsData")]
 		public async Task<IActionResult> GetRecipeViewsData()
 		{
-			var recipes = await _recipeManager.GetReport();
+            var recipes = await _recipeManager.GetAll();
+            //var recipes = await _recipeManager.GetReport();
 
 			return Ok(recipes);
 		}

@@ -22,5 +22,12 @@ namespace KuceZBronksuAPIBLL.Services
 		{
 			return string.Empty;
 		}
-	}
+
+        public async Task<List<VisitedRecipeDTO>> GetAll()
+        {
+            var recipes = await _repository.GetAll();
+            var result = recipes.Select(e => _mapper.Map<VisitedRecipeDTO>(e));
+            return result.ToList();
+        }
+    }
 }

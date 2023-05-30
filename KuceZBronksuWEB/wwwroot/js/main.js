@@ -3,7 +3,7 @@
 
     $(".js-select2").select2({
         closeOnSelect: false,
-        placeholder: "Click to select an optionasdasdas",
+        placeholder: "Click to select an option",
         allowHtml: true,
         allowClear: true,
         tags: true // создает новые опции на лету
@@ -14,8 +14,8 @@
         templateSelection: iformat,
         templateResult: iformat,
         allowHtml: true,
-        placeholder: "Click to select an optionasdasdas",
-        dropdownParent: $('.select-icon'),//обавили класс
+        placeholder: "Click to select an option",
+        dropdownParent: $('.select-icon'),
         allowClear: true,
         multiple: false
     });

@@ -12,7 +12,5 @@ namespace KuceZBronksuBLL.Services.IServices
 		Task<int> GetUserIdAsync(string email);
 
 		Task ReportAddedToFavouriteAsync(RecipeViewModel favouriteRecipe, int userId);
-		Task CreateVisitedRecipeReportAsync(IEnumerable<VisitedRecipesDTO>? visitedRecipesDTOs);
-        Task<List<VisitedRecipeDTO>> GetAll();
     }
 }

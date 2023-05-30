@@ -83,7 +83,7 @@ namespace KuceZBronksuWEB
 			builder.Services.AddTransient<IRecipeService, RecipeService>();
 			builder.Services.AddTransient<ITimeService, TimeService>();
 			builder.Services.AddTransient<IUserService, UserService>();
-			builder.Services.AddTransient<IApiService, ApiService>();
+			builder.Services.AddTransient<GetReportService, GetReportService>();
 			builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
 			builder.Services.AddTransient<IMailService, MailService>();
 			builder.Services.AddControllersWithViews();

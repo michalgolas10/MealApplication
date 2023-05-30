@@ -14,11 +14,11 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly IUserService _userService;
 		private readonly IRecipeService _recipeService;
 		private readonly ITimeService _timeService;
-		private readonly IApiService _apiService;
+		private readonly IGetReportService _apiService;
 		private readonly IReportService _reportService;
 		private readonly SignInManager<User> _signInManager;
 
-		public AccountController(SignInManager<User> signInManager, IUserService userService, IRecipeService recipeService, ITimeService timeService, IApiService apiService, IReportService reportService)
+		public AccountController(SignInManager<User> signInManager, IUserService userService, IRecipeService recipeService, ITimeService timeService, IGetReportService apiService, IReportService reportService)
 		{
 			_signInManager = signInManager;
 			_recipeService = recipeService;

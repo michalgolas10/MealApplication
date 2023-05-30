@@ -91,27 +91,5 @@ namespace KuceZBronksuBLL.Services
 				_logger.LogError("Couldnt Report Adding To Favourite By User");
 			}
 		}
-
-		public async Task CreateVisitedRecipeReportAsync(IEnumerable<VisitedRecipesDTO> visitedRecipes)
-		{
-			StringBuilder csvcontent = new StringBuilder();
-			csvcontent.AppendLine("Recipe name, Date of visit");
-
-			foreach (var visit in visitedRecipes)
-			{
-				csvcontent.AppendLine($"{visit.LabelOfRecipe},{visit.DateWhenClicked}");
-			}
-
-			var date = DateTime.Now;
-			string csvPath = $"C:\\Users\\Grzegorz\\Desktop\\Pi pi pi projekt\\Raports\\VisitedRecipeRaport{date}.csv";
-			File.AppendAllText(csvPath, csvcontent.ToString());
-		}
-
-        public async Task<List<VisitedRecipeDTO>> GetAll()
-        {
-            var recipes = await _repository.GetAll();
-            var result = recipes.Select(e => _mapper.Map<VisitedRecipeDTO>(e));
-            return result.ToList();
-        }
     }
 }

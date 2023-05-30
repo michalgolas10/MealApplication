@@ -4,6 +4,8 @@ using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository.IRepository;
 using Microsoft.Extensions.Logging;
+using MimeKit.Cryptography;
+using System.Collections;
 
 namespace KuceZBronksuBLL.Services
 {
@@ -119,12 +121,25 @@ namespace KuceZBronksuBLL.Services
 		}
 
 		//This method will throw 3 most Viewed recipe last days for now just rndm 3 recipes;
-		public async Task<IEnumerable<RecipeViewModel>> GetThreeMostViewedRecipes()
+		public async Task<IEnumerable<RecipeViewModel>> GetThreeMostViewedRecipes(IEnumerable<VisitedRecipesDTO> listofViewedRecipes)
 		{
-			var listOfRecipes = await GetAllRecipies();
-			listOfRecipes = listOfRecipes.Take(3).ToList();
-			return listOfRecipes;
-		}
+			var listOfViewedRecipes = listofViewedRecipes.ToList();
+            Dictionary<int, VisitedRecipesDTO> occurrences = new Dictionary<int, VisitedRecipesDTO>();
+			foreach(var recipe in listOfViewedRecipes)
+			{
+				var counter = listofViewedRecipes.Count(x => x.RecipeId == recipe.RecipeId);
+				occurrences.Add(counter, recipe);
+			}
+            List<KeyValuePair<int, VisitedRecipesDTO>> sortedList = occurrences.ToList();
+            sortedList.Sort((pair1, pair2) => pair1.Key.CompareTo(pair1.Key));
+			var threeMostViewedRecipes = sortedList.Take(3).ToList();
+			return new List<RecipeViewModel>
+			{
+				_mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[0].Value.RecipeId)),
+                _mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[1].Value.RecipeId)),
+                _mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[2].Value.RecipeId))
+            };
+        }
 
 		public void DeleteRecipe(int id)
 		{

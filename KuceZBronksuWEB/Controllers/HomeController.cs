@@ -16,9 +16,11 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly IRecipeService _recipeService;
 		private readonly IMapper _mapper;
         private readonly SignInManager<User> _signInManager;
+		private readonly IGetReportService _getReportService;
 
-        public HomeController(SignInManager<User> signInManager, ILogger<HomeController> logger, IRecipeService recipeService, IMapper mapper)
+        public HomeController(IGetReportService getReportService, SignInManager<User> signInManager, ILogger<HomeController> logger, IRecipeService recipeService, IMapper mapper)
 		{
+			_getReportService = getReportService;
 			_signInManager = signInManager;
 			_logger = logger;
 			_mapper = mapper;
@@ -34,7 +36,8 @@ namespace KuceZBronksuWEB.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-            var listOfRecipes = await _recipeService.GetThreeMostViewedRecipes();
+			var listOfRecipeToPastToMethod = await _getReportService.GetVisitedRecipe();
+            var listOfRecipes = await _recipeService.GetThreeMostViewedRecipes(listOfRecipeToPastToMethod);
 			ViewBag.SearchViewModel = ModelHelper.CreateSearchModelWithMealTypes();
 			return View(listOfRecipes);
 		}

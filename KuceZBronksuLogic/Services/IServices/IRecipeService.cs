@@ -16,7 +16,7 @@ namespace KuceZBronksuBLL.Services.IServices
 
 		public Task UpdateEditedRecipe(EditAndCreateViewModel editAndCreateViewModel);
 
-		public Task<IEnumerable<RecipeViewModel>> GetThreeMostViewedRecipes();
+		public Task<IEnumerable<RecipeViewModel>> GetThreeMostViewedRecipes(IEnumerable<VisitedRecipesDTO> recipesVisited);
 
 		public void DeleteRecipe(int id);
 

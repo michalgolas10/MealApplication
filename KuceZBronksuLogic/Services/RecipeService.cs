@@ -124,20 +124,20 @@ namespace KuceZBronksuBLL.Services
 		public async Task<IEnumerable<RecipeViewModel>> GetThreeMostViewedRecipes(IEnumerable<VisitedRecipesDTO> listofViewedRecipes)
 		{
 			var listOfViewedRecipes = listofViewedRecipes.ToList();
-            Dictionary<int, VisitedRecipesDTO> occurrences = new Dictionary<int, VisitedRecipesDTO>();
+            Dictionary<VisitedRecipesDTO,int> occurrences = new Dictionary<VisitedRecipesDTO,int>();
 			foreach(var recipe in listOfViewedRecipes)
 			{
 				var counter = listofViewedRecipes.Count(x => x.RecipeId == recipe.RecipeId);
-				occurrences.Add(counter, recipe);
+				occurrences.Add(recipe, counter);
 			}
-            List<KeyValuePair<int, VisitedRecipesDTO>> sortedList = occurrences.ToList();
-            sortedList.Sort((pair1, pair2) => pair1.Key.CompareTo(pair1.Key));
+            List<KeyValuePair<VisitedRecipesDTO, int>> sortedList = occurrences.ToList();
+            sortedList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair1.Value));
 			var threeMostViewedRecipes = sortedList.Take(3).ToList();
 			return new List<RecipeViewModel>
 			{
-				_mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[0].Value.RecipeId)),
-                _mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[1].Value.RecipeId)),
-                _mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[2].Value.RecipeId))
+				_mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[0].Key.RecipeId)),
+                _mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[1].Key.RecipeId)),
+                _mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[2].Key.RecipeId))
             };
         }
 

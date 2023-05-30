@@ -1,5 +1,4 @@
-﻿using KuceZBronksuAPIBLL.Models;
-using KuceZBronksuBLL.Models;
+﻿using KuceZBronksuBLL.Models;
 
 namespace KuceZBronksuBLL.Services.IServices
 {

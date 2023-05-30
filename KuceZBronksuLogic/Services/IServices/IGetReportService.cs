@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KuceZBronksuBLL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuBLL.Services.IServices
 {
-	public interface IApiService
-	{
-		Task<string> GetDataFromApi();
-	}
+    public interface IGetReportService
+    {
+        public Task<string> GetDataFromApi(string endpoint);
+        public Task<IEnumerable<VisitedRecipesDTO>> GetVisitedRecipe();
+        public Task<IEnumerable<LastLoggedUsersDto>> GetLoggedUsers();
+        public Task<IEnumerable<RecipeAddedToFavouriteDTO>> GetRecipeAddedToFavourite();
+    }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using KuceZBronksuAPIBLL.Models;
 using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Models;
@@ -14,20 +13,15 @@ namespace KuceZBronksuBLL.Services
 {
 	public class ReportService : IReportService
 	{
-		private readonly HttpClient httpClient;
-        private readonly IRepository<VisitedRecipe> _repository;
-        private readonly IMapper _mapper;
 		private readonly UserManager<User> _userManager;
 		private readonly ILogger<ReportService> _logger;
 		private readonly IHttpClientFactory _httpClientFactory;
 
-		public ReportService(IRepository<VisitedRecipe> repository, IMapper mapper, UserManager<User> userManager, ILogger<ReportService> logger, IHttpClientFactory httpClientFactory)
+		public ReportService(UserManager<User> userManager, ILogger<ReportService> logger, IHttpClientFactory httpClientFactory)
 		{
-			_mapper = mapper;
 			_userManager = userManager;
 			_logger = logger;
 			_httpClientFactory = httpClientFactory;
-            _repository = repository;
         }
 
 		private async Task<HttpResponseMessage> PostUserActivityAsync(object reportModel, string apiEndpoint)

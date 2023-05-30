@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KuceZBronksuAPIBLL\KuceZBronksuAPIBLL.csproj" />
     <ProjectReference Include="..\KuceZBronksuDAL\KuceZBronksuDAL.csproj" />
   </ItemGroup>
 

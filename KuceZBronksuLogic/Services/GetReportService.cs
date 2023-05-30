@@ -1,4 +1,6 @@
-﻿using KuceZBronksuBLL.Services.IServices;
+﻿using KuceZBronksuBLL.Models;
+using KuceZBronksuBLL.Services.IServices;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,35 +10,48 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuBLL.Services
 {
-	public class ApiService : IApiService
+	public class GetReportService : IGetReportService
 	{
 		private readonly HttpClient _httpClient;
 
-		public ApiService()
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public GetReportService(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+		
+        public async Task<string> GetDataFromApi(string endpoint)
 		{
-			_httpClient = new HttpClient();
-			_httpClient.BaseAddress = new Uri("https://localhost:7294");
-			_httpClient.DefaultRequestHeaders.Accept.Clear();
-			_httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+			_httpClientFactory.CreateClient();
+			var response = await _httpClientFactory.CreateClient().GetAsync($"https://localhost:7294/{endpoint}");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                return "Server error. Please contact administrator.";
+            }
 		}
+        public async Task<IEnumerable<VisitedRecipesDTO>> GetVisitedRecipe()
+        {
+            var visitedRecipesJson = await GetDataFromApi("VisitedRecipe");
+            var visitedRecipesDTOs = JsonConvert.DeserializeObject<IEnumerable<VisitedRecipesDTO>>(visitedRecipesJson);
+            return visitedRecipesDTOs;
+        }
+        public async Task<IEnumerable<LastLoggedUsersDto>> GetLoggedUsers()
+        {
+            var loggedUsersJson =  await GetDataFromApi("LoggedUser");
+            var loggedUsersDtos = JsonConvert.DeserializeObject<IEnumerable<LastLoggedUsersDto>>(loggedUsersJson);
+            return loggedUsersDtos;
+        }
+        public async Task<IEnumerable<RecipeAddedToFavouriteDTO>> GetRecipeAddedToFavourite()
+        {
+            var recipeAddedToFavouriteJson = await GetDataFromApi("AddedFavouriteRecipe");
+            var recipeAddedToFavouriteDtos = JsonConvert.DeserializeObject<IEnumerable<RecipeAddedToFavouriteDTO>>(recipeAddedToFavouriteJson);
+            return recipeAddedToFavouriteDtos;
+        }
 
-		public async Task<string> GetDataFromApi()
-		{
-			string responseString = null;
-
-			HttpResponseMessage response = await _httpClient.GetAsync("/VisitedRecipe");
-
-			if (response.IsSuccessStatusCode)
-			{
-				responseString = await response.Content.ReadAsStringAsync();
-			}
-			else
-			{
-				return "Server error. Please contact administrator.";
-			}
-
-			return responseString;
-		}
-
-	}
+    }
 }

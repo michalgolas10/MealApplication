@@ -14,17 +14,17 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly IUserService _userService;
 		private readonly IRecipeService _recipeService;
 		private readonly ITimeService _timeService;
-		private readonly IGetReportService _apiService;
+		private readonly IGetReportService _getReportService;
 		private readonly IReportService _reportService;
 		private readonly SignInManager<User> _signInManager;
 
-		public AccountController(SignInManager<User> signInManager, IUserService userService, IRecipeService recipeService, ITimeService timeService, IGetReportService apiService, IReportService reportService)
+		public AccountController(SignInManager<User> signInManager, IUserService userService, IRecipeService recipeService, ITimeService timeService, IGetReportService getReportService, IReportService reportService)
 		{
 			_signInManager = signInManager;
 			_recipeService = recipeService;
 			_userService = userService;
 			_timeService = timeService;
-			_apiService = apiService;
+			_getReportService = getReportService;
 			_reportService = reportService;
 		}
 
@@ -73,11 +73,7 @@ namespace KuceZBronksuWEB.Controllers
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> CreateRaportOfViews()
 		{
-			string stringModel = await _apiService.GetDataFromApi();
-
-			IEnumerable<VisitedRecipesDTO> visitedRecipesDTOs = JsonConvert.DeserializeObject<IEnumerable<VisitedRecipesDTO>>(stringModel);
-			//await _reportService.CreateVisitedRecipeReportAsync(visitedRecipesDTOs);
-
+			var visitedRecipesDTOs = await _getReportService.GetVisitedRecipe();
 			return View(visitedRecipesDTOs);
 		}
 	}

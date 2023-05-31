@@ -40,10 +40,10 @@ namespace KuceZBronksuBLL.Services
             var visitedRecipesDTOs = JsonConvert.DeserializeObject<IEnumerable<VisitedRecipesDTO>>(visitedRecipesJson);
             return visitedRecipesDTOs;
         }
-        public async Task<IEnumerable<LastLoggedUsersDto>> GetLoggedUsers()
+        public async Task<IEnumerable<LastLoggedUsersDTO>> GetLoggedUsers()
         {
             var loggedUsersJson =  await GetDataFromApi("LoggedUser");
-            var loggedUsersDtos = JsonConvert.DeserializeObject<IEnumerable<LastLoggedUsersDto>>(loggedUsersJson);
+            var loggedUsersDtos = JsonConvert.DeserializeObject<IEnumerable<LastLoggedUsersDTO>>(loggedUsersJson);
             return loggedUsersDtos;
         }
         public async Task<IEnumerable<RecipeAddedToFavouriteDTO>> GetRecipeAddedToFavourite()

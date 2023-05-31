@@ -1,6 +1,6 @@
 ﻿namespace KuceZBronksuBLL.Models
 {
-	public class LastLoggedUsersDto
+	public class LastLoggedUsersDTO
 	{
 		public int UserId { get; set; }
 		public DateTime LastLogged { get; set; }

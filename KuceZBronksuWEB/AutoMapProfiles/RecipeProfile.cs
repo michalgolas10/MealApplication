@@ -18,7 +18,7 @@ namespace KuceZBronksuWEB.AutoMapProfiles
 				.ReverseMap();
 			CreateMap<VisitedRecipe, VisitedRecipesDTO>()
 				.ReverseMap();
-			CreateMap<LastLoggedUsers, LastLoggedUsersDto>()
+			CreateMap<LastLoggedUsers, LastLoggedUsersDTO>()
 				.ReverseMap();
 			CreateMap<RecipeAddedToFavourite, RecipeAddedToFavouriteDTO>()
 				.ReverseMap();

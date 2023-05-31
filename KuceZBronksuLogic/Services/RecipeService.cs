@@ -123,22 +123,35 @@ namespace KuceZBronksuBLL.Services
 		//This method will throw 3 most Viewed recipe last days for now just rndm 3 recipes;
 		public async Task<IEnumerable<RecipeViewModel>> GetThreeMostViewedRecipes(IEnumerable<VisitedRecipesDTO> listofViewedRecipes)
 		{
+			if (listofViewedRecipes.Count() >= 3)
+			{
 			var listOfViewedRecipes = listofViewedRecipes.ToList();
-            Dictionary<VisitedRecipesDTO,int> occurrences = new Dictionary<VisitedRecipesDTO,int>();
-			foreach(var recipe in listOfViewedRecipes)
-			{
-				var counter = listofViewedRecipes.Count(x => x.RecipeId == recipe.RecipeId);
-				occurrences.Add(recipe, counter);
+				List<Tuple<int,int>> occurrences = new List<Tuple<int, int>>();
+				foreach(var recipe in listOfViewedRecipes)
+				{
+					var counter = listofViewedRecipes.Count(x => x.RecipeId == recipe.RecipeId);
+					occurrences.Add(Tuple.Create(recipe.RecipeId,counter));
+				}
+				var ordered = occurrences.OrderBy(x => x.Item2);
+				var list = ordered.Reverse().Distinct().ToList();
+				return new List<RecipeViewModel>
+				{
+					_mapper.Map<RecipeViewModel>(await _repository.Get(list[0].Item1)),
+					_mapper.Map<RecipeViewModel>(await _repository.Get(list[1].Item1)),
+					_mapper.Map<RecipeViewModel>(await _repository.Get(list[2].Item1))
+				};
 			}
-            List<KeyValuePair<VisitedRecipesDTO, int>> sortedList = occurrences.ToList();
-            sortedList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair1.Value));
-			var threeMostViewedRecipes = sortedList.Take(3).ToList();
-			return new List<RecipeViewModel>
+			else
 			{
-				_mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[0].Key.RecipeId)),
-                _mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[1].Key.RecipeId)),
-                _mapper.Map<RecipeViewModel>(await _repository.Get(threeMostViewedRecipes[2].Key.RecipeId))
-            };
+				var allRecipes = (await _repository.GetAll()).ToList();
+				return new List<RecipeViewModel>
+				{
+					_mapper.Map<RecipeViewModel>(allRecipes[0]),
+                    _mapper.Map<RecipeViewModel>(allRecipes[1]),
+                    _mapper.Map<RecipeViewModel>(allRecipes[2]),
+                };
+			}
+			
         }
 
 		public void DeleteRecipe(int id)

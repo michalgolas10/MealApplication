@@ -21,18 +21,17 @@ namespace KuceZBronksuAPI.Controllers
 		}
 
 		[HttpPost(Name = "AddVisitedRecipes")]
-		public async Task AddAsyncVisit([FromBody] VisitedRecipe lastLoggedReport)
+		public async Task<ActionResult> AddAsyncVisit([FromBody] VisitedRecipe lastLoggedReport)
 		{
 			await _context.AddAsync(lastLoggedReport);
 			await _context.SaveChangesAsync();
+			return Ok();
 		}
 
 		[HttpGet (Name = "GetRecipeViewsData")]
 		public async Task<IActionResult> GetRecipeViewsData()
 		{
-            var recipes = await _recipeManager.GetAll();
-            //var recipes = await _recipeManager.GetReport();
-
+            var recipes = await _recipeManager.GetAllVisitedRecipe();
 			return Ok(recipes);
 		}
 	}

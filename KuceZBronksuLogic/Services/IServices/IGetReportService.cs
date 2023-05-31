@@ -11,7 +11,7 @@ namespace KuceZBronksuBLL.Services.IServices
     {
         public Task<string> GetDataFromApi(string endpoint);
         public Task<IEnumerable<VisitedRecipesDTO>> GetVisitedRecipe();
-        public Task<IEnumerable<LastLoggedUsersDto>> GetLoggedUsers();
+        public Task<IEnumerable<LastLoggedUsersDTO>> GetLoggedUsers();
         public Task<IEnumerable<RecipeAddedToFavouriteDTO>> GetRecipeAddedToFavourite();
     }
 }

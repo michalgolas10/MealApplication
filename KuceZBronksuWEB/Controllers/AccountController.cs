@@ -74,7 +74,9 @@ namespace KuceZBronksuWEB.Controllers
 		public async Task<IActionResult> CreateRaportOfViews()
 		{
 			var visitedRecipesDTOs = await _getReportService.GetVisitedRecipe();
-			return View(visitedRecipesDTOs);
+            var lastLoggedUsersDTOs = await _getReportService.GetLoggedUsers();
+            var recipesAddedToFavouritesDTOs = await _getReportService.GetRecipeAddedToFavourite();
+            return View(visitedRecipesDTOs);
 		}
 	}
 }

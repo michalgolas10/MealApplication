@@ -11,13 +11,13 @@ using System.Text;
 
 namespace KuceZBronksuBLL.Services
 {
-	public class ReportService : IReportService
+	public class PostReportService : IPostReportService
 	{
 		private readonly UserManager<User> _userManager;
-		private readonly ILogger<ReportService> _logger;
+		private readonly ILogger<PostReportService> _logger;
 		private readonly IHttpClientFactory _httpClientFactory;
 
-		public ReportService(UserManager<User> userManager, ILogger<ReportService> logger, IHttpClientFactory httpClientFactory)
+		public PostReportService(UserManager<User> userManager, ILogger<PostReportService> logger, IHttpClientFactory httpClientFactory)
 		{
 			_userManager = userManager;
 			_logger = logger;

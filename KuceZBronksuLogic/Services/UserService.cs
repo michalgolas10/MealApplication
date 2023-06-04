@@ -15,9 +15,9 @@ namespace KuceZBronksuBLL.Services
 		private readonly IMapper _mapper;
 		private readonly UserManager<User> _userManager;
 		private readonly ILogger<UserService> _logger;
-		private readonly IReportService _reportService;
+		private readonly IPostReportService _reportService;
 
-		public UserService(IReportService reportService, UserManager<User> userManager, IRecipeService recipeService, IMapper mapper, ILogger<UserService> logger)
+		public UserService(IPostReportService reportService, UserManager<User> userManager, IRecipeService recipeService, IMapper mapper, ILogger<UserService> logger)
 		{
 			_reportService = reportService;
 			_mapper = mapper;

@@ -15,10 +15,10 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly IRecipeService _recipeService;
 		private readonly ITimeService _timeService;
 		private readonly IGetReportService _getReportService;
-		private readonly IReportService _reportService;
+		private readonly IPostReportService _reportService;
 		private readonly SignInManager<User> _signInManager;
 
-		public AccountController(SignInManager<User> signInManager, IUserService userService, IRecipeService recipeService, ITimeService timeService, IGetReportService getReportService, IReportService reportService)
+		public AccountController(SignInManager<User> signInManager, IUserService userService, IRecipeService recipeService, ITimeService timeService, IGetReportService getReportService, IPostReportService reportService)
 		{
 			_signInManager = signInManager;
 			_recipeService = recipeService;

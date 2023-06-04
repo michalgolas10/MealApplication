@@ -17,11 +17,11 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly IMapper _mapper;
 		private readonly IUserService _userService;
 		private readonly UserManager<User> _userManager;
-		private readonly IReportService _reportService;
+		private readonly IPostReportService _reportService;
 		private readonly SignInManager<User> _signInManager;
 
 		public RecipeController(IUserService userService,
-			IRecipeService recipeService, IMapper mapper, UserManager<User> userManager, IReportService reportService, SignInManager<User> signInManager)
+			IRecipeService recipeService, IMapper mapper, UserManager<User> userManager, IPostReportService reportService, SignInManager<User> signInManager)
 		{
 			_userService = userService;
 			_recipeService = recipeService;

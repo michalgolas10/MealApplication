@@ -2,7 +2,7 @@
 
 namespace KuceZBronksuBLL.Services.IServices
 {
-	public interface IReportService
+	public interface IPostReportService
 	{
 		Task ReportRecipeVisitAsync(RecipeViewModel visitedRecipe);
 

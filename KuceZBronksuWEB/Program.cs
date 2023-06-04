@@ -79,7 +79,7 @@ namespace KuceZBronksuWEB
 					.AddDefaultTokenProviders()
 					.AddDefaultUI();
 			builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-			builder.Services.AddTransient<IReportService, ReportService>();
+			builder.Services.AddTransient<IPostReportService, PostReportService>();
 			builder.Services.AddTransient<IRecipeService, RecipeService>();
 			builder.Services.AddTransient<ITimeService, TimeService>();
 			builder.Services.AddTransient<IUserService, UserService>();

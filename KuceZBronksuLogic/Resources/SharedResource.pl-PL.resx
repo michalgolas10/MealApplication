@@ -120,11 +120,26 @@
   <data name="Account" xml:space="preserve">
     <value>Konto</value>
   </data>
+  <data name="Add to Favourites" xml:space="preserve">
+    <value>Dodaj do ulubionych</value>
+  </data>
   <data name="Admin Panel" xml:space="preserve">
     <value>Panel administratora</value>
   </data>
+  <data name="Calories/Serving" xml:space="preserve">
+    <value>Kalorie/Porcja</value>
+  </data>
   <data name="Create Recipe" xml:space="preserve">
     <value>Dodaj przepis</value>
+  </data>
+  <data name="Delete from Favourites" xml:space="preserve">
+    <value>Usuń z ulubionych</value>
+  </data>
+  <data name="Delete Recipe" xml:space="preserve">
+    <value>Usuń przepis</value>
+  </data>
+  <data name="Edit Recipe" xml:space="preserve">
+    <value>Edytuj przepis</value>
   </data>
   <data name="Enter search term..." xml:space="preserve">
     <value>Wprowadź wyszukiwane hasło</value>
@@ -132,11 +147,17 @@
   <data name="Favourite Recipes" xml:space="preserve">
     <value>Ulubione przepisy</value>
   </data>
+  <data name="Health Labels" xml:space="preserve">
+    <value>Etykiety zdrowotne</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Strona główna</value>
   </data>
   <data name="Ingredients" xml:space="preserve">
     <value>Składniki</value>
+  </data>
+  <data name="Instructions" xml:space="preserve">
+    <value>Sposób wykonania</value>
   </data>
   <data name="Kcal amount" xml:space="preserve">
     <value>Ilość kalorii</value>
@@ -168,11 +189,20 @@
   <data name="Search Recipe" xml:space="preserve">
     <value>Wyszukaj przepis</value>
   </data>
+  <data name="Servings" xml:space="preserve">
+    <value>Porcje</value>
+  </data>
   <data name="Show details" xml:space="preserve">
     <value>Pokaż szczegóły</value>
   </data>
   <data name="Sign Out" xml:space="preserve">
     <value>Wyloguj</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Krok</value>
+  </data>
+  <data name="This recipe contains" xml:space="preserve">
+    <value>Ten przepis zawiera</value>
   </data>
   <data name="Welcome to our MEAL APP!" xml:space="preserve">
     <value>Witaj w naszej kulinarnej aplikacji!</value>

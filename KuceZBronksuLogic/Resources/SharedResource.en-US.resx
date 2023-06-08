@@ -120,11 +120,26 @@
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="Add to Favourites" xml:space="preserve">
+    <value>Add to Favourites</value>
+  </data>
   <data name="Admin Panel" xml:space="preserve">
     <value>Admin Panel</value>
   </data>
+  <data name="Calories/Serving" xml:space="preserve">
+    <value>Calories/Servings</value>
+  </data>
   <data name="Create Recipe" xml:space="preserve">
     <value>Create Recipe</value>
+  </data>
+  <data name="Delete from Favourites" xml:space="preserve">
+    <value>Delete from Favourites</value>
+  </data>
+  <data name="Delete Recipe" xml:space="preserve">
+    <value>Delete Recipe</value>
+  </data>
+  <data name="Edit Recipe" xml:space="preserve">
+    <value>Edit Recipe</value>
   </data>
   <data name="Enter search term..." xml:space="preserve">
     <value>Enter search term...</value>
@@ -132,11 +147,17 @@
   <data name="Favourite Recipes" xml:space="preserve">
     <value>Favourite Recipes</value>
   </data>
+  <data name="Health Labels" xml:space="preserve">
+    <value>Health Labels</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
   <data name="Ingredients" xml:space="preserve">
     <value>Ingredients</value>
+  </data>
+  <data name="Instructions" xml:space="preserve">
+    <value>Instructions</value>
   </data>
   <data name="Kcal amount" xml:space="preserve">
     <value>Kcal amount</value>
@@ -168,11 +189,20 @@
   <data name="Search Recipe" xml:space="preserve">
     <value>Search Recipe</value>
   </data>
+  <data name="Servings" xml:space="preserve">
+    <value>Servings</value>
+  </data>
   <data name="Show details" xml:space="preserve">
     <value>Show details</value>
   </data>
   <data name="Sign Out" xml:space="preserve">
     <value>Sign Out</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Step</value>
+  </data>
+  <data name="This recipe contains" xml:space="preserve">
+    <value>This recipe contains</value>
   </data>
   <data name="Welcome to our MEAL APP!" xml:space="preserve">
     <value>Welcome to our MEAL APP!</value>

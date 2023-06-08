@@ -60,7 +60,7 @@
                                     }
                                     else
                                     {
-                                    <a asp-area="Identity" asp-page="/Account/Login">@language.Getkey("Log in")</a>
+                                    <a asp-controller="Account" asp-action="LogInUser">@language.Getkey("Log in")</a>
                                     <a asp-area="Identity" asp-page="/Account/Register">@language.Getkey("Register")</a>
                                     }
                                     @if (User.IsInRole("Admin"))

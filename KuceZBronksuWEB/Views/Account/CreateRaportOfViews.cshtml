@@ -5,13 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table">
+<a asp-action="AdministratorPanel"><input type="button" value="Back" class="btn btn-primary" /></a>
+
+<table id="myTable" class="table">
     <thead>
         <tr>
-            <th>
+            <th onclick="sortTable(0)">
                 Nazwa przepisu
             </th>
-            <th>
+            <th onclick="sortTable(1)">
                 Data kliknięcia
             </th>
         </tr>

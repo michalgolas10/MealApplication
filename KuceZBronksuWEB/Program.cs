@@ -50,7 +50,7 @@ namespace KuceZBronksuWEB
 			builder.Services.AddMvc()
 				.AddViewLocalization()
 				.AddDataAnnotationsLocalization(options =>
-				{	
+				{
 					options.DataAnnotationLocalizerProvider = (type, factory) =>
 					{
 						var assemblyName = new AssemblyName(typeof(ShareResource).GetTypeInfo().Assembly.FullName);
@@ -84,6 +84,7 @@ namespace KuceZBronksuWEB
 			builder.Services.AddTransient<ITimeService, TimeService>();
 			builder.Services.AddTransient<IUserService, UserService>();
 			builder.Services.AddTransient<IGetReportService, GetReportService>();
+			builder.Services.AddTransient<ICreateReportService, CreateReportService>();
 			builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
 			builder.Services.AddTransient<IMailService, MailService>();
 			builder.Services.AddControllersWithViews();

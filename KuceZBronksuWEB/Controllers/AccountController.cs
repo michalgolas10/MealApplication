@@ -17,8 +17,9 @@ namespace KuceZBronksuWEB.Controllers
 		private readonly IGetReportService _getReportService;
 		private readonly IPostReportService _reportService;
 		private readonly SignInManager<User> _signInManager;
+		private readonly ICreateReportService _creaReportService;
 
-		public AccountController(SignInManager<User> signInManager, IUserService userService, IRecipeService recipeService, ITimeService timeService, IGetReportService getReportService, IPostReportService reportService)
+		public AccountController(SignInManager<User> signInManager, IUserService userService, IRecipeService recipeService, ITimeService timeService, IGetReportService getReportService, IPostReportService reportService, ICreateReportService createRecipeService)
 		{
 			_signInManager = signInManager;
 			_recipeService = recipeService;
@@ -26,6 +27,7 @@ namespace KuceZBronksuWEB.Controllers
 			_timeService = timeService;
 			_getReportService = getReportService;
 			_reportService = reportService;
+			_creaReportService = createRecipeService;
 		}
 
 		[Authorize(Roles = "Admin")]
@@ -77,6 +79,16 @@ namespace KuceZBronksuWEB.Controllers
             var lastLoggedUsersDTOs = await _getReportService.GetLoggedUsers();
             var recipesAddedToFavouritesDTOs = await _getReportService.GetRecipeAddedToFavourite();
             return View(visitedRecipesDTOs);
+		}
+
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> CountedRecipeViews()
+		{
+			var recipesModel = await _recipeService.GetAllRecipies();
+			var visitedRecipeDTOs = await _getReportService.GetVisitedRecipe();
+			var countedRecipes = await _creaReportService.CountRecipeViews(recipesModel, visitedRecipeDTOs);
+
+			return View(countedRecipes);
 		}
 	}
 }

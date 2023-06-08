@@ -22,6 +22,10 @@ namespace KuceZBronksuWEB.AutoMapProfiles
 				.ReverseMap();
 			CreateMap<RecipeAddedToFavourite, RecipeAddedToFavouriteDTO>()
 				.ReverseMap();
+			CreateMap<RecipeViewModel, CountedRecipeViewsModel>()
+				.ForMember(dest => dest.RecipeId, opts => opts.MapFrom(src => src.Id))
+				.ForMember(dest => dest.LabelOfRecipe, opts => opts.MapFrom(src => src.Label))
+				.ForMember(dest => dest.Count, opts => opts.Equals(0));
 		}
 	}
 }

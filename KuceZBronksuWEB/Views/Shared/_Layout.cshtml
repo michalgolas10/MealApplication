@@ -2,9 +2,9 @@
 @using KuceZBronksuDAL.Models
 @using KuceZBronksuBLL.Services
 
+@inject LanguageService language
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-@inject LanguageService language
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +60,7 @@
                                     }
                                     else
                                     {
-                                    <a asp-controller="Account" asp-action="LogInUser">@language.Getkey("Log in")</a>
+                                    <a asp-area="Identity" asp-page="/Account/Login">@language.Getkey("Log in")</a>
                                     <a asp-area="Identity" asp-page="/Account/Register">@language.Getkey("Register")</a>
                                     }
                                     @if (User.IsInRole("Admin"))

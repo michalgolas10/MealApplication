@@ -1,16 +1,26 @@
 ﻿@page
 @model LoginModel
-
+<style>
+    .login-container {
+        width: 30%;
+        margin: 0 auto;
+        margin-top: 100px;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+@using KuceZBronksuBLL.Services
+@inject LanguageService language
 @{
     ViewData["Title"] = "Log in";
 }
-
-<div class="row">
-    <div class="col-md-4" style="margin-left:20%">
+<div class="login-container">
         <h1>@ViewData["Title"]</h1>
         <section>
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
+            <h2>@language.Getkey("Use a local account to log in.")</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
@@ -36,18 +46,17 @@
                 </div>
                 <div>
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    <a id="forgot-password" asp-page="./ForgotPassword">@language.Getkey("Forgot your password?")</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">@language.Getkey("Register as a new user")</a>
                     </p>
                     <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                    <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">@language.Getkey("Resend email confirmation")</a>
                     </p>
                 </div>
             </form>
         </section>
-    </div>
 </div>
 
 @section Scripts {

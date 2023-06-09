@@ -3,11 +3,20 @@
 @{
     ViewData["Title"] = "Register";
 }
-
-
-
-<div class="row">
-    <div class="col-md-4" style="margin-left:20%">
+@using KuceZBronksuBLL.Services
+@inject LanguageService language
+<style>
+    .login-container {
+        width: 30%;
+        margin: 0 auto;
+        margin-top: 100px;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<div class="login-container">
 		<h1>@ViewData["Title"]</h1>
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h2>Create a new account.</h2>
@@ -30,7 +39,6 @@
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
-    </div>
 </div>
 
 @section Scripts {

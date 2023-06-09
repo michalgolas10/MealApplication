@@ -1,3 +1,4 @@
+using KuceZBronksuAPI.Middleware;
 using KuceZBronksuAPIBLL.Models;
 using KuceZBronksuAPIBLL.Services;
 using KuceZBronksuAPIBLL.Services.IServices;
@@ -24,7 +25,8 @@ public class Program
 		builder.Services.AddTransient<IReportManager, ReportManager>();
 		builder.Services.AddAutoMapper(typeof(VisitedRecipeDTO), typeof(Program));
 		builder.Services.AddControllers();
-		builder.Services.AddEndpointsApiExplorer();
+
+        builder.Services.AddEndpointsApiExplorer();
 		builder.Services.AddSwaggerGen();
 		var app = builder.Build();
 
@@ -34,6 +36,7 @@ public class Program
 			app.UseSwagger();
 			app.UseSwaggerUI();
 		}
+        app.UseMiddleware<CustonExceptionHandlerMiddleware>();
 
 		app.UseHttpsRedirection();
 

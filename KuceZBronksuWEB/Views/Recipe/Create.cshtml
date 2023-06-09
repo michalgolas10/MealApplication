@@ -1,4 +1,6 @@
 ﻿@using KuceZBronksuBLL.Models;
+@using KuceZBronksuBLL.Services
+@inject LanguageService language
 @model EditAndCreateViewModel
 @{
     ViewData["Title"] = "Create Recipe";
@@ -6,7 +8,7 @@
 }
 <div class="container" id="center">
     <div class="row">
-        <h4>Create Recipe</h4>
+        <h4>@language.Getkey("Create Recipe")</h4>
         <div class="col-md-4">
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -28,16 +30,19 @@
                 <div class="form-group">
                     <label asp-for="IngredientLines" class="control-label"></label>
                     <div id="survey_options">
-                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="First Ingredient" />
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder=@language.Getkey("First Ingredient") />
                         <span asp-validation-for="IngredientLines" class="text-danger"></span>
-                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Second Ingredient" />
+                        <div class="form-group"></div>
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder=@language.Getkey("Second Ingredient") />
                         <span asp-validation-for="IngredientLines" class="text-danger"></span>
-                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Next Ingredient" />
+                        <div class="form-group"></div>
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder=@language.Getkey("Next Ingredient") />
                         <span asp-validation-for="IngredientLines" class="text-danger"></span>
+                        <div class="form-group"></div>
                     </div>
                     <div class="controls">
-                        <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
-                        <a href="#" id="remove_fields"><i class="fa fa-plus"></i>Remove Field</a>
+                        <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>@language.Getkey("Add More")</a>
+                        <a href="#" id="remove_fields"><i class="fa fa-plus"></i>@language.Getkey("Remove Field")</a>
                     </div>
                 </div>
                 <div class="form-group">
@@ -120,8 +125,8 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    <a asp-action="Index"><input type="button" value="Back" class="btn btn-primary" /></a>
+                    <input type="submit" value=@language.Getkey("Save") class="btn btn-primary" />
+                    <a asp-action="Index"><input type="button" value=@language.Getkey("Back") class="btn btn-primary" /></a>
                 </div>
 
             </form>

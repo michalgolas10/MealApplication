@@ -17,7 +17,7 @@
     ViewData["Title"] = "Log in";
 }
 <div class="login-container">
-        <h1>@ViewData["Title"]</h1>
+    <h1>@language.Getkey("Log in")</h1>
         <section>
             <form id="account" method="post">
             <h2>@language.Getkey("Use a local account to log in.")</h2>
@@ -25,12 +25,12 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                    <label asp-for="Input.Email" class="form-label"></label>
+                    <label class="form-label">@language.Getkey("Email")</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating">
                     <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                    <label asp-for="Input.Password" class="form-label"></label>
+                    <label class="form-label">@language.Getkey("Password")</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">@language.Getkey("Log in")</button>
                 </div>
                 <div>
                     <p>

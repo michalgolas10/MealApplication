@@ -78,11 +78,6 @@ namespace KuceZBronksuWEB.Controllers
             var recipesAddedToFavouritesDTOs = await _getReportService.GetRecipeAddedToFavourite();
             return View(visitedRecipesDTOs);
 		}
-		public IActionResult LogInUser()
-		{
-			return View();
-		}
-
 	}
 }
 

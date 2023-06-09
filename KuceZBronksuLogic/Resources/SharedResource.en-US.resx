@@ -120,14 +120,26 @@
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="Add More" xml:space="preserve">
+    <value>Add More</value>
+  </data>
   <data name="Add to Favourites" xml:space="preserve">
     <value>Add to Favourites</value>
   </data>
   <data name="Admin Panel" xml:space="preserve">
     <value>Admin Panel</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="Calories/Serving" xml:space="preserve">
     <value>Calories/Servings</value>
+  </data>
+  <data name="Confirm password" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="Create a new account." xml:space="preserve">
+    <value>Create a new account</value>
   </data>
   <data name="Create Recipe" xml:space="preserve">
     <value>Create Recipe</value>
@@ -141,11 +153,23 @@
   <data name="Edit Recipe" xml:space="preserve">
     <value>Edit Recipe</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Enter ingredient" xml:space="preserve">
+    <value>Enter ingredient</value>
+  </data>
   <data name="Enter search term..." xml:space="preserve">
     <value>Enter search term...</value>
   </data>
   <data name="Favourite Recipes" xml:space="preserve">
     <value>Favourite Recipes</value>
+  </data>
+  <data name="First Ingredient" xml:space="preserve">
+    <value>First Ingredient</value>
+  </data>
+  <data name="Forgot your password?" xml:space="preserve">
+    <value>Forgot your password?</value>
   </data>
   <data name="Health Labels" xml:space="preserve">
     <value>Health Labels</value>
@@ -174,11 +198,29 @@
   <data name="Most Viewed Recipes" xml:space="preserve">
     <value>Most Viewed Recipes</value>
   </data>
+  <data name="Next Ingredient" xml:space="preserve">
+    <value>Next Ingredient</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
   <data name="Recipes" xml:space="preserve">
     <value>Recipes</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="Register as a new user" xml:space="preserve">
+    <value>Register as a new user</value>
+  </data>
+  <data name="Remove Field" xml:space="preserve">
+    <value>Remove Field</value>
+  </data>
+  <data name="Resend email confirmation" xml:space="preserve">
+    <value>Resend email confirmation</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
@@ -188,6 +230,9 @@
   </data>
   <data name="Search Recipe" xml:space="preserve">
     <value>Search Recipe</value>
+  </data>
+  <data name="Second Ingredient" xml:space="preserve">
+    <value>Second Ingredient</value>
   </data>
   <data name="Servings" xml:space="preserve">
     <value>Servings</value>
@@ -203,6 +248,12 @@
   </data>
   <data name="This recipe contains" xml:space="preserve">
     <value>This recipe contains</value>
+  </data>
+  <data name="Use a local account to log in." xml:space="preserve">
+    <value>Use a local account to log in.</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>username</value>
   </data>
   <data name="Welcome to our MEAL APP!" xml:space="preserve">
     <value>Welcome to our MEAL APP!</value>

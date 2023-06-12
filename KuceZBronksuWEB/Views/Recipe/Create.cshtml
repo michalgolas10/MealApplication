@@ -58,7 +58,7 @@
 
                 <div class="form-group">
                     <label asp-for="Cautions" class="control-label"></label>
-                    <select asp-for="Cautions" class="js-select2" multiple aria-label="multiple select example">
+                    <select asp-for="Cautions" class="js-select2" multiple aria-label="multiple select example" data-placeholder=@language.Getkey("Select Cautions")>
                         @if (Model.Cautions != null)
                         {
                             @foreach (var item in Model.Cautions)
@@ -71,7 +71,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="HealthLabels" class="control-label"></label>
-                    <select asp-for="HealthLabels" class="js-select2" multiple aria-label="multiple select example">
+                    <select asp-for="HealthLabels" class="js-select2" multiple aria-label="multiple select example" data-placeholder=@language.Getkey("Select Health Labels")>
                         @if (Model.HealthLabels != null)
                         {
                             @foreach (var item in Model.HealthLabels)
@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="DietLabels" class="control-label"></label>
-                    <select asp-for="DietLabels" class="js-select2" multiple aria-label="multiple select example">
+                    <select asp-for="DietLabels" class="js-select2" multiple aria-label="multiple select example" data-placeholder=@language.Getkey("Select Diet Labels")>
                         @if (Model.DietLabels != null)
                         {
                             @foreach (var item in Model.DietLabels)
@@ -98,7 +98,7 @@
 
                 <div class="form-group">
                     <label asp-for="CuisineType" class="control-label"></label>
-                    <select asp-for="CuisineType" class="js-select2" multiple aria-label="multiple select example">
+                    <select asp-for="CuisineType" class="js-select2" multiple aria-label="multiple select example" data-placeholder=@language.Getkey("Select Cuisine Type")>
                         @if (Model.CuisineType != null)
                         {
                             @foreach (var item in Model.CuisineType)
@@ -112,7 +112,7 @@
 
                 <div class="form-group">
                     <label asp-for="MealType" class="control-label"></label>
-                    <select asp-for="MealType" class="js-select2" multiple aria-label="multiple select example">
+                    <select asp-for="MealType" class="js-select2" multiple aria-label="multiple select example" data-placeholder=@language.Getkey("Select Meal Type")>
                         @if (Model.MealType != null)
                         {
                             @foreach (var item in Model.MealType)

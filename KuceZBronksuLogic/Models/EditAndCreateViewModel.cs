@@ -6,8 +6,7 @@ namespace KuceZBronksuBLL.Models
 	public class EditAndCreateViewModel
 	{
 		public int? Id { get; set; }
-
-		[DisplayName("Name"), StringLength(100, MinimumLength = 2)]
+        [Display(ResourceType = typeof(ShareResource), Name = "Name"), StringLength(100, MinimumLength = 2)]
 		public string Label { get; set; }
 
 		[DisplayName("Calories"), StringLength(200, MinimumLength = 2)]

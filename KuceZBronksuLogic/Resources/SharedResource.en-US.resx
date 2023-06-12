@@ -198,6 +198,9 @@
   <data name="Most Viewed Recipes" xml:space="preserve">
     <value>Most Viewed Recipes</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name of recipe</value>
+  </data>
   <data name="Next Ingredient" xml:space="preserve">
     <value>Next Ingredient</value>
   </data>
@@ -233,6 +236,24 @@
   </data>
   <data name="Second Ingredient" xml:space="preserve">
     <value>Second Ingredient</value>
+  </data>
+  <data name="Select Cautions" xml:space="preserve">
+    <value>Select Cautions</value>
+  </data>
+  <data name="Select Cuisine Type" xml:space="preserve">
+    <value>Select Cuisine Type</value>
+  </data>
+  <data name="Select Diet Labels" xml:space="preserve">
+    <value>Select Diet Labels</value>
+  </data>
+  <data name="Select Health Labels" xml:space="preserve">
+    <value>Select Health Labels</value>
+  </data>
+  <data name="Select Meal Time" xml:space="preserve">
+    <value>Select Meal Time</value>
+  </data>
+  <data name="Select Meal Type" xml:space="preserve">
+    <value>Select Meal Type</value>
   </data>
   <data name="Servings" xml:space="preserve">
     <value>Servings</value>

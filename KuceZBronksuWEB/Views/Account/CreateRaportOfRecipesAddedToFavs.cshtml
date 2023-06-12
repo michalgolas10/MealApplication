@@ -1,25 +1,23 @@
-﻿@model IEnumerable<KuceZBronksuBLL.Models.CountedRecipeViewsModel>
-
+﻿@model IEnumerable<KuceZBronksuBLL.Models.RecipeAddedToFavouriteDTO>
 
 @{
-    ViewData["Title"] = "CountedRecipeViews";
+    ViewData["Title"] = "CreateRaportOfRecipesAddedToFavs";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <a asp-action="AdministratorPanel"><input type="button" value="Back" class="btn btn-primary" /></a>
 
 <table id="myTable" class="table">
     <thead>
         <tr>
-            <th onclick="sortTable(0)">
+            <th>
                 Nazwa przepisu
             </th>
-            <th onclick="sortTable(1)">
-                Ilość kliknięć
+            <th>
+                Data kliknięcia
             </th>
             <th>
-                Ilość ulubionych
+                Użytkownik
             </th>
         </tr>
     </thead>
@@ -28,22 +26,21 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LabelOfRecipe)
+                    @Html.DisplayFor(modelItem => item.LabelOfRecie)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Count)
+                    @Html.DisplayFor(modelItem => item.DateWhenClicked)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItel => item.FavouriteCount)
+                    @Html.DisplayFor(modelItem => item.UserId)
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-
 <script>
-$(document).ready( function () {
-    $('#myTable').DataTable();
-} );
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
 </script>

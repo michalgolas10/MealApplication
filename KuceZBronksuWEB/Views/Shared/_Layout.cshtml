@@ -22,16 +22,18 @@
     <link href="~/css/styles.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
 
-    <script src="~/js/myTable.js"></script>
+
+    @*    <script src="~/js/myTable.js"></script>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/textFit.js"></script>
     <script src="~/js/jquery.fittext.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 </head>
 <body>
     <!-- Responsive navbar-->
     @*<nav class="navbar navbar-expand-lg navbar-light">*@
     @*<nav class="navbar navbar-expand-lg navbar-light  bg-light">*@
-    <nav class=" navbar navbar-expand-lg navbar-light"> 
+    <nav class=" navbar navbar-expand-lg navbar-light">
         <div class="container">
             <div class="dropdown">
                 <button class="dropbtn" style="font-size:12px">@language.Getkey("Language")</button>
@@ -161,5 +163,6 @@
             }
         });
     </script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 </body>
 </html>

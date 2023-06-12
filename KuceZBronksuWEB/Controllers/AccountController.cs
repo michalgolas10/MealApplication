@@ -86,10 +86,19 @@ namespace KuceZBronksuWEB.Controllers
 		{
 			var recipesModel = await _recipeService.GetAllRecipies();
 			var visitedRecipeDTOs = await _getReportService.GetVisitedRecipe();
-			var countedRecipes = await _creaReportService.CountRecipeViews(recipesModel, visitedRecipeDTOs);
+            var favouriteRecipesDTOs = await _getReportService.GetRecipeAddedToFavourite();
+            var countedRecipes = await _creaReportService.CountRecipeViews(recipesModel, visitedRecipeDTOs, favouriteRecipesDTOs);
 
 			return View(countedRecipes);
 		}
+
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> CreateRaportOfRecipesAddedToFavs()
+		{
+            var recipesAddedToFavouritesDTOs = await _getReportService.GetRecipeAddedToFavourite();
+
+			return View(recipesAddedToFavouritesDTOs);
+        }
 	}
 }
 

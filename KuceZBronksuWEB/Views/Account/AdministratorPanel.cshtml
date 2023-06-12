@@ -4,11 +4,53 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>AdministratorPanel</h1>
-<a class="btn btn-primary" asp-action="ShowAllUsers" asp-controller="Account">Show all users</a>
-<a class="btn btn-primary" asp-action="CreateRaportOfViews" asp-controller="Account">Get Views Raport</a>
-<a class="btn btn-primary" asp-action="ShowRecipeWaitingToBeAdd" asp-controller="Account">Show Recipes waiting for add</a>
-<a class="btn btn-primary" asp-action="CountedRecipeViews" asp-controller="Account">Show Count of Recipe Views</a>
+<h1>Administrator Panel</h1>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
+            <div class="card">
+                <img class="img-responsive" src="https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" />
+            </div>
+            <div class="myCard">
+                <a class="btn btn-primary" asp-action="ShowAllUsers" asp-controller="Account">Show all users</a>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
+            <div class="card">
+                <img class="img-responsive" src="https://media.istockphoto.com/id/688550958/pl/wektor/czarny-znak-plus-symbol-dodatni.jpg?s=612x612&w=0&k=20&c=vRxUr1VTLE4gmbTaoW_rb_TItSx9GDyF4AwdN-arHXk=" />
+            </div>
+            <div class="myCard">
+                <a class="btn btn-primary" asp-action="ShowRecipeWaitingToBeAdd" asp-controller="Account">Recipes waiting for add</a>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
+            <div class="card">
+                <img class="img-responsive" src="https://st4.depositphotos.com/20838724/24118/v/600/depositphotos_241180048-stock-illustration-heart-line-simple-icon-outline.jpg" />
+            </div>
+                <div class="myCard">
+                <a class="btn btn-primary" asp-action="CreateRaportOfRecipesAddedToFavs" asp-controller="Account">Favourite Raport</a>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
+            <div class="card">
+                <img class="img-responsive" src="https://kumarproperties.com/wp-content/uploads/2020/04/point-of-views-1.png" />
+            </div>
+        <div class="myCard">
+                <a class="btn btn-primary" asp-action="CreateRaportOfViews" asp-controller="Account">Get Views Raport</a>
+        </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
+            <div class="card">
+                <img class="img-responsive" src="https://thumbs.dreamstime.com/b/statistics-linear-icon-modern-outline-logo-concept-o-white-background-business-analytics-collection-suitable-use-133515482.jpg" />
+            </div>
+            <div class="myCard">
+                <a class="btn btn-primary" asp-action="CountedRecipeViews" asp-controller="Account">Show Statistics</a>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="ChangeTimeOfCyclicalEmailing">

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuBLL.Models
 {
-    public class CountedRecipeViewsModel
+    public class CountedRecipeAddedToFavouriteModel
     {
         public int RecipeId { get; set; }
-        public int Count { get; set; }
-        public string? LabelOfRecipe { get; set; }
         public int FavouriteCount { get; set; }
+        public string? LabelOfRecipe { get; set; }
     }
 }

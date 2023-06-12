@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KuceZBronksuBLL.Models
 {
-    public class ShareResource
+    public class SharedResource
     {
 
     }

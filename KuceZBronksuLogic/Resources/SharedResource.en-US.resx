@@ -186,6 +186,9 @@
   <data name="Kcal amount" xml:space="preserve">
     <value>Kcal amount</value>
   </data>
+  <data name="Label" xml:space="preserve">
+    <value>Label</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>

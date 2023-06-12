@@ -53,7 +53,7 @@ namespace KuceZBronksuWEB
 				{	
 					options.DataAnnotationLocalizerProvider = (type, factory) =>
 					{
-						var assemblyName = new AssemblyName(typeof(ShareResource).GetTypeInfo().Assembly.FullName);
+						var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
 						return factory.Create("ShareResource", assemblyName.Name);
 					};
 				});

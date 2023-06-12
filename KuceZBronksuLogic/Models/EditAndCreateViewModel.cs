@@ -1,3 +1,4 @@
+using SharpDX.DXGI;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,8 +7,9 @@ namespace KuceZBronksuBLL.Models
 	public class EditAndCreateViewModel
 	{
 		public int? Id { get; set; }
-        [Display(ResourceType = typeof(ShareResource), Name = "Name"), StringLength(100, MinimumLength = 2)]
-		public string Label { get; set; }
+		[StringLength(100, MinimumLength = 2)]
+        [Display(Name = "Label",ResourceType = typeof(SharedResource))]
+        public string Label { get; set; }
 
 		[DisplayName("Calories"), StringLength(200, MinimumLength = 2)]
 		public string Calories { get; set; }

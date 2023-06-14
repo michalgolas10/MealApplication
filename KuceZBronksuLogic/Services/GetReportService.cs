@@ -20,7 +20,7 @@ namespace KuceZBronksuBLL.Services
         {
             _httpClientFactory = httpClientFactory;
         }
-		
+
         public async Task<string> GetDataFromApi(string endpoint)
 		{
 			_httpClientFactory.CreateClient();

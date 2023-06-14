@@ -77,9 +77,9 @@ namespace KuceZBronksuBLL.Services
 				UserId = userId,
 				RecipeId = favouriteRecipe.Id,
 				DateWhenClicked = DateTime.Now,
-				LabelOfRecie = favouriteRecipe.Label
+				LabelOfRecipe = favouriteRecipe.Label
 			};
-			var response = await PostUserActivityAsync(recipeToPost, apiEndpoint);
+			 var response = await PostUserActivityAsync(recipeToPost, apiEndpoint);
 			if (!response.IsSuccessStatusCode)
 			{
 				_logger.LogError("Couldnt Report Adding To Favourite By User");

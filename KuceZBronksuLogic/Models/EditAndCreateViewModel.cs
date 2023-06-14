@@ -8,7 +8,7 @@ namespace KuceZBronksuBLL.Models
 	{
 		public int? Id { get; set; }
 		[StringLength(100, MinimumLength = 2)]
-        [Display(Name = "Label",ResourceType = typeof(SharedResource))]
+        [DisplayName("Label")]
         public string Label { get; set; }
 
 		[DisplayName("Calories"), StringLength(200, MinimumLength = 2)]

@@ -1,6 +1,7 @@
 using Hangfire;
 using KuceZBronksuBLL.ConfigurationMail;
 using KuceZBronksuBLL.Models;
+using KuceZBronksuBLL.Resources;
 using KuceZBronksuBLL.Services;
 using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Context;

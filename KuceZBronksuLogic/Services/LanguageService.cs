@@ -1,4 +1,4 @@
-﻿using KuceZBronksuBLL.Models;
+﻿using KuceZBronksuBLL.Resources;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;

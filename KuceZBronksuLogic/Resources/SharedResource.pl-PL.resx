@@ -132,8 +132,14 @@
   <data name="Back" xml:space="preserve">
     <value>Powrót</value>
   </data>
+  <data name="Calories" xml:space="preserve">
+    <value>Kalorie</value>
+  </data>
   <data name="Calories/Serving" xml:space="preserve">
     <value>Kalorie/Porcja</value>
+  </data>
+  <data name="Cautions" xml:space="preserve">
+    <value>Etykiety ostrzegawcze</value>
   </data>
   <data name="Confirm password" xml:space="preserve">
     <value>Potwierdź hasło</value>
@@ -144,11 +150,17 @@
   <data name="Create Recipe" xml:space="preserve">
     <value>Dodaj przepis</value>
   </data>
+  <data name="Cuisine Type" xml:space="preserve">
+    <value>Rodzaj kuchni</value>
+  </data>
   <data name="Delete from Favourites" xml:space="preserve">
     <value>Usuń z ulubionych</value>
   </data>
   <data name="Delete Recipe" xml:space="preserve">
     <value>Usuń przepis</value>
+  </data>
+  <data name="DietLabels" xml:space="preserve">
+    <value>Etykiety dietetyczne</value>
   </data>
   <data name="Edit Recipe" xml:space="preserve">
     <value>Edytuj przepis</value>
@@ -174,8 +186,14 @@
   <data name="Health Labels" xml:space="preserve">
     <value>Etykiety zdrowotne</value>
   </data>
+  <data name="HealthLabels" xml:space="preserve">
+    <value>Etykiety zdrowotne</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Strona główna</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Zdjęcie</value>
   </data>
   <data name="Ingredients" xml:space="preserve">
     <value>Składniki</value>
@@ -198,6 +216,9 @@
   <data name="Meal type" xml:space="preserve">
     <value>Pora dnia</value>
   </data>
+  <data name="MealType" xml:space="preserve">
+    <value>Rodzaj posiłku</value>
+  </data>
   <data name="Most Viewed Recipes" xml:space="preserve">
     <value>Najczęściej oglądane przepisy</value>
   </data>
@@ -212,6 +233,9 @@
   </data>
   <data name="Recipes" xml:space="preserve">
     <value>Przepisy</value>
+  </data>
+  <data name="RecipeSteps" xml:space="preserve">
+    <value>Sposób przygotowania</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Rejestracja</value>
@@ -260,6 +284,9 @@
   </data>
   <data name="Servings" xml:space="preserve">
     <value>Porcje</value>
+  </data>
+  <data name="ShareAs" xml:space="preserve">
+    <value>Share As</value>
   </data>
   <data name="Show details" xml:space="preserve">
     <value>Pokaż szczegóły</value>

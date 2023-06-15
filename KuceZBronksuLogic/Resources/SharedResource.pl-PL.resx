@@ -193,7 +193,7 @@
     <value>Strona główna</value>
   </data>
   <data name="Image" xml:space="preserve">
-    <value>Zdjęcie</value>
+    <value>Link do zdjęcia</value>
   </data>
   <data name="Ingredients" xml:space="preserve">
     <value>Składniki</value>
@@ -286,7 +286,7 @@
     <value>Porcje</value>
   </data>
   <data name="ShareAs" xml:space="preserve">
-    <value>Share As</value>
+    <value>Link</value>
   </data>
   <data name="Show details" xml:space="preserve">
     <value>Pokaż szczegóły</value>

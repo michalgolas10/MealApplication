@@ -1,6 +1,7 @@
 using Hangfire;
 using KuceZBronksuBLL.ConfigurationMail;
 using KuceZBronksuBLL.Models;
+using KuceZBronksuBLL.Resources;
 using KuceZBronksuBLL.Services;
 using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Context;
@@ -53,8 +54,8 @@ namespace KuceZBronksuWEB
 				{
 					options.DataAnnotationLocalizerProvider = (type, factory) =>
 					{
-						var assemblyName = new AssemblyName(typeof(ShareResource).GetTypeInfo().Assembly.FullName);
-						return factory.Create("ShareResource", assemblyName.Name);
+						var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
+						return factory.Create("SharedResource", assemblyName.Name);
 					};
 				});
 			builder.Services.Configure<RequestLocalizationOptions>(

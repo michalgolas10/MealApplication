@@ -5,16 +5,16 @@ namespace KuceZBronksuBLL.Models
 {
 	public class SearchViewModel
 	{
-		[DisplayName("Ingredients")]
+		[Display(Name = "Ingredients")]
 		public string? IngrediendsList { get; set; }
 
-		[DisplayName("Kcal Amount")]
+		[Display(Name = "Calories")]
 		public int? KcalAmount { get; set; }
 
 		[Required]
 		public IEnumerable<string>? ListOfMealType { get; set; }
 
-		[DisplayName("Meal Type")]
+		[Display(Name = "MealType")]
 		public IEnumerable<string>? ListOfEmptyMealType { get; set; }
 	}
 }

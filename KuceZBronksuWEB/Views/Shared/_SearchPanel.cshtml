@@ -18,9 +18,15 @@
                         </div>
                         <span asp-validation-for="IngrediendsList" class="text-danger"></span>
                         <br>
-                        <div class="small text-muted">@language.Getkey("Meal type")</div>
-                        <div class="input-group">
-                            @Html.ListBoxFor(s=>s.ListOfEmptyMealType,new MultiSelectList(@Model.ListOfMealType),new {@class = "js-select2"})
+                        <div class="form-group">
+                            <label class="small text-muted">@language.Getkey("Meal type")</label>
+                            <select asp-for="ListOfMealType" class="js-select2" multiple aria-label="multiple select example" data-placeholder=@language.Getkey("Select Meal Time")>
+                                @foreach(var item in Model.ListOfMealType)
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            </select>
+                            <span asp-validation-for="ListOfMealType" class="text-danger"></span>
                         </div>
                         <span asp-validation-for="ListOfEmptyMealType" class="text-danger"></span>
                         <br>

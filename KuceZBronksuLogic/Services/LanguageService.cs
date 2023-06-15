@@ -1,4 +1,4 @@
-﻿using KuceZBronksuBLL.Models;
+﻿using KuceZBronksuBLL.Resources;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace KuceZBronksuBLL.Services
         private readonly IStringLocalizer _localizer;
         public LanguageService(IStringLocalizerFactory factory)
         {
-            var type = typeof(ShareResource);
+            var type = typeof(SharedResource);
             var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
             _localizer = factory.Create("SharedResource", assemblyName.Name);
         }

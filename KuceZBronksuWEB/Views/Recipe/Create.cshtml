@@ -1,4 +1,6 @@
 ﻿@using KuceZBronksuBLL.Models;
+@using KuceZBronksuBLL.Services
+@inject LanguageService language
 @model EditAndCreateViewModel
 @{
     ViewData["Title"] = "Create Recipe";
@@ -6,7 +8,7 @@
 }
 <div class="container" id="center">
     <div class="row">
-        <h4>Create Recipe</h4>
+        <h4>@language.Getkey("Create Recipe")</h4>
         <div class="col-md-4">
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -28,16 +30,19 @@
                 <div class="form-group">
                     <label asp-for="IngredientLines" class="control-label"></label>
                     <div id="survey_options">
-                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="First Ingredient" />
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder=@language.Getkey("First Ingredient") />
                         <span asp-validation-for="IngredientLines" class="text-danger"></span>
-                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Second Ingredient" />
+                        <div class="form-group"></div>
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder=@language.Getkey("Second Ingredient") />
                         <span asp-validation-for="IngredientLines" class="text-danger"></span>
-                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder="Next Ingredient" />
+                        <div class="form-group"></div>
+                        <input type="text" name="IngredientLines" class="form-control" size="50" placeholder=@language.Getkey("Next Ingredient") />
                         <span asp-validation-for="IngredientLines" class="text-danger"></span>
+                        <div class="form-group"></div>
                     </div>
                     <div class="controls">
-                        <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
-                        <a href="#" id="remove_fields"><i class="fa fa-plus"></i>Remove Field</a>
+                        <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>@language.Getkey("Add More")</a>
+                        <a href="#" id="remove_fields"><i class="fa fa-plus"></i>@language.Getkey("Remove Field")</a>
                     </div>
                 </div>
                 <div class="form-group">
@@ -53,7 +58,7 @@
 
                 <div class="form-group">
                     <label asp-for="Cautions" class="control-label"></label>
-                    <select asp-for="Cautions" class="js-select2" multiple aria-label="multiple select example">
+                    <select asp-for="Cautions" class="js-select2" multiple aria-label="multiple select example" data-placeholder=@language.Getkey("Select Cautions")>
                         @if (Model.Cautions != null)
                         {
                             @foreach (var item in Model.Cautions)
@@ -66,7 +71,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="HealthLabels" class="control-label"></label>
-                    <select asp-for="HealthLabels" class="js-select2" multiple aria-label="multiple select example">
+                    <select asp-for="HealthLabels" class="js-select2" multiple aria-label="multiple select example" data-placeholder=@language.Getkey("Select Health Labels")>
                         @if (Model.HealthLabels != null)
                         {
                             @foreach (var item in Model.HealthLabels)
@@ -79,7 +84,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="DietLabels" class="control-label"></label>
-                    <select asp-for="DietLabels" class="js-select2" multiple aria-label="multiple select example">
+                    <select asp-for="DietLabels" class="js-select2" multiple aria-label="multiple select example" data-placeholder=@language.Getkey("Select Diet Labels")>
                         @if (Model.DietLabels != null)
                         {
                             @foreach (var item in Model.DietLabels)
@@ -93,7 +98,7 @@
 
                 <div class="form-group">
                     <label asp-for="CuisineType" class="control-label"></label>
-                    <select asp-for="CuisineType" class="js-select2" multiple aria-label="multiple select example">
+                    <select asp-for="CuisineType" class="js-select2" multiple aria-label="multiple select example" data-placeholder=@language.Getkey("Select Cuisine Type")>
                         @if (Model.CuisineType != null)
                         {
                             @foreach (var item in Model.CuisineType)
@@ -107,7 +112,7 @@
 
                 <div class="form-group">
                     <label asp-for="MealType" class="control-label"></label>
-                    <select asp-for="MealType" class="js-select2" multiple aria-label="multiple select example">
+                    <select asp-for="MealType" class="js-select2" multiple aria-label="multiple select example" data-placeholder=@language.Getkey("Select Meal Type")>
                         @if (Model.MealType != null)
                         {
                             @foreach (var item in Model.MealType)
@@ -120,8 +125,8 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                    <a asp-action="Index"><input type="button" value="Back" class="btn btn-primary" /></a>
+                    <input type="submit" value=@language.Getkey("Save") class="btn btn-primary" />
+                    <a asp-action="Index"><input type="button" value=@language.Getkey("Back") class="btn btn-primary" /></a>
                 </div>
 
             </form>

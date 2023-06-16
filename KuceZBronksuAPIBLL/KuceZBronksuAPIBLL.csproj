@@ -10,4 +10,8 @@
     <ProjectReference Include="..\KuceZBronksuDAL\KuceZBronksuDAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+
 </Project>

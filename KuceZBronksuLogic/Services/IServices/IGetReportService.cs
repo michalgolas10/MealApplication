@@ -13,5 +13,6 @@ namespace KuceZBronksuBLL.Services.IServices
         public Task<IEnumerable<VisitedRecipesDTO>> GetVisitedRecipe();
         public Task<IEnumerable<LastLoggedUsersDTO>> GetLoggedUsers();
         public Task<IEnumerable<RecipeAddedToFavouriteDTO>> GetRecipeAddedToFavourite();
+        public Task GetFile();
     }
 }

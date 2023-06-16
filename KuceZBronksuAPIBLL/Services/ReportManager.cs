@@ -5,6 +5,8 @@ using KuceZBronksuDAL.Repository.IRepository;
 using KuceZBronksuAPIBLL.Models;
 using KuceZBronksuDAL.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.PortableExecutable;
+using System.Text;
 
 namespace KuceZBronksuAPIBLL.Services
 {
@@ -38,6 +40,34 @@ namespace KuceZBronksuAPIBLL.Services
             var recipes = _context.RecipeAddedToFavourites.AsEnumerable();
             var result = recipes.Select(e => _mapper.Map<RecipeAddedToFavouriteDTO>(e));
             return result.ToList();
+        }
+
+        public async Task<IEnumerable<Logs>> GetLogsReportAsync()
+        {
+            var logs = _context.Logs.AsEnumerable();
+            return logs;
+        }
+
+        public async Task CreateWeeklyRaport(string filePath)
+        {
+            //File.WriteAllText(filePath, string.Empty);
+
+            var date = DateTime.Now.AddDays(-7);
+
+            var content = await GetLogsReportAsync();
+            string stringContent;
+
+            foreach (var rowData in content)
+            {
+                if (rowData.TimeStamp > date)
+                {
+                    if (rowData.Level == "Error" || rowData.Level == "Warning")
+                        {
+                        string row = string.Join(",", rowData);
+                        File.AppendText(row);
+                        }
+                }
+            }
         }
     }
 }

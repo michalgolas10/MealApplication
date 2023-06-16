@@ -53,5 +53,10 @@ namespace KuceZBronksuBLL.Services
             return recipeAddedToFavouriteDtos;
         }
 
+        public async Task GetFile()
+        {
+            await GetDataFromApi("~download");
+        }
+
     }
 }

@@ -99,6 +99,13 @@ namespace KuceZBronksuWEB.Controllers
 
 			return View(recipesAddedToFavouritesDTOs);
         }
+
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> DownloadWeeklyRaport()
+		{
+			await _getReportService.GetFile();
+			return Ok();
+		}
 	}
 }
 

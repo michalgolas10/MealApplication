@@ -15,7 +15,7 @@ namespace KuceZBronksuBLL.Services
 		public async Task SendEmailToAdmin()
 		{
 			var mailData = new MailDataModel(
-				new List<string> { "janiya.price@ethereal.email" },
+				new List<string> { "treta69@ethereal.email" },
 				"Hello World",
 				"Hola - this is just a test to verify that our mailing works. Have a great day!",
 				null,

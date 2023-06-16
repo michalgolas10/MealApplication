@@ -19,10 +19,10 @@ namespace KuceZBronksuBLL.Services
 			var content = await _getReportService.GetCompleteReport();
             var mailData = new MailDataModel(
 				new List<string> { "janiya.price@ethereal.email" },
-				"Hello World",
+				"Raport o aktywności użytkowników",
 				content,
 				null,
-				"Christian Schou",
+				"Twoja aplikacja webowa",
 				null,
 				"Test mail"
 				);

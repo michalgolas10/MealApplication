@@ -1,4 +1,6 @@
 ﻿@using KuceZBronksuBLL.Models;
+@using KuceZBronksuBLL.Services
+@inject LanguageService language
 @model RecipeViewModel
 @{
 	ViewData["Title"] = "Search";
@@ -22,20 +24,18 @@
 		text-align: center;
 		margin-top: 30px;
 	}
-
-	h3 {
-		font-size: 22px;
-		text-align: center;
-		background-color: #fff;
-		border-radius: 5px;
-		box-shadow: 0 0 10px rgba(0,0,0,0.1);
-		padding: 20px;
-		margin: auto;
-		max-width: 20%;
-		margin-top: 20px;
-		margin-bottom: 20px;
-	}
-
+	/*h3 {
+			font-size: 22px;
+			text-align: center;
+			background-color: #fff;
+			border-radius: 5px;
+			box-shadow: 0 0 10px rgba(0,0,0,0.1);
+			padding: 20px;
+			margin: auto;
+			max-width: 20%;
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}*/
 	.servingscalories {
 		text-align: center;
 		background-color: #fff;
@@ -140,7 +140,7 @@
 		}
 	</div>
 	<div class="ingredients">
-		<h2>Ingredients</h2>
+		<h2>@language.Getkey("Ingredients")</h2>
 		<ul>
 			@foreach (var ingredient in Model.IngredientLines)
 			{
@@ -149,29 +149,29 @@
 		</ul>
 		<div class="center-block">
 			<form asp-controller="Recipe" asp-action="ShowRecipeDetailsWithViewModel" method="post">
-				<label asp-for="Servings" class="h4"></label>
+				<div class="h4">@language.Getkey("Servings")</div>
 				<input asp-for="Servings" value="@(Model.Servings.ToString("0.#"))" class="form-control" />
 				<span asp-validation-for="Servings" class="text-danger"></span>
 				@Html.HiddenFor(m => m.Id)
 				@Html.HiddenFor(m => m.Servings)
 				<br />
 			</form>
-			<h4>Calories/Serving: @(Math.Round(Model.Calories / Model.Servings))</h4>
+			<h4>@language.Getkey("Calories/Serving"): @(Math.Round(Model.Calories / Model.Servings))</h4>
 		</div>
 	</div>
 	<div class="rest">
-		<h2>Instructions</h2>
+		<h2>@language.Getkey("Instructions")</h2>
 		<ol>
-			<li>Step 1</li>
-			<li>Step 2</li>
-			<li>Step 3</li>
-			<li>Step 4</li>
+			<li>@language.Getkey("Step") 1</li>
+			<li>@language.Getkey("Step") 2</li>
+			<li>@language.Getkey("Step") 3</li>
+			<li>@language.Getkey("Step") 4</li>
 		</ol>
 		@foreach (var caution in Model.Cautions)
 		{
-			<p class="caution">This recipe contains @caution</p>
+			<p class="caution">@language.Getkey("This recipe contains") @caution</p>
 		}
-		<h2>Health Labels</h2>
+		<h2>@language.Getkey("Health Labels")</h2>
 		<div class="health-labels">
 			@foreach (var healthlabel in Model.HealthLabels)
 			{

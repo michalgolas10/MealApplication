@@ -1,3 +1,4 @@
+using SharpDX.DXGI;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,41 +7,43 @@ namespace KuceZBronksuBLL.Models
 	public class EditAndCreateViewModel
 	{
 		public int? Id { get; set; }
+		[StringLength(100, MinimumLength = 2)]
+        [Display(Name = "Label")]
+        public string Label { get; set; }
 
-		[DisplayName("Name"), StringLength(100, MinimumLength = 2)]
-		public string Label { get; set; }
-
-		[DisplayName("Calories"), StringLength(200, MinimumLength = 2)]
+        [Display(Name = "Calories")]
+        [StringLength(200, MinimumLength = 2)]
 		public string Calories { get; set; }
 
-		[DisplayName("Image"), StringLength(300, MinimumLength = 2)]
+        [Display(Name = "Image")]
+        [StringLength(300, MinimumLength = 2)]
 		public string Image { get; set; }
 
-		[DisplayName("Ingredients"), Required]
+		[Display(Name = "Ingredients"), Required]
 		public List<string> IngredientLines { get; set; }
 
-		[DisplayName("Recipe Steps")]
+		[Display(Name = "RecipeSteps")]
 		public string? RecipeSteps { get; set; }
 
-		[DisplayName("Link"), StringLength(300, MinimumLength = 2)]
+		[Display(Name = "ShareAs"), StringLength(300, MinimumLength = 2)]
 		public string? ShareAs { get; set; }
 
-		[DisplayName("Meal Type"), Required]
+		[Display(Name = "MealType"), Required]
 		public List<string>? MealType { get; set; }
 
-		[DisplayName("Health Labels"), Required]
+		[Display(Name = "HealthLabels"), Required]
 		public List<string>? HealthLabels { get; set; }
 
-		[DisplayName("Diet Labels"), Required]
+		[Display(Name = "DietLabels"), Required]
 		public List<string>? DietLabels { get; set; }
 
-		[DisplayName("Cautions"), Required]
+		[Display(Name = "Cautions"), Required]
 		public List<string>? Cautions { get; set; }
 
-		[DisplayName("Cuisine Type"), Required]
+		[Display(Name = "Cuisine Type"), Required]
 		public List<string>? CuisineType { get; set; }
 
-		[DisplayName("Servings"), Required]
+		[Display(Name = "Servings"), Required]
 		public int Servings { get; set; }
 	}
 }

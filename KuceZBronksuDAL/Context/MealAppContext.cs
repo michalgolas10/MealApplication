@@ -14,6 +14,10 @@ namespace KuceZBronksuDAL.Context
 
 		public DbSet<Recipe> Recipes { get; set; }
 
+		public DbSet<LastLoggedUsers> LastLoggings { get; set; }
+		public DbSet<VisitedRecipe> VisitedRecipes { get; set; }
+		public DbSet<RecipeAddedToFavourite> RecipeAddedToFavourites { get; set; }
+
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=KuceZBronksuWEB;TrustServerCertificate=True;Integrated Security=true;", b => b.MigrationsAssembly("KuceZBronksuWEB"));
@@ -62,6 +66,16 @@ namespace KuceZBronksuDAL.Context
 			.HasMany(c => c.Recipes)
 			.WithMany(c => c.Users)
 			.UsingEntity(j => j.ToTable("FavouritesRecipes"));
+			modelBuilder.Entity<LastLoggedUsers>();
+
+			modelBuilder.Entity<VisitedRecipe>(eb =>
+			{
+				eb.Property(v => v.Created).HasDefaultValueSql("getutcdate()");
+			});
+			modelBuilder.Entity<RecipeAddedToFavourite>(eb =>
+			{
+				eb.Property(v => v.Created).HasDefaultValueSql("getutcdate()");
+			});
 		}
 	}
 }

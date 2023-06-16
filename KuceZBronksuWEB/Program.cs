@@ -1,18 +1,26 @@
+using Hangfire;
+using KuceZBronksuBLL.ConfigurationMail;
 using KuceZBronksuBLL.Models;
+using KuceZBronksuBLL.Resources;
 using KuceZBronksuBLL.Services;
+using KuceZBronksuBLL.Services.IServices;
 using KuceZBronksuDAL.Context;
 using KuceZBronksuDAL.Models;
 using KuceZBronksuDAL.Repository;
 using KuceZBronksuDAL.Repository.IRepository;
-using KuceZBronksuBLL.Services.IServices;
+using KuceZBronksuWEB.Middlewares;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
-using KuceZBronksuBLL.ConfigurationMail;
-using Hangfire;
+using Microsoft.Extensions.Options;
+using Serilog;
+using System.Globalization;
+using System.Reflection;
 
 namespace KuceZBronksuWEB
 {
-	public class Program
+    public class Program
 	{
 		public static async Task Main(string[] args)
 		{
@@ -31,18 +39,53 @@ namespace KuceZBronksuWEB
 				QueuePollInterval = TimeSpan.Zero,
 				UseRecommendedIsolationLevel = true,
 				DisableGlobalLocks = true,
-			})) ;
+			}));
+			builder.Host.UseSerilog((context, configuration) =>
+			configuration.ReadFrom.Configuration(context.Configuration));
+			builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
 			builder.Services.AddHangfireServer();
-			builder.Services.AddMvc();
+
+			builder.Services.AddSingleton<LanguageService>();
+			builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+			builder.Services.AddMvc()
+				.AddViewLocalization()
+				.AddDataAnnotationsLocalization(options =>
+				{
+					options.DataAnnotationLocalizerProvider = (type, factory) =>
+					{
+						var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
+						return factory.Create("SharedResource", assemblyName.Name);
+					};
+				});
+			builder.Services.Configure<RequestLocalizationOptions>(
+				options =>
+				{
+					var supportedCultures = new List<CultureInfo>
+					{
+						new CultureInfo("en-US"),
+						new CultureInfo("pl-PL"),
+                        new CultureInfo("de-DE"),
+                    };
+
+					options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
+					options.SupportedCultures = supportedCultures;
+					options.SupportedUICultures= supportedCultures;
+					options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
+				}
+			);
 			builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
 					.AddRoles<IdentityRole<int>>()
 					.AddEntityFrameworkStores<MealAppContext>()
 					.AddDefaultTokenProviders()
 					.AddDefaultUI();
 			builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-			builder.Services.AddTransient<IRecipeService,RecipeService>();
+			builder.Services.AddTransient<IPostReportService, PostReportService>();
+			builder.Services.AddTransient<IRecipeService, RecipeService>();
 			builder.Services.AddTransient<ITimeService, TimeService>();
-			builder.Services.AddTransient<IUserService,UserService>();
+			builder.Services.AddTransient<IUserService, UserService>();
+			builder.Services.AddTransient<IGetReportService, GetReportService>();
+			builder.Services.AddTransient<ICreateReportService, CreateReportService>();
 			builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
 			builder.Services.AddTransient<IMailService, MailService>();
 			builder.Services.AddControllersWithViews();
@@ -50,28 +93,34 @@ namespace KuceZBronksuWEB
 			builder.Services.AddAutoMapper(typeof(EditAndCreateViewModel), typeof(Program));
 			builder.Services.AddAutoMapper(typeof(Recipe), typeof(Program));
 			builder.Services.AddAutoMapper(typeof(User), typeof(Program));
+			builder.Services.AddHttpClient();
 			var app = builder.Build();
 			await CreateDbIfNotExists(app);
-			// Configure the HTTP request pipeline.
-			if (!app.Environment.IsDevelopment())
+
+			if (app.Environment.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+			}
+			else
 			{
 				app.UseExceptionHandler("/Home/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-				app.UseHsts();
 			}
-
+			var IocOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+			app.UseRequestLocalization(IocOptions.Value);
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
 			app.UseRouting();
 			app.UseAuthentication(); ;
+			app.UseSerilogRequestLogging();
 
 			app.UseAuthorization();
 			app.UseHangfireDashboard();
+			app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 			app.MapControllerRoute(
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
-			RecurringJob.AddOrUpdate<ITimeService>("SendEmailToAdmin",service => service.SendEmailToAdmin(),Cron.Minutely);
+			RecurringJob.AddOrUpdate<ITimeService>("SendEmailToAdmin", service => service.SendEmailToAdmin(), Cron.Minutely);
 			app.MapRazorPages();
 
 			app.Run();

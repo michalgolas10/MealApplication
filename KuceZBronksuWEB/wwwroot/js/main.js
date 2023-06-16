@@ -6,7 +6,7 @@
         placeholder: "Click to select an option",
         allowHtml: true,
         allowClear: true,
-        tags: true // создает новые опции на лету
+        tags: true
     });
 
     $('.icons_select2').select2({
@@ -15,7 +15,7 @@
         templateResult: iformat,
         allowHtml: true,
         placeholder: "Click to select an option",
-        dropdownParent: $('.select-icon'),//обавили класс
+        dropdownParent: $('.select-icon'),
         allowClear: true,
         multiple: false
     });

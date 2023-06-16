@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using KuceZBronksuDAL.Models
+@using KuceZBronksuBLL.Services
 
+@inject LanguageService language
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 <!DOCTYPE html>
@@ -17,45 +19,56 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="~/css/CustomStyles.css" />
-    <link href="~/css/select2.min.css" rel="stylesheet" />
-    @*<link href="~/css/bootstrap.min.css" rel="stylesheet" />*@
-    <link href="~/css/simplepagination.css" rel="stylesheet" />
-    <link href="~/css/dropdown.css" rel="stylesheet" />
-    <link href="~/css/styles.css" rel="stylesheet"/>
-    <link href="~/css/site.css" rel="stylesheet"/>
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+
+
+    @*    <script src="~/js/myTable.js"></script>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/textFit.js"></script>
+    <script src="~/js/jquery.fittext.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 </head>
 <body>
     <!-- Responsive navbar-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    @*<nav class="navbar navbar-expand-lg navbar-light">*@
+    @*<nav class="navbar navbar-expand-lg navbar-light  bg-light">*@
+    <nav class=" navbar navbar-expand-lg navbar-light">
         <div class="container">
+            <div class="dropdown">
+                <button class="dropbtn" style="font-size:12px">@language.Getkey("Language")</button>
+                <div class="dropdown-content">
+                    <a style="font-size:12px" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US">English</a>
+                    <a style="font-size:12px" asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="pl-PL">Polski</a>
+                </div>
+            </div>
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Kuce z Bronksu - MealAPP</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-collapse ms-auto" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="Index">Recipes</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">@language.Getkey("Home")</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="Index">@language.Getkey("Recipes")</a></li>
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="FavouriteRecipes">Favourite Recipes</a></li>
-                    }
-                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="Create">Add Recipe</a></li>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="AdministratorPanel">Administrator Panel</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="FavouriteRecipes">@language.Getkey("Favourite Recipes")</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Recipe" asp-action="Create">@language.Getkey("Create Recipe")</a></li>
                     }
                     <li class="nav-item">
                         <div class="dropdown">
-                            <button onclick="myFunction()" class="dropbtn">Account</button>
+                            <button onclick="myFunction()" class="dropbtn">@language.Getkey("Account")</button>
                             <div id="myDropdown" class="dropdown-content">
                                     @if (SignInManager.IsSignedIn(User))
                                     {
-                                    <a id="logout" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a>
+                                    <a asp-controller="Home" asp-action="LogOutActionPlease">@language.Getkey("Sign Out")</a>
                                     }
                                     else
                                     {
-                                        <a id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                                        <a id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                    <a asp-area="Identity" asp-page="/Account/Login">@language.Getkey("Log in")</a>
+                                    <a asp-area="Identity" asp-page="/Account/Register">@language.Getkey("Register")</a>
+                                    }
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                <a asp-area="" asp-controller="Account" asp-action="AdministratorPanel">@language.Getkey("Admin Panel")</a>
                                     }
                             </div>
                         </div>
@@ -80,7 +93,7 @@
     <!-- Core theme JS-->
     @await RenderSectionAsync("Scripts", required: false)
     <!-- Bootstrap core JS-->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="~/js/popper.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -89,6 +102,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
     <script src="~/js/main.js"></script>
     <script src="~/js/jquery.simplepagination.js"></script>
+    <script src="~/js/script.js"></script>
+    <script src="~/js/custom.js"></script>
     <script>
         jQuery(function ($) {
             var items = $("#content tbody tr");
@@ -119,5 +134,35 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var dropdowns = document.getElementsByClassName("dropdown");
+
+            for (var i = 0; i < dropdowns.length; i++) {
+                dropdowns[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var dropdownContent = this.querySelector(".dropdown-content");
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
+            }
+
+            window.onclick = function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    for (var i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.style.display === 'block') {
+                            openDropdown.style.display = 'none';
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 </body>
 </html>

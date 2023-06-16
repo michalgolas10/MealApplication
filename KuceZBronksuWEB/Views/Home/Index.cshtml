@@ -1,13 +1,18 @@
-﻿@using KuceZBronksuBLL.Models;
+@using KuceZBronksuBLL.Models;
+@using KuceZBronksuBLL.Services
 @using Microsoft.AspNetCore.Identity
 @using KuceZBronksuDAL.Models
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+@inject LanguageService language
 
 @model IEnumerable<RecipeViewModel>
 @{
     ViewData["Title"] = "Home Page";
 }
+
+<link rel="stylesheet" type="text/css" href="/css/site.css">
+
 <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
         <div class="text-center my-0">
@@ -17,43 +22,50 @@
             }
             else
             {
-            <h1 class="fw-bolder">Welcome to our MEAL APP!</h1>
-            <p class="lead mb-0">Search for a meal according to your preferences</p>
+                <h1 class="fw-bolder writing-font">@language.Getkey("Welcome to our MEAL APP!")</h1>
+
+            <p class="lead mb-0">@language.Getkey("Search for a meal according to your preferences")</p>
             }
         </div>
     </div>
 </header>
-    
+<div class="container">
     <div class="row">
-	<div class="col-lg-8">
-        <h2 style="margin-left:20%">Most Viewed Recipes</h2>
-            <table id="content" style="margin-left:20%">
-                <tbody>
-                    @foreach(var item in Model){
-                    <tr>
-                            <td><div class="item-img-wrap">
-                                @if (item.Image.Contains("/")) // Means that its image that someone put URL for.
-                                {
-                                        <a href="#!"><img class="img-responsive" src="@item.Image" alt="recipe image" /></a>
-                                }
-                                else
-                                {
-                                    <img src="/Images/@item.Image" class="img-responsive" alt="recipe image">
-                                    //<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
-                                }
-                            <div class="card-body">
-                                <h2 class="card-title">@item.Label</h2>
-                                    <a class="btn btn-primary" id="button-search" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details!</a>
+        <!-- Blog entries-->
+        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 recipeCard">
+            <h2 class="writing-font text-center">@language.Getkey("Most Viewed Recipes")</h2>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 recipeCard">
+                        <h3 class="myCardTitle-sm myCardTitle text-center">@Html.DisplayFor(modelItem => item.Label)</h3>
+                        <div class="card">
+                            @if (item.Image.Contains("/")) // Means that its image that someone put URL for.
+                            {
+                                <img src="@item.Image" class="img-responsive" alt="recipe image">
+                            }
+                            else
+                            {
+                                <img src="/Images/@item.Image" class="img-responsive" alt="recipe image">
+                                //<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
+                            }
+                        </div>
+                        <div class="myCardButtons">
+                            <div class="myCard">
+                                <a class="btn btn-primary" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">@language.Getkey("Show details")</a>
                             </div>
                         </div>
-                        </td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        <div id="pagination" style="margin-left:20%"></div>
+                    </div>
+                }
+            </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
             @Html.Partial("~/Views/Shared/_SearchPanel.cshtml", (SearchViewModel)ViewBag.SearchViewModel)
         </div>
     </div>
+</div>
+
+<script>
+	textFit(document.getElementsByClassName('myCardTitle'),{alignVert:true, alignHoriz:true, minFontSize: 15});
+	textFit(document.getElementsByClassName('myCardTitle-sm'), { alignVert: true, alignHoriz: true, minFontSize: 15 });
+</script>

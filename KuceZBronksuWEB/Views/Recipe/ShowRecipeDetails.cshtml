@@ -1,4 +1,6 @@
 ﻿@using KuceZBronksuBLL.Models;
+@using KuceZBronksuBLL.Services
+@inject LanguageService language
 @model RecipeViewModel
 @{
     ViewData["Title"] = "Search";
@@ -134,7 +136,7 @@
 	}
     </div>
 	<div class="ingredients">
-<h2>Ingredients</h2>
+		<h2>@language.Getkey("Ingredients")</h2>
 <ul>
 		@foreach(var ingredient in Model.IngredientLines)
 		{
@@ -143,29 +145,29 @@
     </ul>
 			<div class="center-block">
 				<form asp-controller="Recipe" asp-action="ShowRecipeDetailsWithViewModel" method="post">
-					<label asp-for="Servings" class="h4"></label>
+				<div class="h4">@language.Getkey("Servings")</div>
 					<input asp-for="Servings" value="@(Model.Servings.ToString("0.#"))" class="form-control" />
 					<span asp-validation-for="Servings" class="text-danger"></span>
 					@Html.HiddenFor(m => m.Id)
 					@Html.HiddenFor(m => m.Servings)
 					<br />
 				</form>
-            <h4>Calories/Serving: @(Math.Round(Model.Calories / Model.Servings))</h4>
+			<h4>@language.Getkey("Calories/Serving"): @(Math.Round(Model.Calories / Model.Servings))</h4>
 			</div>
 	</div>
 	<div class="rest">
-<h2>Instructions</h2>
+		<h2>@language.Getkey("Instructions")</h2>
 <ol>
-	<li>Step 1</li>
-	<li>Step 2</li>
-	<li>Step 3</li>
-	<li>Step 4</li>
+			<li>@language.Getkey("Step") 1</li>
+			<li>@language.Getkey("Step") 2</li>
+			<li>@language.Getkey("Step") 3</li>
+			<li>@language.Getkey("Step") 4</li>
 </ol>
 @foreach(var caution in Model.Cautions)
 	{
-	<p class="caution">This recipe contains @caution</p>
+			<p class="caution">@language.Getkey("This recipe contains") @caution</p>
 	}
-<h2>Health Labels</h2>
+		<h2>@language.Getkey("Health Labels")</h2>
 <div class="health-labels">
 	@foreach(var healthlabel in Model.HealthLabels)
 		{
@@ -173,52 +175,4 @@
 		}
 </div>
 </div>
-</div>
-
-
-<div class="container">
-	<div class="row">
-		<div class="col-xl-5 recipeCard">
-			<div class="myDetailCardTitle">
-				<h3>@Model.Label</h3>
-			</div>
-				@if (Model.Image.Contains("/")) // Means that its image that someone put URL for.
-				{
-					<img src="@Model.Image" class="img-responsive-details" alt="recipe image">
-				}
-				else
-				{
-					<img src="/Images/@Model.Image" class="img-responsive-details" alt="recipe image">
-					//<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
-				}
-		</div>
-		<div class="col-xl-7 recipeCard">
-			<div class="ingridients-title">
-				<h3>Ingridients: </h3>
-			</div>
-			<ul>
-				@foreach (var ingredient in Model.IngredientLines)
-				{
-					<li>@ingredient</li>
-				}
-			</ul>
-		</div>
-	</div>
-</div>
-<div class="center-block">
-	<form asp-controller="Recipe" asp-action="ShowRecipeDetails" method="post">
-		<label asp-for="Servings" class="h4"></label>
-		<input asp-for="Servings" value="@(Model.Servings.ToString("0.#"))" class="form-control" />
-		<span asp-validation-for="Servings" class="text-danger"></span>
-		@Html.HiddenFor(m => m.Label)
-		@Html.HiddenFor(m => m.IngredientLines)
-		@Html.HiddenFor(m => m.ShareAs)
-		@Html.HiddenFor(m => m.Calories)
-		@Html.HiddenFor(m => m.MealType)
-		@Html.HiddenFor(m => m.RecipeSteps)
-		@Html.HiddenFor(m => m.CuisineType)
-		@Html.HiddenFor(m => m.Image)
-		<br />
-	</form>
-	<h4>Calories/Serving: @(Math.Round(Model.Calories / Model.Servings))</h4>
 </div>

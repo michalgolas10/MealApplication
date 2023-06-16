@@ -1,0 +1,49 @@
+﻿@model IEnumerable<KuceZBronksuBLL.Models.CountedRecipeAddedToFavouriteModel>
+
+
+@{
+    ViewData["Title"] = "CountedRecipeViews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<a asp-action="AdministratorPanel"><input type="button" value="Back" class="btn btn-primary" /></a>
+<input type="text" id="search" placeholder="Type to search">
+
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th onclick="sortTable(0)">
+                Nazwa przepisu
+            </th>
+            <th onclick="sortTable(1)">
+                Ilość kliknięć
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LabelOfRecipe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FavouriteCount)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    var $rows = $('#myTable tr');
+    $('#search').keyup(function () {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+        $rows.show().filter(function () {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return !~text.indexOf(val);
+        }).hide();
+    });
+</script>

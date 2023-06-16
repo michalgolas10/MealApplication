@@ -1,26 +1,22 @@
-﻿using KuceZBronksuBLL.Models;
+﻿using KuceZBronksuBLL.ConfigurationMail;
+using KuceZBronksuBLL.Models;
 using KuceZBronksuBLL.Services.IServices;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using MailKit.Net.Smtp;
-using KuceZBronksuBLL.ConfigurationMail;
-using MimeKit;
 using MailKit.Security;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using MimeKit;
 
 namespace KuceZBronksuBLL.Services
 {
 	public class MailService : IMailService
 	{
 		private readonly MailSettings _settings;
+		private readonly ILogger<MailSettings> _logger;
 
-		public MailService(IOptions<MailSettings> settings)
+		public MailService(IOptions<MailSettings> settings, ILogger<MailSettings> logger)
 		{
 			_settings = settings.Value;
+			_logger = logger;
 		}
 
 		public async Task<bool> SendAsync(MailDataModel mailData, CancellationToken ct = default)
@@ -31,6 +27,7 @@ namespace KuceZBronksuBLL.Services
 				var mail = new MimeMessage();
 
 				#region Sender / Receiver
+
 				// Sender
 				mail.From.Add(new MailboxAddress(_settings.DisplayName, mailData.From ?? _settings.From));
 				mail.Sender = new MailboxAddress(mailData.DisplayName ?? _settings.DisplayName, mailData.From ?? _settings.From);
@@ -59,7 +56,8 @@ namespace KuceZBronksuBLL.Services
 					foreach (string mailAddress in mailData.Cc.Where(x => !string.IsNullOrWhiteSpace(x)))
 						mail.Cc.Add(MailboxAddress.Parse(mailAddress.Trim()));
 				}
-				#endregion
+
+				#endregion Sender / Receiver
 
 				#region Content
 
@@ -69,7 +67,7 @@ namespace KuceZBronksuBLL.Services
 				body.HtmlBody = mailData.Body;
 				mail.Body = body.ToMessageBody();
 
-				#endregion
+				#endregion Content
 
 				#region Send Mail
 
@@ -87,13 +85,14 @@ namespace KuceZBronksuBLL.Services
 				await smtp.SendAsync(mail, ct);
 				await smtp.DisconnectAsync(true, ct);
 
-				#endregion
+				#endregion Send Mail
 
+				_logger.LogInformation("Email succefully sended");
 				return true;
-
 			}
 			catch (Exception)
 			{
+				_logger.LogError("Problem with email send");
 				return false;
 			}
 		}

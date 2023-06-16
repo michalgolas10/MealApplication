@@ -9,17 +9,77 @@
     ViewData["Title"] = "Search";
 }
 
-<link rel="stylesheet" type="text/css" href="/css/styles.css">
+
 <div></div>
 <div>
     @Html.Partial("~/Views/Shared/_SearchPanel.cshtml", (SearchViewModel)ViewBag.SearchViewModel)
 </div>
 <div>
-    @Html.Partial("~/Views/Shared/_ViewRecipes.cshtml", Model)
+	<div class="container">
+		<div class="row">
+			@foreach (var item in Model)
+			{
+				<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
+					<div class="card">
+						@if (item.Image.Contains("/")) // Means that its image that someone put URL for.
+						{
+							<img src="@item.Image" class="img-responsive" alt="recipe image">
+						}
+						else
+						{
+							<img src="/Images/@item.Image" class="img-responsive" alt="recipe image">
+							//<img src="/Images/rusticapricotjam.jpg" class="img-responsive" alt="beer image">
+						}
+					</div>
+					<h3 class="myCardTitle-sm myCardTitle text-center">@Html.DisplayFor(modelItem => item.Label)</h3>
+					<div class="myCardButtons">
+						<div class="myCard">
+							<a class="btn btn-primary" asp-action="ShowRecipeDetails" asp-controller="Recipe" asp-route-id="@item.Id">Show details</a>
+						</div><div class="myCard">
+							@if (SignInManager.IsSignedIn(User))
+							{
+								@if (!item.IsFavourite)
+								{
+									<a class="btn btn-primary" asp-action="AddToFavourites" asp-controller="Recipe" asp-route-id="@item.Id">Add to Favourites</a>
+								}
+								else
+								{
+									<a class="btn btn-primary" asp-action="DeleteRecipesFromFavouritesFromSearchOrIndex" asp-controller="Recipe" asp-route-id="@item.Id">Delete from Favourites</a>
+								}
+							}
+						</div><div class="myCard">
+							@if (SignInManager.IsSignedIn(User))
+							{
+								<a class="btn btn-primary" asp-action="Edit" asp-controller="Recipe" asp-route-id="@item.Id">Edit Recipe</a>
+							}
+							</div>
+						@if (User.IsInRole("Admin"))
+						{
+							<div class="myCard">
+								<a class="btn btn-primary" asp-action="DeleteRecipe" asp-controller="Recipe" asp-route-id="@item.Id">Delete Recipe</a>
+							</div>
+						}
+					</div>
+				</div>
+			}
+		</div>
+	</div>
 </div>
-
+@if (ViewBag.Message != null)
+{
+	<script type="text/javascript">
+		window.onload = function () {
+			alert("@ViewBag.Message")
+		};
+	</script>
+}
+<script>
+	textFit(document.getElementsByClassName('myCardTitle'), { alignVert: true, alignHoriz: true, minFontSize: 15 });
+	textFit(document.getElementsByClassName('myCardTitle-sm'), { alignVert: true, alignHoriz: true, minFontSize: 15 });
+</script>
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
 }

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<KuceZBronksuBLL.Models.VisitedRecipesDTO>
+
+@{
+    ViewData["Title"] = "CreateRaportOfViews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<a asp-action="AdministratorPanel"><input type="button" value="Back" class="btn btn-primary" /></a>
+
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th onclick="sortTable(0)">
+                Nazwa przepisu
+            </th>
+            <th onclick="sortTable(1)">
+                Data kliknięcia
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LabelOfRecipe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateWhenClicked)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace KuceZBronksuWEB.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCommit : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -53,6 +53,40 @@ namespace KuceZBronksuWEB.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LastLoggings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    LastLogged = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LastLoggings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RecipeAddedToFavourites",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RecipeId = table.Column<int>(type: "int", nullable: false),
+                    DateWhenClicked = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LabelOfRecipe = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getutcdate()"),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecipeAddedToFavourites", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Recipes",
                 columns: table => new
                 {
@@ -70,11 +104,30 @@ namespace KuceZBronksuWEB.Migrations
                     MealType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Servings = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Approved = table.Column<bool>(type: "bit", nullable: false)
+                    Approved = table.Column<bool>(type: "bit", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recipes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VisitedRecipes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RecipeId = table.Column<int>(type: "int", nullable: false),
+                    DateWhenClicked = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LabelOfRecipe = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getutcdate()"),
+                    Updated = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VisitedRecipes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -272,6 +325,15 @@ namespace KuceZBronksuWEB.Migrations
 
             migrationBuilder.DropTable(
                 name: "FavouritesRecipes");
+
+            migrationBuilder.DropTable(
+                name: "LastLoggings");
+
+            migrationBuilder.DropTable(
+                name: "RecipeAddedToFavourites");
+
+            migrationBuilder.DropTable(
+                name: "VisitedRecipes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

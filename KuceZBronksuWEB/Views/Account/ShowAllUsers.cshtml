@@ -8,9 +8,13 @@
 <h1>ShowAllUsers</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
-<table class="table">
+
+<a asp-action="AdministratorPanel"><input type="button" value="Back" class="btn btn-primary" /></a>
+
+
+<table id="myTable" class="table">
     <thead>
         <tr>
             <th>
@@ -50,3 +54,10 @@
 }
     </tbody>
 </table>
+
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>

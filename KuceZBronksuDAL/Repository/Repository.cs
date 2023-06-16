@@ -36,7 +36,6 @@ namespace KuceZBronksuDAL.Repository
 				return this._entities
 					.Include(include).AsEnumerable();
 			}
-
 			return this._entities.AsEnumerable();
 		}
 
@@ -47,7 +46,7 @@ namespace KuceZBronksuDAL.Repository
 				_entities.AddAsync(entity);
 				_context.SaveChanges();
 			}
-		}
+        }
 
 		public void Update(T entity)
 		{

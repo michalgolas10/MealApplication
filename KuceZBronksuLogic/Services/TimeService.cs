@@ -6,18 +6,21 @@ namespace KuceZBronksuBLL.Services
 	public class TimeService : ITimeService
 	{
 		private readonly IMailService _mailService;
+		private readonly IGetReportService _getReportService;
 
-		public TimeService(IMailService mailService)
+		public TimeService(IMailService mailService, IGetReportService getReportService)
 		{
 			_mailService = mailService;
+			_getReportService = getReportService;
 		}
 
 		public async Task SendEmailToAdmin()
 		{
-			var mailData = new MailDataModel(
-				new List<string> { "treta69@ethereal.email" },
+			var content = await _getReportService.GetCompleteReport();
+            var mailData = new MailDataModel(
+				new List<string> { "janiya.price@ethereal.email" },
 				"Hello World",
-				"Hola - this is just a test to verify that our mailing works. Have a great day!",
+				content,
 				null,
 				"Christian Schou",
 				null,

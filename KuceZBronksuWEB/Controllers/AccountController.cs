@@ -69,6 +69,7 @@ namespace KuceZBronksuWEB.Controllers
 		[Authorize(Roles = "Admin")]
 		public IActionResult ChangeTimeOfEmailSend()
 		{
+            BackgroundJob.Delete()
             return RedirectToAction("AdministratorPanel");
         }
 

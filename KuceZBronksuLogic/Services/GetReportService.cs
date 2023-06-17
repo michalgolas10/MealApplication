@@ -55,8 +55,7 @@ namespace KuceZBronksuBLL.Services
         public async Task<string> GetCompleteReport()
         {
             var completeReportJson = await GetDataFromApi("CompleteReport");
-            var completeReportString = JsonConvert.DeserializeObject<string>(completeReportJson);
-            return completeReportString;
+            return completeReportJson;
         }
 
     }

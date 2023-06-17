@@ -69,8 +69,8 @@ namespace KuceZBronksuWEB.Controllers
 		[Authorize(Roles = "Admin")]
 		public IActionResult ChangeTimeOfEmailSend()
 		{
-			return View();
-		}
+            return RedirectToAction("AdministratorPanel");
+        }
 
 		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> CreateRaportOfViews()
@@ -96,7 +96,6 @@ namespace KuceZBronksuWEB.Controllers
 		public async Task<IActionResult> CreateRaportOfRecipesAddedToFavs()
 		{
             var recipesAddedToFavouritesDTOs = await _getReportService.GetRecipeAddedToFavourite();
-
 			return View(recipesAddedToFavouritesDTOs);
         }
 	}

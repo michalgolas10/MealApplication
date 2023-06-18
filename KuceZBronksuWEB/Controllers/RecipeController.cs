@@ -150,7 +150,9 @@ namespace KuceZBronksuWEB.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return View((await _recipeService.CreateEditViewModelForEdit(id)));
+                var modelForViewBagFilled = await _recipeService.CreateEditViewModelForEdit(id);
+                ViewBag.EditWithUniqueValues = modelForViewBagFilled;
+                return View((await _recipeService.CreateEditViewModelForEdit(id)));
 			}
 			await _recipeService.UpdateEditedRecipe(recipe);
 			TempData["shortMessage"] = "Recipe edited successfully. Waiting for administrator approval";

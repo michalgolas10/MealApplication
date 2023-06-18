@@ -69,11 +69,17 @@ namespace KuceZBronksuWEB.Controllers
 		[Authorize(Roles = "Admin")]
 		public IActionResult ChangeTimeOfEmailSend()
 		{
-            BackgroundJob.Delete()
+			return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult ChangeTimeOfCyclicalEmailing(TimeViewModel model)
+        {
+            RecurringJob.AddOrUpdate<ITimeService>("SendEmailToAdmin", service => service.SendEmailToAdmin(), Cron.Daily(model.TimeOfCyclicalEmailing));
             return RedirectToAction("AdministratorPanel");
         }
 
-		[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
 		public async Task<IActionResult> CreateRaportOfViews()
 		{
 			var visitedRecipesDTOs = await _getReportService.GetVisitedRecipe();

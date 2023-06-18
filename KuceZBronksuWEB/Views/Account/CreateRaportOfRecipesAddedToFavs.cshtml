@@ -1,23 +1,27 @@
-﻿@model IEnumerable<KuceZBronksuBLL.Models.RecipeAddedToFavouriteDTO>
+﻿@using KuceZBronksuBLL.Services
+@inject LanguageService language
+@model IEnumerable<KuceZBronksuBLL.Models.RecipeAddedToFavouriteDTO>
 
 @{
     ViewData["Title"] = "CreateRaportOfRecipesAddedToFavs";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<a asp-action="AdministratorPanel"><input type="button" value="Back" class="btn btn-primary" /></a>
+<h1>@language.Getkey("Favourite Raport")</h1>
+
+<a asp-action="AdministratorPanel"><input type="button" value=@language.Getkey("Back") class="btn btn-primary" /></a>
 
 <table id="myTable" class="table">
     <thead>
         <tr>
             <th>
-                Nazwa przepisu
+                @language.Getkey("Label")
             </th>
             <th>
-                Data kliknięcia
+                @language.Getkey("Date of add")
             </th>
             <th>
-                Użytkownik
+                @language.Getkey("username")
             </th>
         </tr>
     </thead>

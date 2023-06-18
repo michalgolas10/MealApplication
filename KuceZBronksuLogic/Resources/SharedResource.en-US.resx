@@ -123,11 +123,17 @@
   <data name="Add More" xml:space="preserve">
     <value>Add More</value>
   </data>
+  <data name="Add Recipe" xml:space="preserve">
+    <value>Add Recipe</value>
+  </data>
   <data name="Add to Favourites" xml:space="preserve">
     <value>Add to Favourites</value>
   </data>
   <data name="Admin Panel" xml:space="preserve">
     <value>Admin Panel</value>
+  </data>
+  <data name="All users" xml:space="preserve">
+    <value>All users</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
@@ -153,6 +159,12 @@
   <data name="Cuisine Type" xml:space="preserve">
     <value>Cuisine Type</value>
   </data>
+  <data name="Date of add" xml:space="preserve">
+    <value>Date of add</value>
+  </data>
+  <data name="Date of view" xml:space="preserve">
+    <value>Date of view</value>
+  </data>
   <data name="Delete from Favourites" xml:space="preserve">
     <value>Delete from Favourites</value>
   </data>
@@ -168,11 +180,17 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Email confirmed" xml:space="preserve">
+    <value>Email confirmed</value>
+  </data>
   <data name="Enter ingredient" xml:space="preserve">
     <value>Enter ingredient</value>
   </data>
   <data name="Enter search term..." xml:space="preserve">
     <value>Enter search term...</value>
+  </data>
+  <data name="Favourite Raport" xml:space="preserve">
+    <value>Favourite Raport</value>
   </data>
   <data name="Favourite Recipes" xml:space="preserve">
     <value>Favourite Recipes</value>
@@ -183,6 +201,9 @@
   <data name="Forgot your password?" xml:space="preserve">
     <value>Forgot your password?</value>
   </data>
+  <data name="Get Views Raport" xml:space="preserve">
+    <value>Get Views Raport</value>
+  </data>
   <data name="Health Labels" xml:space="preserve">
     <value>Health Labels</value>
   </data>
@@ -191,6 +212,9 @@
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="How often you want to email be sended to administrator.Put value of number of days" xml:space="preserve">
+    <value>How often you want to email be sended to administrator.Put value of number of days</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Link to image</value>
@@ -228,11 +252,26 @@
   <data name="Next Ingredient" xml:space="preserve">
     <value>Next Ingredient</value>
   </data>
+  <data name="Number of clicks" xml:space="preserve">
+    <value>Number of clicks</value>
+  </data>
+  <data name="Number of favourites" xml:space="preserve">
+    <value>Number of favourites</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="Recipe Statistics" xml:space="preserve">
+    <value>Recipe Statistics</value>
+  </data>
   <data name="Recipes" xml:space="preserve">
     <value>Recipes</value>
+  </data>
+  <data name="Recipes To Add" xml:space="preserve">
+    <value>Recipes To Add</value>
+  </data>
+  <data name="Recipes waiting for add" xml:space="preserve">
+    <value>Recipes waiting for add</value>
   </data>
   <data name="RecipeSteps" xml:space="preserve">
     <value>Recipe Steps</value>
@@ -251,6 +290,9 @@
   </data>
   <data name="Resend email confirmation" xml:space="preserve">
     <value>Resend email confirmation</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
@@ -291,8 +333,14 @@
   <data name="ShareAs" xml:space="preserve">
     <value>Link</value>
   </data>
+  <data name="Show all userse" xml:space="preserve">
+    <value>Show all userse</value>
+  </data>
   <data name="Show details" xml:space="preserve">
     <value>Show details</value>
+  </data>
+  <data name="Show Statistics" xml:space="preserve">
+    <value>Show Statistics</value>
   </data>
   <data name="Sign Out" xml:space="preserve">
     <value>Sign Out</value>

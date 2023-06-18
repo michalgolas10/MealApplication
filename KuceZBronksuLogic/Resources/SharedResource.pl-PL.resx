@@ -123,11 +123,17 @@
   <data name="Add More" xml:space="preserve">
     <value>Dodaj więcej</value>
   </data>
+  <data name="Add Recipe" xml:space="preserve">
+    <value>Dodaj przepis</value>
+  </data>
   <data name="Add to Favourites" xml:space="preserve">
     <value>Dodaj do ulubionych</value>
   </data>
   <data name="Admin Panel" xml:space="preserve">
     <value>Panel administratora</value>
+  </data>
+  <data name="All users" xml:space="preserve">
+    <value>Wszyscy użytkownicy</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Powrót</value>
@@ -153,6 +159,12 @@
   <data name="Cuisine Type" xml:space="preserve">
     <value>Rodzaj kuchni</value>
   </data>
+  <data name="Date of add" xml:space="preserve">
+    <value>Data dodania</value>
+  </data>
+  <data name="Date of view" xml:space="preserve">
+    <value>Data odwiedzin przepisu</value>
+  </data>
   <data name="Delete from Favourites" xml:space="preserve">
     <value>Usuń z ulubionych</value>
   </data>
@@ -168,11 +180,17 @@
   <data name="Email" xml:space="preserve">
     <value>Adres Email</value>
   </data>
+  <data name="Email confirmed" xml:space="preserve">
+    <value>Potwierdzenie maila</value>
+  </data>
   <data name="Enter ingredient" xml:space="preserve">
     <value>Wpisz składnik</value>
   </data>
   <data name="Enter search term..." xml:space="preserve">
     <value>Wprowadź wyszukiwane hasło</value>
+  </data>
+  <data name="Favourite Raport" xml:space="preserve">
+    <value>Raport ulubionych przepisów</value>
   </data>
   <data name="Favourite Recipes" xml:space="preserve">
     <value>Ulubione przepisy</value>
@@ -183,6 +201,9 @@
   <data name="Forgot your password?" xml:space="preserve">
     <value>Zapomniałeś hasła?</value>
   </data>
+  <data name="Get Views Raport" xml:space="preserve">
+    <value>Raport wyświetleń przepisów</value>
+  </data>
   <data name="Health Labels" xml:space="preserve">
     <value>Etykiety zdrowotne</value>
   </data>
@@ -191,6 +212,9 @@
   </data>
   <data name="Home" xml:space="preserve">
     <value>Strona główna</value>
+  </data>
+  <data name="How often you want to email be sended to administrator.Put value of number of days" xml:space="preserve">
+    <value>Jak często wysyłać raport na maila administratora? Podaj ilość dni</value>
   </data>
   <data name="Image" xml:space="preserve">
     <value>Link do zdjęcia</value>
@@ -228,11 +252,26 @@
   <data name="Next Ingredient" xml:space="preserve">
     <value>Następny składnik</value>
   </data>
+  <data name="Number of clicks" xml:space="preserve">
+    <value>Ilość kliknięć</value>
+  </data>
+  <data name="Number of favourites" xml:space="preserve">
+    <value>Ilość ulubionych</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Hasło</value>
   </data>
+  <data name="Recipe Statistics" xml:space="preserve">
+    <value>Statystyki przepisów</value>
+  </data>
   <data name="Recipes" xml:space="preserve">
     <value>Przepisy</value>
+  </data>
+  <data name="Recipes To Add" xml:space="preserve">
+    <value>Przepisy czekające na dodanie</value>
+  </data>
+  <data name="Recipes waiting for add" xml:space="preserve">
+    <value>Przepisy czekające na dodanie</value>
   </data>
   <data name="RecipeSteps" xml:space="preserve">
     <value>Sposób przygotowania</value>
@@ -251,6 +290,9 @@
   </data>
   <data name="Resend email confirmation" xml:space="preserve">
     <value>Wyślij ponownie potwierdzenie e-mail</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Rola</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
@@ -291,8 +333,14 @@
   <data name="ShareAs" xml:space="preserve">
     <value>Link</value>
   </data>
+  <data name="Show all userse" xml:space="preserve">
+    <value>Pokaż wszystkich użytkowników</value>
+  </data>
   <data name="Show details" xml:space="preserve">
     <value>Pokaż szczegóły</value>
+  </data>
+  <data name="Show Statistics" xml:space="preserve">
+    <value>Pokaż statystyki przepisów</value>
   </data>
   <data name="Sign Out" xml:space="preserve">
     <value>Wyloguj</value>

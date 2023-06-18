@@ -1,13 +1,15 @@
-﻿@model IEnumerable<KuceZBronksuBLL.Models.RecipeViewModel>
+﻿@using KuceZBronksuBLL.Services
+@inject LanguageService language
+@model IEnumerable<KuceZBronksuBLL.Models.RecipeViewModel>
 
 @{
     ViewData["Title"] = "RecipesToAdd";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>RecipesToAdd</h1>
+<h1>@language.Getkey("Recipes To Add")</h1>
 
-<a asp-action="AdministratorPanel"><input type="button" value="Back" class="btn btn-primary" /></a>
+<a asp-action="AdministratorPanel"><input type="button" value=@language.Getkey("Back") class="btn btn-primary" /></a>
 
 <table class="table">
     <thead>
@@ -16,19 +18,19 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Label)
+                @language.Getkey("Label")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ShareAs)
+                @language.Getkey("ShareAs")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Calories)
+                @language.Getkey("Calories")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Image)
+                @language.Getkey("Image")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Servings)
+                @language.Getkey("Servings")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Approved)
@@ -61,8 +63,8 @@
                 @Html.DisplayFor(modelItem => item.Approved)
             </td>
             <td>
-                    <a class="btn btn-primary btn-lg active" asp-action="AddRecipe" asp-controller="Account" asp-route-id=@item.Id>Add Recipe</a>
-                    <a class="btn btn-primary btn-lg active" asp-action="DeleteRecipe" asp-controller="Account" asp-route-id=@item.Id>Delete Recipe</a>
+                    <a class="btn btn-primary btn-lg active" asp-action="AddRecipe" asp-controller="Account" asp-route-id=@item.Id>@language.Getkey("Add Recipe")Add Recipe</a>
+                    <a class="btn btn-primary btn-lg active" asp-action="DeleteRecipe" asp-controller="Account" asp-route-id=@item.Id>@language.Getkey("Delete Recipe")</a>
             </td>
         </tr>
 }

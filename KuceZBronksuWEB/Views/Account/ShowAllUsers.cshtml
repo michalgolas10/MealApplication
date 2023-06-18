@@ -1,29 +1,31 @@
-﻿@model IEnumerable<KuceZBronksuBLL.Models.UserViewModel>
+﻿@using KuceZBronksuBLL.Services
+@inject LanguageService language
+@model IEnumerable<KuceZBronksuBLL.Models.UserViewModel>
 
 @{
     ViewData["Title"] = "ShowAllUsers";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>ShowAllUsers</h1>
+<h1>@language.Getkey("All users")</h1>`
 
-<a asp-action="AdministratorPanel"><input type="button" value="Back" class="btn btn-primary" /></a>
+<a asp-action="AdministratorPanel"><input type="button" value=@language.Getkey("Back") class="btn btn-primary" /></a>
 
 
 <table id="myTable" class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                @language.Getkey("username")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @language.Getkey("Email")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Roles)
+                @language.Getkey("Role")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmailConfirmed)
+                @language.Getkey("Email confirmed")
             </th>
             <th></th>
         </tr>

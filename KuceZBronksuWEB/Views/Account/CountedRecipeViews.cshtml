@@ -1,4 +1,6 @@
-﻿@model IEnumerable<KuceZBronksuBLL.Models.CountedRecipeViewsModel>
+﻿@using KuceZBronksuBLL.Services
+@inject LanguageService language
+@model IEnumerable<KuceZBronksuBLL.Models.CountedRecipeViewsModel>
 
 
 @{
@@ -6,20 +8,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h1>@language.Getkey("Recipe Statistics")</h1>
 
-<a asp-action="AdministratorPanel"><input type="button" value="Back" class="btn btn-primary" /></a>
+<a asp-action="AdministratorPanel"><input type="button" value=@language.Getkey("Back") class="btn btn-primary" /></a>
 
 <table id="myTable" class="table">
     <thead>
         <tr>
-            <th onclick="sortTable(0)">
-                Nazwa przepisu
-            </th>
-            <th onclick="sortTable(1)">
-                Ilość kliknięć
+            <th>
+                @language.Getkey("Label")
             </th>
             <th>
-                Ilość ulubionych
+                @language.Getkey("Number of clicks")
+            </th>
+            <th>
+                @language.Getkey("Number of favourites")
             </th>
         </tr>
     </thead>

@@ -1,4 +1,8 @@
-﻿@model KuceZBronksuBLL.Models.TimeViewModel
+﻿@using KuceZBronksuBLL.Models;
+@using KuceZBronksuBLL.Services
+
+@model KuceZBronksuBLL.Models.TimeViewModel
+@inject LanguageService language
 @{
     ViewData["Title"] = "AdministratorPanel";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,7 +17,7 @@
                 <img class="img-responsive" src="https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" />
             </div>
             <div class="myCard">
-                <a class="btn btn-primary" asp-action="ShowAllUsers" asp-controller="Account">Show all users</a>
+                <a class="btn btn-primary" asp-action="ShowAllUsers" asp-controller="Account">@language.Getkey("Show all userse")</a>
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
@@ -21,7 +25,7 @@
                 <img class="img-responsive" src="https://media.istockphoto.com/id/688550958/pl/wektor/czarny-znak-plus-symbol-dodatni.jpg?s=612x612&w=0&k=20&c=vRxUr1VTLE4gmbTaoW_rb_TItSx9GDyF4AwdN-arHXk=" />
             </div>
             <div class="myCard">
-                <a class="btn btn-primary" asp-action="ShowRecipeWaitingToBeAdd" asp-controller="Account">Recipes waiting for add</a>
+                <a class="btn btn-primary" asp-action="ShowRecipeWaitingToBeAdd" asp-controller="Account">@language.Getkey("Recipes waiting for add")</a>
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
@@ -29,7 +33,7 @@
                 <img class="img-responsive" src="https://st4.depositphotos.com/20838724/24118/v/600/depositphotos_241180048-stock-illustration-heart-line-simple-icon-outline.jpg" />
             </div>
                 <div class="myCard">
-                <a class="btn btn-primary" asp-action="CreateRaportOfRecipesAddedToFavs" asp-controller="Account">Favourite Raport</a>
+                <a class="btn btn-primary" asp-action="CreateRaportOfRecipesAddedToFavs" asp-controller="Account">@language.Getkey("Favourite Raport")</a>
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
@@ -37,7 +41,7 @@
                 <img class="img-responsive" src="https://kumarproperties.com/wp-content/uploads/2020/04/point-of-views-1.png" />
             </div>
         <div class="myCard">
-                <a class="btn btn-primary" asp-action="CreateRaportOfViews" asp-controller="Account">Get Views Raport</a>
+                <a class="btn btn-primary" asp-action="CreateRaportOfViews" asp-controller="Account">@language.Getkey("Get Views Raport")</a>
         </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
@@ -45,7 +49,7 @@
                 <img class="img-responsive" src="https://thumbs.dreamstime.com/b/statistics-linear-icon-modern-outline-logo-concept-o-white-background-business-analytics-collection-suitable-use-133515482.jpg" />
             </div>
             <div class="myCard">
-                <a class="btn btn-primary" asp-action="CountedRecipeViews" asp-controller="Account">Show Statistics</a>
+                <a class="btn btn-primary" asp-action="CountedRecipeViews" asp-controller="Account">@language.Getkey("Show Statistics")</a>
             </div>
         </div>
     </div>
@@ -55,12 +59,12 @@
         <form asp-action="ChangeTimeOfCyclicalEmailing">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <h3>How often you want to email be sended to administrator.Put value of number of days</h3>
+                <h3>@language.Getkey("How often you want to email be sended to administrator.Put value of number of days")</h3>
                 <input asp-for="TimeOfCyclicalEmailing" class="form-control" placeholder="Number of days"/>
                 <span asp-validation-for="TimeOfCyclicalEmailing" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value=@language.Getkey("Save") class="btn btn-primary" />
             </div>
         </form>
     </div>

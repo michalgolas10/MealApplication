@@ -1,10 +1,10 @@
 ﻿namespace KuceZBronksuAPI.Middleware
 {
-    public class CustonExceptionHandlerMiddleware
+    public class CustomExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<CustonExceptionHandlerMiddleware> _logger;
-        public CustonExceptionHandlerMiddleware(RequestDelegate next, ILogger<CustonExceptionHandlerMiddleware> logger)
+        private readonly ILogger<CustomExceptionHandlerMiddleware> _logger;
+        public CustomExceptionHandlerMiddleware(RequestDelegate next, ILogger<CustomExceptionHandlerMiddleware> logger)
         {
             _next = next;
             _logger = logger;

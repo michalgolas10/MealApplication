@@ -246,6 +246,9 @@
   <data name="Remove Field" xml:space="preserve">
     <value>Usuń pole</value>
   </data>
+  <data name="Required" xml:space="preserve">
+    <value>To pole jest wymagane!</value>
+  </data>
   <data name="Resend email confirmation" xml:space="preserve">
     <value>Wyślij ponownie potwierdzenie e-mail</value>
   </data>

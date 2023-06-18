@@ -13,5 +13,6 @@ namespace KuceZBronksuAPIBLL.Services.IServices
         Task<List<VisitedRecipeDTO>> GetAllVisitedRecipe();
         Task<List<LastLoggedUsersDTO>> GetAllLoggedUsers();
         Task<List<RecipeAddedToFavouriteDTO>> GetAllAddedToFavouriteRecipes();
+        Task<string> CompleteReportCreate();
     }
 }

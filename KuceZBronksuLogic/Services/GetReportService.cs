@@ -52,6 +52,11 @@ namespace KuceZBronksuBLL.Services
             var recipeAddedToFavouriteDtos = JsonConvert.DeserializeObject<IEnumerable<RecipeAddedToFavouriteDTO>>(recipeAddedToFavouriteJson);
             return recipeAddedToFavouriteDtos;
         }
+        public async Task<string> GetCompleteReport()
+        {
+            var completeReportJson = await GetDataFromApi("CompleteReport");
+            return completeReportJson;
+        }
 
     }
 }

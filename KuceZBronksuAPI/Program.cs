@@ -36,7 +36,7 @@ public class Program
 			app.UseSwagger();
 			app.UseSwaggerUI();
 		}
-        app.UseMiddleware<CustonExceptionHandlerMiddleware>();
+        app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
 		app.UseHttpsRedirection();
 

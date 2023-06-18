@@ -3,10 +3,9 @@
     ViewData["Title"] = "AdministratorPanel";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<div style="margin-left:40%">
 <h1>Administrator Panel</h1>
-
-
+</div>
 <div class="container">
     <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 recipeCard">
@@ -51,7 +50,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" style="margin-left:40%">
     <div class="col-md-4">
         <form asp-action="ChangeTimeOfCyclicalEmailing">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
